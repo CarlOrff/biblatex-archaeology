@@ -26,6 +26,7 @@ my @inbib = @ARGV;
 my %db;      # entries of outfile
 my %buffer;  # other entries, needed for crossref check
 
+# get keys from aux.file
 my $aux = FileHandle->new("< $project");
 
 if (defined $aux) {
@@ -78,8 +79,6 @@ foreach my $inbib (@inbib) {
 }
 
 # crossref check
-print "check cross references\n";
-
 my $found = 1;
 
 unless ( !$found ) {
