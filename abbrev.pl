@@ -143,7 +143,7 @@ sub print_file {
     
         if ( index( $text, $cmd ) >-1 ) {
         
-            if ( index( $commands{$cmd}, '#1' )  ) {
+            if ( index( $commands{$cmd}, '#1' ) > -1 ) {
                 
                 $preamble{$cmd} = '"\\providecommand{' . $cmd . '}[1]{' . $commands{$cmd} . '}"';
             }
