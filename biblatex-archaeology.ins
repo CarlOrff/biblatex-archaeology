@@ -1,0 +1,170 @@
+%%
+%% Copyright (C) 2005-2017 by Ingram Braun
+%%
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3c of this license or (at your option) any later
+%% version. The latest version of this license is in:
+%%
+%% http://www.latex-project.org/lppl.txt
+%%
+%% and version 1.3c or later is part of all distributions of
+%% LaTeX version 2008/05/04 or later.
+%%
+\input docstrip.tex
+\keepsilent
+\preamble
+Copyright (C) 2005-2017 by Ingram Braun (https://ingram-braun.net/)
+%%
+This file may be distributed and/or modified under the
+conditions of the LaTeX Project Public License, either
+version 1.3c of this license or (at your option) any later
+version. The latest version of this license is in:
+
+http://www.latex-project.org/lppl.txt
+
+and version 1.3c or later is part of all distributions of
+LaTeX version 2008/05/04 or later.
+
+\endpreamble 
+
+\usedir{tex/latex/biblatex-archaeology}
+
+\generate{\file{biblatex-archaeology.sty}{\from{biblatex-archaeology.dtx}{sty}}}
+\generate{\file{german-archaeology.lbx}{\from{biblatex-archaeology.dtx}{newbibstrings,germanLBX}}}
+\generate{\file{english-archaeology.lbx}{\from{biblatex-archaeology.dtx}{newbibstrings,englishLBX}}}
+\generate{\file{authoryear-archaeology.bbx}{\from{biblatex-archaeology.dtx}{authoryearBBX,authoryearsharedBBX}}}
+\generate{\file{authoryear-archaeology.cbx}{\from{biblatex-archaeology.dtx}{authoryearCBX,noshortform}}}
+\generate{\file{authoryear-archaeology.dbx}{\from{biblatex-archaeology.dtx}{authoryearDBX,DBX}}}
+\generate{\file{authoryear-comp-archaeology.bbx}{\from{biblatex-archaeology.dtx}{authoryearcompBBX,authoryearsharedBBX}}}
+\generate{\file{authoryear-comp-archaeology.cbx}{\from{biblatex-archaeology.dtx}{authoryearcompCBX,noshortform}}}
+\generate{\file{authoryear-comp-archaeology.dbx}{\from{biblatex-archaeology.dtx}{authoryearcompDBX,DBX}}}
+\generate{\file{authoryear-ibid-archaeology.bbx}{\from{biblatex-archaeology.dtx}{authoryearibidBBX,authoryearsharedBBX}}}
+\generate{\file{authoryear-ibid-archaeology.cbx}{\from{biblatex-archaeology.dtx}{authoryearibidCBX,noshortform}}}
+\generate{\file{authoryear-ibid-archaeology.dbx}{\from{biblatex-archaeology.dtx}{authoryearibidDBX,DBX}}}
+\generate{\file{authoryear-icomp-archaeology.bbx}{\from{biblatex-archaeology.dtx}{authoryearicompBBX,authoryearsharedBBX}}}
+\generate{\file{authoryear-icomp-archaeology.cbx}{\from{biblatex-archaeology.dtx}{authoryearicompCBX,noshortform}}}
+\generate{\file{authoryear-icomp-archaeology.dbx}{\from{biblatex-archaeology.dtx}{authoryearicompDBX,DBX}}}
+\generate{\file{verbose-ibid-archaeology.bbx}{\from{biblatex-archaeology.dtx}{verboseibidBBX,verbosesharedBBX}}} 
+\generate{\file{verbose-ibid-archaeology.cbx}{\from{biblatex-archaeology.dtx}{verboseibidCBX}}}
+\generate{\file{verbose-ibid-archaeology.dbx}{\from{biblatex-archaeology.dtx}{verboseibidDBX,DBX}}}
+\generate{\file{verbose-trad2note-archaeology.bbx}{\from{biblatex-archaeology.dtx}{verbosetrad2noteBBX,verbosesharedBBX}}}
+\generate{\file{verbose-trad2note-archaeology.cbx}{\from{biblatex-archaeology.dtx}{verbosetrad2noteCBX}}}
+\generate{\file{verbose-trad2note-archaeology.dbx}{\from{biblatex-archaeology.dtx}{verbosetrad2noteDBX,DBX}}}
+\generate{\file{aefkw.bbx}{\from{biblatex-archaeology.dtx}{aefkwBBX,noarticlesubtitlepunct}}}
+\generate{\file{aefkw.cbx}{\from{biblatex-archaeology.dtx}{aefkwCBX,barecitations}}}
+\generate{\file{aefkw.dbx}{\from{biblatex-archaeology.dtx}{aefkwDBX,DBX}}}
+\generate{\file{aefkw-english.lbx}{\from{biblatex-archaeology.dtx}{aefkwenglishLBX}}}
+\generate{\file{aefkw-german.lbx}{\from{biblatex-archaeology.dtx}{aefkwgermanLBX}}}
+\generate{\file{afwl.bbx}{\from{biblatex-archaeology.dtx}{afwlBBX,noarticlesubtitlepunct}}}
+\generate{\file{afwl.cbx}{\from{biblatex-archaeology.dtx}{afwlCBX,barecitations}}}
+\generate{\file{afwl.dbx}{\from{biblatex-archaeology.dtx}{afwlDBX,DBX}}}
+\generate{\file{amit.bbx}{\from{biblatex-archaeology.dtx}{amitBBX,noarticlesubtitlepunct,nosmallcaps}}}
+\generate{\file{amit.cbx}{\from{biblatex-archaeology.dtx}{amitCBX,barecitations}}}
+\generate{\file{amit.dbx}{\from{biblatex-archaeology.dtx}{amitDBX,DBX}}}
+\generate{\file{archa.bbx}{\from{biblatex-archaeology.dtx}{archaBBX,noarticlesubtitlepunct}}}
+\generate{\file{archa.cbx}{\from{biblatex-archaeology.dtx}{archaCBX,barecitations}}}
+\generate{\file{archa.dbx}{\from{biblatex-archaeology.dtx}{archaDBX,DBX}}}
+\generate{\file{archa-english.lbx}{\from{biblatex-archaeology.dtx}{archaenglishLBX}}}
+\generate{\file{archa-german.lbx}{\from{biblatex-archaeology.dtx}{archagermanLBX}}}
+\generate{\file{dguf.bbx}{\from{biblatex-archaeology.dtx}{dgufBBX,noarticlesubtitlepunct}}}
+\generate{\file{dguf.cbx}{\from{biblatex-archaeology.dtx}{dgufCBX,barecitations}}}
+\generate{\file{dguf.dbx}{\from{biblatex-archaeology.dtx}{dgufDBX,DBX}}}
+\generate{\file{dguf-alt.bbx}{\from{biblatex-archaeology.dtx}{dgufaltBBX,noarticlesubtitlepunct}}}
+\generate{\file{dguf-alt.cbx}{\from{biblatex-archaeology.dtx}{dgufaltCBX,barecitations}}}
+\generate{\file{dguf-alt.dbx}{\from{biblatex-archaeology.dtx}{dgufaltDBX,DBX}}}
+\generate{\file{dguf-alt-german.lbx}{\from{biblatex-archaeology.dtx}{dgufaltgermanLBX}}}
+\generate{\file{dguf-apa.bbx}{\from{biblatex-archaeology.dtx}{dgufapaBBX,noarticlesubtitlepunct}}}
+\generate{\file{dguf-apa.cbx}{\from{biblatex-archaeology.dtx}{dgufapaCBX,barecitations}}} 
+\generate{\file{dguf-apa.dbx}{\from{biblatex-archaeology.dtx}{dgufapaDBX,DBX}}}
+\generate{\file{dguf-apa-english.lbx}{\from{biblatex-archaeology.dtx}{dgufapaenglishLBX}}}
+\generate{\file{eaz.bbx}{\from{biblatex-archaeology.dtx}{eazBBX,noarticlesubtitlepunct,nosmallcaps}}}
+\generate{\file{eaz.cbx}{\from{biblatex-archaeology.dtx}{eazCBX,barecitations}}}
+\generate{\file{eaz.dbx}{\from{biblatex-archaeology.dtx}{eazDBX,DBX}}}
+\generate{\file{eaz-english.lbx}{\from{biblatex-archaeology.dtx}{eazenglishLBX}}}
+\generate{\file{eaz-german.lbx}{\from{biblatex-archaeology.dtx}{eazgermanLBX}}}
+\generate{\file{eaz-alt.bbx}{\from{biblatex-archaeology.dtx}{eazaltBBX,noarticlesubtitlepunct}}}
+\generate{\file{eaz-alt.cbx}{\from{biblatex-archaeology.dtx}{eazaltCBX,barecitations}}}
+\generate{\file{eaz-alt.dbx}{\from{biblatex-archaeology.dtx}{eazaltDBX,DBX}}}
+\generate{\file{foe.bbx}{\from{biblatex-archaeology.dtx}{foeBBX,noarticlesubtitlepunct}}}
+\generate{\file{foe.cbx}{\from{biblatex-archaeology.dtx}{foeCBX,barecitations}}}
+\generate{\file{foe.dbx}{\from{biblatex-archaeology.dtx}{foeDBX,DBX}}}
+\generate{\file{foe-english.lbx}{\from{biblatex-archaeology.dtx}{foeenglishLBX}}}
+\generate{\file{foe-german.lbx}{\from{biblatex-archaeology.dtx}{foegermanLBX}}}
+\generate{\file{jb-halle.bbx}{\from{biblatex-archaeology.dtx}{jbhalleBBX,noarticlesubtitlepunct,nosmallcaps}}}
+\generate{\file{jb-halle.cbx}{\from{biblatex-archaeology.dtx}{jbhalleCBX,barecitations}}}
+\generate{\file{jb-halle.dbx}{\from{biblatex-archaeology.dtx}{jbhalleDBX,DBX}}}
+\generate{\file{jb-kreis-neuss.bbx}{\from{biblatex-archaeology.dtx}{jbkreisneussBBX,noarticlesubtitlepunct,nosmallcaps}}}
+\generate{\file{jb-kreis-neuss.cbx}{\from{biblatex-archaeology.dtx}{jbkreisneussCBX,noshortform}}}
+\generate{\file{jb-kreis-neuss.dbx}{\from{biblatex-archaeology.dtx}{jbkreisneussDBX,DBX}}}
+\generate{\file{jb-kreis-neuss-german.lbx}{\from{biblatex-archaeology.dtx}{jbkreisneussgermanLBX}}}
+\generate{\file{karl.bbx}{\from{biblatex-archaeology.dtx}{karlBBX,noarticlesubtitlepunct,nosmallcaps}}}
+\generate{\file{karl.cbx}{\from{biblatex-archaeology.dtx}{karlCBX}}}
+\generate{\file{karl.dbx}{\from{biblatex-archaeology.dtx}{karlDBX,DBX}}}
+\generate{\file{karl-german.lbx}{\from{biblatex-archaeology.dtx}{karlgermanLBX}}}
+\generate{\file{maja.bbx}{\from{biblatex-archaeology.dtx}{majaBBX,noarticlesubtitlepunct,nosmallcaps}}}
+\generate{\file{maja.cbx}{\from{biblatex-archaeology.dtx}{majaCBX,barecitations,noshortform}}}
+\generate{\file{maja.dbx}{\from{biblatex-archaeology.dtx}{majaDBX,DBX}}}
+\generate{\file{maja-german.lbx}{\from{biblatex-archaeology.dtx}{majagermanLBX}}}
+\generate{\file{mpk.bbx}{\from{biblatex-archaeology.dtx}{mpkBBX,noarticlesubtitlepunct}}}
+\generate{\file{mpk.cbx}{\from{biblatex-archaeology.dtx}{mpkCBX,barecitations}}}
+\generate{\file{mpk.dbx}{\from{biblatex-archaeology.dtx}{mpkDBX,DBX}}}
+\generate{\file{mpk-english.lbx}{\from{biblatex-archaeology.dtx}{mpkenglishLBX}}}
+\generate{\file{mpk-german.lbx}{\from{biblatex-archaeology.dtx}{mpkgermanLBX}}}
+\generate{\file{nnu.bbx}{\from{biblatex-archaeology.dtx}{nnuBBX,noarticlesubtitlepunct}}}
+\generate{\file{nnu.cbx}{\from{biblatex-archaeology.dtx}{nnuCBX,barecitations}}}
+\generate{\file{nnu.dbx}{\from{biblatex-archaeology.dtx}{nnuDBX,DBX}}}
+\generate{\file{offa.bbx}{\from{biblatex-archaeology.dtx}{offaBBX,noarticlesubtitlepunct}}}
+\generate{\file{offa.cbx}{\from{biblatex-archaeology.dtx}{offaCBX,barecitations}}}
+\generate{\file{offa.dbx}{\from{biblatex-archaeology.dtx}{offaDBX,DBX}}}
+\generate{\file{offa-english.lbx}{\from{biblatex-archaeology.dtx}{offaenglishLBX}}}
+\generate{\file{offa-german.lbx}{\from{biblatex-archaeology.dtx}{offagermanLBX}}}
+\generate{\file{rgk-inline.bbx}{\from{biblatex-archaeology.dtx}{rgkinlineBBX,rgksharedBBX,noarticlesubtitlepunct}}}
+\generate{\file{rgk-inline.cbx}{\from{biblatex-archaeology.dtx}{rgkinlineCBX,barecitations}}}
+\generate{\file{rgk-inline.dbx}{\from{biblatex-archaeology.dtx}{rgkinlineDBX,DBX}}}
+\generate{\file{rgk-verbose.bbx}{\from{biblatex-archaeology.dtx}{rgkverboseBBX,rgksharedBBX,noarticlesubtitlepunct}}}
+\generate{\file{rgk-verbose.cbx}{\from{biblatex-archaeology.dtx}{rgkverboseCBX,barecitations}}}
+\generate{\file{rgk-verbose.dbx}{\from{biblatex-archaeology.dtx}{rgkverboseDBX,DBX}}}
+\generate{\file{rgzm-inline.bbx}{\from{biblatex-archaeology.dtx}{rgzminlineBBX,rgzmsharedBBX,noarticlesubtitlepunct,nosmallcaps}}}
+\generate{\file{rgzm-inline.cbx}{\from{biblatex-archaeology.dtx}{rgzminlineCBX,barecitations}}}
+\generate{\file{rgzm-inline.dbx}{\from{biblatex-archaeology.dtx}{rgzminlineDBX,DBX}}}
+\generate{\file{rgzm-verbose.bbx}{\from{biblatex-archaeology.dtx}{rgzmverboseBBX,rgzmsharedBBX,noarticlesubtitlepunct,nosmallcaps}}}
+\generate{\file{rgzm-verbose.cbx}{\from{biblatex-archaeology.dtx}{rgzmverboseCBX,barecitations}}}
+\generate{\file{rgzm-verbose.dbx}{\from{biblatex-archaeology.dtx}{rgzmverboseDBX,DBX}}}
+\generate{\file{rgzm-german.lbx}{\from{biblatex-archaeology.dtx}{rgzmgermanLBX}}}
+\generate{\file{ufg-muenster-inline.bbx}{\from{biblatex-archaeology.dtx}{ufgmuensterinlineBBX,ufgmuenstersharedBBX,noarticlesubtitlepunct}}}
+\generate{\file{ufg-muenster-inline.cbx}{\from{biblatex-archaeology.dtx}{ufgmuensterinlineCBX,barecitations}}}
+\generate{\file{ufg-muenster-inline.dbx}{\from{biblatex-archaeology.dtx}{ufgmuensterinlineDBX,DBX}}}
+\generate{\file{ufg-muenster-verbose.bbx}{\from{biblatex-archaeology.dtx}{ufgmuensterverboseBBX,ufgmuenstersharedBBX,noarticlesubtitlepunct}}}
+\generate{\file{ufg-muenster-verbose.cbx}{\from{biblatex-archaeology.dtx}{ufgmuensterverboseCBX,barecitations,noshortform}}}
+\generate{\file{ufg-muenster-verbose.dbx}{\from{biblatex-archaeology.dtx}{ufgmuensterverboseDBX,DBX}}}
+\generate{\file{volkskunde.bbx}{\from{biblatex-archaeology.dtx}{volkskundeBBX,noarticlesubtitlepunct,nosmallcaps}}}
+\generate{\file{volkskunde.cbx}{\from{biblatex-archaeology.dtx}{volkskundeCBX,barecitations}}}
+\generate{\file{volkskunde.dbx}{\from{biblatex-archaeology.dtx}{volkskundeDBX,DBX}}}
+\generate{\file{zaak.bbx}{\from{biblatex-archaeology.dtx}{zaakBBX,nosmallcaps}}}
+\generate{\file{zaak.cbx}{\from{biblatex-archaeology.dtx}{zaakCBX}}}
+\generate{\file{zaak.dbx}{\from{biblatex-archaeology.dtx}{zaakDBX,DBX}}}
+\generate{\file{zaak-english.lbx}{\from{biblatex-archaeology.dtx}{zaakenglishLBX}}}
+\generate{\file{zaak-german.lbx}{\from{biblatex-archaeology.dtx}{zaakgermanLBX}}}
+\generate{\file{zaes.bbx}{\from{biblatex-archaeology.dtx}{zaesBBX,noarticlesubtitlepunct}}}
+\generate{\file{zaes.cbx}{\from{biblatex-archaeology.dtx}{zaesCBX,barecitations}}}
+\generate{\file{zaes.dbx}{\from{biblatex-archaeology.dtx}{zaesDBX,DBX}}}
+\generate{\file{zaes-english.lbx}{\from{biblatex-archaeology.dtx}{zaesenglishLBX}}}
+\generate{\file{zaes-german.lbx}{\from{biblatex-archaeology.dtx}{zaesgermanLBX}}}
+
+\Msg{*********************************************************}
+\Msg{*}
+\Msg{* To finish the installation you have to move the}
+\Msg{* following file into a directory searched by TeX:}
+\Msg{*}
+\Msg{* \space\space biblatex-archaeology.sty}
+\Msg{*}
+\Msg{* To produce the documentation run the file}
+\Msg{* biblatex-archaeology.dtx through LaTeX.}
+\Msg{*}
+\Msg{* Happy TeXing!}
+\Msg{*********************************************************}
+
+\endbatchfile
+
+

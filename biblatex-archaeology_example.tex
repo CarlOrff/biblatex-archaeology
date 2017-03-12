@@ -1,0 +1,369 @@
+\listfiles
+\documentclass[a4paper,12pt]{scrartcl}
+% no fontenc support by tex4ht:
+\ifdefined\HCode% detect tex4ht
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc} 
+    \usepackage[german,english]{babel}
+    \usepackage{lmodern}
+    \usepackage[osf,sc]{mathpazo}
+    \usepackage{tex4ht}
+    \makeatletter
+        \def\hshchr{\expandafter\@gobble\string\#}
+        \def\ampchr{\expandafter\@gobble\string\&}
+        \def\entity#1{\HCode{\ampchr\hshchr#1;}}
+    \makeatother
+\else 
+    \usepackage{fontspec,polyglossia}
+    \setdefaultlanguage{german}
+    \setotherlanguage{english}
+    \setmainfont{TeX Gyre Termes}
+    \DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\ } 
+\fi
+%\usepackage[logonly]{trace}\traceon
+%\tracingpatches % write \patchcmd log
+\usepackage[protrusion=true,expansion=true,verbose=true,babel=true,tracking=true]{microtype}
+\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
+\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
+            % dass alle Passagen in Kapitälchen automatisch leicht
+            % gesperrt werden.
+\usepackage{csquotes}
+\usepackage[
+    %style=debug,
+    %style=archaeologie,
+    %style=authortitle-dw,
+    %style=footnote-dw,
+    %style=historian,
+    %style=historische-zeitschrift,
+    %style=ijsra,
+    %style=musuos,
+    %style=verbose-trad1,
+    %style=verbose-trad2,
+    %style=verbose-trad3,
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %style=authoryear-ibid-archaeology,
+    %style=verbose-trad2note-archaeology,
+    %style=verbose-ibid-archaeology,
+    %style=aefkw,
+    %style=afwl,
+    %style=amit,
+    %style=archa,
+    %style=dguf,
+    %style=dguf-alt,
+    %style=dguf-apa,
+    %style=eaz,
+    %style=eaz-alt,
+    %style=foe,
+    %style=jb-halle,
+    style=jb-kreis-neuss,
+    %style=karl,autolang=other,
+    %style=kunde,
+    %style=maja,
+    %style=mpk,
+    %style=nnu,
+    %style=nnu-alt,
+    %style=offa,
+    %style=rgk-inline,
+    %style=rgk-verbose,
+    %style=rgzm-inline,
+    %style=rgzm-verbose,
+    %style=ufg-muenster-inline,
+    %style=ufg-muenster-verbose,
+    %style=volkskunde,
+    %style=zaak,
+    %style=zaes,
+]{biblatex}
+\providecommand{\ResolveBibtexStrings}{
+    \ifboolexpr{
+        togl {archbool:shortseries}
+        and
+        togl {archbool:shortjournal}
+    }
+        {\addbibresource{biblatex-archaeology-strings-rgk.bib}}
+        {\addbibresource{biblatex-archaeology-strings-full.bib}}
+}
+\ResolveBibtexStrings
+\IfFileExists{ingram-braun-local.sty}
+    {\usepackage{ingram-braun-local}
+     \addbibresource{\IBbibmain}}
+    {\addbibresource{biblatex-archaeology-examples.bib}}
+
+    \usepackage{xcolor}
+% heading (after biblatex!)
+\usepackage{scrpage2}
+\pagestyle{scrheadings}
+\clearscrheadings
+\ihead{\explhead}
+\usepackage[useregional]{datetime2}
+\let\today\DTMnow
+\ifcsdef{archaeobibstyletitle}
+    {\def\explhead{\archaeobibstyletitle\ (\texttt{bibstyle}) --- \archaeocitestyletitle\ (\texttt{citestyle})}}
+    {\def\explhead{no biblatex-archaeology style}}
+\title{biblatex-archaeology example document}
+\subtitle{\explhead}
+\author{Ingram Braun}
+    
+\ifcsdef{shortformcite}{}{\let\shortformcite\autocite}
+\ifcsdef{shortformcites}{}{\let\shortformcites\autocites}
+    
+% technical expressions
+\newcommand{\Befehl}[1]{\texttt{\textbackslash#1}}
+\newcommand{\Typ}[1]{\texttt{\symbol{64}#1}}
+\newcommand{\Feld}[1]{\texttt{#1}}
+
+\newcommand{\exmplwarn}[1]{\textcolor{red}{\Huge!} #1\\}
+
+\makeatletter
+%%% PASTE EXPERIMENTAL CODE HERE:
+
+\makeatother 
+
+\begin{document}
+
+\selectlanguage{german}
+
+\maketitle
+\tableofcontents
+
+\section{Preliminary remarks}
+
+\exmplwarn{Localisation strings in this example document are German.}
+\ifcsdef{blxarch@fork@authordate}
+    {\exmplwarn{The \detokenize{\fullcite} command does not always work as expected in author year styles. Compare the bibliography if something looks peculiar.}%
+    }
+    {}
+
+\section{Blindtext}
+
+\ifcsdef{blxarch@fork@authordate}
+{Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat \autocite{auler:hiller:2015}. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi \autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}[69]{auler:hiller:2011}. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit \tvolcite{1}[156]{linnaeus:2003} lobortis nisl ut aliquip ex ea commodo consequat \autocite{kenmore}. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi \autocite{kenmore}. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum \autocite[145--146]{todorova:et:al:1981}.}
+{Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.\autocite{auler:hiller:2015} Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}[69]{auler:hiller:2011} Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit\fvolcite{1}[156]{linnaeus:2003} lobortis nisl ut aliquip ex ea commodo consequat.\autocite{kenmore} Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\autocite{kenmore} Nam liber tempor cum soluta nobis eleifend\autocite[41--43]{auler:hiller:2015} option congue nihil imperdiet\autocite[19]{de:neck:yoder:1978} doming id quod mazim placerat facer possim assum.\autocite[145--146]{todorova:et:al:1981}}
+
+\section{Citation commands}
+
+\begin{itemize}
+	\item\Befehl{cite}: \cite[159--187]{auler:hiller:2015}
+	\item\Befehl{Cite}: \Cite[159--187]{auler:hiller:2015}
+	\item\Befehl{cite*}: \cite*[159--187]{auler:hiller:2015}
+	\item\Befehl{autocite}: \autocite[159--187]{auler:hiller:2015}.
+	\item\Befehl{Autocite}: \Autocite[159--187]{auler:hiller:2015}
+	\item\Befehl{autocite*}: \autocite*[159--187]{auler:hiller:2015}.-
+	\item\Befehl{Autocite*}: \Autocite*[159--187]{auler:hiller:2015}
+	\item\Befehl{parencite}: \parencite[159--187]{auler:hiller:2015}.
+	\item\Befehl{parencite*}: \parencite*[159--187]{auler:hiller:2015}.
+	\item\Befehl{Parencite}: \Parencite[159--187]{auler:hiller:2015}.
+	\item\Befehl{textcite}: \textcite[159--187]{auler:hiller:2015}.
+	\item\Befehl{Textcite}: \Textcite[159--187]{auler:hiller:2015}.
+	%\item\Befehl{supercite}: \supercite{auler:hiller:2015}.
+	\item\Befehl{footcite}: \footcite[159--187]{auler:hiller:2015}.
+	\item\Befehl{footcitetext}: \footcitetext[159--187]{auler:hiller:2015}.
+%	\item\Befehl{smartcite}: \smartcite[159--187]{auler:hiller:2015}.
+%	\item\Befehl{Smartcite}: \smartcite[159--187]{auler:hiller:2015}.
+	\item\Befehl{cites}: \cites[159--187]{auler:hiller:2015}
+	\item\Befehl{Cites}: \Cites[159--187]{auler:hiller:2015}
+	\item\Befehl{autocites}: \autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+	\item\Befehl{Autocites}: \Autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+    \item\Befehl{footcites}: \footcites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+	\item\Befehl{footcitetexts}: \footcitetexts[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+	\item\Befehl{parencites}: \parencites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+	\item\Befehl{Parencites}: \Parencites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+	\item\Befehl{textcites}: \textcites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+	\item\Befehl{Textcites}: \Textcites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+	\item\Befehl{citeauthor}: \citeauthor{auler:hiller:2015}
+	\item\Befehl{citeauthor}: \Citeauthor{auler:hiller:2015}
+	\item\Befehl{citetitle}: \citetitle{auler:hiller:2015}
+	\item\Befehl{citetitle*}: \citetitle*{auler:hiller:2015}
+	\item\Befehl{citedate}: \citedate{auler:hiller:2015}
+	\item\Befehl{citeyear}: \citeyear{auler:hiller:2015}
+	\item\Befehl{citeurl}: \citeurl{kenmore}
+	\item\Befehl{fullcite}: \fullcite{auler:hiller:2015}.
+	\item\Befehl{footfullcite}: \footfullcite[159--187]{auler:hiller:2015}.
+\ifcsdef{archaeobibstyletitle}
+    {\item\Befehl{shortformcite}: \shortformcite[433]{bauchhenss:et:al:1978}%
+    \item\Befehl{shortformcites}: \shortformcites[433]{bauchhenss:et:al:1978}[501]{authen-blom:1989}%
+    \item\Befehl{sfcite}: \sfcite[433]{bauchhenss:et:al:1978}%
+    \item\Befehl{sfcites}: \sfcites[433]{bauchhenss:et:al:1978}[501]{authen-blom:1989}}%
+    {}
+    \item\Befehl{footcite}: \footcites{auler:hiller:2015}{harsdoerffer:1656}
+\end{itemize}
+
+\section{Ligatures}
+
+%\subsection{Print the whole list}
+%\printaddligatureslist
+
+\subsection{First name ligatures}
+\begin{itemize}
+	\item\cite{test::firstnames::2}%
+	\item\cite{test::firstnames::1}%
+    \item\fullcite{test::firstnames::2}%
+	\item\fullcite{test::firstnames::1}%
+\end{itemize}
+
+\subsection{Name prefixes}
+\begin{itemize}
+	\item\cite{test::prefixnames::1}%
+	\item\fullcite{test::prefixnames::1}%
+\end{itemize}
+
+\section{entry types}
+
+\subsection{Auctions}
+\begin{itemize}
+    \item\cite{hesse:c:1995}%
+	\item\fullcite{hesse:c:1995}
+\end{itemize}
+
+\subsection{Exhibitions}
+\begin{itemize}
+    \item\cite{schaedler:1999}%
+	\item\fullcite{schaedler:1999}%
+    \item\cite{oberlechner:1999}%
+	\item\fullcite{oberlechner:1999}%
+\end{itemize}
+
+
+\subsection{Festschrifts}
+\begin{itemize}
+	\item\cite{kronsbein:siepen:2015}%
+	\item\fullcite{kronsbein:siepen:2015}%
+    \item\cites{auler:hiller:2015a}%
+    \item\fullcite{auler:hiller:2015a}%
+\end{itemize}
+
+\subsection{Sources}
+\begin{itemize}
+	\item\fullcite{tacitus:1981}
+	\item\fullcite{linnaeus:2003}
+    \item\cites{test::source}%
+    \item\fullcite{test::source}%
+\end{itemize}
+
+\section{Miscellanous cases}
+
+\subsection{\Feld{title} field ends with question mark}
+\begin{itemize}
+    \item\cite{edenmo:1997}%
+	\item\fullcite{edenmo:1997}
+\end{itemize}
+
+\subsection{Monograph lacking \Feld{date}}
+\begin{itemize}
+	\item\cite{siebert:u:et:al:o:j}%
+	\item\fullcite{siebert:u:et:al:o:j}%
+\end{itemize}
+
+\subsection{\Typ{collection} lacks \Feld{date}, \Typ{incollection} has \Feld{realdate}}
+\begin{itemize}
+	\item\cite{huet:o:j}%
+	\item\fullcite{huet:o:j}%
+\end{itemize}
+
+\subsection{No \Feld{date} and no \Feld{location} fields}
+\begin{itemize}
+	\item\cite{fuchs:o:j}%
+	\item\fullcite{fuchs:o:j}%
+\end{itemize}
+
+\subsection{No \Feld{author}, no \Feld{editor} but \Feld{translator}}
+\begin{itemize}
+	\item\cite{sterk:1777}%
+	\item\fullcite{sterk:1777}%
+\end{itemize}
+
+\subsection{No \Feld{author} or \Feld{editor} at all}
+\begin{itemize}
+	\item\cite{domino:1780}%
+	\item\fullcite{domino:1780}%
+\end{itemize}
+
+\subsection{Website with corporate \Feld{author} and \Feld{shortauthor}}
+\begin{itemize}
+	\item\cite{kenmore}%
+	\item\fullcite{kenmore}%
+\end{itemize}
+
+\subsection{Edition of a book}
+\begin{itemize}
+	\item\cite{fuchs:kh:et:al:1998}%
+	\item\fullcite{fuchs:kh:et:al:1998}%
+\end{itemize}
+
+\subsection{Date ranges}
+\begin{itemize}
+	\item\cite{bhattacharyya:1973}%
+	\item\fullcite{bhattacharyya:1973}%
+\end{itemize}
+
+\subsection{Journal with \Feld{number}}
+\begin{itemize}
+	\item\cite{ib:2016a}%
+	\item\fullcite{ib:2016a}%
+\end{itemize}
+
+\subsection{\Typ{inbook}}
+\begin{itemize}
+	\item\cites{boppert:1998}%
+    \item\fullcite{boppert:1998}%
+\end{itemize}
+
+%\subsection{Shorthands}
+%\begin{itemize}
+%	\item\cites{mueller:jh:1878}{luening:oj}%
+%\end{itemize}
+
+\subsection{\Typ{inreference}}
+\begin{itemize}
+	\item\cite{bauchhenss:et:al:1978}%
+	\item\fullcite{bauchhenss:et:al:1978}%
+\end{itemize}
+
+\subsection{\Feld{summarytitle}}
+\begin{itemize}
+	\item\cite{ilinskaja:1965}%
+	\item\fullcite{ilinskaja:1965}%
+\end{itemize}
+
+\subsection{\Typ{thesis}}
+\begin{itemize}
+    \item\fullcite{apetz:1989}%
+    \item\fullcite{czarnetzki:1966}%
+    \item\fullcite{volk:1972}%
+    \item\fullcite{sanchez:2014}%
+\end{itemize}
+
+\subsection{\Feld{subseries} and \Feld{subnumber}}
+\begin{itemize}
+    \item\cite{kossack:et:al:1980}%
+	\item\fullcite{kossack:et:al:1980}%
+    \item\cite{harck:1980}%
+	\item\fullcite{harck:1980}%
+\end{itemize}
+
+\subsection{Literal \Feld{realdate} and \Feld{eprint}}
+\begin{itemize}
+    \item\cite{lindauer:oj}%
+	\item\fullcite{lindauer:oj}%
+\end{itemize}
+
+\subsection{Article of eight authors}
+\begin{itemize}
+    \item\cite{summerhayes:et:al:1993}%
+	\item\fullcite{summerhayes:et:al:1993}%
+\end{itemize}
+
+\subsection{Newspaper article}
+\begin{itemize}
+    \item\cite{stafford:2004}%
+	\item\fullcite{stafford:2004}%
+\end{itemize}
+
+%\printshorthands
+\printbibliography
+%\printbibliography[env=leftmarginbibliography]
+
+%\xshowbibdriver{inbook}
+%\xshowbibmacro{title}
+
+\end{document}
+\endinput

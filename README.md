@@ -1,0 +1,80 @@
+# The `biblatex-archaeology` package
+
+## Objective
+
+`biblatex-archaeology` provides a collection of style files for the `biblatex` bibliography package. It is designed for the use of German researchers into material culture, especially prehistorians and medieval archaeologists. Generally their bibliography styles are more or less variations of the [guide lines of the Römisch-Germanische Kommission (RGK)](http://www.av-rheinland.de/Richtlinien.pdf), nowithstanding of being verbose or inline styles. I tried to develop generic styles, that cover all the needs and allow for easy generation of local styles. Refer to the enclosed manual document for further details.
+
+## Installing
+
+Get the sources from [CTAN](http://www.ctan.org/pkg/biblatex-archaeology) or clone them from GitHub:
+
+    git clone https://github.com/CarlOrff/biblatex-archaeology.git
+
+Create the directory `{TEXMF}/bibtex/bib/biblatex-archaeology` and move the `*.bib` databases there. Then create the directory `{TEXMF}/tex/latex/biblatex-archaeology` and run
+
+    TEX biblatex-archaeology.ins
+    texhash
+	
+Create a directory `{TEXMF}/doc/latex/biblatex-archaeology` and move `biblatex-archaeology-pdf` and the example folder there. In case you want to compile the manual yourself, do 
+
+    pdflatex biblatex-archaeology
+    Biber biblatex-archaeology
+    makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
+    makeindex -s gind.ist biblatex-archaeology.idx
+    pdflatex biblatex-archaeology
+	pdflatex biblatex-archaeology
+
+Remark that you MUST employ Biber. BibTeX won't work.
+
+In contrast to CPAN the GitHub sources include Perl scripts and Windows batch files in addition. These are tools for speeding up the development process and have no meaning for end users.
+
+## Usage
+
+The package provides several style files for the `biblatex` bibliography package. It is called through `biblatex`' style option, f. i.:
+
+    \usepackage[style=rgk-verbose,backend=biber]{biblatex}
+
+Remark that `biblatex-archaeology` makes heavy use of Biber-only features. It won't work properly with BibTeX as backend. For a detailed styles and commands reference refer to the manual. At present the following end user styles are provided:
+
+- aefkw
+- afwl
+- amit
+- archa
+- dguf
+- dguf-alt
+- dguf-apa
+- eaz
+- eaz-alt
+- foe
+- jb-halle
+- jb-kreis-neuss
+- karl
+- maja
+- mpk
+- nnu
+- offa
+- rgk-inline
+- rgk-verbose
+- rgzm-inline
+- rgzm-verbose
+- ufg-muenster-inline
+- ufg-muenster-verbose
+- volkskunde
+- zaak
+- zaes
+
+## Help
+
+The package ist hosted on [GitHub](https://github.com/CarlOrff/biblatex-archaeology). If you have any concerns it is by far best to use the issue tracker there.
+Alternatively you can e-mail me through the [contact form on my website](https://ingram-braun.net/public/about/legal-notice/). Or you can employ the comment script of a project page on my personal website: [`biblatex-archaeology` – Automated citations and bibliographies for German Cultural Anthropology](https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf).
+
+Normally you will get the latest production version through the update script of your TeX distribution. If you want to keep track actively, use
+the news feeds of CTAN, GitHub or my personal website.
+
+## Copyright
+
+© 2005--2017 by [Ingram Braun](https://ingram-braun.net/)
+
+## License
+
+[The LaTeX Project Public License 1.3c or later](http://www.latex-project.org/lppl.txt)
