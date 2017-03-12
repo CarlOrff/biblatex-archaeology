@@ -7498,15 +7498,12 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
     \ifboolexpr{
         test {\ifshortform{title}}
         and
-        not test {\iffieldundef{booktitle}}
+        not test {\iffieldundef{shortform}}
     }
         {\savefield{shortform}{\blxarch@field@shortform}%
          \restorefield{booktitle}{\blxarch@field@shortform}%
          \clearfield{booksubtitle}%
-         \clearfield{booktitleaddon}%
-         \clearname{bookauthor}%
-         \clearfield{edition}%
-         \clearname{editor}}
+         \clearfield{booktitleaddon}}
         {}%
 %    \end{macrocode}
 % We need a copy of volume in order to check it after deletion.
@@ -10050,7 +10047,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-archaeology.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeobibstyletitle}
@@ -10070,7 +10067,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-comp-archaeology.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -10090,7 +10087,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-ibid-archaeology.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -10111,7 +10108,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-icomp-archaeology.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Datei{biblatex-archaeology.sty} always after a style.
@@ -10202,7 +10199,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-ibid-archaeology.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB] 
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -10223,7 +10220,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-trad2note-archaeology.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB] 
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -10285,7 +10282,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{aefkw.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -10298,7 +10295,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %    \end{macrocode}
 % \end{macro}
 %
-% Load localization strings. 
 %    \begin{macrocode}
 \DeclareLanguageMapping{english}{aefkw-english}
 \DeclareLanguageMapping{german}{aefkw-german}
@@ -10465,7 +10461,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{afwl.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -10682,7 +10678,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{amit.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -10865,7 +10861,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{archa.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -11093,7 +11089,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -11285,7 +11281,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-alt.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB] 
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -11299,7 +11295,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %    \end{macrocode}
 % \end{macro}
 %
-% Load localization strings. 
 %    \begin{macrocode}
 \DeclareLanguageMapping{german}{dguf-alt-german}
 %    \end{macrocode}
@@ -11490,7 +11485,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-apa.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB] 
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -11855,7 +11850,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -11869,7 +11864,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %    \end{macrocode}
 % \end{macro}
 %
-% Load localization strings. 
 %    \begin{macrocode}
 \DeclareLanguageMapping{english}{eaz-english}
 \DeclareLanguageMapping{german}{eaz-german}
@@ -12035,7 +12029,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz-alt.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12296,7 +12290,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{foe.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12549,7 +12543,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-halle.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12788,7 +12782,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-kreis-neuss.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12796,7 +12790,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 \RequireBibliographyStyle{verbose-ibid-archaeology}
 %    \end{macrocode}
 %
-% Load localization strings.
 %    \begin{macrocode}
 \DeclareLanguageMapping{german}{jb-kreis-neuss-german}
 %    \end{macrocode}
@@ -13011,7 +13004,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{karl.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -13024,7 +13017,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %    \end{macrocode}
 % \end{macro}
 %
-% Load localization strings.
 %    \begin{macrocode}
 \DeclareLanguageMapping{german}{karl-german}
 %    \end{macrocode}
@@ -13174,7 +13166,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{maja.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -13187,7 +13179,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %    \end{macrocode}
 % \end{macro}
 %
-% Load localization strings. 
 %    \begin{macrocode}
 \DeclareLanguageMapping{german}{maja-german}
 %    \end{macrocode}
@@ -13371,7 +13362,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{mpk.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -13599,7 +13590,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{nnu.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -13649,7 +13640,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
     positionlabeldate=location,
     preservelastauthor=false,
     repeatlabel=true,
-    shortform=false,
+    shortform=true,
     shortjournal=true,
     shortseries=true,
     subseries=true,
@@ -13830,7 +13821,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{offa.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -13916,7 +13907,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 % \begin{macro}{\mkbibrepeatfamily}
 % \begin{macro}{\mkbibrepeatprefix}
-% Different name formatting in repeated labels.
 %    \begin{macrocode}
 \renewcommand{\mkbibrepeatfamily}[1]{#1}
 \renewcommand{\mkbibrepeatprefix}[1]{#1}
@@ -13932,7 +13922,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
-% Different name formatting in repeated labels.
 %    \begin{macrocode}
 \renewcommand{\multinamedelim}{\addslash}
 \renewcommand{\finalnamedelim}{\addslash}
@@ -13941,7 +13930,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 % \end{macro}
 %
 % \begin{macro}{\multilistdelim}
-% Different name formatting in repeated labels.
 %    \begin{macrocode}
 \renewcommand{\multilistdelim}{\addslash}
 %    \end{macrocode}
@@ -14020,7 +14008,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-verbose.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14050,7 +14038,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-inline.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14091,7 +14079,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 % \begin{macro}{\mkbibrepeatfamily}
 % \begin{macro}{\mkbibrepeatprefix}
-% Different name formatting in repeated labels.
 %    \begin{macrocode}
 \renewcommand{\mkbiblistnamefamily}[1]{\textsc{#1}}
 \renewcommand{\mkbiblistnameprefix}[1]{\textsc{#1}}
@@ -14177,7 +14164,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 % \begin{macro}{\mkbiblistnamefamily}
 % \begin{macro}{\mkbiblistnamefamily}
-% Different name formatting in repeated labels.
 %    \begin{macrocode}
 \renewcommand{\mkbiblistnamefamily}[1]{\textsc{#1}}
 \renewcommand{\mkbiblistnameprefix}[1]{\textsc{#1}}
@@ -14295,7 +14281,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-verbose.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14325,7 +14311,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-inline.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14360,7 +14346,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 % \begin{macro}{\mkbibrepeatfamily}
 % \begin{macro}{\mkbibrepeatprefix}
-% Different name formatting in repeated labels.
 %    \begin{macrocode}
 \renewcommand{\mkbibrepeatfamily}[1]{#1}
 \renewcommand{\mkbibrepeatprefix}[1]{#1}
@@ -14448,7 +14433,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 % \begin{macro}{\mkbibrepeatfamily}
 % \begin{macro}{\mkbibrepeatprefix}
-% Different name formatting in repeated labels.
 %    \begin{macrocode}
 \renewcommand{\mkbibrepeatfamily}[1]{#1}
 \renewcommand{\mkbibrepeatprefix}[1]{#1}
@@ -14568,7 +14552,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-verbose.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14598,7 +14582,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-inline.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14706,7 +14690,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 % \begin{macro}{\mkbibrepeatfamily}
 % \begin{macro}{\mkbibrepeatprefix}
-% Different name formatting in repeated labels.
 %    \begin{macrocode}
 \renewcommand{\mkbibrepeatfamily}[1]{#1}
 \renewcommand{\mkbibrepeatprefix}[1]{#1}
@@ -14837,7 +14820,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{volkskunde.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -15006,7 +14989,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{zaak.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % \begin{format}{bibtex}
@@ -15036,7 +15019,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %    \end{macrocode}
 % \end{macro}
 %
-% Load localization strings. 
 %    \begin{macrocode}
 \DeclareLanguageMapping{english}{zaak-english}
 \DeclareLanguageMapping{german}{zaak-german}
@@ -15246,7 +15228,7 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 %    \begin{macrocode}
 \ProvidesFile{zaes.bbx}
-[2017/03/11 v1.0 biblatex-archaeology bibliography style IB]
+[2017/03/11 v1.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15276,7 +15258,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %    \end{macrocode}
 % \end{format}
 %
-% Load localization strings. 
 %    \begin{macrocode}
 \DeclareLanguageMapping{english}{zaes-english}
 \DeclareLanguageMapping{german}{zaes-german}
