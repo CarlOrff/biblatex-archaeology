@@ -103,7 +103,7 @@ insert_file( join( "\\\\[$linehight]$newline", map { make_list( $titles{ $_ }{ '
 #          Subroutines              #
 #####################################
 
-# Takes the short form as argument and purifys it so that it can be used as @STRING in BibTeX databases.
+# Takes the short form as argument and purifies it so that it can be used as @STRING in BibTeX databases.
 sub purify_string {
 
     my $string = shift;
@@ -188,7 +188,7 @@ sub make_list {
     '% \StringBox{' . $string . '}{' . $resolution . '}';
 }
 
-# inserts arg1 into file arg2 between cut marks arg3
+# inserts arg1 into file arg2 were regexp arg3 matches
 sub insert_file {
 
     my $text = shift;

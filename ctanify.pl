@@ -251,7 +251,7 @@ sub remove_intermediary_files {
             'xmpi',
         );
         
-    remove( join( '*.', @files ) );
+    remove( join( ' *.', @files ) );
 }
 
 # save build log to file and exit script
