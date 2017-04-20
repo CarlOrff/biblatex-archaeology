@@ -15,7 +15,7 @@ Create the directory `{TEXMF}/bibtex/bib/biblatex-archaeology` and move the `*.b
     TEX biblatex-archaeology.ins
     texhash
 	
-Create a directory `{TEXMF}/doc/latex/biblatex-archaeology` and move `biblatex-archaeology-pdf` and the example folder there. In case you want to compile the manual yourself, do 
+Create a directory `{TEXMF}/doc/latex/biblatex-archaeology` and move `biblatex-archaeology.pdf` and the example folder there. In case you want to compile the manual yourself, do 
 
     pdflatex biblatex-archaeology
     Biber biblatex-archaeology
