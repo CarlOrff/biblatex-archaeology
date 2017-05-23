@@ -13,9 +13,4 @@ texhash
 REM make example
 call example.bat
 
-:: UTF-8
-:: chcp 65001
-:: cd C:\Users\Work\Documents\ingram\Texte\Wissenschaft\unveröffentlicht\Domino-Dormagen
-:: call x.bat
-
 pause>nul

@@ -177,7 +177,8 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %   Right brace   \}     Tilde         \~}
 %
 % \changes{0.1}{2005/11/11}{Begin development as a local macro collection} 
-% \changes{1.0}{2017/03/11}{First CTAN upload} 
+% \changes{1.0}{2017/03/11}{First CTAN upload}
+% \changes{1.1}{2017/04/20}{Spelling errors and grammar in documentation fixed.}
 % 
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -897,9 +898,13 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %
 % \end{itemize}
 % 
-% \subsubsection{Boolean tests}
+% \subsubsection{Boolean tests}\label{kap:bool}
 %
 % \begin{itemize}
+%
+% \item[]\DescribeMacro{\ifbibextrayear}\marg{true}\marg{false}\\
+% Does \meta{true} if a letter was added toy the year (e.\,g. Doe:2017a), if in bibliography, if \Option{positionlabeldate}\Kbd{=true} and
+% if \Option{repeatlabel}\Kbd{=false}
 %
 % \item[]\DescribeMacro{\ifeditionsuperscript}\marg{name}\marg{true}\marg{false}\\
 % Does \meta{true} if \meta{name} is one of the keys of option \Option{editionsuperscript} (see \ref{kap:pkgopt})
@@ -908,6 +913,9 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 % \item[]\DescribeMacro{\ifidemincitation}\marg{true}\marg{false}\\
 % Does \meta{true} if called within a citation, option \Option{idemincitation} (see \ref{kap:pkgopt}) is enabled
 % and \Befehl{ifciteidem} is \Kbd{true}.
+%
+% \item[]\DescribeMacro{\ifnewspaper}\marg{true}\marg{false}\\
+% Does \meta{true} if \Feld{newsday} field is available or \Feld{entrysubtype} field equals \Kbd{news} (see \ref{kap:entry}).
 %
 % \item[]\DescribeMacro{\ifnothesistitlepunct}\marg{true}\marg{false}\\
 % Does \meta{true} if option \Option{nothesistitlepunct} is enabled and entry type is \Typ{thesis}.
@@ -9092,15 +9100,34 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %    \end{macrocode}
 % \end{option}
 %
+% \begin{macro}{\ifnewspaper}
+% \marg{true}\marg{false}
+% Wether an article must be cited with full year.
+%    \begin{macrocode}
+\newcommand{\ifnewspaper}[2]{%
+     \ifboolexpr{
+        not test {\iffieldundef{newsday}}
+        or
+        test {\iffieldequalstr{entrysubtype}{news}}
+    }
+       {#1}
+       {#2}}
+%    \end{macrocode}
+% \changes{1.1}{2017/05/23}{new Boolean test (see \ref{kap:bool}).}
+% \end{macro}
+%
 % \begin{bibmacro}{newsdate}
 % Full date of newspaper articles.
+% \changes{1.1}{2017/05/23}{checks for \Feld{extrayear} now.}
 %    \begin{macrocode}
 \newbibmacro*{newsdate}{%
-    \iffieldundef{newsyear}
-        {}
-        {\printtext[newsparens]{\bibstring{articledated}\addspace%
-         \printnewsdate}}%
-}
+    \printtext[newsparens]{%
+        \bibstring{articledated}%
+        \addspace%
+        \printnewsdate%
+        \ifbibextrayear
+            {\printfield{extrayear}}
+            {}}}
 %    \end{macrocode}
 % \end{bibmacro}
 %
@@ -9110,6 +9137,26 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 \DeclareFieldFormat*{extrayear}{\mknumalph{#1}}%
 %    \end{macrocode}
 % \end{format}
+%
+% \begin{macro}{\ifbibextrayear}
+% \marg{true}\marg{false}
+% Wether to print the extrayear field in the bibliography
+%    \begin{macrocode}
+\newcommand{\ifbibextrayear}[2]{%
+     \ifboolexpr{
+        not test {\iffieldundef{extrayear}}
+        and
+        test {\ifpositionlabeldate{location}}
+        and
+        not test {\ifrepeatlabel}
+        and
+        test {\ifbibliography}
+    }
+       {#1}
+       {#2}}
+%    \end{macrocode}
+% \changes{1.1}{2017/05/23}{new Boolean test (see \ref{kap:bool}).}
+% \end{macro}
 %
 % \begin{format}{newsparens}
 % Formatting of an \enquote{article dated \dots} expression.
@@ -9137,53 +9184,44 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 % \end{macro}
 %
 % \begin{bibmacro}{bibliographydate}
-% \begin{bibmacro}{origdate}
-% \begin{bibmacro}{addendum+pubstate}
-% \begin{format}{realdate}
-% \begin{format}{origrealdate}
-% We never have an empty date but a string like
-% 'sine anno' or the \Feld{pubstate}.
+% We never have an empty date but a string like 'sine anno' or the \Feld{pubstate}.
+% The newsdate has always to be printed because the label contains the year only.
+% \changes{1.1}{2017/05/23}{Do not print \Feld{extrayear} field in verbose styles. (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/3}{issue \#3})}
 %    \begin{macrocode}
 \newbibmacro*{bibliographydate}{%
-    \ifboolexpr{
-        test {\ifpositionlabeldate{location}}
-        or
-        test {\ifpositionlabeldate{both}}
-    }
+    \ifpositionlabeldate{label}
+        {\ifnewspaper
+            {\usebibmacro{newsdate}}
+            {}%
+        }
         {\printtext{%
             \ifeditionsuperscript{predate}
                 {\usebibmacro{editionsuperscript}}
                 {}%
-            \iffieldequalstr{entrysubtype}{news}
-                {\usebibmacro{newsdate}%
-                 \ifboolexpr{
-                    test {\ifpositionlabeldate{location}}
-                    and
-                    not test {\ifrepeatlabel}
-                 }
-                    {\printfield{extrayear}}
-                    {}}
+            \ifnewspaper
+                {\usebibmacro{newsdate}}
                 {\iffieldundef{year}
                     {\iffieldundef{pubstate}
                         {\printtext[missingfield]{\midsentence\bibstring{nodate}}}
                         {\printtext[missingfield]{\midsentence\printfield{pubstate}}}}%
-                    {\printdate%
-                     \ifboolexpr{
-                        test {\ifpositionlabeldate{location}}
-                        and
-                        not test {\ifrepeatlabel}
-                     }
-                        {\printfield{extrayear}}
-                        {}}}%
+                    {\printdate}%
+                 \ifbibextrayear
+                    {\printfield{extrayear}}
+                    {}%
+                }%
             \ifeditionsuperscript{postdate}
                 {\usebibmacro{editionsuperscript}}
                 {}%
             \setunit{\daterealdatedelim}%
-            \usebibmacro{extendeddate}{real}}}
+            \usebibmacro{extendeddate}{real}}}}
 %    \end{macrocode}
-% The newsdate has always to be printed because the label only contains the year.
+% \end{bibmacro}
+%
+% \begin{bibmacro}{origdate}
+% \begin{bibmacro}{addendum+pubstate}
+% \begin{format}{realdate}
+% \begin{format}{origrealdate}
 %    \begin{macrocode}
-       {\usebibmacro{newsdate}}}
 \newbibmacro*{origdate}{%
     \printtext{%        
         \midsentence%
@@ -9199,7 +9237,6 @@ prehistory and medieval archaeology and serve as a kind of template. biblatex-ar
 %    \end{macrocode}
 % \end{format}
 % \end{format}
-% \end{bibmacro}
 % \end{bibmacro}
 % \end{bibmacro}
 %
