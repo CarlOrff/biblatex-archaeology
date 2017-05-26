@@ -78,7 +78,7 @@ $zip->addDirectory( $expldir );
 system_call( "pdflatex -file-line-error $package.dtx" );
 system_call( "lualatex -file-line-error $package" . "_example" );
 system_call( "perl bibextract.pl $package $package-nodoc.dtx manualBIB " . join( " ", @bib ) );
-system_call( "perl bibextract.pl example $package.dtx exampleBIB " . join( " ", @bib ) );
+system_call( "perl bibextract.pl biblatex-archaeology_example $package.dtx exampleBIB " . join( " ", @bib ) );
 system_call( "perl abbrev.pl" ) if -e 'abbreviation/RGK_Zeitschriften.xls';
 remove_intermediary_files();
 
