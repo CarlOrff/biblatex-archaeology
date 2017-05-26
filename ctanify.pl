@@ -74,21 +74,21 @@ $zip->addDirectory( $package );
 my $expldir = "$package/example";
 $zip->addDirectory( $expldir );
 
-# clean working directory
-remove_intermediary_files();
-remove( "*.bbx", "*.cbx", "*.dbx", "*.lbx", "*.sty", "$package.pdf" );
-
-# install latest build
-system_call("TEX $package.ins");
-system_call("texhash");
-
 #generate databases
 system_call( "pdflatex -file-line-error $package.dtx" );
 system_call( "lualatex -file-line-error $package" . "_example" );
-system_call( "perl bibextract.pl $package $package-manual.bib " . join( " ", @bib ) );
-system_call( "perl bibextract.pl example $package-examples.bib " . join( " ", @bib ) );
+system_call( "perl bibextract.pl $package $package-nodoc.dtx manualBIB " . join( " ", @bib ) );
+system_call( "perl bibextract.pl example $package.dtx exampleBIB " . join( " ", @bib ) );
 system_call( "perl abbrev.pl" ) if -e 'abbreviation/RGK_Zeitschriften.xls';
 remove_intermediary_files();
+
+# clean working directory
+remove_intermediary_files();
+remove( "*.bbx", "*.cbx", "*.dbx", "*.lbx", "*.sty", "*.bib", "$package.pdf" );
+
+# install latest build
+system_call("pdftex -8bit $package.ins");
+system_call("texhash");
 
 # generate manual
 system_call( "pdflatex -file-line-error $package.dtx" );
@@ -100,14 +100,10 @@ system_call( "pdflatex -file-line-error $package.dtx" );
 
 # add sources
 add_zip( "$package.dtx", $package );
+add_zip( "$package-nodoc.dtx", $package );
 add_zip( "$package.ins", $package );
 add_zip( "README.md", $package );
 add_zip( "$package.pdf", $package );
-add_zip( "$package-examples.bib", $package );
-add_zip( "$package-manual.bib", $package );
-add_zip( "$package-strings-full.bib", $package );
-add_zip( "$package-strings-full-subtitle.bib", $package );
-add_zip( "$package-strings-rgk.bib", $package );
 add_zip( $expltex, $expldir );
 
 # generate example PDF for every style

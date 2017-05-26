@@ -89,11 +89,11 @@ my %unique_strings;
 grep { $unique_strings{ $titles{ $_ }{ 'string' } }++ } keys %titles;
 grep { die "String *$_* not unique" if $unique_titles{ $_ } > 1 } keys %unique_strings;
 
-print_file( join( $newline, map { make_string( $titles{ $_ }{ 'string' }, $titles{ $_ }{ 'no_subtitles' } ) } sort stringsort keys %titles ), 'biblatex-archaeology-strings-full.bib' );
+insert_driver( join( $newline, map { make_string( $titles{ $_ }{ 'string' }, $titles{ $_ }{ 'no_subtitles' } ) } sort stringsort keys %titles ), 'biblatex-archaeology-nodoc.dtx', 'fullBIB' );
 
-print_file( join( $newline, map { make_string( $titles{ $_ }{ 'string' }, $_ ) } sort stringsort keys %titles ), 'biblatex-archaeology-strings-full-subtitle.bib' );
+insert_driver( join( $newline, map { make_string( $titles{ $_ }{ 'string' }, $_ ) } sort stringsort keys %titles ), 'biblatex-archaeology-nodoc.dtx', 'subtitlesBIB' );
 
-print_file( join( $newline, map { make_string( $titles{ $_ }{ 'string' }, $titles{ $_ }{ 'short' } ) } sort stringsort keys %titles ), 'biblatex-archaeology-strings-rgk.bib' );
+insert_driver( join( $newline, map { make_string( $titles{ $_ }{ 'string' }, $titles{ $_ }{ 'short' } ) } sort stringsort keys %titles ), 'biblatex-archaeology-nodoc.dtx', 'rgkBIB' );
 
 insert_file( join( "\\\\[$linehight]$newline", map { make_list( $_, $titles{ $_ }{ 'formatted_string' } ) } sort { $titles{ $a }{ 'latexsort' } cmp $titles{ $b }{ 'latexsort' } } keys %titles ), 'biblatex-archaeology.dtx', qr/(?<=\\subsection\{Sorted\sby\sjournal\sor\sseries\}\\label\{kap:journals\}.{3}).+?(?=.{5}\\section)/s );
 
@@ -131,41 +131,6 @@ sub purify_string {
     $string;
 }
 
-# prints scalar (arg1) to file (arg2)
-sub print_file {
-
-    my $text = shift;
-    my $filename = shift;
-    my %preamble;
-    
-    # add preamble for biblatex specific commands
-    foreach my $cmd (keys %commands) {
-    
-        if ( index( $text, $cmd ) >-1 ) {
-        
-            if ( index( $commands{$cmd}, '#1' ) > -1 ) {
-                
-                $preamble{$cmd} = '"\\providecommand{' . $cmd . '}[1]{' . $commands{$cmd} . '}"';
-            }
-            else {
-            
-                $preamble{$cmd} = '"\\providecommand{' . $cmd . '}{' . $commands{$cmd} . '}"';
-            }
-        }
-    }
-    
-    my $preamble = join( "$newline# ", values %preamble );
-    $preamble = '@PREAMBLE{' . $preamble . '}' . $newline if length $preamble > 0;
-    
-    my $fh = FileHandle->new($filename, O_WRONLY|O_CREAT|O_TRUNC);
-    if ( defined $fh ) {
-        
-        print $fh $preamble, $text;
-        undef $fh;
-    }
-   
-}
-
 # formats a @STRING for *.bib files with arg1 = arg2
 sub make_string {
 
@@ -186,6 +151,39 @@ sub make_list {
     my $resolution = shift;
         
     '% \StringBox{' . $string . '}{' . $resolution . '}';
+}
+
+# inserts arg1 into file arg2 as ltxdoc macrocode environment into driver arg3
+sub insert_driver {
+
+    my $bib = shift;
+    my $dtx = shift;
+    my $driver = shift;
+
+    # generate macrocode environment of ltxdoc class
+    my $env = "$newline%    \\begin{macrocode}$newline"; 
+    $env .= $bib;
+    $env .= "%    \\end{macrocode}$newline";
+
+    my $source = "";
+    my $out = FileHandle->new($dtx, O_RDONLY);
+    if (defined $out) {
+    
+       binmode($out, ":utf8");
+
+       while ( <$out> ) { $source .= $_ }
+       
+       $source =~ s/(<\*\Q$driver\E>).*?(<\/\Q$driver\E>)/\1$env%\2/s;
+       undef $out;       # automatically closes the file
+    }
+    $out = FileHandle->new($dtx, O_WRONLY|O_TRUNC);
+    if (defined $out) {
+       
+       print $out $source;
+       
+       undef $out;       # automatically closes the file
+    }
+
 }
 
 # inserts arg1 into file arg2 were regexp arg3 matches
@@ -226,7 +224,7 @@ sub clean_cell {
     $string =~ s/Null/Num/g;
     $string =~ s/Bibi/Bibl/g;
     $string =~ s/(?<=Arch)öo/äo/gi;
-    $string =~ s/^(Aanteekeningen van het Verhandeide in de Sectie-Vergaderingen van het Provinciaal Utrechtsch Genootschap van Künsten en Wetenschappen).+$/\1/g;
+    $string =~ s/^Aanteekeningen van het Verhandeide in de Sectie-Vergaderingen van het Provinciaal Utrechtsch Genootschap van Künsten en Wetenschappen.+$/Aanteekeningen van het Verhandelde in de Sectie-Vergaderingen van het Provinciaal Utrechtsch Genootschap van Künsten en Wetenschappen/g;
     $string =~ s/deJette et des A\.S\. B\.L\./de Jette et des A. S. B. L./g;
     $string =~ s/Cumania A /Cumania. A /g;
     $string =~ s/(?<=.)Helvetia Arch.+//g;
@@ -272,7 +270,6 @@ sub latexsort {
 
     my $sort = shift;
 
-    
     # remove LateX commands
     $sort =~ s/\\[a-zA-Z]+\p{SpacePerl}*//g;
     $sort =~ s/\\,/ /g;

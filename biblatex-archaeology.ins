@@ -13,6 +13,7 @@
 %%
 \input docstrip.tex
 \keepsilent
+\askforoverwritefalse 
 \preamble
 Copyright (C) 2005-2017 by Ingram Braun (https://ingram-braun.net/)
 %%
@@ -151,6 +152,17 @@ LaTeX version 2008/05/04 or later.
 \generate{\file{zaes.dbx}{\from{biblatex-archaeology.dtx}{zaesDBX,DBX}}}
 \generate{\file{zaes-english.lbx}{\from{biblatex-archaeology.dtx}{zaesenglishLBX}}}
 \generate{\file{zaes-german.lbx}{\from{biblatex-archaeology.dtx}{zaesgermanLBX}}}
+
+\usedir{bibtex/bib/biblatex-archaeology}
+
+\nopreamble
+\nopostamble
+
+\generate{\file{biblatex-archaeology-example.bib}{\from{biblatex-archaeology.dtx}{exampleBIB}}}
+\generate{\file{biblatex-archaeology-manual.bib}{\from{biblatex-archaeology-nodoc.dtx}{manualBIB}}}
+\generate{\file{biblatex-archaeology-strings-full.bib}{\from{biblatex-archaeology-nodoc.dtx}{fullBIB}}}
+\generate{\file{biblatex-archaeology-strings-full-subtitle.bib}{\from{biblatex-archaeology-nodoc.dtx}{subtitlesBIB}}}
+\generate{\file{biblatex-archaeology-strings-rgk.bib}{\from{biblatex-archaeology-nodoc.dtx}{rgkBIB}}}
 
 \Msg{*********************************************************}
 \Msg{*}

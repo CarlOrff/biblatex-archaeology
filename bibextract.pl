@@ -15,21 +15,27 @@ use strict;
 no warnings;
 
 use FileHandle;
-use BibTex::Parser;
+use BibTeX::Parser;
 use Data::Dumper;
 
 my $project = shift @ARGV;
 $project .= ".aux";
-my $outbib = shift @ARGV;
+my $dtx = shift @ARGV;
+my $driver = shift @ARGV;
 my @inbib = @ARGV;
 
 my %db;      # entries of outfile
 my %buffer;  # other entries, needed for crossref check
 
+# CTAN demands UNIX line feeds
+my $newline = "\012";
+
 # get keys from aux.file
 my $aux = FileHandle->new("< $project");
 
 if (defined $aux) {
+
+    binmode($aux, ":utf8");
 
     print "READ $project\n";
 
@@ -44,6 +50,8 @@ foreach my $inbib (@inbib) {
     print "READ $inbib\n";
 
     my $fh = FileHandle->new("< $inbib");
+    
+    binmode($fh, ":utf8");
      
     # Create parser object ...
     my $parser = BibTeX::Parser->new($fh);
@@ -103,16 +111,36 @@ unless ( !$found ) {
     }
 }
 
-my $bib = FileHandle->new($outbib, O_WRONLY|O_TRUNC|O_CREAT);
+# generate macrocode environment of ltxdoc class
+my $bib = "$newline%    \\begin{macrocode}$newline"; 
+grep { $bib .= $db{$_}{entry} . "$newline" if $db{$_}{type} =~ /^article|^in|^supp|^review/i } sort keys %db;
+grep { $bib .= $db{$_}{entry} . "$newline" if $db{$_}{type} !~ /^article|^in|^supp|^review/i } sort keys %db;
+$bib .= "%    \\end{macrocode}$newline";
+$bib =~ s/\n\s+(\w+)\s?=/$newline  \U\1\E =/gs;
+$bib =~ s/\n/$newline/gs;
 
-if (defined $bib) {
 
-    print "WRITE $outbib\n";
-    
-    grep { print $bib $db{$_}{entry}, "\n" if $db{$_}{type} =~ /^article|^in|^supp/i } sort keys %db;
-    grep { print $bib $db{$_}{entry}, "\n" if $db{$_}{type} !~ /^article|^in|^supp/i } sort keys %db;
-    
-    undef $bib;       # automatically closes the file
+# copy database into dtx file
+my $source = "";
+my $out = FileHandle->new($dtx, O_RDONLY);
+if (defined $out) {
+
+   binmode($out, ":utf8");
+
+   while ( <$out> ) { $source .= $_ }
+   
+   $source =~ s/(<\*\Q$driver\E>).*?(<\/\Q$driver\E>)/\1$bib%\2/s;
+   undef $out;       # automatically closes the file
 }
-else { die "Could not open $outbib: $1" }
+$out = FileHandle->new($dtx, O_WRONLY|O_TRUNC);
+if (defined $out) {
+
+   binmode($out, ":utf8");
+   
+   print $out $source;
+   
+   undef $out;       # automatically closes the file
+}
+
+    
 

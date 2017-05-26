@@ -210,6 +210,7 @@ biblatex-archaeology_example-ent.*
 *.dbx
 *.lbx
 *.sty
+*.bib
 
 # pdfx package
 *.xmpi
@@ -220,6 +221,3 @@ biblatex-archaeology_example-ent.*
 
 # hyperref
 *.out
-
-# intermediary backups
-*.bak

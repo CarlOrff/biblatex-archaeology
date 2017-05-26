@@ -12,7 +12,7 @@ Get the sources from [CTAN](http://www.ctan.org/pkg/biblatex-archaeology) or clo
 
 Create the directory `{TEXMF}/bibtex/bib/biblatex-archaeology` and move the `*.bib` databases there. Then create the directory `{TEXMF}/tex/latex/biblatex-archaeology` and run
 
-    TEX biblatex-archaeology.ins
+    pdftex -8bit biblatex-archaeology.ins
     texhash
 	
 Create a directory `{TEXMF}/doc/latex/biblatex-archaeology` and move `biblatex-archaeology.pdf` and the example folder there. In case you want to compile the manual yourself, do 

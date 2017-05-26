@@ -2,10 +2,10 @@ REM install the biblatex-archaeology package
 
 REM remove outdated files
 call cleanup.bat
-del *.bbx *.cbx *.dbx *.lbx *.sty
+del *.bbx *.cbx *.dbx *.lbx *.sty *.bib
 
 REM install from .dtx
-TEX biblatex-archaeology.ins
+pdftex -8bit biblatex-archaeology.ins
 
 REM update package database
 texhash
