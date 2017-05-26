@@ -10,7 +10,7 @@ Get the sources from [CTAN](http://www.ctan.org/pkg/biblatex-archaeology) or clo
 
     git clone https://github.com/CarlOrff/biblatex-archaeology.git
 
-Create the directory `{TEXMF}/bibtex/bib/biblatex-archaeology` and move the `*.bib` databases there. Then create the directory `{TEXMF}/tex/latex/biblatex-archaeology` and run
+Create the directories `{TEXMF}/bibtex/bib/biblatex-archaeology` and `{TEXMF}/tex/latex/biblatex-archaeology` and run
 
     pdftex -8bit biblatex-archaeology.ins
     texhash
@@ -30,7 +30,7 @@ In contrast to CPAN the GitHub sources include Perl scripts and Windows batch fi
 
 ## Usage
 
-The package provides several style files for the `biblatex` bibliography package. It is called through `biblatex`' style option, f. i.:
+The package provides several style files for the `biblatex` bibliography package. It is called through `biblatex`' style option, e. g.:
 
     \usepackage[style=rgk-verbose,backend=biber]{biblatex}
 
