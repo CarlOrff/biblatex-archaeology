@@ -25,6 +25,8 @@ my $newline = "\012";
 
 my $linehight = '1.3ex';
 
+my %strcount; # key = string, value = counter
+
 # commands in bib file preamble
 my %commands = (
     '\adddot' => ".",
@@ -58,18 +60,20 @@ for my $worksheet ( $workbook->worksheets() ) {
                 
             if ( index( $key, 0 ) != 0 ) {
                 
-                die "***$key*** not unique!" if exists( $titles{ $key } );
+                print "Entry key '$key' not unique!" if exists( $titles{ $key } );
                     
                 $titles{ $key }{ 'short' } =  clean_cell( $worksheet->get_cell( $row, 1 )->value() );
-                
                 $titles{ $key }{ 'string' } =  purify_string( $titles{ $key }{ 'short' } );
                 
+                # Check if shorthand is reused. This may happen if a title was slightly changed. If so, add colon and number.
+                $titles{ $key }{ string } .= ":" . $strcount{ $titles{ $key }{ 'string' } } if ++$strcount{ $titles{ $key }{ 'string' } } > 1;
+                             
                 $titles{ $key }{ 'formatted_string' } = '\Stark{\texttt{' . ( $titles{ $key }{ 'string' } . '}}' );
                 
                 $titles{ $key }{ 'latexsort' } = latexsort( $key );
                 
                 # Split at first period, but do not match abbreviation dots (no quantifiers in lookbehinds allowed).
-                # It's risky because dots may be included in arguments of LaTeX commands!
+                # This is risky because dots may be included in arguments of LaTeX commands!
                 ($titles{ $key }{ 'no_subtitles' }, my $subtitle) = split( /((?<=\p{Word}{4})|(?<=^\p{Word}{3})|(?<=\sLän))(\.|,? being)(?!\sSer)/, $key, 2 );
                 $titles{ $key }{ 'no_subtitles' } = $key if $titles{ $key }{ 'no_subtitles' } =~ /Szab$/;
             }
@@ -223,6 +227,8 @@ sub clean_cell {
     # OCR errors and typos
     $string =~ s/Null/Num/g;
     $string =~ s/Bibi/Bibl/g;
+    $string =~ s/\(Königlich\)\s+//;
+    $string =~ s/\(Preussischen\)\s+//;
     $string =~ s/(?<=Arch)öo/äo/gi;
     $string =~ s/^Aanteekeningen van het Verhandeide in de Sectie-Vergaderingen van het Provinciaal Utrechtsch Genootschap van Künsten en Wetenschappen.+$/Aanteekeningen van het Verhandelde in de Sectie-Vergaderingen van het Provinciaal Utrechtsch Genootschap van Künsten en Wetenschappen/g;
     $string =~ s/deJette et des A\.S\. B\.L\./de Jette et des A. S. B. L./g;

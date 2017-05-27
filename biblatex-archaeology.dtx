@@ -17,7 +17,7 @@
 % \iffalse 
 %<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<package>\ProvidesPackage{biblatex-archaeology}
-%<package>[2017/05/26 v1.1 biblatex-archaeology (Ingram Braun) based on biblatex]
+%<package>[2017/05/27 v1.1 biblatex-archaeology (Ingram Braun) based on biblatex]
 %
 %<*driver>
 %\listfiles
@@ -130,7 +130,7 @@
     bookmarksopen=false,    % If Acrobat bookmarks are requested, show them with all the subtrees expanded. 
     linkcolor=blue,
     citecolor=blue,
-    urlcolor=blue,
+    urlcolor=teal,
     pdfpagemode={UseOutlines}, % show pdf bookmarks (indices) on startup; does not function all the time
     pdfdisplaydoctitle=true,
     pdfauthor={Ingram Braun},
@@ -176,6 +176,7 @@
 % \changes{1.0}{2017/03/11}{First CTAN upload}
 % \changes{1.1}{2017/04/20}{Spelling errors and grammar in documentation fixed}
 % \changes{1.1}{2017/05/26}{Generate \Kbd{bib} databases from \Kbd{dtx} (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/4}{issue \#4})}
+% \changes{1.1}{2017/05/27}{Multiple strings with same shorthand allowed (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/2}{issue \#2})}
 % 
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -188,7 +189,7 @@
 % \IndexPrologue{\section*{Index}\addcontentsline{toc}{section}{Index}}
 % \GlossaryPrologue{\section*{Changelog}\addcontentsline{toc}{section}{Changelog}}
 %
-% \title{\LARGE\color{\headingscolor}The \textsf{\jobname} styles\thanks{This document corresponds to \archbib~1.1, dated~2017/05/23.}}
+% \title{\LARGE\color{\headingscolor}The \textsf{\jobname} styles\thanks{This document corresponds to \archbib~1.1, dated~2017/05/27.}}
 % \author{\Large Ingram Braun \\ \url{https://ingram-braun.net/}}
 %
 % \maketitle
@@ -935,7 +936,7 @@
 % styles it always does \meta{false}.
 %
 % \item[]\DescribeMacro{\ifselfcontained}\marg{true}\marg{false}\\
-% Does \meta{true} if the current entry is a self-contained entry type (fi. \Typ{book} or \Typ{proceedings})
+% Does \meta{true} if the current entry is a self-contained entry type (e.\,g. \Typ{book} or \Typ{proceedings})
 % and \meta{false} otherwise.
 %
 % \item[]\DescribeMacro{\ifshortform}\marg{name}\marg{true}\marg{false}\\
@@ -1217,7 +1218,7 @@
 %
 % \subsection{Authors in auction catalogues}
 %
-% The Author of an auction catalogue is always the auctioneer as corporative author (fi. Sotheby's). Named redactors, if available, are secondary editors similar to
+% The Author of an auction catalogue is always the auctioneer as corporative author (e.\,g. Sotheby's). Named redactors, if available, are secondary editors similar to
 % editors of historical sources. In the example the auctioneer \enquote{Hauswedell \& Nolte} is the author and the redactor \enquote{Christian Hesse} is the editor.
 %
 % \subsection{Title addons in collaborative works}
@@ -1238,7 +1239,8 @@
 % they are needed to discriminate ambigous titles. \Datei{biblatex-archaeology-strings-full-subtitle.bib} contains full titles plus subtitles. If you followed the
 % installation instructions from \ref{kap:install}, you can call these databases without path. Appendix \ref{kap:strings} provides a list of availabe strings ordered
 % by string, and \ref{kap:journals} ordered by journal. The strings are namespaced in order to allow the use of other lists alongside, especially those from
-% \Stil{archaeologie}.
+% \Stil{archaeologie}. The strings were automatically generated from an MS Excel data sheet provided by the \Deutsch{Deutsche Gesellschaft f\"ur Ur- und Fr\"ugeschichte}.\footnote{\url{http://www.dguf.de/fileadmin/user_upload/Arbeitskreise/AK_DGUF-Zotero/RGK_Zeitschriften.xls}}
+% If they are ambigous due to modified (sub-)titles there are counted by adding colon and number from the the second onwards.
 %
 % \subsection{Electronic identifiers}
 %
@@ -1297,7 +1299,7 @@
   AUTHOR = {Auler, Jost AND Hiller, Petra},
   TITLE = {Buchweizenpfannkuchen, Maifischfilet und Ziegenkäse},
   SUBTITLE = {Zur Eigenversorgung einer kleinen dörflichen Hofstelle in Stürzelberg im 19. und in der ersten Hälfte des 20. Jahrhunderts},
-  KEYWORDS = {Ernährung, landwirtschaft, Dormagen, Nordrhein-Westfalen, 19. Jahrhundert},
+  KEYWORDS = {Ernährung, Landwirtschaft, Dormagen, Nordrhein-Westfalen, 19. Jahrhundert},
   DATE = {2016},
   PAGES = {30--43},
   JOURNALTITLE = ufg-JbNeuss,
@@ -1832,11 +1834,11 @@
 % \StringBox{\Stark{\texttt{ufg-Aarp}}}{Aarp. Art and Archaeology Research Papers}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-Aarsberetning}}}{Aarsberetning. Foreningen til Norske Fortidsmerkers Bevaring}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-AbhandlAkadWissuLit}}}{Abhandlungen der Akademie der Wissenschaften und der Literatur}\\[1.3ex]
-% \StringBox{\Stark{\texttt{ufg-AbhandlDtAkadWissBerlin}}}{Abhandlungen der \mkbibparens{Königlich} \mkbibparens{Preussischen} Deutschen Akademie der Wissenschaften zu Berlin}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-AbhandlDtAkadWissBerlin}}}{Abhandlungen der Deutschen Akademie der Wissenschaften zu Berlin}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-AbhandlDtAkadWissBerlin:2}}}{Abhandlungen der Preussischen Akademie der Wissenschaften zu Berlin}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-AbhandlDtAkadWissBerlin:3}}}{Abhandlungen der Königlich Preussischen Akademie der Wissenschaften zu Berlin}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-AbhandlHeidelbergerAkadWiss}}}{Abhandlungen der Heidelberger Akademie der Wissenschaften}\\[1.3ex]
-% \StringBox{\Stark{\texttt{ufg-AbhandlKglPreussAkadWissBerlin}}}{Abhandlungen der Königlich Preussischen Akademie der Wissenschaften zu Berlin}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-AbhandlNaturhistGesNuernberg}}}{Abhandlungen der Naturhistorischen Gesellschaft Nürnberg}\\[1.3ex]
-% \StringBox{\Stark{\texttt{ufg-AbhandlPreussAkadWissBerlin}}}{Abhandlungen der Preussischen Akademie der Wissenschaften zu Berlin}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-AbhandlSaechsAkadWissLeipzig}}}{Abhandlungen der Sächsischen Akademie der Wissenschaften zu Leipzig}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-AbstractsBulgarianScienLit}}}{Abstracts of Bulgarian Scientific Literature. History, Archaeology and Ethnography}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-AchborotyAkadFanhoiRRSTocikistan}}}{Achboroty Akademijai Fanhoi RRS Točikistan, Su'bai Fanhou Čam'ijati}\\[1.3ex]
@@ -4000,7 +4002,8 @@
 % \StringBox{\Stark{\texttt{ufg-ReportNatMusIreland}}}{Report on the National Museum of Ireland}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-ReportWorkingMusDepMalta}}}{Report on the Working of the Museum Department}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-RescueArchHampshire}}}{Rescue Archaeology in Hampshire}\\[1.3ex]
-% \StringBox{\Stark{\texttt{ufg-Restauro}}}{Restauro}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-Restauro}}}{Restauro. Zeitschrift für Konservierung und Restaurierung}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-Restauro:2}}}{Restauro. Zeitschrift für Kunsttechniken, Restaurierung und Museumsfragen}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-ResumeesArchSchweiz}}}{Résumées zur Archäologie der Schweiz. Paläolithikum -- Latènezeit}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-ResumeesArchSuisse}}}{Résumées d'Archéologie Suisse. Époque Romaine}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-RevAfricaine}}}{Revue Africaine. Journal des Travaux de la Société Historique Algérien}\\[1.3ex]
@@ -4062,6 +4065,7 @@
 % \StringBox{\Stark{\texttt{ufg-RevSaintongeetAunis}}}{Revue de la Saintonge et de l'Aunis}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-RevSocSavantesHauteNormandie}}}{Revue des Sociétés Savantes de Haute Normandie}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-RevSuisseCatholique}}}{Revue de la Suisse Catholique. Recueil Mensuel Religieux, Historique, Littéraire et Scientifique}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-RheinAusgr}}}{Rheinische Ausgrabungen}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-RheinHeimatbl}}}{Rheinische Heimatblätter}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-RheinHeimatpfl}}}{Rheinische Heimatpflege}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-RheinJahrb}}}{Rheinisches Jahrbuch}\\[1.3ex]
@@ -4182,11 +4186,10 @@
 % \StringBox{\Stark{\texttt{ufg-SitzberAkadWissDDR}}}{Sitzungsberichte der Akademie der Wissenschaften der DDR}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-SitzberAltforschGesPernau}}}{Sitzungsberichte der Altertumsforschenden Gesellschaft zu Pernau}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-SitzberAltgesPrussia}}}{Sitzungsberichte der Altertumsgesellschaft Prussia}\\[1.3ex]
-% \StringBox{\Stark{\texttt{ufg-SitzberBayerAkadWiss}}}{Sitzungsberichte der Bayerischen Akademie der Wissenschaften}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-SitzberDtAkadWissBerlinKlSprachen}}}{Sitzungsberichte der Deutschen Akademie der Wissenschaften zu Berlin. Klasse für Sprachen}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-SitzberGelehrteEstnGes}}}{Sitzungsberichte der Gelehrten Estnischen Gesellschaft}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-SitzberHeidelbergerAkadWiss}}}{Sitzungsberichte der Heidelberger Akademie der Wissenschaften}\\[1.3ex]
-% \StringBox{\Stark{\texttt{ufg-SitzberKglBayerAkadWiss}}}{Sitzungsberichte der \mkbibparens{Königlich} Bayerischen Akademie der Wissenschaften}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-SitzberKglBayerAkadWiss}}}{Sitzungsberichte der Bayerischen Akademie der Wissenschaften}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-SitzberPlenumuKlAkadWissDDR}}}{Sitzungsberichte des Plenums und der Klassen der Akademie der Wissenschaften der DDR}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-SitzberPreussAkadWiss}}}{Sitzungsberichte der Preussischen Akademie der Wissenschaften}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-SitzberSaechsAkadWiss}}}{Sitzungsberichte der Sächsischen Akademie der Wissenschaften}\\[1.3ex]
@@ -4429,11 +4432,11 @@
 % \StringBox{Aarp. Art and Archaeology Research Papers}{\Stark{\texttt{ufg-Aarp}}}\\[1.3ex]
 % \StringBox{Aarsberetning. Foreningen til Norske Fortidsmerkers Bevaring}{\Stark{\texttt{ufg-Aarsberetning}}}\\[1.3ex]
 % \StringBox{Abhandlungen der Akademie der Wissenschaften und der Literatur}{\Stark{\texttt{ufg-AbhandlAkadWissuLit}}}\\[1.3ex]
+% \StringBox{Abhandlungen der Deutschen Akademie der Wissenschaften zu Berlin}{\Stark{\texttt{ufg-AbhandlDtAkadWissBerlin}}}\\[1.3ex]
 % \StringBox{Abhandlungen der Heidelberger Akademie der Wissenschaften}{\Stark{\texttt{ufg-AbhandlHeidelbergerAkadWiss}}}\\[1.3ex]
-% \StringBox{Abhandlungen der Königlich Preussischen Akademie der Wissenschaften zu Berlin}{\Stark{\texttt{ufg-AbhandlKglPreussAkadWissBerlin}}}\\[1.3ex]
-% \StringBox{Abhandlungen der \mkbibparens{Königlich} \mkbibparens{Preussischen} Deutschen Akademie der Wissenschaften zu Berlin}{\Stark{\texttt{ufg-AbhandlDtAkadWissBerlin}}}\\[1.3ex]
+% \StringBox{Abhandlungen der Königlich Preussischen Akademie der Wissenschaften zu Berlin}{\Stark{\texttt{ufg-AbhandlDtAkadWissBerlin:3}}}\\[1.3ex]
 % \StringBox{Abhandlungen der Naturhistorischen Gesellschaft Nürnberg}{\Stark{\texttt{ufg-AbhandlNaturhistGesNuernberg}}}\\[1.3ex]
-% \StringBox{Abhandlungen der Preussischen Akademie der Wissenschaften zu Berlin}{\Stark{\texttt{ufg-AbhandlPreussAkadWissBerlin}}}\\[1.3ex]
+% \StringBox{Abhandlungen der Preussischen Akademie der Wissenschaften zu Berlin}{\Stark{\texttt{ufg-AbhandlDtAkadWissBerlin:2}}}\\[1.3ex]
 % \StringBox{Abhandlungen der Sächsischen Akademie der Wissenschaften zu Leipzig}{\Stark{\texttt{ufg-AbhandlSaechsAkadWissLeipzig}}}\\[1.3ex]
 % \StringBox{Abstracts of Bulgarian Scientific Literature. History, Archaeology and Ethnography}{\Stark{\texttt{ufg-AbstractsBulgarianScienLit}}}\\[1.3ex]
 % \StringBox{Achboroty Akademijai Fanhoi RRS Točikistan, Su'bai Fanhou Čam'ijati}{\Stark{\texttt{ufg-AchborotyAkadFanhoiRRSTocikistan}}}\\[1.3ex]
@@ -6552,7 +6555,8 @@
 % \StringBox{Report on the National Museum of Ireland}{\Stark{\texttt{ufg-ReportNatMusIreland}}}\\[1.3ex]
 % \StringBox{Report on the Working of the Museum Department}{\Stark{\texttt{ufg-ReportWorkingMusDepMalta}}}\\[1.3ex]
 % \StringBox{Rescue Archaeology in Hampshire}{\Stark{\texttt{ufg-RescueArchHampshire}}}\\[1.3ex]
-% \StringBox{Restauro}{\Stark{\texttt{ufg-Restauro}}}\\[1.3ex]
+% \StringBox{Restauro. Zeitschrift für Konservierung und Restaurierung}{\Stark{\texttt{ufg-Restauro}}}\\[1.3ex]
+% \StringBox{Restauro. Zeitschrift für Kunsttechniken, Restaurierung und Museumsfragen}{\Stark{\texttt{ufg-Restauro:2}}}\\[1.3ex]
 % \StringBox{Résumées d'Archéologie Suisse. Époque Romaine}{\Stark{\texttt{ufg-ResumeesArchSuisse}}}\\[1.3ex]
 % \StringBox{Résumées zur Archäologie der Schweiz. Paläolithikum -- Latènezeit}{\Stark{\texttt{ufg-ResumeesArchSchweiz}}}\\[1.3ex]
 % \StringBox{Revista da Faculdade de Letras}{\Stark{\texttt{ufg-RevFacLetras}}}\\[1.3ex]
@@ -6613,6 +6617,7 @@
 % \StringBox{Revue Périodique de Vulgarisation des Sciences Naturelles et Historiques de \mkbibquote{La Physiophile}}{\Stark{\texttt{ufg-RevPeriodiqueVulgarisationLaPhysiophile}}}\\[1.3ex]
 % \StringBox{Revue Préhistorique Illustrée de l'Est de France}{\Stark{\texttt{ufg-RevPrehistIllustrEstFrance}}}\\[1.3ex]
 % \StringBox{Revue Roumaine d'Histoire}{\Stark{\texttt{ufg-RevRoumaineHist}}}\\[1.3ex]
+% \StringBox{Rheinische Ausgrabungen}{\Stark{\texttt{ufg-RheinAusgr}}}\\[1.3ex]
 % \StringBox{Rheinische Heimatblätter}{\Stark{\texttt{ufg-RheinHeimatbl}}}\\[1.3ex]
 % \StringBox{Rheinische Heimatpflege}{\Stark{\texttt{ufg-RheinHeimatpfl}}}\\[1.3ex]
 % \StringBox{Rheinische Vierteljahrsblätter. Mitteilungen des Instituts für Geschichtliche Landeskunde der Rheinlande an der Universität Bonn}{\Stark{\texttt{ufg-RheinVierteljahrsbl}}}\\[1.3ex]
@@ -6729,11 +6734,10 @@
 % \StringBox{Sitzungsberichte der Akademie der Wissenschaften der DDR}{\Stark{\texttt{ufg-SitzberAkadWissDDR}}}\\[1.3ex]
 % \StringBox{Sitzungsberichte der Altertumsforschenden Gesellschaft zu Pernau}{\Stark{\texttt{ufg-SitzberAltforschGesPernau}}}\\[1.3ex]
 % \StringBox{Sitzungsberichte der Altertumsgesellschaft Prussia}{\Stark{\texttt{ufg-SitzberAltgesPrussia}}}\\[1.3ex]
-% \StringBox{Sitzungsberichte der Bayerischen Akademie der Wissenschaften}{\Stark{\texttt{ufg-SitzberBayerAkadWiss}}}\\[1.3ex]
+% \StringBox{Sitzungsberichte der Bayerischen Akademie der Wissenschaften}{\Stark{\texttt{ufg-SitzberKglBayerAkadWiss}}}\\[1.3ex]
 % \StringBox{Sitzungsberichte der Deutschen Akademie der Wissenschaften zu Berlin. Klasse für Sprachen}{\Stark{\texttt{ufg-SitzberDtAkadWissBerlinKlSprachen}}}\\[1.3ex]
 % \StringBox{Sitzungsberichte der Gelehrten Estnischen Gesellschaft}{\Stark{\texttt{ufg-SitzberGelehrteEstnGes}}}\\[1.3ex]
 % \StringBox{Sitzungsberichte der Heidelberger Akademie der Wissenschaften}{\Stark{\texttt{ufg-SitzberHeidelbergerAkadWiss}}}\\[1.3ex]
-% \StringBox{Sitzungsberichte der \mkbibparens{Königlich} Bayerischen Akademie der Wissenschaften}{\Stark{\texttt{ufg-SitzberKglBayerAkadWiss}}}\\[1.3ex]
 % \StringBox{Sitzungsberichte der Preussischen Akademie der Wissenschaften}{\Stark{\texttt{ufg-SitzberPreussAkadWiss}}}\\[1.3ex]
 % \StringBox{Sitzungsberichte der Sächsischen Akademie der Wissenschaften}{\Stark{\texttt{ufg-SitzberSaechsAkadWiss}}}\\[1.3ex]
 % \StringBox{Sitzungsberichte des Plenums und der Klassen der Akademie der Wissenschaften der DDR}{\Stark{\texttt{ufg-SitzberPlenumuKlAkadWissDDR}}}\\[1.3ex]
@@ -7357,7 +7361,7 @@
 %
 %    \begin{macrocode}
 \ProvidesPackage{biblatex-archaeology}
-[2017/05/26 v1.1 biblatex-archaeology (Ingram Braun) based on biblatex]
+[2017/05/27 v1.1 biblatex-archaeology (Ingram Braun) based on biblatex]
 \RequirePackage{xpatch}
 %    \end{macrocode}
 % Basic settings
@@ -7480,7 +7484,7 @@
             ]
         }
 %    \end{macrocode}
-% If there are words (fi. \enquote{revised}) in field \Feld{edition}, we extract the number.
+% If there are words (e.\,g. \enquote{revised}) in field \Feld{edition}, we extract the number.
 %    \begin{macrocode}
         \map[overwrite]{
             \step[
@@ -8258,8 +8262,9 @@
 % \end{macro}
 %
 % \begin{bibmacro}{festschrift}
-% \marg{title$\|$booktitle$\|$maintitle}
-% Formatting of the festschrift string.
+% \marg{string}
+% Formatting of the festschrift string. \meta{string} should be \Feld{title},
+% \Feld{maintitle} or \Feld{booktitle}.
 %    \begin{macrocode}
 \newbibmacro*{festschrift}[1]{%
     \printtext[#1note]{%
@@ -8291,8 +8296,9 @@
 % \end{bibmacro}
 %
 % \begin{bibmacro}{auction}
-% \marg{title|booktitle|maintitle}
-% Formatting of an event with {fullevendate}.
+% \marg{string}
+% Formatting of an event with {fullevendate}. \meta{string} should be \Feld{title},
+% \Feld{maintitle} or \Feld{booktitle}.
 %    \begin{macrocode}
 \newbibmacro*{auction}[1]{%
     \printtext[#1note]{%
@@ -8315,8 +8321,9 @@
 % \end{bibmacro}
 %
 % \begin{bibmacro}{exhibition/conference}
-% \marg{title|booktitle|maintitle}
-% Formatting of an event with {fullevendate}.
+% \marg{string}
+% Formatting of an event with {fullevendate}. \meta{string} should be \Feld{title},
+% \Feld{maintitle} or \Feld{booktitle}.
 %    \begin{macrocode}
 \newbibmacro*{exhibition/conference}[1]{%
     \printtext[#1note]{%
@@ -8400,10 +8407,11 @@
 % \end{format}
 %
 % \begin{bibmacro}{titlenote}
-% \marg{title|booktitle|maintitle}
+% \marg{string}
 % Prints a title note. The \Befehl{printrext} command must be inside
 % the conditions, otherwise a lot of empty brackets are printed.
-% \Format{issue+date} was overwritten in author date styles
+% \Format{issue+date} was overwritten in author date styles. \meta{string} should be \Feld{title},
+% \Feld{maintitle} or \Feld{booktitle}.
 %    \begin{macrocode}
 \newbibmacro*{titlenote}[1]{%
     \iftoggle{archbool:titlenote}
@@ -9115,11 +9123,10 @@
 %    \end{macrocode}
 % \end{format}
 %
-%
 % \begin{bibmacro}{note+pages}
 % Append \Feld{location}.
 %    \begin{macrocode}
-\xapptobibmacro{note+pages}{%}
+\xapptobibmacro{note+pages}{%
     \iftoggle{archbool:journallocation}
         {\newunit%
          \usebibmacro{location}{location}}
@@ -10649,7 +10656,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-archaeology.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeobibstyletitle}
@@ -10669,7 +10676,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-comp-archaeology.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -10689,7 +10696,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-ibid-archaeology.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -10710,7 +10717,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-icomp-archaeology.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Datei{biblatex-archaeology.sty} always after a style.
@@ -10801,7 +10808,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-ibid-archaeology.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)] 
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -10822,7 +10829,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-trad2note-archaeology.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)] 
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -10884,7 +10891,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{aefkw.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -11063,7 +11070,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{afwl.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -11280,7 +11287,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{amit.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -11463,7 +11470,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{archa.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -11691,7 +11698,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -11883,7 +11890,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-alt.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)] 
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12087,7 +12094,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-apa.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)] 
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12459,7 +12466,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12638,7 +12645,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz-alt.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12899,7 +12906,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{foe.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -13152,7 +13159,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-halle.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -13391,7 +13398,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-kreis-neuss.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -13613,7 +13620,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{karl.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -13775,7 +13782,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{maja.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -13971,7 +13978,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{mpk.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -14199,7 +14206,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{nnu.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -14430,7 +14437,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{offa.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14617,7 +14624,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-verbose.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14647,7 +14654,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-inline.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14890,7 +14897,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-verbose.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14920,7 +14927,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-inline.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15161,7 +15168,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-verbose.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15191,7 +15198,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-inline.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15429,7 +15436,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{volkskunde.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -15598,7 +15605,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{zaak.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % \begin{format}{bibtex}
@@ -15837,7 +15844,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{zaes.bbx}
-[2017/05/26 v1.1 biblatex-archaeology bibliography style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16062,7 +16069,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-archaeology.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -16082,7 +16089,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-comp-archaeology.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -16122,7 +16129,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-icomp-archaeology.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -16140,7 +16147,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-ibid-archaeology.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -16160,7 +16167,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-trad2note-archaeology.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -16321,7 +16328,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{aefkw.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16341,7 +16348,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{afwl.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16365,7 +16372,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{amit.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16395,7 +16402,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{archa.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16425,7 +16432,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16445,7 +16452,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-alt.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16464,7 +16471,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-apa.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16510,7 +16517,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16536,7 +16543,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz-alt.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16556,7 +16563,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{foe.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16580,7 +16587,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-halle.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16600,7 +16607,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-kreis-neuss.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16627,7 +16634,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{karl.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16651,7 +16658,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{maja.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16671,7 +16678,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{mpk.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16709,7 +16716,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{nnu.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16729,7 +16736,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{offa.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16749,7 +16756,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-inline.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16769,7 +16776,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-verbose.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16822,7 +16829,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-inline.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16842,7 +16849,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-verbose.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16868,7 +16875,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-verbose.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16894,7 +16901,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-inline.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16914,7 +16921,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{volkskunde.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16947,7 +16954,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{zaak.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16967,7 +16974,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{zaes.cbx}
-[2017/05/26 v1.1 biblatex-archaeology citation style (IB)]
+[2017/05/27 v1.1 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17172,7 +17179,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{english-archaeology.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % Use this file for all English spellings
@@ -17289,7 +17296,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{german-archaeology.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % Use this file for all German spellings
@@ -17418,7 +17425,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{aefkw-english.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{nodate}
@@ -17439,7 +17446,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{zaas-german.lbx}
-[2017/05/26 v1.1 biblatex-archaeology (Ingram Braun) based on biblatex]
+[2017/05/27 v1.1 biblatex-archaeology (Ingram Braun) based on biblatex]
 %    \end{macrocode}
 %
 % \begin{localization}{byeditor}
@@ -17565,7 +17572,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{archa-english.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{urlseen}
@@ -17586,7 +17593,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{archa-german.lbx}
-[2017/05/26 v1.1 biblatex-archaeology (Ingram Braun) based on biblatex]
+[2017/05/27 v1.1 biblatex-archaeology (Ingram Braun) based on biblatex]
 %    \end{macrocode}
 %
 % \begin{localization}{andothers}
@@ -17610,7 +17617,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-alt-german.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{andothers}
@@ -17649,7 +17656,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-apa-english.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17683,7 +17690,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz-english.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{subverbum}
@@ -17704,7 +17711,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz-german.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{subverbum}
@@ -17725,7 +17732,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{foe-english.lbx}
-[2017/05/26 v1.1 biblatex-archaeology (Ingram Braun) based on biblatex]
+[2017/05/27 v1.1 biblatex-archaeology (Ingram Braun) based on biblatex]
 %    \end{macrocode}
 %
 % \begin{localization}{urlseen}
@@ -17754,7 +17761,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{foe-german.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{urlseen}
@@ -17783,7 +17790,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-kreis-neuss-german.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{ibidem}
@@ -17807,7 +17814,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{karl-german.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{reprint}
@@ -17831,7 +17838,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{zaas-german.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{byeditor}
@@ -17954,7 +17961,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{mpk-english.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{urlseen}
@@ -17975,7 +17982,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{mpk-german.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{andothers}
@@ -17999,7 +18006,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{offa-english.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{urlfrom}
@@ -18022,7 +18029,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{offa-german.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{page}
@@ -18049,7 +18056,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-german.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{ibidem}
@@ -18091,7 +18098,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{zaak-english.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{urlfrom}
@@ -18112,7 +18119,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{zaak- german.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{page}
@@ -18139,7 +18146,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{zaes-english.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{ibidem}
@@ -18160,7 +18167,7 @@ plate,
 %
 %    \begin{macrocode}
 \ProvidesFile{zaes-german.lbx}
-[2017/05/26 v1.1 biblatex-archaeology localization (IB)]
+[2017/05/27 v1.1 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{byeditor}
@@ -18515,7 +18522,7 @@ plate,
 %<*DBX>
 %
 %    \begin{macrocode}
-[2017/05/26 v1.1 biblatex-archaeology data model (IB)]
+[2017/05/27 v1.1 biblatex-archaeology data model (IB)]
 %    \end{macrocode}
 %
 % \subsubsubsection{Subserieses}
