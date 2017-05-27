@@ -151,7 +151,7 @@ else {
 }
 
 remove_intermediary_files();
-remove( '*-example.*' ); # deleting PDFs in the above loop destroys the archive!
+remove( '*-example.pdf' ); # deleting PDFs in the above loop destroys the archive!
     
 
 
