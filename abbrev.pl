@@ -228,7 +228,7 @@ sub clean_cell {
     $string =~ s/Null/Num/g;
     $string =~ s/Bibi/Bibl/g;
     $string =~ s/\(Königlich\)\s+\(Preussischen\)\s+//;
-    $string =~ s/\(Königlich\) Bayerischen\s+/Königlich Bayerischen/;
+    $string =~ s/\(Königlich\) Bayerischen\s+/Königlich Bayerischen /;
     $string =~ s/(?<=Arch)öo/äo/gi;
     $string =~ s/^Aanteekeningen van het Verhandeide in de Sectie-Vergaderingen van het Provinciaal Utrechtsch Genootschap van Künsten en Wetenschappen.+$/Aanteekeningen van het Verhandelde in de Sectie-Vergaderingen van het Provinciaal Utrechtsch Genootschap van Künsten en Wetenschappen/g;
     $string =~ s/deJette et des A\.S\. B\.L\./de Jette et des A. S. B. L./g;
