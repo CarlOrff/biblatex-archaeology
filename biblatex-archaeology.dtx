@@ -1258,6 +1258,22 @@
 %
 % \archbib prints only one electronic identifier: first try \Feld{doi}, then try \Feld{eprint} and then try \Feld{url}.
 %
+% \subsection{Publishers and ISBNs}
+%
+% \archbib styles rarely use the \Feld{publisher} or \Feld{origpublisher} fields and never the \Feld{isbn} field. But in some
+% cases it proves useful to know wether they are available, e.\,g. in order to check wether a \Typ{thesis} was published or not.
+% Therefore always provide these data even if you do not expect to print them.
+%
+% \subsection{The \Feld{language} field}
+%
+% \archbib styles never print languages. But in some cases the \Feld{language} field influences the localization of a particular entry.
+% Therefore it is useful to provide it, especially if it differs from the main document language.
+%
+% \subsection{The \Feld{gender} field}
+%
+% In German documents the \Feld{gender} field is needed if the style replaces repeated names by \Deutsch{ders[elbe]},
+% \Deutsch{dies[elbe(n)]} or \Deutsch{dass[elbe]}.
+%
 % \PrintChanges
 % \nocite{guidelines:ethno:ffm,guidelines:ethno:goe:2014,guidelines:aaa:2009,guidelines:rlm:trier,guidelines:kunstgeschichte:goettingen,guidelines:kunstgeschichte:freiburg,guidelines:aja,guidelines:schlagworte:dai,guidelines:egypt:goe}
 % \printbibliography[heading=bibintoc,title=References]
@@ -2687,6 +2703,7 @@
 % \StringBox{\Stark{\texttt{ufg-Caissa}}}{Caissa. Zeitschrift für Schach-und Brettspielgeschichte}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-Camosine}}}{Camosine}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-CampagneSocMagnaGrecia}}}{Campagne della Società Magna Grecia}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-CanadianHistSites}}}{Canadian Historic Sites. Occasional Papers in Archaeology and History}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-CarinthiaI}}}{Carinthia I. Zeitschrift für Geschichtliche Landeskunde von Kärnten}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-Carniola}}}{Carniola. Izvestja Muzejskega Društva za Kranjsko}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-CarnuntumJahrb}}}{Carnuntum-Jahrbuch}\\[1.3ex]
@@ -3088,6 +3105,7 @@
 % \StringBox{\Stark{\texttt{ufg-InstArchBull}}}{Institute of Archaeology Bulletin}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-Interim}}}{Interim. Bulletin of the York Archaeological Trust}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-InternatBibliogrHistScien}}}{International Bibliography of Historical Sciences}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-InternatJournalHistArch}}}{International Journal of Historical Archaeology}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-InternatJournalNauticalArch}}}{The International Journal of Nautical Archaeology and Underwater Exploration}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-InterNord}}}{Inter Nord. Revue Internationale d'Études Arctiques et Nordiques}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-InvestigacionyProgreso}}}{Investigación y Progreso}\\[1.3ex]
@@ -3484,6 +3502,8 @@
 % \StringBox{\Stark{\texttt{ufg-MededelNederlandInstRome}}}{Mededelingen van het Nederlands Instituut te Rome}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-MediaevalScandinavia}}}{Mediaeval Scandinavia}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-MedievalArch}}}{Medieval Archaeology. Journal of the Society for Medieval Archaeology}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-MediumAevumQuotidianum}}}{Medium Aevum Quotidianum}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-MediumAevumQuotidianumSonderbd}}}{Medium Aevum Quotidianum Sonderband}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-MeinHeimatland}}}{Mein Heimatland. Badische Blätter für Volkskunde, Heimat-und Naturschutz, Denkmalpflege, Familienforschung und Kunst}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-MelArchetHist}}}{Mélanges d'Archéologie et d'Histoire}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-MelCarthage}}}{Mélanges de Carthage}\\[1.3ex]
@@ -4255,6 +4275,7 @@
 % \StringBox{\Stark{\texttt{ufg-StudAlbanica}}}{Studia Albanica}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-StudAnt}}}{Studi di Antichità}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-StudArch}}}{Studia Archeologiczne}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-StudarchmediaerecentisqueaevorumUnivScien}}}{Studia archaeologica mediae recentisque aevorum Universitatis Scientiarum de Rolando Eötvös nominatae}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-StudClas}}}{Studii Clasice}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-StudComitatensia}}}{Studia Comitatensia. Tanulmányok Pest Megye Múzeumaiból}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-StudEblaiti}}}{Studi Eblaiti. Missione Archeologica Italiana in Siria}\\[1.3ex]
@@ -4417,7 +4438,8 @@
 % \StringBox{\Stark{\texttt{ufg-Urbs}}}{Urbs}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-UrgeschAnz}}}{Urgeschichtlicher Anzeiger. Internationale Kritische Zeitschrift für das Gesamtgebiet der Prähistorischen Forschung}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-UrgeschuHeimatforsch}}}{Urgeschichte und Heimatforschung}\\[1.3ex]
-% \StringBox{\Stark{\texttt{ufg-UrSchweiz}}}{Ur-Schweiz}
+% \StringBox{\Stark{\texttt{ufg-UrSchweiz}}}{Ur-Schweiz}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-ZilloMedieval}}}{Zillo Medieval}
 %
 % \subsection{Sorted by journal or series}\label{kap:journals}
 %
@@ -5239,6 +5261,7 @@
 % \StringBox{Caissa. Zeitschrift für Schach-und Brettspielgeschichte}{\Stark{\texttt{ufg-Caissa}}}\\[1.3ex]
 % \StringBox{Camosine}{\Stark{\texttt{ufg-Camosine}}}\\[1.3ex]
 % \StringBox{Campagne della Società Magna Grecia}{\Stark{\texttt{ufg-CampagneSocMagnaGrecia}}}\\[1.3ex]
+% \StringBox{Canadian Historic Sites. Occasional Papers in Archaeology and History}{\Stark{\texttt{ufg-CanadianHistSites}}}\\[1.3ex]
 % \StringBox{Carinthia I. Zeitschrift für Geschichtliche Landeskunde von Kärnten}{\Stark{\texttt{ufg-CarinthiaI}}}\\[1.3ex]
 % \StringBox{Carniola. Izvestja Muzejskega Društva za Kranjsko}{\Stark{\texttt{ufg-Carniola}}}\\[1.3ex]
 % \StringBox{Carnuntum-Jahrbuch}{\Stark{\texttt{ufg-CarnuntumJahrb}}}\\[1.3ex]
@@ -5665,6 +5688,7 @@
 % \StringBox{Inter Nord. Revue Internationale d'Études Arctiques et Nordiques}{\Stark{\texttt{ufg-InterNord}}}\\[1.3ex]
 % \StringBox{Interim. Bulletin of the York Archaeological Trust}{\Stark{\texttt{ufg-Interim}}}\\[1.3ex]
 % \StringBox{International Bibliography of Historical Sciences}{\Stark{\texttt{ufg-InternatBibliogrHistScien}}}\\[1.3ex]
+% \StringBox{International Journal of Historical Archaeology}{\Stark{\texttt{ufg-InternatJournalHistArch}}}\\[1.3ex]
 % \StringBox{Investigación y Progreso}{\Stark{\texttt{ufg-InvestigacionyProgreso}}}\\[1.3ex]
 % \StringBox{Ipek. Jahrbuch für Prähistorische und Ethnographische Kunst}{\Stark{\texttt{ufg-Ipek}}}\\[1.3ex]
 % \StringBox{Iran. Journal of the British Institute of Persian Studies}{\Stark{\texttt{ufg-Iran}}}\\[1.3ex]
@@ -6058,6 +6082,8 @@
 % \StringBox{Mededelingen van het Nederlands Instituut te Rome}{\Stark{\texttt{ufg-MededelNederlandInstRome}}}\\[1.3ex]
 % \StringBox{Mediaeval Scandinavia}{\Stark{\texttt{ufg-MediaevalScandinavia}}}\\[1.3ex]
 % \StringBox{Medieval Archaeology. Journal of the Society for Medieval Archaeology}{\Stark{\texttt{ufg-MedievalArch}}}\\[1.3ex]
+% \StringBox{Medium Aevum Quotidianum}{\Stark{\texttt{ufg-MediumAevumQuotidianum}}}\\[1.3ex]
+% \StringBox{Medium Aevum Quotidianum Sonderband}{\Stark{\texttt{ufg-MediumAevumQuotidianumSonderbd}}}\\[1.3ex]
 % \StringBox{Mein Heimatland. Badische Blätter für Volkskunde, Heimat-und Naturschutz, Denkmalpflege, Familienforschung und Kunst}{\Stark{\texttt{ufg-MeinHeimatland}}}\\[1.3ex]
 % \StringBox{Mélanges d'Archéologie et d'Histoire}{\Stark{\texttt{ufg-MelArchetHist}}}\\[1.3ex]
 % \StringBox{Mélanges de Carthage}{\Stark{\texttt{ufg-MelCarthage}}}\\[1.3ex]
@@ -6808,6 +6834,7 @@
 % \StringBox{Studi Sardi}{\Stark{\texttt{ufg-StudSardi}}}\\[1.3ex]
 % \StringBox{Studi Trentini di Scienze Storiche. Sezione II}{\Stark{\texttt{ufg-StudTrentiniScienStor}}}\\[1.3ex]
 % \StringBox{Studia Albanica}{\Stark{\texttt{ufg-StudAlbanica}}}\\[1.3ex]
+% \StringBox{Studia archaeologica mediae recentisque aevorum Universitatis Scientiarum de Rolando Eötvös nominatae}{\Stark{\texttt{ufg-StudarchmediaerecentisqueaevorumUnivScien}}}\\[1.3ex]
 % \StringBox{Studia Archeologiczne}{\Stark{\texttt{ufg-StudArch}}}\\[1.3ex]
 % \StringBox{Studia Comitatensia. Tanulmányok Pest Megye Múzeumaiból}{\Stark{\texttt{ufg-StudComitatensia}}}\\[1.3ex]
 % \StringBox{Studia Historica Slovaca}{\Stark{\texttt{ufg-StudHistSlovaca}}}\\[1.3ex]
@@ -6998,7 +7025,8 @@
 % \StringBox{Urbs}{\Stark{\texttt{ufg-Urbs}}}\\[1.3ex]
 % \StringBox{Urgeschichte und Heimatforschung}{\Stark{\texttt{ufg-UrgeschuHeimatforsch}}}\\[1.3ex]
 % \StringBox{Urgeschichtlicher Anzeiger. Internationale Kritische Zeitschrift für das Gesamtgebiet der Prähistorischen Forschung}{\Stark{\texttt{ufg-UrgeschAnz}}}\\[1.3ex]
-% \StringBox{Ur-Schweiz}{\Stark{\texttt{ufg-UrSchweiz}}}
+% \StringBox{Ur-Schweiz}{\Stark{\texttt{ufg-UrSchweiz}}}\\[1.3ex]
+% \StringBox{Zillo Medieval}{\Stark{\texttt{ufg-ZilloMedieval}}}
 %
 % \section{Implementation}
 %
@@ -7565,8 +7593,7 @@
 % \end{format}
 % \end{format}
 % \end{format}
-% \end{format} 
-%
+% \end{format}
 % \subsubsubsection{Labels on left margin}
 %
 % \begin{macro}{\labelnamedatewidth}
@@ -8076,6 +8103,9 @@
 % Code at the beginning of an entry.
 %    \begin{macrocode}
 \renewbibmacro*{begentry}{%
+%    \end{macrocode}
+% Clear series fields if \Option{noseries} option is enabled.
+%    \begin{macrocode}
     \ifboolexpr{
         togl {archbool:noseries}
         and
@@ -8086,6 +8116,9 @@
          \clearfield{shortseries}%
          \clearfield{shortsubseries}}
         {}%
+%    \end{macrocode}
+% Use \Feld{shortform} as \Feld{title} if \Option{shortform} option is enabled.
+%    \begin{macrocode}
     \ifboolexpr{
         test {\ifshortform{title}}
         and
@@ -8137,16 +8170,21 @@
         {}
         {\clearfield{url}\clearfield{urlyear}}%
 %    \end{macrocode}
-% Remove field \Feld{publisher}. It may be restored by an \Feld{institution} later.
+% Remove \Feld{publisher} and \Feld{origpublisher} fields if \Option{usepublisher} option is disabled. It may be restored
+% by an \Feld{institution} later. But we keep a \Feld{publisher} copy in \Feld{lista} for independent checks.
 %    \begin{macrocode}
+    \iflistundef{publisher}
+        {\clearlist{lista}}
+        {\savelist{publisher}{\blxarch@field@publisher}%
+        \restorelist{lista}{\blxarch@field@publisher}}%
     \iftoggle{archbool:usepublisher}
         {}
         {\clearlist{publisher}%
          \clearlist{origpublisher}}%
-    \ifeditionsuperscript{none}
 %    \end{macrocode}
-% Superscript editions use \Feld{usere}.
-%    \begin{macrocode}   
+% Superscript editions use field \Feld{usere}.
+%    \begin{macrocode}  
+    \ifeditionsuperscript{none}
         {\clearfield{usere}}
         {\savefield{edition}{\blxarch@field@edition}%
         \clearfield{edition}%
@@ -8176,6 +8214,10 @@
          \clearfield{maintitlenote}%
         }
         {}%
+%    \end{macrocode}   
+% Restore \Feld{journaltitle} by \Feld{shortjournal} if \Feld{shortjournal} option enabled.
+% Field \Feld{journalsubtitle} is superfluous in this case.
+%    \begin{macrocode}
     \ifboolexpr{
         togl {archbool:shortjournal} 
         and
@@ -8185,11 +8227,17 @@
          \restorefield{journaltitle}{\blxarch@field@shortjournal}%
          \clearfield{journalsubtitle}}
         {}%
+%    \end{macrocode}   
+% Delete \Feld{subseries} and \Feld{shortsubseries} fields if not needed.
+%    \begin{macrocode}
     \iftoggle{archbool:subseries}
         {}
         {\clearfield{subseries}%
          \clearfield{subnumber}%
          \clearfield{shortsubseries}}%
+%    \end{macrocode}   
+% Restore \Feld{series} and \Feld{subseries} by \Feld{shortseries} and \Feld{shortsubseries} if \Feld{shortseries} option enabled.
+%    \begin{macrocode}
     \ifboolexpr{
         togl {archbool:shortseries}
         and
@@ -8203,6 +8251,9 @@
             \restorefield{subseries}{\blxarch@field@shortsubseries}}%
         }
         {}%
+%    \end{macrocode}   
+% Do name formatting for repeated labels.
+%    \begin{macrocode}
     \ifrepeatlabel
         {\usebibmacro{repeatlabel}\repeatlabeldelim}
         {}%
@@ -9640,6 +9691,8 @@
 % \end{bibmacro}
 %
 % \begin{bibmacro}{thesistype}
+% Mark thesis as unpublished if none of fields \Feld{url}, \Feld{eprint}, \Feld{doi}, publisher (\Feld{lista}), \Feld{series}
+% and \Feld{isbn} available and option \Option{useunpublishedthesis} is enabled.
 %    \begin{macrocode}
 \newbibmacro*{thesistype}{%
     \ifboolexpr{
@@ -9648,6 +9701,14 @@
         test {\iffieldundef{url}}
         and
         test {\iffieldundef{eprint}}
+        and
+        test {\iffieldundef{doi}}
+        and
+        test {\iffieldundef{series}}
+        and
+        test {\iffieldundef{isbn}}
+        and
+        test {\iflistundef{lista}}
         and
         test {\ifbibxstring{unpublished\thefield{type}}}
     }
