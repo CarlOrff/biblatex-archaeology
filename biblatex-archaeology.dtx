@@ -13482,7 +13482,7 @@
     shortform=false,
     shortjournal=false,
     shortseries=false,
-    subseries=true,
+    subseries=false,
     summarytitle=false,
     tabbedlabeldate=false,
     titlebrackets=false,
@@ -13713,6 +13713,7 @@
     useunpublishedthesis=false,
     usesourceeditor=true,
     volumeafterseries=false,
+
 }
 %    \end{macrocode}
 %
@@ -16643,6 +16644,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{citepages=separate}
+%    \end{macrocode}
+%
 % \begin{macro}{\multicitedelim}
 % Delimiter beween multiple citations.
 %    \begin{macrocode}
@@ -17425,6 +17430,7 @@ plate,
     nodate           = {{ohne\space Jahr}{o.\space J\adddot}},
     compiler         = {{Zusammensteller}{Zus\adddot}},
     compilers        = {{Zusammensteller}{Zus\adddot}},
+    inpreparation    = {{in Vorbereitung}{in Vorb.}},
     magisterthesis   = {{Magisterarbeit}{MA.-Arb.}},
     mathesis         = {{Masterarbeit}{MA.-Arb.}},
     reprint          = {{Reprint}{Reprint}},
