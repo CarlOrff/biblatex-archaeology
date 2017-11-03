@@ -532,7 +532,7 @@
 % If \meta{true}, the \Feld{summarytitle} field is used. See kap:fields for details.
 %
 % \item[]\DescribeOption{tabbedlabeldate}=\meta{bool}\\
-% If \meta{true}, the label date is written into an extra column. This works in author date styles only.
+% If \meta{true}, the label date is written into an extra column. This works with author date styles only.
 % \Beispiel{%
 %   \begin{tabular}{l}
 %       \Kbd{\textbackslash usepackage[tabbedlabeldate=true,style=xyz]\{biblatex\}}\\
@@ -7409,6 +7409,7 @@
 % Basic settings
 %    \begin{macrocode}
 \RequireBiber[3]
+%\DeclareLanguageMappingSuffix{-archaeology}
 \DeclareLanguageMapping{german}{german-archaeology}
 \DeclareLanguageMapping{english}{english-archaeology}
 \ExecuteBibliographyOptions{
@@ -7643,7 +7644,7 @@
 % \begin{format}{lnyvt}
 % Sorting with \Option{repeatlabel}\Kbd{=true} needs an extended sorting scheme.
 %    \begin{macrocode}
-\DeclareSortingScheme{lnyvt}{
+\DeclareSortingTemplate{lnyvt}{
   \sort{
     \field{presort}
   }
@@ -7667,12 +7668,8 @@
     \field{year}
   }
   \sort{
-    \field[padside=left,padwidth=4,padchar=0]{volume}
-    \literal{0000}
-  }
-  \sort{
-    \field{sorttitle}
-    \field{title}
+    \field{volume}
+    \literal{0}
   }
 }
 %    \end{macrocode}
@@ -10273,7 +10270,7 @@
         {\printtext{%
             \bibstring{idem\thefield{gender}}}}
         {\usebibmacro{sortnamelist}{author}}}{}{}
-\xpatchbibmacro{author}{\usebibmacro{date+extrayear}}{\usebibmacro{labeldate+edition}}{}{}
+\xpatchbibmacro{author}{\usebibmacro{date+extradate}}{\usebibmacro{labeldate+edition}}{}{}
 \xpatchbibmacro{editor}{\addcomma\space}{\nametypedelim}{}{}
 \xpatchbibmacro{translator}{\addcomma\space}{\nametypedelim}{}{}
 \xpatchbibmacro{bbx:editor}{\printnames{editor}}{%
@@ -10288,8 +10285,8 @@
         {\usebibmacro{sortnamelist}{translator}}}{}{}
 \xpatchbibmacro{bbx:editor}{\addcomma\space}{\nametypedelim}{}{}
 \xpatchbibmacro{bbx:translator}{\addcomma\space}{\nametypedelim}{}{}
-\xpatchbibmacro{bbx:editor}{\usebibmacro{date+extrayear}}{\usebibmacro{labeldate+edition}}{}{}
-\xpatchbibmacro{bbx:translator}{\usebibmacro{date+extrayear}}{\usebibmacro{labeldate+edition}}{}{}
+\xpatchbibmacro{bbx:editor}{\usebibmacro{date+extradate}}{\usebibmacro{labeldate+edition}}{}{}
+\xpatchbibmacro{bbx:translator}{\usebibmacro{date+extradate}}{\usebibmacro{labeldate+edition}}{}{}
 %    \end{macrocode}
 % \end{bibmacro}
 % \end{bibmacro}
@@ -13644,6 +13641,13 @@
 %    \end{macrocode}
 % \end{format}
 %
+% \begin{format}{volume}
+%    \begin{macrocode}
+\DeclareFieldFormat*{volume}{\addcomma\addspace\bibstring{volume}\addspace#1}
+\DeclareFieldFormat[article,periodical,review,suppperiodical]{volume}{#1}
+%    \end{macrocode}
+% \end{format}
+%
 % \begin{format}{number}
 %    \begin{macrocode}
 \DeclareFieldFormat*{number}{\bibstring{volume}\addspace#1}
@@ -13689,12 +13693,15 @@
 \DeclareFieldFormat*{pages}{%
     \ifpages{#1}
         {\ifnumequal{1}{\rangelen{pages}}
-            {\pno~\mkfirstpage{#1}\psq}
-            {\ppno~#1}%
-        }
+            {\pno~#1}
+            {\ifnumequal{2}{\rangelen{pages}}
+                {\ppno~\mkfirstpage{#1}\psq}
+                {\ppno~#1}%
+            }}
         {#1}%
 }
 %    \end{macrocode}
+% \changes{1.3}{2017/08/15}{\Befehl{rangelen} error fixed.}
 % \end{format}
 %
 %</jbkreisneussBBX>
@@ -17174,12 +17181,15 @@
 \DeclareFieldFormat*{pages}{%
     \ifpages{#1}
         {\ifnumequal{1}{\rangelen{pages}}
-            {\mkfirstpage{#1}\psq}
-            {\mkfirstpage{#1}\psqq}%
-        }
+            {#1}
+            {\ifnumequal{2}{\rangelen{pages}}
+                {\mkfirstpage{#1}\psq}
+                {\mkfirstpage{#1}\psqq}%
+            }}
         {#1}%
 }
 %    \end{macrocode}
+% \changes{1.3}{2017/08/15}{\Befehl{rangelen} error fixed.}
 % \end{format}
 %
 %</sequentes>
