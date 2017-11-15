@@ -145,7 +145,7 @@
     pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7},
     pdflicenseurl = {http://www.latex-project.org/lppl.txt},
     pdftype=Software,
-    pdftitle={The biblatex-archaeology styles [v1.2]},
+    pdftitle={The biblatex-archaeology styles [v1.3]},
     baseurl={http://mirror.ctan.org/macros/latex/contrib/biblatex-contrib/biblatex-archaeology}
 }
 \EnableCrossrefs
@@ -178,7 +178,9 @@
 % \changes{1.1}{2017/04/20}{Spelling errors and grammar in documentation fixed}
 % \changes{1.1}{2017/05/26}{Generate \Kbd{.bib} databases from \Kbd{.dtx} (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/4}{issue \#4})}
 % \changes{1.1}{2017/05/27}{Multiple strings with same shorthand allowed (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/2}{issue \#2})}
-% \changes{1.2}{2017/06/06}{Corrupted Kbd{.ins} file fixed.}
+% \changes{1.2}{2017/06/06}{Corrupted \Kbd{.ins} file fixed.}
+% \changes{1.3}{2017/11/14}{Fixed incompatible changes of \blx v3.8 (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/7}{issue \#7})}
+% \changes{1.3}{2017/11/14}{Renamed style-specific \Kbd{.lbx} files in order to fit to \blx' new \Befehl{DeclareLanguageMappingSuffix} macro.}
 % 
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -1408,23 +1410,6 @@
   XREF = {de:laet:o:j},
   GENDER = {sm},
 }
-@ARTICLE{ib:2016a,
-  AUTHOR = {Braun, Ingram},
-  TITLE = {Die Kenntnis des Dominospiels in Europa: Archäologie, Geschichte, Bibliographie},
-  JOURNALTITLE = ufg-BoardGameStudJournal,
-  LOCATION = {Berlin},
-  PUBLISHER = {de Gruyter},
-  LANGUAGE = {german},
-  GENDER = {sm},
-  KEYWORDS = {Spiel, Domino, Europa, Spielbücher, Grafik, Druck, Knochenschnitzerei, Archäologie},
-  SHORTTITLE = {Kenntnis},
-  VOLUME = 10,
-  NUMBER = 1,
-  DATE = 2016,
-  DOI = {10.1515/bgs-2016-0004},
-  URL = {https://www.degruyter.com/view/j/bgs.2016.10.issue-1/bgs-2016-0004/bgs-2016-0004.xml},
-  PAGES = {61--100},
-}
 @ARTICLE{ilinskaja:1965,
   AUTHOR = {Il’inskaja, V.~A.},
   TITLE = {Nekotorye motivy ranneskifs kogo zverinogo stilja},
@@ -1633,6 +1618,7 @@
   SHORTFORM = {RGA},
   LANGUAGE = {german},
 }
+
 @ONLINE{kenmore,
   URL = {http://www.kenmore.org/kenmore/kp_arch.html},
   URLDATE = {2015-12-23},
@@ -2383,7 +2369,7 @@
 % \StringBox{\Stark{\texttt{ufg-BlickMus}}}{Blick ins Museum. Mitteilungen aus den Staatlichen Wissenschaftlichen Museen Dresden}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-BlMuenzfreundeuMuenzforsch}}}{Blätter für Münzfreunde und Münzforschung}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-BlSchwaebAlbver}}}{Blätter des Schwäbischen Albvereins}\\[1.3ex]
-% \StringBox{\Stark{\texttt{ufg-BoardGameStudJournal}}}{Board Game Studies Journal}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-BoardGameStud}}}{Board Game Studies}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-Bohuslaen}}}{Bohuslän. Årsbok}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-BolArqu}}}{Boletín Arqueológico. Organo de la Sociedad Arqueológica Tarraconense}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-BolArquComiOrense}}}{Boletín Arqueológico de la Comisión Provincial de Monumentos Históricos y Artisticos de Orense}\\[1.3ex]
@@ -4950,7 +4936,7 @@
 % \StringBox{Blätter für Münzfreunde und Münzforschung}{\Stark{\texttt{ufg-BlMuenzfreundeuMuenzforsch}}}\\[1.3ex]
 % \StringBox{Blätter zur Geschichte von Zons und Stürzelberg}{\Stark{\texttt{ufg-BlGeschZonsuStuerzelberg}}}\\[1.3ex]
 % \StringBox{Blick ins Museum. Mitteilungen aus den Staatlichen Wissenschaftlichen Museen Dresden}{\Stark{\texttt{ufg-BlickMus}}}\\[1.3ex]
-% \StringBox{Board Game Studies Journal}{\Stark{\texttt{ufg-BoardGameStudJournal}}}\\[1.3ex]
+% \StringBox{Board Game Studies}{\Stark{\texttt{ufg-BoardGameStud}}}\\[1.3ex]
 % \StringBox{Bohuslän. Årsbok}{\Stark{\texttt{ufg-Bohuslaen}}}\\[1.3ex]
 % \StringBox{Boletim da Direcçõ Geral dos Edifícios e Monumentos Nacionais}{\Stark{\texttt{ufg-BolDireccoGeralEdificioseMonNac}}}\\[1.3ex]
 % \StringBox{Boletim do Grupo Alcaides de Faria}{\Stark{\texttt{ufg-BolGrupoAlcaidesFaria}}}\\[1.3ex]
@@ -7406,12 +7392,19 @@
 [2017/06/06 v1.2 biblatex-archaeology (Ingram Braun) based on biblatex]
 \RequirePackage{xpatch}
 %    \end{macrocode}
-% Basic settings
+%
+% Restrictions: \Kbd{biber} only and minimum \Paket{biblatex} version
 %    \begin{macrocode}
 \RequireBiber[3]
-%\DeclareLanguageMappingSuffix{-archaeology}
-\DeclareLanguageMapping{german}{german-archaeology}
-\DeclareLanguageMapping{english}{english-archaeology}
+\@ifpackagelater{biblatex}{2017/11/05}
+    {}
+    {\blxarch@errmsg{too old\MessageBreak biblatex version - update required}}
+%    \end{macrocode}
+% \changes{1.3}{2017/11/14}{\blx version check added.}
+%
+% Basic settings
+%    \begin{macrocode}
+\DeclareLanguageMappingSuffix{-archaeology}
 \ExecuteBibliographyOptions{
 %    \end{macrocode}
 % \blx options:
@@ -8083,7 +8076,7 @@
                 {\printnames{labelname}%
                 \setunit{\printdelim{nameyeardelim}}}%
              \ifeditionsuperscript{prelabel}{\usebibmacro{editionsuperscript}}{}%
-             \usebibmacro{cite:labelyear+extrayear}%
+             \usebibmacro{cite:labeldate+extradate}%
              \ifeditionsuperscript{prelabel}{\usebibmacro{editionsuperscript}}{}}%
             {\usebibmacro{cite:shorthand}}%
         \ifhyperref{\let\bibhyperref\blxarch@buffer@hyperref}{}%
@@ -10225,7 +10218,7 @@
             \ifeditionsuperscript{predate}
                 {\usebibmacro{editionsuperscript}}%
                 {}%
-            \usebibmacro{date+extrayear}%
+            \usebibmacro{date+extradate}%
             \ifeditionsuperscript{postdate}
                 {\usebibmacro{editionsuperscript}}%
                 {}%
@@ -10992,8 +10985,7 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\DeclareLanguageMapping{english}{aefkw-english}
-\DeclareLanguageMapping{german}{aefkw-german}
+\DeclareLanguageMappingSuffix{-aefkw}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -11572,8 +11564,7 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\DeclareLanguageMapping{german}{archa-german}
-\DeclareLanguageMapping{english}{archa-english}
+\DeclareLanguageMappingSuffix{-archa}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -11992,7 +11983,7 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\DeclareLanguageMapping{german}{dguf-alt-german}
+\DeclareLanguageMappingSuffix{-dguf-alt}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -12196,7 +12187,7 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\DeclareLanguageMapping{english}{dguf-apa-english}
+\DeclareLanguageMappingSuffix{-dguf-apa}
 %    \end{macrocode}
 %
 % \begin{format}{bibtex}
@@ -12568,8 +12559,7 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\DeclareLanguageMapping{english}{eaz-english}
-\DeclareLanguageMapping{german}{eaz-german}
+\DeclareLanguageMappingSuffix{-eaz}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -13008,8 +12998,7 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\DeclareLanguageMapping{german}{foe-german}
-\DeclareLanguageMapping{english}{foe-english}
+\DeclareLanguageMappingSuffix{-foe}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -13494,7 +13483,7 @@
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\DeclareLanguageMapping{german}{jb-kreis-neuss-german}
+\DeclareLanguageMappingSuffix{-jb-kreis-neuss}
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeobibstyletitle}
@@ -13725,7 +13714,7 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\DeclareLanguageMapping{german}{karl-german}
+\DeclareLanguageMappingSuffix{-karl}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -13888,7 +13877,7 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\DeclareLanguageMapping{german}{maja-german}
+\DeclareLanguageMappingSuffix{-maja}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14085,8 +14074,7 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\DeclareLanguageMapping{german}{mpk-german}
-\DeclareLanguageMapping{english}{mpk-english}
+\DeclareLanguageMappingSuffix{-mpk}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14543,8 +14531,7 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\DeclareLanguageMapping{german}{offa-german}
-\DeclareLanguageMapping{english}{offa-english}
+\DeclareLanguageMappingSuffix{-offa}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15073,7 +15060,7 @@
 % \subsubsection{Shared by \Datei{rgzm-inline.bbx} and \Datei{rgzm-verbose.bbx}}
 %
 %    \begin{macrocode}
-\DeclareLanguageMapping{german}{rgzm-german}
+\DeclareLanguageMappingSuffix{-rgzm}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15728,8 +15715,7 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\DeclareLanguageMapping{english}{zaak-english}
-\DeclareLanguageMapping{german}{zaak-german}
+\DeclareLanguageMappingSuffix{-zaak}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15967,8 +15953,7 @@
 % \end{format}
 %
 %    \begin{macrocode}
-\DeclareLanguageMapping{english}{zaes-english}
-\DeclareLanguageMapping{german}{zaes-german}
+\DeclareLanguageMappingSuffix{-zaes}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17521,10 +17506,10 @@ plate,
 %</germanLBX>
 %<*aefkwenglishLBX>
 %
-% \subsubsection{File \Datei{aefkw-english.lbx}}
+% \subsubsection{File \Datei{english-aefkw.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{aefkw-english.lbx}
+\ProvidesFile{english-aefkw.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -17542,7 +17527,7 @@ plate,
 %</aefkwenglishLBX>
 %<*aefkwgermanLBX>
 %
-% \subsubsection{File \Datei{aefkw-german.lbx}}
+% \subsubsection{File \Datei{german-aefkw.lbx}}
 %
 %    \begin{macrocode}
 \ProvidesFile{zaas-german.lbx}
@@ -17668,10 +17653,10 @@ plate,
 %</aefkwgermanLBX>
 %<*archaenglishLBX>
 %
-% \subsubsection{File \Datei{archa-english.lbx}}
+% \subsubsection{File \Datei{english-archa.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{archa-english.lbx}
+\ProvidesFile{english-archa.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -17689,10 +17674,10 @@ plate,
 %</archaenglishLBX>
 %<*archagermanLBX>
 %
-% \subsubsection{File \Datei{archa-german.lbx}}
+% \subsubsection{File \Datei{german-archa.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{archa-german.lbx}
+\ProvidesFile{german-archa.lbx}
 [2017/06/06 v1.2 biblatex-archaeology (Ingram Braun) based on biblatex]
 %    \end{macrocode}
 %
@@ -17713,10 +17698,10 @@ plate,
 %</archagermanLBX>
 %<*dgufaltgermanLBX>
 %
-% \subsubsection{File \Datei{dguf-alt-german.lbx}}
+% \subsubsection{File \Datei{german-dguf-alt.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{dguf-alt-german.lbx}
+\ProvidesFile{german-dguf-alt.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -17752,10 +17737,10 @@ plate,
 %</dgufaltgermanLBX>
 %<*dgufapaenglishLBX>
 %
-% \subsubsection{File \Datei{dguf-apa-english.lbx}}
+% \subsubsection{File \Datei{english-dguf-apa.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{dguf-apa-english.lbx}
+\ProvidesFile{english-dguf-apa.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -17786,10 +17771,10 @@ plate,
 %</dgufapaenglishLBX>
 %<*eazenglishLBX>
 %
-% \subsubsection{File \Datei{eaz-english.lbx}}
+% \subsubsection{File \Datei{english-eaz.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{eaz-english.lbx}
+\ProvidesFile{english-eaz.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -17807,10 +17792,10 @@ plate,
 %</eazenglishLBX>
 %<*eazgermanLBX>
 %
-% \subsubsection{File \Datei{eaz-german.lbx}}
+% \subsubsection{File \Datei{german-eaz.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{eaz-german.lbx}
+\ProvidesFile{german-eaz.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -17828,10 +17813,10 @@ plate,
 %</eazgermanLBX>
 %<*foeenglishLBX>
 %
-% \subsubsection{File \Datei{foe-english.lbx}}
+% \subsubsection{File \Datei{english-foe.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{foe-english.lbx}
+\ProvidesFile{english-foe.lbx}
 [2017/06/06 v1.2 biblatex-archaeology (Ingram Braun) based on biblatex]
 %    \end{macrocode}
 %
@@ -17857,10 +17842,10 @@ plate,
 %</foeenglishLBX>
 %<*foegermanLBX>
 %
-% \subsubsection{File \Datei{foe-german.lbx}}
+% \subsubsection{File \Datei{german-foe.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{foe-german.lbx}
+\ProvidesFile{german-foe.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -17886,10 +17871,10 @@ plate,
 %</foegermanLBX>
 %<*jbkreisneussgermanLBX>
 %
-% \subsubsection{File \Datei{jb-kreis-neuss-german.lbx}}
+% \subsubsection{File \Datei{german-jb-kreis-neuss.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{jb-kreis-neuss-german.lbx}
+\ProvidesFile{german-jb-kreis-neuss.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -17910,10 +17895,10 @@ plate,
 %</jbkreisneussgermanLBX>
 %<*karlgermanLBX>
 %
-% \subsubsection{File \Datei{karl-german.lbx}}
+% \subsubsection{File \Datei{german-karl.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{karl-german.lbx}
+\ProvidesFile{german-karl.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -17934,10 +17919,10 @@ plate,
 %</karlgermanLBX>
 %<*majagermanLBX>
 %
-% \subsubsection{File \Datei{maja-german.lbx}}
+% \subsubsection{File \Datei{german-maja.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{zaas-german.lbx}
+\ProvidesFile{german-maja.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -18057,10 +18042,10 @@ plate,
 %</majagermanLBX>
 %<*mpkenglishLBX>
 %
-% \subsubsection{File \Datei{mpk-english.lbx}}
+% \subsubsection{File \Datei{english-mpk.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{mpk-english.lbx}
+\ProvidesFile{english-mpk.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -18078,10 +18063,10 @@ plate,
 %</mpkenglishLBX>
 %<*mpkgermanLBX>
 %
-% \subsubsection{File \Datei{mpk-german.lbx}}
+% \subsubsection{File \Datei{german-mpk.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{mpk-german.lbx}
+\ProvidesFile{german-mpk.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -18102,10 +18087,10 @@ plate,
 %</mpkgermanLBX>
 %<*offaenglishLBX>
 %
-% \subsubsection{File \Datei{offa-english.lbx}}
+% \subsubsection{File \Datei{english-offa.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{offa-english.lbx}
+\ProvidesFile{english-offa.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -18125,10 +18110,10 @@ plate,
 %</offaenglishLBX>
 %<*offagermanLBX>
 %
-% \subsubsection{File \Datei{offa-german.lbx}}
+% \subsubsection{File \Datei{german-offa.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{offa-german.lbx}
+\ProvidesFile{german-offa.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -18152,10 +18137,10 @@ plate,
 %</offagermanLBX>
 %<*rgzmgermanLBX>
 %
-% \subsubsection{File \Datei{rgzm-german.lbx}}
+% \subsubsection{File \Datei{german-rgzm.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{rgzm-german.lbx}
+\ProvidesFile{german-rgzm.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -18194,10 +18179,10 @@ plate,
 %</rgzmgermanLBX>
 %<*zaakenglishLBX>
 %
-% \subsubsection{File \Datei{zaak-english.lbx}}
+% \subsubsection{File \Datei{english-zaak.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{zaak-english.lbx}
+\ProvidesFile{english-zaak.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -18215,10 +18200,10 @@ plate,
 %</zaakenglishLBX>
 %<*zaakgermanLBX>
 %
-% \subsubsection{File \Datei{zaak-german.lbx}}
+% \subsubsection{File \Datei{german-zaak.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{zaak- german.lbx}
+\ProvidesFile{german-zaak.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -18242,10 +18227,10 @@ plate,
 %</zaakgermanLBX>
 %<*zaesenglishLBX>
 %
-% \subsubsection{File \Datei{zaes-english.lbx}}
+% \subsubsection{File \Datei{english-zaes.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{zaes-english.lbx}
+\ProvidesFile{english-zaes.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
@@ -18263,10 +18248,10 @@ plate,
 %</zaesenglishLBX>
 %<*zaesgermanLBX>
 %
-% \subsubsection{File \Datei{zaes-german.lbx}}
+% \subsubsection{File \Datei{german-zaes.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{zaes-german.lbx}
+\ProvidesFile{german-zaes.lbx}
 [2017/06/06 v1.2 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %

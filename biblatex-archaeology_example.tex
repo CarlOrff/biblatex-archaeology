@@ -4,7 +4,7 @@
 \ifdefined\HCode% detect tex4ht
     \usepackage[T1]{fontenc}
     \usepackage[utf8]{inputenc} 
-    \usepackage[german,english]{babel}
+    \usepackage[english,german]{babel}
     \usepackage{lmodern}
     \usepackage[osf,sc]{mathpazo}
     %\usepackage{tex4ht}
@@ -16,8 +16,8 @@
     \raggedright
 \else 
     \usepackage{fontspec,polyglossia}
-    \setdefaultlanguage{english}
-    %\setotherlanguage{english}
+    \setdefaultlanguage{german}
+    \setotherlanguage{english}
     \setmainfont{TeX Gyre Termes}
 % command is missing in some fonts:
 %    \DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\} 
@@ -55,7 +55,7 @@
     %style=dguf-apa,
     %style=eaz,
     %style=eaz-alt,
-    %style=foe,
+    style=foe,
     %style=jb-halle,
     %style=jb-kreis-neuss,
     %style=karl,autolang=other,
@@ -73,7 +73,7 @@
     %style=ufg-muenster-verbose,
     %style=volkskunde,
     %style=zaak,
-    style=zaes,
+    %style=zaes,
 ]{biblatex}
 \providecommand{\ResolveBibtexStrings}{
     \ifboolexpr{
