@@ -180,7 +180,8 @@
 % \changes{1.1}{2017/05/27}{Multiple strings with same shorthand allowed (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/2}{issue \#2})}
 % \changes{1.2}{2017/06/06}{Corrupted \Kbd{.ins} file fixed.}
 % \changes{1.3}{2017/11/14}{Fixed incompatible changes of \blx v3.8 (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/7}{issue \#7})}
-% \changes{1.3}{2017/11/14}{Renamed style-specific \Kbd{.lbx} files in order to fit to \blx' new \Befehl{DeclareLanguageMappingSuffix} macro.}
+% \changes{1.3}{2017/11/15}{Renamed style-specific \Kbd{.lbx} files in order to fit to \blx' new \Befehl{DeclareLanguageMappingSuffix} macro}
+% \changes{1.3}{2017/11/16}{Added \Kbd{.lbx} pointer files for language variants}
 % 
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -7400,7 +7401,7 @@
     {}
     {\blxarch@errmsg{too old\MessageBreak biblatex version - update required}}
 %    \end{macrocode}
-% \changes{1.3}{2017/11/14}{\blx version check added.}
+% \changes{1.3}{2017/11/15}{\blx version check added.}
 %
 % Basic settings
 %    \begin{macrocode}
@@ -7651,7 +7652,6 @@
     \field{author}
     \field{editor}
     \field{translator}
-    \field{namea}
     \field{shorttitle}
     \field{sorttitle}
     \field{title}
@@ -10342,7 +10342,6 @@
     \field{author}
     \field{editor}
     \field{translator}
-    \field{namea}
 }
 %    \end{macrocode}
 % \end{format}
