@@ -73,7 +73,7 @@ the news feeds of CTAN, GitHub or my personal website.
 
 ## Copyright
 
-© 2005--2017 by [Ingram Braun](https://ingram-braun.net/)
+© 2005–2017 by [Ingram Braun](https://ingram-braun.net/)
 
 ## License
 
