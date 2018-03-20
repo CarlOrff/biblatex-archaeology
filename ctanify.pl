@@ -17,16 +17,16 @@
 
 
 use strict;
-use utf8;
-use feature 'unicode_strings';
+use utf8::all;
 use warnings;
 
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
-use FileHandle;
 use Encode qw< decode >;
+use FileHandle;
 use File::Copy;
 use File::Path qw(make_path remove_tree);
 use File::Remove 'remove';
+use Text::Markdown 'markdown';
 
 ####################
 # GLOBAL VARIABLES #
@@ -106,6 +106,23 @@ add_zip( "README.md", $package );
 add_zip( "$package.pdf", $package );
 add_zip( $expltex, $expldir );
 
+# We add a README.html for optimized backlinks from CTAN mirrors
+my $readmemd = FileHandle->new('README.md', O_RDONLY);
+my $markdown;
+while( <$readmemd> ) { $markdown .= $_ }
+undef $readmemd;      # automatically closes the file
+my $readmehtml = FileHandle->new('README.html', O_WRONLY|O_TRUNC|O_CREAT);
+if ( defined $readmehtml ) {
+	$markdown = markdown( $markdown, {
+        empty_element_suffix => '>',
+        tab_width => 5,
+    } );
+	
+	print $readmehtml '<!doctype html><html><meta charset="utf-8"></html><body>' . $markdown . '</body>';
+	add_zip( "README.html", $package );
+}
+undef $readmehtml;      # automatically closes the file
+
 # generate example PDF for every style
 opendir ( my $dh, "." ) or die $!;
 my @styles = grep{ $_ = $1 if /(.+?)\.bbx$/ }readdir $dh;
@@ -118,7 +135,7 @@ undef $eh;       # automatically closes the file
 
 foreach my $style ( @styles ) {
 
-    $example =~ s/ingram-braun-local\.sty/this-file-does-not.exist/; # use package databases
+   $example =~ s/ingram-braun-local\.sty/this-file-does-not.exist/; # use package databases
     $example =~ s/\\usepackage((?:(?!\\usepackage).)*)\{biblatex\}/\\usepackage[style=$style,backend=biber]{biblatex}/s;
     my $jobname = $style . "-example";
     $eh = FileHandle->new( "$jobname.tex", O_WRONLY|O_CREAT );
@@ -132,7 +149,6 @@ foreach my $style ( @styles ) {
         system_call( "lualatex -file-line-error $jobname" );
         system_call( "lualatex -file-line-error $jobname" );
         add_zip( "$jobname.pdf", $expldir );
-        #last;
     }
     else {
         finish("FATAL ERROR: Could not open $jobname.tex: $!");
@@ -180,7 +196,7 @@ sub add_zip {
           
     if ($filename !~ /\.pdf$/) {
 
-        my $handle = FileHandle->new($filename, O_RDONLY|O_CREAT);
+        my $handle = FileHandle->new($filename, O_RDONLY);
         
         if (defined $handle) {
             my $text;

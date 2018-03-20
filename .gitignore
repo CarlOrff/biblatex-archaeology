@@ -198,6 +198,7 @@ biblatex-archaeology
 # folders containing possibly copyrighted materials
 guidelines
 abbreviation
+non-LaTeX
 
 # test files
 biblatex-archaeology_example.pdf
