@@ -214,7 +214,11 @@ sub add_zip {
                     or add_log("Could not decode string $line: $@\n") if length $line > 0;
             }
             
-            $zip->addString( $text, "/$dir/$filename", COMPRESSION_LEVEL_BEST_COMPRESSION );
+            my $member = $zip->addString( $text, "/$dir/$filename", COMPRESSION_LEVEL_BEST_COMPRESSION );
+			
+			# set UNIX file attributes on read-only
+			$member->unixFileAttributes( 0644 ); # -rw-r--r--
+			
             add_log("File $filename successfully added to ZIP archive.\n");
         }
         else {
