@@ -141,7 +141,7 @@
     pdfaconformance=B,
     pdfmetalang=en,
     pdfcaptionwriter={Ingram Braun},
-    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7},
+    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-1.4&ib_medium=repository&ib_source=manual, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7},
     pdflicenseurl = {http://www.latex-project.org/lppl.txt},
     pdftype=Software,
     pdftitle={The biblatex-archaeology styles [v1.4]},
@@ -186,6 +186,7 @@
 % \changes{1.4}{2017/11/19}{Fixed some formattings in style \Stil{karl}}
 % \changes{1.4}{2018/03/20}{CTAN files in read-only mode (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/11}{issue \#11})}
 % \changes{1.4}{2018/03/20}{Some German expressions not translated into English (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/12}{issue \#12})}
+% \changes{1.4}{2018/03/21}{Added XML datamodel snippet for \Kbd{Biber}'s tool mode (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/10}{issue \#10})}
 % 
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -269,7 +270,7 @@
 % \par As usual, \archbib is loaded if one of its styles is selected with \blx' \Option{style} option.
 % \Beispiel{%
 %   \begin{tabular}{l}
-%       \Befehl{usepackage}\Kbd{[style=rgk-verbose,backend=biber]\{biblatex\}}\\
+%       \Befehl{usepackage}\Kbd{[style=rgk-verbose]\{biblatex\}}\\
 %       \Befehl{addbibresource}\{mybibliography.bib\}\\
 %   \end{tabular}
 % }
@@ -281,8 +282,7 @@
 % \archbib and ships with a database of shortened journal and series titles. For German historians there is the well-known
 % \Paket{biblatex-dw} which contains the \Stil{authortitle-dw} and \Stil{footnote-dw} styles. There is also a verbose style
 % \Stil{historische-zeitschrift}. \Stil{geschichtsfrkl} implements a verbose style used by historians
-% from the University Freiburg/Br. Non-German solution include the author date style \Stil{biblatex-historian}, an adaption of the
-% \textit{Chicago Manual of Style} to the needs of historians, or \Stil{biblatex-ijsra} for the
+% from the University Freiburg/Br. Non-German solution include \Stil{biblatex-ijsra} for the
 % \textit{International Journal of Student Research in Archaeology}.
 % 
 % \subsection{Help}\label{kap:help}
@@ -1230,7 +1230,7 @@
 %       Bolle,~C. 2013: Some title. In: Journal of Magic 45, \Stark{310~ff.} 
 %   \end{tabular}
 % }
-% Biber is able to parse the \Feld{pages} field and compress the ranges. But it only affects the bibliography since Biber does not see the citation postnotes.
+% \Kbd{Biber} is able to parse the \Feld{pages} field and compress the ranges. But it only affects the bibliography since \Kbd{Biber} does not see the citation postnotes.
 %
 % \subsection{Authors in auction catalogues}
 %
