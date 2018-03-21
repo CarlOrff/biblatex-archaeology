@@ -16,7 +16,7 @@ no warnings;
 
 use FileHandle;
 use BibTeX::Parser;
-use Data::Dumper;
+#use Data::Dumper;
 
 my $project = shift @ARGV;
 $project .= ".aux";
