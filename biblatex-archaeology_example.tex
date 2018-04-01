@@ -16,7 +16,7 @@
 \else 
     \usepackage{fontspec,polyglossia}
     \setdefaultlanguage{german}
-    \setotherlanguage{english}
+    %\setotherlanguage{english}
     \setmainfont{TeX Gyre Termes}
 % command is missing in some fonts:
 %    \DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\} 
@@ -74,9 +74,9 @@
     %style=zaak,
     %style=zaes,
 ]{biblatex}
+\providetoggle{archbool:shortseries}
+\providetoggle{archbool:shortjournal}
 \providecommand{\ResolveBibtexStrings}{
-	\providetoggle{archbool:shortseries}
-	\providetoggle{archbool:shortjournal}
     \ifboolexpr{
 		togl {archbool:shortseries}
 		or
@@ -298,6 +298,8 @@
 \begin{itemize}
 	\item\cite{bhattacharyya:1973}%
 	\item\fullcite{bhattacharyya:1973}%
+	\item\cite{cossel:1933-35}%
+	\item\fullcite{cossel:1933-35}%
 \end{itemize}
 
 \subsection{Journal with \Feld{number}}
