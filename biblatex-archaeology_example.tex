@@ -54,10 +54,10 @@
     %style=dguf-apa,
     %style=eaz,
     %style=eaz-alt,
-    %style=foe,
+    style=foe,
     %style=jb-halle,
     %style=jb-kreis-neuss,
-    style=karl,
+    %style=karl,
     %style=kunde,
     %style=maja,
     %style=mpk,
@@ -75,9 +75,11 @@
     %style=zaes,
 ]{biblatex}
 \providecommand{\ResolveBibtexStrings}{
+	\providetoggle{archbool:shortseries}
+	\providetoggle{archbool:shortjournal}
     \ifboolexpr{
-        togl {archbool:shortseries}
-        and
+		togl {archbool:shortseries}
+		or
         togl {archbool:shortjournal}
     }
         {\addbibresource{biblatex-archaeology-strings-rgk.bib}}
@@ -258,6 +260,8 @@
 \begin{itemize}
 	\item\cite{huet:o:j}%
 	\item\fullcite{huet:o:j}%
+	\item\cite{mette:1990}%
+	\item\fullcite{mette:1990}%
 \end{itemize}
 
 \subsection{No \Feld{date} and no \Feld{location} fields}

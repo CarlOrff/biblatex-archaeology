@@ -757,7 +757,21 @@
 %       \dots London n.~d. \Stark{[ca. 1930]}.
 %   \end{tabular}
 % }
-% Do not confuse it with \Feld{origdate}, which refers to the primary edition of a reprint.
+% Do not confuse it with \Feld{origdate}, which refers to the primary edition of a reprint. Since \blx 3.11 it is possible to mark attributed dates
+% by employing \blx' field annotation feature:
+% \Beispiel{%
+%   \begin{tabular}{l}
+%       \Kbd{\symbol{64}BOOKLET\{attributed:date,}\\
+%       \Kbd{\dots}\\
+%       \Kbd{date = \{1930\},}\\
+%       \Kbd{date+an = \{=attributed\},}\\
+%       \Kbd{\}}\\
+%       \Mittelpfeil\\
+%       \dots London n.~d. \Stark{[1930]}.
+%   \end{tabular}
+% }
+% \archbib supports this format, too. The problem here is that this works only with lacking dates, not with wrong or falsified ones. Nonetheless, in order to keep
+% compatibility with standard styles as much as possible, you should prefer this style as long as it fits to the data.
 %
 % \item[]\DescribeFormat{shortform} field (literal)\\
 % This field holds an acronym of an encyclopedia that is cited in a special manner. Fi. \enquote{RGA} for \Deutsch{Reallexikon der Germanischen Altertumskunde}.
@@ -1698,6 +1712,20 @@
   SUBTITLE = {Lappländska resan 1732},
   LANGUAGE = {swedish},
   GENDER = {pp},
+}
+@BOOK{mette:1990,
+  AUTHOR = {Mette, Otto},
+  TITLE = {Affoldern},
+  DATE = {1990},
+	date+an = {=attributed},
+  PUBLISHER = {Waldeckischer Geschichtsverein e.\,V.},
+  SERIES = {Waldeckische Ortssippenbücher},
+  NUMBER = {34},
+  LOCATION = {Arolsen},
+  KEYWORDS = {Ortssippenbuch, Affoldern, Historische Demographie, Waldeck, Neuzeit,
+	Hessen, Genealogie, Edertal},
+  LANGUAGE = {german},
+  GENDER = {sm},
 }
 @PROCEEDINGS{oberlechner:1999,
   EDITOR = {Oberlechner, Manfred},
@@ -7481,6 +7509,7 @@
 %    \end{macrocode}
 %
 % \begin{format}{bibtex}
+% \changes{1.4}{2018/04/01}{Added support for attributed dates in blx 3.11 style (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/14}{issue \#14})}
 %    \begin{macrocode}
     \DeclareDriverSourcemap[datatype=bibtex]{
 %    \end{macrocode}
@@ -7510,6 +7539,42 @@
                 origfieldval=true,
             ]
         }
+%    \end{macrocode}
+% Attributed dates in biblatex (since 3.11) are mapped to our \Feld{realdate} field:
+%    \begin{macrocode}
+        \map[overwrite]{
+            \step[
+                fieldsource=date+an,
+                match=\regexp{\battributed\b}, % find all date+an field that include "attributed" (<field>+an are csv)
+                final=true, % do not add entries in further steps
+            ]
+            \step[
+                fieldsource=date,
+                fieldtarget=realdate,
+			]
+        }
+%    \end{macrocode}
+% Attributed dates wrapped in brackets are mapped to our \Feld{realdate} field:
+%    \begin{macrocode}
+        \map[overwrite]{
+			\step[
+				fieldsource=year,
+				match=\regexp{\A\[.+\]\Z},
+				fieldtarget=realdate,
+			]
+            \step[
+                fieldsource=date,
+				match=\regexp{\A\[.+\]\Z},
+				fieldtarget=realdate,
+            ]
+        }
+		\map[overwrite]{
+			\step[
+				fieldsource=realdate,
+				match=\regexp{\A\[(.+)\]\Z},
+				replace={$1},
+			]
+		}
 %    \end{macrocode}
 % Newspapers that must keep their full date:
 %    \begin{macrocode}
@@ -9899,6 +9964,8 @@
 % \end{format}
 % \end{bibmacro}
 % \end{bibmacro}
+%
+%
 %
 % \subsubsubsection{Basic name formats}
 %
@@ -19984,6 +20051,19 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
 %    \end{macrocode}
 % \end{format}
 %
+% \subsubsubsection{annotation fields}
+%
+% Field annotation consist of csv list with a leading equation mark in \Kbd{<field>+an} fields. It
+% appears that they cannot reached via source map steps and are only available, if \Kbd{Biber}
+% was called with \Option{--output-annotation-marker}. There we define those we want to evaluate
+% in source maps as lateral fields. No need to show them up in the \Kbd{*.bbl} file.
+%
+% \begin{format}{date+an}
+%    \begin{macrocode}
+\DeclareDatamodelFields[type=field,datatype=literal,skipout]{date+an}
+%    \end{macrocode}
+% \end{format}
+%
 %</DBX>
 %
 % \subsubsection{Data model for \Kbd{Biber}'s tool mode}\label{kap:biberconf}
@@ -20051,7 +20131,6 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
       <entrytype skip_output="true">xdata</entrytype>
     </entrytypes>
     <fields>
-      <field datatype="integer" fieldtype="field">number</field>
       <field datatype="integer" fieldtype="field">volume</field>
       <field datatype="integer" fieldtype="field">volumes</field>
       <field datatype="literal" fieldtype="field">abstract</field>
@@ -20092,6 +20171,7 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
       <field datatype="literal" fieldtype="field">maintitleaddon</field>
       <field datatype="literal" fieldtype="field">nameaddon</field>
       <field datatype="literal" fieldtype="field">note</field>
+      <field datatype="literal" fieldtype="field">number</field>
       <field datatype="literal" fieldtype="field">origtitle</field>
       <field datatype="literal" fieldtype="field">pagetotal</field>
       <field datatype="literal" fieldtype="field">part</field>
@@ -20367,6 +20447,7 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
       <field datatype="datepart" fieldtype="field">origrealendsecond</field>
       <field datatype="datepart" fieldtype="field">origrealendtimezone</field>
       <field datatype="datepart" fieldtype="field">origrealendseason</field>
+      <field datatype="literal" fieldtype="field" skip_output="true">date+an</field>
     </fields>
     <entryfields>
       <field>abstract</field>
@@ -20940,9 +21021,19 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
       <field>eprinttype</field>
       <field>eventday</field>
       <field>eventendday</field>
+      <field>eventendhour</field>
+      <field>eventendminute</field>
       <field>eventendmonth</field>
+      <field>eventendseason</field>
+      <field>eventendsecond</field>
+      <field>eventendtimezone</field>
       <field>eventendyear</field>
+      <field>eventhour</field>
+      <field>eventminute</field>
       <field>eventmonth</field>
+      <field>eventseason</field>
+      <field>eventsecond</field>
+      <field>eventtimezone</field>
       <field>eventyear</field>
       <field>eventtitle</field>
       <field>eventtitleaddon</field>
@@ -20974,9 +21065,19 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
       <field>eprinttype</field>
       <field>eventday</field>
       <field>eventendday</field>
+      <field>eventendhour</field>
+      <field>eventendminute</field>
       <field>eventendmonth</field>
+      <field>eventendseason</field>
+      <field>eventendsecond</field>
+      <field>eventendtimezone</field>
       <field>eventendyear</field>
+      <field>eventhour</field>
+      <field>eventminute</field>
       <field>eventmonth</field>
+      <field>eventseason</field>
+      <field>eventsecond</field>
+      <field>eventtimezone</field>
       <field>eventyear</field>
       <field>eventtitle</field>
       <field>eventtitleaddon</field>
@@ -21018,9 +21119,19 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
       <field>eprinttype</field>
       <field>eventday</field>
       <field>eventendday</field>
+      <field>eventendhour</field>
+      <field>eventendminute</field>
       <field>eventendmonth</field>
+      <field>eventendseason</field>
+      <field>eventendsecond</field>
+      <field>eventendtimezone</field>
       <field>eventendyear</field>
+      <field>eventhour</field>
+      <field>eventminute</field>
       <field>eventmonth</field>
+      <field>eventseason</field>
+      <field>eventsecond</field>
+      <field>eventtimezone</field>
       <field>eventyear</field>
       <field>eventtitle</field>
       <field>eventtitleaddon</field>
@@ -21094,6 +21205,24 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
       <entrytype>unpublished</entrytype>
       <field>addendum</field>
       <field>author</field>
+      <field>eventday</field>
+      <field>eventendday</field>
+      <field>eventendhour</field>
+      <field>eventendminute</field>
+      <field>eventendmonth</field>
+      <field>eventendseason</field>
+      <field>eventendsecond</field>
+      <field>eventendtimezone</field>
+      <field>eventendyear</field>
+      <field>eventhour</field>
+      <field>eventminute</field>
+      <field>eventmonth</field>
+      <field>eventseason</field>
+      <field>eventsecond</field>
+      <field>eventtimezone</field>
+      <field>eventyear</field>
+      <field>eventtitle</field>
+      <field>eventtitleaddon</field>
       <field>howpublished</field>
       <field>language</field>
       <field>location</field>
@@ -21102,6 +21231,8 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
       <field>subtitle</field>
       <field>title</field>
       <field>titleaddon</field>
+      <field>type</field>
+      <field>venue</field>
     </entryfields>
     <entryfields>
       <entrytype>book</entrytype>
@@ -21396,4 +21527,4 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
 % \end{appendices}
 % \Finale
 %
-\endinput  
+\endinput   
