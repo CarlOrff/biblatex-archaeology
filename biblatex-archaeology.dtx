@@ -86,21 +86,21 @@
 \DeclareRobustCommand{\bibtex}{%
     {\normalfont B\kern-.05em{\scshape i\kern-.025em b}\kern-.08em \TeX\xspace}%
 }
-\newcommand{\blx}{\Paket{bib\-la\-tex}\xspace}
+\newrobustcmd*{\blx}{\Paket{bib\-la\-tex}\xspace}
 \makeatletter
-\newcommand{\archbib}{\Paket{\blxarch@name@hyph}\xspace}
+\newrobustcmd*{\archbib}{\Paket{\blxarch@name@hyph}\xspace}
 \makeatother
-\newcommand{\Befehl}[1]{\texttt{\cs{#1}}}
-\newcommand{\Datei}[1]{\texttt{#1}}
-\newcommand{\Format}[1]{\texttt{#1}}
-\newcommand{\Environment}[1]{\texttt{#1}}
-\newcommand{\Typ}[1]{\texttt{\symbol{64}#1}}
+\newrobustcmd*{\Befehl}[1]{\texttt{\cs{#1}}}
+\newrobustcmd*{\Datei}[1]{\texttt{#1}}
+\newrobustcmd*{\Format}[1]{\texttt{#1}}
+\newrobustcmd*{\Environment}[1]{\texttt{#1}}
+\newrobustcmd*{\Typ}[1]{\texttt{\symbol{64}#1}}
 % no hyphenation within tt fonts:
-\newcommand{\Paket}[1]{\textsf{#1}}
-\newcommand{\Feld}[1]{\texttt{#1}}
-\newcommand{\Option}[1]{\texttt{#1}}
-\newcommand{\Kbd}[1]{\texttt{#1}}
-\newcommand{\Stil}[1]{\texttt{#1}}
+\newrobustcmd*{\Paket}[1]{\textsf{#1}}
+\newrobustcmd*{\Feld}[1]{\texttt{#1}}
+\newrobustcmd*{\Option}[1]{\texttt{#1}}
+\newrobustcmd*{\Kbd}[1]{\texttt{#1}}
+\newrobustcmd*{\Stil}[1]{\texttt{#1}}
 \newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
 \newcommand{\subsubsubsubsection}[1]{\subparagraph{#1}\mbox{}\\}
 \newcommand{\Deutsch}[1]{\selectlanguage{ngerman}{\textit{#1}}}
@@ -7520,7 +7520,7 @@
 %    \end{macrocode}
 %
 % \begin{format}{bibtex}
-% \changes{1.4}{2018/04/01}{Added support for attributed dates in blx 3.11 style (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/14}{issue \#14})}
+% \changes{1.4}{2018/04/01}{Added support for attributed dates in \blx 3.11 style (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/14}{issue \#14})}
 %    \begin{macrocode}
     \DeclareDriverSourcemap[datatype=bibtex]{
 %    \end{macrocode}
@@ -9981,6 +9981,15 @@
 %
 % \begin{macro}{\bibdaterangesep}
 % \begin{macro}{\bibdatesubseqesep}
+% Different \Befehl{bibrangedashe}s for subsequent years and longer periods:
+%    \begin{macrocode}
+\renewrobustcmd*{\bibdaterangesep}{\bibrangedash}
+\newrobustcmd*{\bibdatesubseqesep}{\slash}
+%    \end{macrocode}
+% \changes{1.4}{2018/04/01}{Added \Befehl{bibdatesubseqesep} as replacement for \Befehl{bibdaterangesep} if two years of a date range are consecutive (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/15}{issue \#15})}
+% \end{macro}
+% \end{macro}
+
 % \begin{macro}{\bibdaterangesepx}
 % \begin{macro}{\mkdaterangefull}
 % \begin{macro}{\mkdaterangetrunc}
@@ -9988,9 +9997,8 @@
 % \begin{macro}{\mkdaterangetruncextra}
 % \begin{macro}{\mkdaterangeymd}
 % \begin{macro}{\mkdaterangeymdextra}
+% Reimplementation of some \blx macros for the above date range formatting commands.
 %    \begin{macrocode}
-\renewrobustcmd*{\bibdaterangesep}{\bibrangedash}
-\newrobustcmd*{\bibdatesubseqesep}{\slash}
 \newrobustcmd*{\bibdaterangesepx}[1]{%
   \ifboolexpr{test {\iffieldint{#1year}} and test {\iffieldint{#1endyear}}} 
     {\ifnumequal{\thefield{#1endyear}-\thefield{#1year}}{1}
@@ -10191,9 +10199,6 @@
              \enddateuncertainprint
              \dateeraprint{#1endyear}}}}}}
 %    \end{macrocode}
-% \changes{1.4}{2018/04/01}{Add different \Befehl{bibdaterangesep}s for consecutuve years and longer periods (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/15}{issue \#15})}
-% \end{macro}
-% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
