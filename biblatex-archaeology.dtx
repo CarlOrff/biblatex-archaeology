@@ -10931,6 +10931,9 @@
 % \begin{macro}{\blxarch@style@ayc}
 % \begin{macro}{\blxarch@style@ayi}
 % \begin{macro}{\blxarch@style@ayic}
+% \begin{macro}{\blxarch@style@numc}
+% \begin{macro}{\blxarch@style@vi}
+% \begin{macro}{\blxarch@style@vttwo}
 % \begin{macro}{\blxarch@style@aefkw}
 % \begin{macro}{\blxarch@style@afwl}
 % \begin{macro}{\blxarch@style@amit}
@@ -10968,6 +10971,7 @@
 \edef\blxarch@style@ayc{authoryear-comp-archaeology (generic)}
 \edef\blxarch@style@ayi{authoryear-ibid-archaeology (generic)}
 \edef\blxarch@style@ayic{authoryear-icomp-archaeology (generic)}
+\edef\blxarch@style@numc{numeric-comp-archaeology (generic)}
 \edef\blxarch@style@vi{verbose-ibid-archaeology (generic)}
 \edef\blxarch@style@vttwo{verbose-trad2note-archaeology (generic)}
 \edef\blxarch@style@aefkw{\"Agyptologische Forschungsst\"atte f\"ur Kulturwissenschaft (\"AFKW)}
@@ -11002,6 +11006,9 @@
 \edef\blxarch@style@zaak{Zeitschrift f\"ur Arch\"aologie au\ss ereurop\"aischer Kulturen (ZAAK)}
 \edef\blxarch@style@zaes{Zeitschrift f\"ur \"Agyptische Sprache und Altertumskunde (Z\"AS)}
 %    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
@@ -11194,6 +11201,34 @@
 % \end{format}
 %
 %</authoryearsharedBBX>
+%
+%<*numericcompBBX>
+%
+% \subsubsection{File \Datei{numeric-comp-archaeology.bbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{numeric-comp-archaeology.bbx}
+[2017/11/19 v1.4 biblatex-archaeology bibliography style (IB)]
+%    \end{macrocode}
+%
+% \begin{macro}{\blxarch@fork@footnote}
+% I'am a numeric style.
+%    \begin{macrocode}
+\def\blxarch@fork@numeric{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\archaeobibstyletitle}
+%    \begin{macrocode}
+\def\archaeobibstyletitle{\blxarch@style@numc}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\RequireBibliographyStyle{numeric-comp}
+%    \end{macrocode}
+%
+%</numericcompBBX>
 %<*verboseibidBBX>
 %
 % \subsubsection{File \Datei{verbose-ibid-archaeology.bbx}}
@@ -11247,17 +11282,22 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%</verbosesharedBBX>
+%<*nonauthoryearsharedBBX>
+%
+% \subsubsection{Shared code for generic verbose and numeric styles}
+%
 %    \begin{macrocode}
 \RequirePackage{biblatex-archaeology}
 %    \end{macrocode}
 %
 % \begin{option}{repeatlabel}
 % \begin{bibmacro}{repeatlabel }
-% \Option{repeatlabel} doesn't work in verbose styles.
+% \Option{repeatlabel} doesn't work in verbose and numeric styles.
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{repeatlabel=false}
 \renewbibmacro*{repeatlabel}{%
-    \blxarch@errmsg{Option 'repeatlabel' must be 'false' in verbose styles}}   
+    \blxarch@errmsg{Option 'repeatlabel' must be 'false' in verbose and numeric styles}}   
 %    \end{macrocode}
 % \end{bibmacro}
 % \end{option}
@@ -11276,7 +11316,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-%</verbosesharedBBX>
+%</nonauthoryearsharedBBX>
 %<*aefkwBBX>
 %
 % \subsubsection{File \Datei{aefkw.bbx}}
@@ -16530,6 +16570,26 @@
 %    \end{macrocode}
 %
 %</authoryearicompCBX>
+%<*numericcompCBX>
+%
+% \subsubsection{File \Datei{authoryear-archaeology.cbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{numeric-comp-archaeology.cbx}
+[2017/11/19 v1.4 biblatex-archaeology citation style (IB)]
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeocitestyletitle}
+%    \begin{macrocode}
+\def\archaeocitestyletitle{\blxarch@style@numc}
+%    \end{macrocode}
+% \end{macro} 
+%
+%    \begin{macrocode}
+\RequireCitationStyle{numeric-comp}
+%    \end{macrocode}
+%
+%</numericcompCBX>
 %<*verboseibidCBX>
 %
 %    \begin{macrocode}
@@ -17390,7 +17450,7 @@
 %
 % \begin{macro}{\shortformcite}
 % \begin{macro}{\shortformcites}
-% \Befehl{shortformcite} doesn't make sense in author year styles.
+% \Befehl{shortformcite} doesn't make sense in author date and numeric styles.
 %    \begin{macrocode}
 \let\shortformcite\autocite
 \let\shortformcites\autocites
@@ -20108,6 +20168,13 @@
 %    \end{macrocode}
 %
 %</authoryearicompDBX>
+%<*numericcompDBX>
+%
+%    \begin{macrocode}
+\ProvidesFile{numeric-comp-archaeology.dbx}
+%    \end{macrocode}
+%
+%</numericcompDBX>
 %<*verboseibidDBX>
 %
 %    \begin{macrocode}
