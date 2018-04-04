@@ -54,8 +54,10 @@ Remark that `biblatex-archaeology` makes heavy use of Biber-only features. It wo
 - nnu
 - offa
 - rgk-inline
+- rgk-numeric
 - rgk-verbose
 - rgzm-inline
+- rgzm-numeric
 - rgzm-verbose
 - ufg-muenster-inline
 - ufg-muenster-verbose

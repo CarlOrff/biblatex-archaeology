@@ -187,6 +187,9 @@
 % \changes{1.4}{2018/03/20}{CTAN files in read-only mode (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/11}{issue \#11})}
 % \changes{1.4}{2018/03/20}{Some German expressions not translated into English (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/12}{issue \#12})}
 % \changes{1.4}{2018/03/21}{Added XML datamodel snippet for \Kbd{Biber}'s tool mode (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/10}{issue \#10})}
+% \changes{1.4}{2018/04/04}{Added new generic style \Stil{numeric-comp-archaeology} (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/13}{issue \#13})}
+% \changes{1.4}{2018/04/04}{Added new style \Stil{rgk-numeric}}
+% \changes{1.4}{2018/04/04}{Added new style \Stil{rgzm-numeric}}
 % 
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -209,13 +212,20 @@
 % purpose is to enable the referencing rules of the \Deutsch{Römisch-Germanische Kommission}, 
 % the department of prehistory of the \Deutsch{Deutsches Archäologisches Institut}
 % (German Archaeological Institute), since these are referenced by most guidelines in German prehistory
-% and medieval archaeology and serve as a kind of template. \archbib contains verbose and author date styles as well.
+% and medieval archaeology and serve as a kind of template. \archbib contains verbose, numeric and author date styles as well.
 % \end{abstract}
 % 
 % \tableofcontents
 % 
 % \section{Introduction}
 % 
+% \subsection{Objective}\label{kap:objective}
+% \archbib provides a collection of style files for the \blx bibliography package. It is designed for the use of German researchers into material culture,
+% especially prehistorians and medieval archaeologists. Generally their bibliography styles are more or less variations of the guide lines of the
+% \Deutsch{Römisch-Germanische Kommission}, nowithstanding of being verbose or inline styles. I tried to develop generic styles, that cover all the needs and allow
+% for easy generation of local styles. Besides author date and verbose styles that are in real use numeric styles are provided, too. They may prove useful
+% for project proposals or generic web publishing.
+%
 % \subsection{Installation}\label{kap:install}
 % \par Most likeley you got \archbib via a \TeX{} distribution. If not, you can obtain installable files from CTAN as usual. Create the
 % directories \Kbd{\{TEXMF\}/bibtex/bib/biblatex-archaeology} and \Kbd{\{TEXMF\}/tex/latex/biblatex-archaeology} and run
@@ -317,6 +327,9 @@
 % \item[]\DescribeStyle{authoryear-icomp-archaeology}
 % Imports \Kbd{authoryear-icomp} into \archbib.
 %
+% \item[]\DescribeStyle{numeric-comp-archaeology}
+% Imports \Kbd{numeric-comp} into \archbib.
+%
 % \item[]\DescribeStyle{verbose-ibid-archaeology}
 % Imports \Kbd{verbose-ibid} into \archbib.
 %
@@ -388,6 +401,9 @@
 % \item[]\DescribeStyle{rgk-inline}
 % The author date style of the \Deutsch{R\"omisch-Germanische Kommission des Deutschen Arch\"aologischen Instituts}.\autocite{guidelines:rgk:1991}
 %
+% \item[]\DescribeStyle{rgk-numeric}
+% The RGK style with numeric labels. Keep in mind that \Feld{prenote} and \Feld{postnote} fields are senseless in numeric styles.
+%
 % \item[]\DescribeStyle{rgk-verbose}
 % The verbose style of the \Deutsch{R\"omisch-Germanische Kommission des Deutschen Arch\"aologischen Instituts}.\autocite{guidelines:rgk:1991}
 %
@@ -396,6 +412,9 @@
 %\autocites{guidelines:rgzm:2007}{guidelines:rgzm:2014:fr}{guidelines:rgzm:2014:en}{guidelines:rgzm:2014:de}
 % The style of the \Deutsch{Zeitschrift Restaurierung und Arch\"aologie} is the same but journals and
 % serieses not abridged.\autocite{guidelines:rgzm:ra}
+%
+% \item[]\DescribeStyle{rgzm-inline}
+% The RGZM style with numeric labels. Keep in mind that \Feld{prenote} and \Feld{postnote} fields are senseless in numeric styles.
 %
 % \item[]\DescribeStyle{rgzm-verbose}
 % The verbose style of the \Deutsch{R\"omisch-Germanisches Zentralmuseum}.\autocites{guidelines:rgzm:2007}{guidelines:rgzm:2014:fr}{guidelines:rgzm:2014:en}{guidelines:rgzm:2014:de}
@@ -10012,11 +10031,15 @@
     {}
     {\datecircaprint
      \printtext[#2date]{%
+%    \end{macrocode}
        % Such a season component can only come from an ISO8601 season which replaces
        % a normal month so if it exists, we know that a normal date print is ruled out
+%    \begin{macrocode}
        \iffieldundef{#2season}
          {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
+%    \end{macrocode}
           % Optionally print the time after the date
+%    \begin{macrocode}
           \blx@printtime{#2}{}}
          {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
        \dateuncertainprint
@@ -10041,8 +10064,10 @@
     {}
     {\datecircaprint
      \printtext[#2date]{%
+%    \end{macrocode}
        % Such a season component can only come from an ISO8601 season which replaces
        % a normal month so if it exists, we know that a normal date print is ruled out
+%    \begin{macrocode}
        \iffieldundef{#2season}
          {\iffieldsequal{#2year}{#2endyear}
             {\iffieldsequal{#2month}{#2endmonth}
@@ -10076,11 +10101,15 @@
     {\datecircaprint
      \printtext[#2date]{%
        \printtext{%
+%    \end{macrocode}
        % Such a season component can only come from an ISO8601 season which replaces
        % a normal month so if it exists, we know that a normal date print is ruled out
+%    \begin{macrocode}
        \iffieldundef{#2season}
          {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
+%    \end{macrocode}
           % Optionally print the time after the date
+%    \begin{macrocode}
           \blx@printtime{#2}{}}
          {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
        \dateuncertainprint
@@ -10109,8 +10138,10 @@
     {\datecircaprint
      \printtext[#2date]{%
        \printtext{%
+%    \end{macrocode}
        % Such a season component can only come from an ISO8601 season which replaces
        % a normal month so if it exists, we know that a normal date print is ruled out
+%    \begin{macrocode}
        \iffieldundef{#2season}
          {\iffieldsequal{#2year}{#2endyear}
             {\iffieldsequal{#2month}{#2endmonth}
@@ -10146,11 +10177,15 @@
     {}
     {\datecircaprint
      \printtext[#1date]{%
+%    \end{macrocode}
        % Such a season component can only come from an  ISO8601 season which replaces
        % a normal month so if it exists, we know that a normal date print is ruled out
+%    \begin{macrocode}
        \iffieldundef{#1season}
          {\blx@ymddate{#1}{}%
+%    \end{macrocode}
           % Optionally print the time after the date
+%    \begin{macrocode}
           \blx@printtime{#1}{}}
          {\csuse{mkbibseasondateshort}{#1year}{#1season}}%
        \dateuncertainprint
@@ -10175,11 +10210,15 @@
     {}
     {\datecircaprint
      \printtext[#1date]{%
+%    \end{macrocode}
        % Such a season component can only come from an ISO8601 season which replaces
        % a normal month so if it exists, we know that a normal date print is ruled out
+%    \begin{macrocode}
        \iffieldundef{#1season}
          {\blx@ymddate[extradate]{#1}{}%
+%    \end{macrocode}
           % Optionally print the time after the date
+%    \begin{macrocode}
           \blx@printtime{#1}{}}
          {\csuse{mkbibseasondateshort}{#1year}{#1season}}%
        \dateuncertainprint
@@ -10957,9 +10996,11 @@
 % \begin{macro}{\blxarch@style@offa}
 % \begin{macro}{\blxarch@style@rgk}
 % \begin{macro}{\blxarch@style@rgkinline}
+% \begin{macro}{\blxarch@style@rgknumeric}
 % \begin{macro}{\blxarch@style@rgkverbose}
 % \begin{macro}{\blxarch@style@rgzm}
 % \begin{macro}{\blxarch@style@rgzminline}
+% \begin{macro}{\blxarch@style@rgknumeric}
 % \begin{macro}{\blxarch@style@rgzmverbose}
 % \begin{macro}{\blxarch@style@sak}
 % \begin{macro}{\blxarch@style@volkskunde}
@@ -10998,14 +11039,17 @@
 \edef\blxarch@style@rgk{R\"omisch-Germanische Kommission}
 \edef\blxarch@style@rgkverbose{\blxarch@style@rgk\space(geisteswissenschaftlich)}
 \edef\blxarch@style@rgkinline{\blxarch@style@rgk\space(naturwissenschaftlich)}
+\edef\blxarch@style@rgknumeric{\blxarch@style@rgk\space(numerisch)}
 \edef\blxarch@style@rgzm{R\"omisch-Germanisches Zentralmuseum Mainz}
 \edef\blxarch@style@rgzminline{\blxarch@style@rgzm\space(naturwissenschaftlich)}
+\edef\blxarch@style@rgzmnumeric{\blxarch@style@rgzm\space(numerisch)}
 \edef\blxarch@style@rgzmverbose{\blxarch@style@rgzm\space(geisteswissenschaftlich)}
 \edef\blxarch@style@sak{Studien zur Alt\"agyptischen Kultur}
 \edef\blxarch@style@volkskunde{Zeitschrift f\"ur Volkskunde}
 \edef\blxarch@style@zaak{Zeitschrift f\"ur Arch\"aologie au\ss ereurop\"aischer Kulturen (ZAAK)}
 \edef\blxarch@style@zaes{Zeitschrift f\"ur \"Agyptische Sprache und Altertumskunde (Z\"AS)}
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
@@ -11211,7 +11255,7 @@
 [2017/11/19 v1.4 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
-% \begin{macro}{\blxarch@fork@footnote}
+% \begin{macro}{\blxarch@fork@numeric}
 % I'am a numeric style.
 %    \begin{macrocode}
 \def\blxarch@fork@numeric{}
@@ -15068,6 +15112,7 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
+    dashed=true,
     ibidtracker=true,
     idemtracker=false,
     loccittracker=true,
@@ -15077,6 +15122,36 @@
 %    \end{macrocode}
 %
 %</rgkverboseBBX>
+%<*rgknumericBBX>
+%
+% \subsubsection{File \Datei{rgk-numeric.bbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{rgk-verbose.bbx}
+[2017/11/19 v1.4 biblatex-archaeology bibliography style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireBibliographyStyle{numeric-comp-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeobibstyletitle}
+%    \begin{macrocode}
+\def\archaeobibstyletitle{\blxarch@style@rgknumeric}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+    ibidtracker=false,
+    idemtracker=false,
+    loccittracker=false,
+    maxbibnames=500,
+    maxcitenames=500,
+}
+%    \end{macrocode}
+%
+%</rgknumericBBX>
 %<*rgkinlineBBX>
 %
 % \subsubsection{File \Datei{rgk-inline.bbx}}
@@ -15098,6 +15173,7 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
+    dashed=true,
     ibidtracker=false,
     idemtracker=false,
     loccittracker=false,
@@ -15134,14 +15210,13 @@
 %</rgkinlineBBX>
 %<*rgksharedBBX>
 %
-% \subsubsection{Shared by \Datei{rgk-inline.bbx} and \Datei{rgk-verbose.bbx}}
+% \subsubsection{Shared by \Datei{rgk-*.bbx}}
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
 %    \end{macrocode}
 % \blx options:
 %    \begin{macrocode}
-    dashed=true,
     doi=false,       
     eprint=false,
     giveninits=true,    
@@ -15341,6 +15416,7 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
+    dashed=false,
     ibidtracker=true,
     idemtracker=false,
     loccittracker=false,
@@ -15350,6 +15426,35 @@
 %    \end{macrocode}
 %
 %</rgzmverboseBBX>
+%<*rgzmnumericBBX>
+%
+% \subsubsection{File \Datei{rgzm-numeric.bbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{rgzm-inline.bbx}
+[2017/11/19 v1.4 biblatex-archaeology bibliography style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireBibliographyStyle{numeric-comp-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeobibstyletitle}
+%    \begin{macrocode}
+\def\archaeobibstyletitle{\blxarch@style@rgzmnumeric}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+    ibidtracker=false,
+    idemtracker=false,
+    loccittracker=false,
+    maxbibnames=500,
+}
+%    \end{macrocode}
+%
+%</rgzmnumericBBX>
 %<*rgzminlineBBX>
 %
 % \subsubsection{File \Datei{rgzm-inline.bbx}}
@@ -15371,6 +15476,7 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
+    dashed=false,
     ibidtracker=false,
     idemtracker=false,
     loccittracker=false,
@@ -15418,7 +15524,6 @@
 %    \end{macrocode}
 % \blx options:
 %    \begin{macrocode}
-    dashed=false,
     doi=false,       
     eprint=false,
     giveninits=true,    
@@ -16589,6 +16694,16 @@
 \RequireCitationStyle{numeric-comp}
 %    \end{macrocode}
 %
+%  \begin{format}{prenote}
+%  \begin{format}{postnote}
+% \Feld{prenote}s and \Feld{postnote}s do not make much sense in numeric styles.
+%    \begin{macrocode}
+\DeclareFieldFormat*{postnote}{}
+\DeclareFieldFormat*{prenote}{}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+%
 %</numericcompCBX>
 %<*verboseibidCBX>
 %
@@ -17221,6 +17336,26 @@
 % \end{macro}
 %
 %</rgkinlineCBX>
+%<*rgknumericCBX>
+%
+% \subsubsection{File \Datei{rgk-numeric.cbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{rgk-numeric.cbx}
+[2017/11/19 v1.4 biblatex-archaeology citation style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireCitationStyle{numeric-comp-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeocitestyletitle}
+%    \begin{macrocode}
+\def\archaeocitestyletitle{\blxarch@style@rgknumeric}
+%    \end{macrocode}
+% \end{macro}
+%
+%</rgknumericCBX>
 %<*rgkverboseCBX>
 %
 % \subsubsection{File \Datei{rgk-verbose.cbx}}
@@ -17274,6 +17409,26 @@
 % \end{macro}
 %
 %</rgkverboseCBX>
+%<*rgzmnumericCBX>
+%
+% \subsubsection{File \Datei{rgzm-numeric.cbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{rgzm-numeric.cbx}
+[2017/11/19 v1.4 biblatex-archaeology citation style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireCitationStyle{numeric-comp-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeocitestyletitle}
+%    \begin{macrocode}
+\def\archaeocitestyletitle{\blxarch@style@rgzmnumeric}
+%    \end{macrocode}
+% \end{macro}
+%
+%</rgzmnumericCBX>
 %<*rgzminlineCBX>
 %
 % \subsubsection{File \Datei{rgzm-inline.cbx}}
@@ -20315,6 +20470,13 @@
 %    \end{macrocode}
 %
 %</rgkinlineDBX>
+%<*rgknumericDBX>
+%
+%    \begin{macrocode}
+\ProvidesFile{rgk-numeric.dbx}
+%    \end{macrocode}
+%
+%</rgknumericDBX>
 %<*rgkverboseDBX>
 %
 %    \begin{macrocode}
@@ -20329,6 +20491,13 @@
 %    \end{macrocode}
 %
 %</rgzminlineDBX>
+%<*rgzmnumericDBX>
+%
+%    \begin{macrocode}
+\ProvidesFile{rgzm-numeric.dbx}
+%    \end{macrocode}
+%
+%</rgzmnumericDBX>
 %<*rgzmverboseDBX>
 %
 %    \begin{macrocode}
