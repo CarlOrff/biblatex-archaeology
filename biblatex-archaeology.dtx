@@ -103,8 +103,8 @@
 \newrobustcmd*{\Stil}[1]{\texttt{#1}}
 \newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
 \newcommand{\subsubsubsubsection}[1]{\subparagraph{#1}\mbox{}\\}
-\newcommand{\Deutsch}[1]{\selectlanguage{ngerman}{\emph{#1}}}
-\newcommand{\Latein}[1]{\selectlanguage{latin}{\emph{#1}}}
+\newcommand*{\Deutsch}[1]{\emph{\begin{hyphenrules}{ngerman}#1\end{hyphenrules}}}
+\newcommand*{\Latein}[1]{\emph{\begin{hyphenrules}{latin}#1\end{hyphenrules}}}
 \setcounter{tocdepth}{5}
 \setcounter{secnumdepth}{5}
 \newcommand{\Stark}[1]{\textcolor{\headingscolor}{\textbf{#1}}}
