@@ -103,8 +103,8 @@
 \newrobustcmd*{\Stil}[1]{\texttt{#1}}
 \newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
 \newcommand{\subsubsubsubsection}[1]{\subparagraph{#1}\mbox{}\\}
-\newcommand{\Deutsch}[1]{\selectlanguage{ngerman}{\textit{#1}}}
-\newcommand{\Latein}[1]{\selectlanguage{latin}{\textit{#1}}}
+\newcommand{\Deutsch}[1]{\selectlanguage{ngerman}{\emph{#1}}}
+\newcommand{\Latein}[1]{\selectlanguage{latin}{\emph{#1}}}
 \setcounter{tocdepth}{5}
 \setcounter{secnumdepth}{5}
 \newcommand{\Stark}[1]{\textcolor{\headingscolor}{\textbf{#1}}}
@@ -293,7 +293,7 @@
 % \Paket{biblatex-dw} which contains the \Stil{authortitle-dw} and \Stil{footnote-dw} styles. There is also a verbose style
 % \Stil{historische-zeitschrift}. \Stil{geschichtsfrkl} implements a verbose style used by historians
 % from the University Freiburg/Br. Non-German solution include \Stil{biblatex-ijsra} for the
-% \textit{International Journal of Student Research in Archaeology}.
+% \emph{International Journal of Student Research in Archaeology}.
 % 
 % \subsection{Help}\label{kap:help}
 % \par If there are any concerns you can reach me directly via the
@@ -10024,7 +10024,6 @@
        {\bibdatesubseqesep}
        {\bibdaterangesep}}
     {\bibdaterangesep}}
-
 \renewrobustcmd*{\mkdaterangefull}[2]{%
   \blx@metadateinfo{#2}%
   \iffieldundef{#2year}
@@ -10057,7 +10056,6 @@
                {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
              \enddateuncertainprint
              \dateeraprint{#2endyear}}}}}}
-
 \renewrobustcmd*{\mkdaterangetrunc}[2]{%
   \blx@metadateinfo{#2}%
   \iffieldundef{#2year}
@@ -10093,7 +10091,6 @@
                {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
              \enddateuncertainprint
              \dateeraprint{#2endyear}}}}}}
-
 \renewrobustcmd*{\mkdaterangefullextra}[2]{%
   \blx@metadateinfo{#2}%
   \iffieldundef{#2year}
@@ -10130,7 +10127,6 @@
                \printfield{extradate}%
                \enddateuncertainprint
                \dateeraprint{#2endyear}}}}}}}
-
 \renewrobustcmd*{\mkdaterangetruncextra}[2]{%
   \blx@metadateinfo{#2}%
   \iffieldundef{#2year}
@@ -10170,7 +10166,6 @@
                \printfield{extradate}%
                \enddateuncertainprint
                \dateeraprint{#2endyear}}}}}}}
-
 \renewrobustcmd*{\mkdaterangeymd}[1]{%
   \blx@metadateinfo{#1}%
   \iffieldundef{#1year}
@@ -10203,7 +10198,6 @@
                {\csuse{mkbibseasondateshort}{#1endyear}{#1endseason}}%
              \enddateuncertainprint
              \dateeraprint{#1endyear}}}}}}
-
 \renewrobustcmd*{\mkdaterangeymdextra}[1]{%
   \blx@metadateinfo{#1}%
   \iffieldundef{#1year}
@@ -11088,6 +11082,7 @@
 % \end{macro}
 % \end{macro}
 % \end{macro}
+% \end{macro}
 %
 %</sty>
 %
@@ -11181,7 +11176,7 @@
 %<*authoryearsharedBBX>
 %
 % \begin{macro}{\blxarch@fork@authordate}
-% I'am an author date style.
+% I am an author date style.
 %    \begin{macrocode}
 \def\blxarch@fork@authordate{}
 %    \end{macrocode}
@@ -11256,7 +11251,7 @@
 %    \end{macrocode}
 %
 % \begin{macro}{\blxarch@fork@numeric}
-% I'am a numeric style.
+% I am a numeric style.
 %    \begin{macrocode}
 \def\blxarch@fork@numeric{}
 %    \end{macrocode}
@@ -11320,7 +11315,7 @@
 % \subsubsection{Shared code for generic verbose styles}
 %
 % \begin{macro}{\blxarch@fork@footnote}
-% I'am a footnote style.
+% I am a footnote style.
 %    \begin{macrocode}
 \def\blxarch@fork@verbose{}
 %    \end{macrocode}
@@ -14200,15 +14195,15 @@
 %    \begin{macrocode}
 \DeclareFieldFormat*{title}{\mkbibquote{#1}}
 \DeclareFieldFormat[book,booklet,collection,manual,misc,proceedings,report,thesis,unpublished]
-{title}{\textit{#1}}
+{title}{\emph{#1}}
 %    \end{macrocode}
 % \end{format}
 %
 % \begin{format}{booktitle}
 % \begin{format}{maintitle}
 %    \begin{macrocode}
-\DeclareFieldFormat*{booktitle}{\textit{#1}}
-\DeclareFieldFormat*{maintitle}{\textit{#1}}
+\DeclareFieldFormat*{booktitle}{\emph{#1}}
+\DeclareFieldFormat*{maintitle}{\emph{#1}}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -14222,7 +14217,7 @@
 %
 % \begin{format}{journaltitle}
 %    \begin{macrocode}
-\DeclareFieldFormat*{journaltitle}{\textit{#1}}
+\DeclareFieldFormat*{journaltitle}{\emph{#1}}
 %    \end{macrocode}
 % \end{format}
 %
@@ -14244,7 +14239,7 @@
 % \begin{format}{url}
 % \begin{format}{urldate}
 %    \begin{macrocode}
-\DeclareFieldFormat*{url}{\textit{\url{#1}}}
+\DeclareFieldFormat*{url}{\emph{\url{#1}}}
 \DeclareFieldFormat*{urldate}{}
 %    \end{macrocode}
 % \end{format}
@@ -16856,8 +16851,8 @@
 % \end{bibmacro}
 %    
 % \begin{macro}{\ifseenote}
-% If we are in the same footnote as a former occurrence, we do \textit{loc.~cit.}, in another footnote we set
-% a back reference to the first if it is not \textit{ibidem}.
+% If we are in the same footnote as a former occurrence, we do \emph{loc.~cit.}, in another footnote we set
+% a back reference to the first if it is not \emph{ibidem}.
 %    \begin{macrocode}
 \renewcommand{\ifseenote}[2]{%
     \ifboolexpr{
