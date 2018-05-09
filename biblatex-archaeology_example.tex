@@ -69,8 +69,8 @@
     %style=rgk-inline,
 	%style=rgk-numeric,
     %style=rgk-verbose,
-    %style=rgzm-inline,
-	style=rgzm-numeric,
+    style=rgzm-inline,
+	%style=rgzm-numeric,
     %style=rgzm-verbose,
     %style=ufg-muenster-inline,
     %style=ufg-muenster-verbose,
@@ -122,6 +122,51 @@
 
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
+
+\DeclareFieldFormat*{repeatlabel}{\texttt{#1}}
+
+\renewbibmacro*{repeatlabel}{%
+        \let\blxarch@buffer@repeatfamily\mkbibnamefamily
+        \let\blxarch@buffer@repeatprefix\mkbibnameprefix
+        \let\blxarch@buffer@repeatgiven\mkbibnamegiven
+        \let\blxarch@buffer@repeatsuffix\mkbibnamesuffix
+        \let\mkbibnamefamily\mkbibrepeatfamily
+        \let\mkbibnameprefix\mkbibrepeatprefix
+        \let\mkbibnamegiven\mkbibrepeatgiven
+        \let\mkbibnamesuffix\mkbibrepeatsuffix
+        \let\blxarch@buffer@repeatnames\c@minnames
+        \let\blxarch@buffer@maxnames\c@maxnames
+        \let\blxarch@buffer@minnames\c@minnames
+        \let\c@maxnames\blx@maxcitenames
+        \let\c@minnames\blx@mincitenames
+        \ifhyperref
+            {\let\bibhyperref\@empty}
+            {}%
+		\printtext[repeatlabel]{%
+			\iffieldundef{shorthand}
+				{\ifthenelse{\ifnameundef{labelname}\OR\iffieldundef{labelyear}}
+					{\usebibmacro{cite:label}%
+					\setunit{\printdelim{nonameyeardelim}}}
+					{\printnames{labelname}%
+					\setunit{\printdelim{nameyeardelim}}}%
+				 \ifeditionsuperscript{prelabel}{\usebibmacro{editionsuperscript}}{}%
+				 \usebibmacro{cite:labeldate+extradate}%
+				 \ifeditionsuperscript{prelabel}{\usebibmacro{editionsuperscript}}{}}%
+            {\usebibmacro{cite:shorthand}}%
+		}%
+        \ifhyperref{\let\bibhyperref\blxarch@buffer@hyperref}{}%
+        \let\c@maxnames\blxarch@buffer@maxnames
+        \let\c@minnames\blxarch@buffer@minnames
+        \let\mkbibnamefamily\blxarch@buffer@repeatfamily
+        \let\mkbibnameprefix\blxarch@buffer@repeatprefix
+        \let\mkbibnamegiven\blxarch@buffer@repeatgiven
+        \let\mkbibnamesuffix\blxarch@buffer@repeatsuffix}%
+%    \end{macrocode}
+% \end{bibmacro} 
+
+%%% END EXPERIMENTAL CODE HERE:
+\makeatother
+
 
 \begin{document}
 
@@ -372,6 +417,12 @@
 \begin{itemize}
     \item\cite{stafford:2004}%
 	\item\fullcite{stafford:2004}%
+\end{itemize}
+
+\subsection{\Feld{realdate}}
+\begin{itemize}
+    \item[Δ 1 y.]\fullcite{ib:domino:dormagen}%
+	\item[Δ 3 y.]\fullcite{michaelsen:1978}%
 \end{itemize}
 
 %\printshorthands
