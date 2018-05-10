@@ -120,6 +120,10 @@
 }
 \newcommand{\Mittelpfeil}{\multicolumn{1}{c}{$\Downarrow$}}
 \newcommand{\StringBox}[2]{\parbox{\textwidth}{\raggedright#1 #2}}
+\usepackage{enumitem}
+\newenvironment{optkeys}[1]
+	{\begin{enumerate}[align=parleft, labelsep=#1,itemsep=0.0ex,]}
+	{\end{enumerate}}
 \usepackage{hypdoc,hyperxmp}
 \hypersetup{
     linktocpage=true,       % only page numbers are clickable
@@ -446,7 +450,7 @@
 %
 % \item[]\DescribeOption{editionsuperscript}=\meta{key}\\
 % This option controls where to print the edition number. The following keys are available:
-% \begin{itemize}
+% \begin{optkeys}{3em}
 %   \item[\Kbd{none}] use the \blx standard.
 %   \item[\Kbd{predate}] superscript ahead of \Feld{date}.
 %   \item[\Kbd{postdate}] superscript after \Feld{date}.
@@ -455,7 +459,7 @@
 %   \item[\Kbd{preloc}] superscript ahead of \Feld{location}.
 %   \item[\Kbd{postloc}] superscript after \Feld{location}.
 %   \item[\Kbd{posttitle}] superscript after \Format{title}.
-% \end{itemize}
+% \end{optkeys}
 % Except \Kbd{none}, the content of the edition field is copied into the \Feld{usere} field.
 %
 % \item[]\DescribeOption{giveninitligatures}=\meta{csv}\\
@@ -490,7 +494,7 @@
 %
 % \item[]\DescribeOption{minrealdatediff}=\meta{integer}\\
 % If both \Feld{date} and \Feld{realdate} (or \Feld{origdate} and \Feld{origrealdate} respectively) contain numeric years, \Feld{realdate}
-% only gets printed if its difference from \Feld{date} is greater equal \Option{minrealdatediff}. This is to rule out ll cases where the item
+% only gets printed if its difference from \Feld{date} is greater equal \Option{minrealdatediff}. This is to rule out those cases where the item
 % appeared only one year earlier or later than its given copyright date or journal year.
 %
 % \item[]\DescribeOption{nothesistitlepunct}=\meta{bool}\\
@@ -509,11 +513,11 @@
 % \item[]\DescribeOption{positionlabeldate}=\meta{key}\\
 % This option controls the position of the \Feld{labelyear} in the bibliography only in author date styles.
 % The following keys are available:
-% \begin{itemize}
+% \begin{optkeys}{3em}
 %   \item[\Kbd{both}] after author names and after location.
 %   \item[\Kbd{label}] after author names.
 %   \item[\Kbd{location}] after location.
-% \end{itemize}
+% \end{optkeys}
 % \Beispiel{%
 %   \begin{tabular}{l}
 %       \Kbd{\textbackslash usepackage[positionlabeldate=both,style=xyz]\{biblatex\}}\\
@@ -535,11 +539,11 @@
 %
 % \item[]\DescribeOption{repeatlabel}=\meta{key}\\
 % If \meta{true} or \meta{dashed}, the exact label is printed in the bibliography. This affects author date styles only.
-% \begin{itemize}
+% \begin{optkeys}{3em}
 %   \item[\Kbd{dashed}] repeat labels and dash repeated names.
 %   \item[\Kbd{false}] do not repeat labels.
 %   \item[\Kbd{true}] repeat labels and print \Befehl{labelname}s every time.
-% \end{itemize}
+% \end{optkeys}
 % \Beispiel{%
 %   \begin{tabular}{l}
 %       \Stark{Ackermann et~al. 2015}\\
@@ -549,11 +553,11 @@
 %
 % \item[]\DescribeOption{shortform}=\meta{key}\\
 % Wether to print short forms like \Deutsch{RGA} or \Latein{CIL} in bibliographies. The following keys are available:
-% \begin{itemize}
+% \begin{optkeys}{3em}
 %   \item[\Kbd{false}] no short forms in  the bibliography.
 %   \item[\Kbd{title}] replace \Feld{title} by \Feld{shortform} field.
 %   \item[\Kbd{true}] use full short forms.
-% \end{itemize}
+% \end{optkeys}
 % Verbose styles have a \Befehl{shortformcite} command that prints shortforms in footnotes.
 % See \ref{kap:citecmd} for details.
 %
@@ -645,14 +649,14 @@
 %   \end{tabular}
 % }
 % The following keys are available:
-% \begin{itemize}
-%   \item[\Kbd{aspublisher}] Handles \Feld{type} field like \Feld{publisher} field.
-%   \item[\Kbd{false}] Omits \Feld{institution} field.
-%   \item[\Kbd{locationfirst }] Similar to \Kbd{false}, but \Feld{type} field is printed after \Feld{location} field.
-%   \item[\Kbd{omitlocation}] Omits \Feld{location} field
-%   \item[\Kbd{omitlocatonifurl}] Omits \Feld{location} field if URL available.
-%   \item[\Kbd{pluslocation}] Prints both fields \Feld{institution} and \Feld{location}.
-% \end{itemize}
+% \begin{optkeys}{6em}
+%   \item[\Kbd{aspublisher}] handles \Feld{type} field like \Feld{publisher} field.
+%   \item[\Kbd{false}] omits \Feld{institution} field.
+%   \item[\Kbd{locationfirst }] similar to \Kbd{false}, but \Feld{type} field is printed after \Feld{location} field.
+%   \item[\Kbd{omitlocation}] omits \Feld{location} field.
+%   \item[\Kbd{omitlocatonifurl}] omits \Feld{location} field if URL available.
+%   \item[\Kbd{pluslocation}] prints both fields \Feld{institution} and \Feld{location}.
+% \end{optkeys}
 %
 % \item[]\DescribeOption{usemultivenue}=\meta{bool}\\
 % If \meta{true}, \Feld{multivenue} is used in \Feld{titlenote}s. This is mainly meant for travelling exhibitions.
@@ -666,11 +670,11 @@
 %
 % \item[]\DescribeOption{uselocation}=\meta{key}\\
 % If to print the \Feld{location} field.
-% \begin{itemize}
-%   \item[\Kbd{false}] Omits \Feld{location} field.
-%   \item[\Kbd{omitlocatonifseries}] Omits \Feld{location} field if series available.
-%   \item[\Kbd{true}] Always print \Feld{location} field.
-% \end{itemize}
+% \begin{optkeys}{5em}
+%   \item[\Kbd{false}] omits \Feld{location} field.
+%   \item[\Kbd{omitifseries}] omits \Feld{location} field if series available.
+%   \item[\Kbd{true}] always print \Feld{location} field.
+% \end{optkeys}
 %
 % \item[]\DescribeOption{useunpublishedthesis}=\meta{bool}\\
 % If \meta{true}, unpublished theses preceed the \Feld{type} field with the string \enquote{unpublished}.
@@ -8044,10 +8048,12 @@
 %
 % \begin{option}{shortform}
 % =\meta{string}\\
-% Where to print the label date. The following expressions are allowed:\\
-% \Kbd{both} = date after label name and location;\\
-% \Kbd{label} = date after label name;\\
-% \Kbd{location} = date after location;\\
+% Where to print the label date. The following expressions are allowed:
+% \begin{optkeys}{3em}
+% 	\item[\Kbd{both}] date after label name and location;
+% 	\item[\Kbd{label}] date after label name;
+% 	\item[\Kbd{location}] date after location;
+% \end{optkeys}
 %    \begin{macrocode}
 \DeclareBibliographyOption[string]{shortform}[true]{%
     \ifcsdef{blxarch@opt@shortform@#1}
@@ -8185,10 +8191,12 @@
 % \end{macro}
 %
 % \begin{option}{repeatlabel}
-% =\meta{string}\\
-% \Kbd{dashed} = cite label shall be repeated and repeated names dashed;\\
-% \Kbd{false} = don't;\\
-% \Kbd{true} = cite label shall be repeated, always with full names;\\
+% =\meta{string}
+% \begin{optkeys}{3em}
+% 	\item[\Kbd{dashed}] cite label shall be repeated and repeated names dashed;
+% 	\item[\Kbd{false}] don't;
+% 	\item[\Kbd{true}] cite label shall be repeated, always with full names;
+% \end{optkeys}
 %    \begin{macrocode}
 \DeclareBibliographyOption[string]{repeatlabel}[true]{%
     \ifcsdef{blxarch@opt@repeatlabel@#1}
@@ -9468,15 +9476,17 @@
 %
 % \begin{option}{editionsuperscript}
 % =\meta{expression}\\
-% Where to print the edition number. The following expressions are allowed:\\
-% \Kbd{predate} = superscript ahead of date;\\
-% \Kbd{postdate} = superscript after date;\\
-% \Kbd{prelabel} = superscript ahead of label year;\\
-% \Kbd{postlabel} = superscript after label year;\\
-% \Kbd{preloc} = superscript ahead of location;\\
-% \Kbd{postloc} = superscript after location;\\
-% \Kbd{posttitle} = superscript after title;\\
-% \Kbd{none} = normal text ahead of \Feld{location}/\Feld{date} as the standard styles do.
+% Where to print the edition number. The following expressions are allowed:
+% \begin{optkeys}{3em}
+% 	\item[\Kbd{predate}] superscript ahead of date;
+% 	\item[\Kbd{postdate}] superscript after date;
+% 	\item[\Kbd{prelabel}] superscript ahead of label year;
+% 	\item[\Kbd{postlabel}] superscript after label year;
+% 	\item[\Kbd{preloc}] superscript ahead of location;
+% 	\item[\Kbd{postloc}]  superscript after location;
+% 	\item[\Kbd{posttitle}] superscript after title;
+% 	\item[\Kbd{none}] normal text ahead of \Feld{location}/\Feld{date} as the standard styles do;
+% \end{optkeys}
 %    \begin{macrocode}
 \DeclareBibliographyOption[string]{editionsuperscript}[posttitle]{%
     \ifcsdef{blxarch@opt@editionsuperscript@#1}
@@ -9545,10 +9555,12 @@
 %
 % \begin{option}{uselocation}
 % =\meta{expression}\\
-% Where to print the label date. The following expressions are allowed:\\
-% \Kbd{false} = print no location at all;\\
-% \Kbd{omitifseries} = print location or series;\\
-% \Kbd{true} = always print location;\\
+% Where to print the label date. The following expressions are allowed:
+% \begin{optkeys}{5em}
+% 	\item[\Kbd{false}] print no location at all;
+% 	\item[\Kbd{omitifseries}] print location or series;
+% 	\item[\Kbd{true}] always print location;
+% \end{optkeys}
 %    \begin{macrocode}
 \DeclareBibliographyOption[string]{uselocation}[true]{%
     \ifcsdef{blxarch@opt@uselocation@#1}
@@ -9728,13 +9740,15 @@
 %
 % \begin{option}{useinstitution}
 % =\meta{string}\\
-% Whether to print the \Feld{institution} field:\\
-% \Kbd{aspublisher} = handle \Feld{type} like \Feld{publisher};\\
-% \Kbd{false} = omit \Feld{institution} field;\\
-% \Kbd{locationfirst} = like \Kbd{false}, but \Feld{type} after \Feld{location};\\
-% \Kbd{omitlocation} = omit \Feld{location};\\
-% \Kbd{omitlocatonifurl} = omit \Feld{institution} if URL available;\\
-% \Kbd{pluslocation} = print both \Feld{institution} and \Feld{location};\\
+% Whether to print the \Feld{institution} field:
+% \begin{optkeys}{6em}
+% 	\item[\Kbd{aspublisher}] handle \Feld{type} like \Feld{publisher};
+% 	\item[\Kbd{false}] omit \Feld{institution} field;
+% 	\item[\Kbd{locationfirst}] like \Kbd{false}, but \Feld{type} after \Feld{location};
+% 	\item[\Kbd{omitlocation}] omit \Feld{location};
+% 	\item[\Kbd{omitlocatonifurl}] omit \Feld{institution} if URL available;
+% 	\item[\Kbd{pluslocation}] print both \Feld{institution} and \Feld{location};
+% \end{optkeys}
 %    \begin{macrocode}
 \DeclareBibliographyOption[string]{useinstitution}[pluslocation]{%
     \ifcsdef{blxarch@opt@useinstitution@#1}
@@ -9928,10 +9942,12 @@
 %
 % \begin{option}{positionlabeldate}
 % =\meta{expression}\\
-% Where to print the label date. The following expressions are allowed:\\
-% \Kbd{both} = date after label name and location;\\
-% \Kbd{label} = date after label name;\\
-% \Kbd{location} = date after location;\\
+% Where to print the label date. The following expressions are allowed:
+% \begin{optkeys}{3em}
+% 	\item[\Kbd{both}] date after label name and location;
+%	\item[\Kbd{label}] date after label name;
+% 	\item[\Kbd{location}] date after location;
+% \end{optkeys}
 %    \begin{macrocode}
 \DeclareBibliographyOption[string]{positionlabeldate}[both]{%
     \ifcsdef{blxarch@opt@positionlabeldate@#1}
