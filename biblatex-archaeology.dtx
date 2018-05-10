@@ -10175,213 +10175,225 @@
        {\bibdatesubseqesep}
        {\bibdaterangesep}}
     {\bibdaterangesep}}
-\renewrobustcmd*{\mkdaterangefull}[2]{%
-  \blx@metadateinfo{#2}%
-  \iffieldundef{#2year}
-    {}
-    {\datecircaprint
-     \printtext[#2date]{%
+ \renewrobustcmd*{\mkdaterangefull}[2]{%
+ \begingroup
+    \blx@metadateinfo{#2}%
+    \iffieldundef{#2year}
+      {}
+      {\datecircaprint
+       \printtext[#2date]{%
 %    \end{macrocode}
-       % Such a season component can only come from an ISO8601 season which replaces
-       % a normal month so if it exists, we know that a normal date print is ruled out
+         % Such a season component can only come from an ISO8601 season which replaces
+         % a normal month so if it exists, we know that a normal date print is ruled out
 %    \begin{macrocode}
-       \iffieldundef{#2season}
-         {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
+         \iffieldundef{#2season}
+           {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
 %    \end{macrocode}
-          % Optionally print the time after the date
+            % Optionally print the time after the date
 %    \begin{macrocode}
-          \blx@printtime{#2}{}}
-         {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
-       \dateuncertainprint
-       \dateeraprint{#2year}%
-       \iffieldundef{#2endyear}
-         {}
-         {\iffieldequalstr{#2endyear}{}
-            {\mbox{\bibdaterangesep}}
-            {\bibdaterangesepx{#2}%
-             \enddatecircaprint
-             \iffieldundef{#2season}
-               {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}%
-                % Optionally print the time after the date
-                \blx@printtime{#2}{end}}
-               {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
-             \enddateuncertainprint
-             \dateeraprint{#2endyear}}}}}}
+            \blx@printtime{#2}{}}
+           {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
+         \dateuncertainprint
+         \dateeraprint{#2year}%
+         \iffieldundef{#2endyear}
+           {}
+           {\iffieldequalstr{#2endyear}{}
+              {\mbox{\bibdaterangesep}}
+              {\bibdaterangesepx{#2}%
+                \enddatecircaprint
+                \iffieldundef{#2season}
+                  {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}%
+                   % Optionally print the time after the date
+                   \blx@printtime{#2}{end}}
+                 {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
+                \enddateuncertainprint
+              \dateeraprint{#2endyear}}}}}%
+  \endgroup}
 \renewrobustcmd*{\mkdaterangetrunc}[2]{%
-  \blx@metadateinfo{#2}%
-  \iffieldundef{#2year}
-    {}
-    {\datecircaprint
-     \printtext[#2date]{%
+  \begingroup
+    \blx@metadateinfo{#2}%
+    \iffieldundef{#2year}
+      {}
+      {\datecircaprint
+       \printtext[#2date]{%
 %    \end{macrocode}
-       % Such a season component can only come from an ISO8601 season which replaces
-       % a normal month so if it exists, we know that a normal date print is ruled out
+         % Such a season component can only come from an ISO8601 season which replaces
+         % a normal month so if it exists, we know that a normal date print is ruled out
 %    \begin{macrocode}
-       \iffieldundef{#2season}
-         {\iffieldsequal{#2year}{#2endyear}
-            {\iffieldsequal{#2month}{#2endmonth}
-               {\csuse{mkbibdate#1}{}{}{#2day}}
-               {\csuse{mkbibdate#1}{}{#2month}{#2day}}}
-            {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
-             \iffieldsequal{#2dateera}{#2enddateera}{}
-              {\dateeraprint{#2year}}}}
-         {\iffieldsequal{#2year}{#2endyear}
-           {\csuse{mkbibseasondate#1}{}{#2season}}
-           {\csuse{mkbibseasondate#1}{#2year}{#2season}%
-            \iffieldsequal{#2dateera}{#2enddateera}{}
-              {\dateeraprint{#2year}}}}%
-       \dateuncertainprint
-       \iffieldundef{#2endyear}
-         {}
-         {\iffieldequalstr{#2endyear}{}
-            {\mbox{\bibdaterangesep}}
-            {\bibdaterangesepx{#2}%
-             \enddatecircaprint
-             \iffieldundef{#2season}
-               {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}
-               {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
-             \enddateuncertainprint
-             \dateeraprint{#2endyear}}}}}}
+         \iffieldundef{#2season}
+           {\iffieldsequal{#2year}{#2endyear}
+              {\iffieldsequal{#2month}{#2endmonth}
+                 {\csuse{mkbibdate#1}{}{}{#2day}}
+                 {\csuse{mkbibdate#1}{}{#2month}{#2day}}}
+              {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
+               \iffieldsequal{#2dateera}{#2enddateera}{}
+                {\dateeraprint{#2year}}}}
+           {\iffieldsequal{#2year}{#2endyear}
+             {\csuse{mkbibseasondate#1}{}{#2season}}
+             {\csuse{mkbibseasondate#1}{#2year}{#2season}%
+              \iffieldsequal{#2dateera}{#2enddateera}{}
+                {\dateeraprint{#2year}}}}%
+         \dateuncertainprint
+         \iffieldundef{#2endyear}
+           {}
+           {\iffieldequalstr{#2endyear}{}
+              {\mbox{\bibdaterangesep}}
+              {\bibdaterangesepx{#2}%
+                \enddatecircaprint
+                \iffieldundef{#2season}
+                  {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}
+                 {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
+                \enddateuncertainprint
+               \dateeraprint{#2endyear}}}}}%
+  \endgroup}
 \renewrobustcmd*{\mkdaterangefullextra}[2]{%
-  \blx@metadateinfo{#2}%
-  \iffieldundef{#2year}
-    {}
-    {\datecircaprint
-     \printtext[#2date]{%
-       \printtext{%
+  \begingroup
+    \blx@metadateinfo{#2}%
+    \iffieldundef{#2year}
+      {}
+      {\datecircaprint
+       \printtext[#2date]{%
+         \printtext{%
 %    \end{macrocode}
-       % Such a season component can only come from an ISO8601 season which replaces
-       % a normal month so if it exists, we know that a normal date print is ruled out
+         % Such a season component can only come from an ISO8601 season which replaces
+         % a normal month so if it exists, we know that a normal date print is ruled out
 %    \begin{macrocode}
-       \iffieldundef{#2season}
-         {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
+         \iffieldundef{#2season}
+           {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
+            % Optionally print the time after the date
+            \blx@printtime{#2}{}}
+           {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
+         \dateuncertainprint
+         \dateeraprint{#2year}%
+         \iffieldundef{#2endyear}
+           {\printfield{extradate}}
+           {\iffieldequalstr{#2endyear}{}
+              {\printfield{extradate}%
+               \printtext{\mbox{\bibdaterangesep}}}
+              {\printtext{%
+                 \bibdaterangesepx{#2}%
+                 \enddatecircaprint
+                 \iffieldundef{#2season}
+                   {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}%
 %    \end{macrocode}
-          % Optionally print the time after the date
+                    % Optionally print the time after the date
 %    \begin{macrocode}
-          \blx@printtime{#2}{}}
-         {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
-       \dateuncertainprint
-       \dateeraprint{#2year}%
-       \iffieldundef{#2endyear}
-         {\printfield{extradate}}
-         {\iffieldequalstr{#2endyear}{}
-            {\printfield{extradate}%
-             \printtext{\mbox{\bibdaterangesep}}}
-            {\printtext{%
-               \bibdaterangesepx{#2}%
-               \enddatecircaprint
-               \iffieldundef{#2season}
-                 {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}%
-                  % Optionally print the time after the date
-                  \blx@printtime{#2}{end}}
-                 {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}}%
-               \printfield{extradate}%
-               \enddateuncertainprint
-               \dateeraprint{#2endyear}}}}}}}
+                    \blx@printtime{#2}{end}}
+                   {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}}%
+                 \printfield{extradate}%
+                 \enddateuncertainprint
+                 \dateeraprint{#2endyear}}}}}}%
+  \endgroup}
 \renewrobustcmd*{\mkdaterangetruncextra}[2]{%
-  \blx@metadateinfo{#2}%
-  \iffieldundef{#2year}
-    {}
-    {\datecircaprint
-     \printtext[#2date]{%
-       \printtext{%
+  \begingroup
+    \blx@metadateinfo{#2}%
+    \iffieldundef{#2year}
+      {}
+      {\datecircaprint
+       \printtext[#2date]{%
+         \printtext{%
 %    \end{macrocode}
-       % Such a season component can only come from an ISO8601 season which replaces
-       % a normal month so if it exists, we know that a normal date print is ruled out
+         % Such a season component can only come from an ISO8601 season which replaces
+         % a normal month so if it exists, we know that a normal date print is ruled out
 %    \begin{macrocode}
-       \iffieldundef{#2season}
-         {\iffieldsequal{#2year}{#2endyear}
-            {\iffieldsequal{#2month}{#2endmonth}
-               {\csuse{mkbibdate#1}{}{}{#2day}}
-               {\csuse{mkbibdate#1}{}{#2month}{#2day}}}
-            {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
-             \iffieldsequal{#2dateera}{#2enddateera}{}
-               {\dateeraprint{#2year}}}}
-         {\iffieldsequal{#2year}{#2endyear}
-           {\csuse{mkbibseasondate#1}{}{#2season}}
-           {\csuse{mkbibseasondate#1}{#2year}{#2season}%
-             \iffieldsequal{#2dateera}{#2enddateera}{}
-              {\dateeraprint{#2year}}}}%
-       \dateuncertainprint
-       \iffieldundef{#2endyear}
-         {\printfield{extradate}}
-         {\iffieldequalstr{#2endyear}{}
-            {\printfield{extradate}%
-             \printtext{\mbox{\bibdaterangesep}}}
-            {\printtext{%
-               \bibdaterangesepx{#2}%
-               \enddatecircaprint
-               \iffieldundef{#2season}
-                 {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}
-                 {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}}%
-               \printfield{extradate}%
-               \enddateuncertainprint
-               \dateeraprint{#2endyear}}}}}}}
+         \iffieldundef{#2season}
+           {\iffieldsequal{#2year}{#2endyear}
+              {\iffieldsequal{#2month}{#2endmonth}
+                 {\csuse{mkbibdate#1}{}{}{#2day}}
+                 {\csuse{mkbibdate#1}{}{#2month}{#2day}}}
+              {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
+               \iffieldsequal{#2dateera}{#2enddateera}{}
+                 {\dateeraprint{#2year}}}}
+           {\iffieldsequal{#2year}{#2endyear}
+             {\csuse{mkbibseasondate#1}{}{#2season}}
+             {\csuse{mkbibseasondate#1}{#2year}{#2season}%
+               \iffieldsequal{#2dateera}{#2enddateera}{}
+                {\dateeraprint{#2year}}}}%
+         \dateuncertainprint
+         \iffieldundef{#2endyear}
+           {\printfield{extradate}}
+           {\iffieldequalstr{#2endyear}{}
+              {\printfield{extradate}%
+               \printtext{\mbox{\bibdaterangesep}}}
+              {\printtext{%
+                 \bibdaterangesepx{#2}%
+                 \enddatecircaprint
+                 \iffieldundef{#2season}
+                   {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}
+                   {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}}%
+                \printfield{extradate}%
+                 \enddateuncertainprint
+                 \dateeraprint{#2endyear}}}}}}%
+  \endgroup}
 \renewrobustcmd*{\mkdaterangeymd}[1]{%
-  \blx@metadateinfo{#1}%
-  \iffieldundef{#1year}
-    {}
-    {\datecircaprint
-     \printtext[#1date]{%
+  \begingroup
+    \blx@metadateinfo{#1}%
+    \iffieldundef{#1year}
+      {}
+      {\datecircaprint
+       \printtext[#1date]{%
 %    \end{macrocode}
-       % Such a season component can only come from an  ISO8601 season which replaces
-       % a normal month so if it exists, we know that a normal date print is ruled out
+         % Such a season component can only come from an  ISO8601 season which replaces
+         % a normal month so if it exists, we know that a normal date print is ruled out
 %    \begin{macrocode}
-       \iffieldundef{#1season}
-         {\blx@ymddate{#1}{}%
+         \iffieldundef{#1season}
+           {\blx@ymddate{#1}{}%
+            % Optionally print the time after the date
+            \blx@printtime{#1}{}}
+           {\csuse{mkbibseasondateshort}{#1year}{#1season}}%
+         \dateuncertainprint
+         \dateeraprint{#1year}%
+         \iffieldundef{#1endyear}
+           {}
+           {\iffieldequalstr{#1endyear}{}
+              {\mbox{\bibdaterangesep}}
+              {\bibdaterangesepx{#1}%
+                \enddatecircaprint
+                \iffieldundef{#1season}
+                  {\blx@ymddate{#1}{end}%
 %    \end{macrocode}
-          % Optionally print the time after the date
+                   % Optionally print the time after the date
 %    \begin{macrocode}
-          \blx@printtime{#1}{}}
-         {\csuse{mkbibseasondateshort}{#1year}{#1season}}%
-       \dateuncertainprint
-       \dateeraprint{#1year}%
-       \iffieldundef{#1endyear}
-         {}
-         {\iffieldequalstr{#1endyear}{}
-            {\mbox{\bibdaterangesep}}
-            {\bibdaterangesepx{#1}%
-             \enddatecircaprint
-             \iffieldundef{#1season}
-               {\blx@ymddate{#1}{end}%
-                % Optionally print the time after the date
-                \blx@printtime{#1}{end}}
-               {\csuse{mkbibseasondateshort}{#1endyear}{#1endseason}}%
-             \enddateuncertainprint
-             \dateeraprint{#1endyear}}}}}}
+                   \blx@printtime{#1}{end}}
+                 {\csuse{mkbibseasondateshort}{#1endyear}{#1endseason}}%
+               \enddateuncertainprint
+               \dateeraprint{#1endyear}}}}}%
+  \endgroup}
 \renewrobustcmd*{\mkdaterangeymdextra}[1]{%
-  \blx@metadateinfo{#1}%
-  \iffieldundef{#1year}
-    {}
-    {\datecircaprint
-     \printtext[#1date]{%
+  \begingroup
+    \blx@metadateinfo{#1}%
+    \iffieldundef{#1year}
+      {}
+      {\datecircaprint
+       \printtext[#1date]{%
 %    \end{macrocode}
-       % Such a season component can only come from an ISO8601 season which replaces
-       % a normal month so if it exists, we know that a normal date print is ruled out
+         % Such a season component can only come from an ISO8601 season which replaces
+         % a normal month so if it exists, we know that a normal date print is ruled out
 %    \begin{macrocode}
-       \iffieldundef{#1season}
-         {\blx@ymddate[extradate]{#1}{}%
-%    \end{macrocode}
-          % Optionally print the time after the date
+         \iffieldundef{#1season}
+           {\blx@ymddate[extradate]{#1}{}%
+            % Optionally print the time after the date
+            \blx@printtime{#1}{}}
+           {\csuse{mkbibseasondateshort}{#1year}{#1season}}%
+         \dateuncertainprint
+         \dateeraprint{#1year}%
+         \iffieldundef{#1endyear}
+           {}
+           {\iffieldequalstr{#1endyear}{}
+              {\mbox{\bibdaterangesep}}
+              {\printtext{%
+                 \bibdaterangesepx{#1}%
+                 \enddatecircaprint
+                 \iffieldundef{#1season}
+                   {\blx@ymddate{#1}{end}%
+%    \endn{macrocode}
+                    % Optionally print the time after the date
 %    \begin{macrocode}
-          \blx@printtime{#1}{}}
-         {\csuse{mkbibseasondateshort}{#1year}{#1season}}%
-       \dateuncertainprint
-       \dateeraprint{#1year}%
-       \iffieldundef{#1endyear}
-         {}
-         {\iffieldequalstr{#1endyear}{}
-            {\mbox{\bibdaterangesep}}
-            {\printtext{%
-               \bibdaterangesepx{#1}%
-               \enddatecircaprint
-               \iffieldundef{#1season}
-                 {\blx@ymddate{#1}{end}%
-                  % Optionally print the time after the date
-                  \blx@printtime{#1}{end}}
-                 {\csuse{mkbibseasondateshort}{#1endyear}{#1endseason}}}%
-             \enddateuncertainprint
-             \dateeraprint{#1endyear}}}}}}
+                    \blx@printtime{#1}{end}}
+                   {\csuse{mkbibseasondateshort}{#1endyear}{#1endseason}}}%
+               \enddateuncertainprint
+               \dateeraprint{#1endyear}}}}}%
+  \endgroup}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -19059,128 +19071,149 @@
     urlfrom  = {{Online}{Online}},
 }
 %    \end{macrocode}
+% \end{localization}
 %
+% \begin{macro}{\lbx@us@mkdaterangetrunc@long}
+% \begin{macro}{\lbx@us@mkdaterangetrunc@short}
+% \begin{macro}{\lbx@us@mkdaterangetruncextra@long}
+% \begin{macro}{\lbx@us@mkdaterangetruncextra@short}
 % Adjust date formats because date range separators differ.
 %    \begin{macrocode}
 \protected\gdef\lbx@us@mkdaterangetrunc@long#1#2{%
-  \iffieldundef{#2year}
-    {}
-    {\datecircaprint
-     \printtext[#2date]{%
-       \iffieldundef{#2season}
-         {\iffieldsequal{#2year}{#2endyear}
-           {\csuse{mkbibdate#1}{}{#2month}{#2day}}
-           {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
-            \dateeraprint{#2}}}
-         {\iffieldsequal{#2year}{#2endyear}
-           {\csuse{mkbibseasondate#1}{}{#2season}}
-           {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
-            \dateeraprint{#2}}%
-       \dateuncertainprint
-       \iffieldundef{#2endyear}
-         {}
-         {\iffieldequalstr{#2endyear}{}
-           {\mbox{\bibdaterangesep}}
-           {\bibdaterangesepx{#2}%
-            \enddatecircaprint
-            \iffieldundef{#2season}
-              {\iffieldsequal{#2year}{#2endyear}
-                {\iffieldsequal{#2month}{#2endmonth}
-                  {\csuse{mkbibdate#1}{#2endyear}{}{#2endday}}
-                  {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}}
-                {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}}
-              {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
-            \enddateuncertainprint
-            \dateeraprint{#2}}}}}}
-
-\protected\gdef\lbx@us@mkdaterangetrunc@short#1#2{%
-  \iffieldundef{#2year}
-    {}
-    {\datecircaprint
-     \printtext[#2date]{%
-       \iffieldundef{#2season}
-         {\iffieldsequal{#2year}{#2endyear}
-           {\csuse{mkbibdate#1}{}{#2month}{#2day}}
-           {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}
-            \dateeraprint{#2}}}
-         {\iffieldsequal{#2year}{#2endyear}
-           {\csuse{mkbibseasondate#1}{}{#2season}}
-           {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
-            \dateeraprint{#2}}%
-       \dateuncertainprint
-       \iffieldundef{#2endyear}
-         {}
-         {\iffieldequalstr{#2endyear}{}
-            {\mbox{\bibdaterangesep}}
-            {\bibdaterangesepx{#2}%
-             \enddatecircaprint
-             \iffieldundef{#2season}
-               {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}
-               {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
-             \enddateuncertainprint
-             \dateeraprint{#2}}}}}}
-
-\protected\gdef\lbx@us@mkdaterangetruncextra@long#1#2{%
-  \iffieldundef{#2year}
-    {}
-    {\datecircaprint
-     \printtext[#2date]{%
-       \iffieldundef{#2season}
-         {\iffieldsequal{#2year}{#2endyear}
-           {\csuse{mkbibdate#1}{}{#2month}{#2day}}
-           {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}}}
-         {\iffieldsequal{#2year}{#2endyear}
-           {\csuse{mkbibseasondate#1}{}{#2season}}
-           {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
-            \dateeraprint{#2}}%
-       \dateuncertainprint
-       \iffieldundef{#2endyear}
-         {\printfield{extradate}}
-         {\iffieldequalstr{#2endyear}{}
-            {\printfield{extradate}%
-             \mbox{\bibdaterangesep}}
-            {\bibdaterangesepx{#2}%
-             \enddatecircaprint
-             \iffieldundef{#2season}
-               {\iffieldsequal{#2year}{#2endyear}
-                 {\iffieldsequal{#2month}{#2endmonth}
+  \begingroup
+    \blx@metadateinfo{#2}%
+    \iffieldundef{#2year}
+      {}
+      {\datecircaprint
+       \printtext[#2date]{%
+         \iffieldundef{#2season}
+           {\iffieldsequal{#2year}{#2endyear}
+             {\csuse{mkbibdate#1}{}{#2month}{#2day}}
+             {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}%
+              \dateeraprint{#2}}}
+           {\iffieldsequal{#2year}{#2endyear}
+             {\csuse{mkbibseasondate#1}{}{#2season}}
+             {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
+              \dateeraprint{#2}}%
+         \dateuncertainprint
+         \iffieldundef{#2endyear}
+           {}
+           {\iffieldequalstr{#2endyear}{}
+             {\mbox{\bibdaterangesep}}
+             {\bibdaterangesepx{#2}%
+              \enddatecircaprint
+              \iffieldundef{#2season}
+                {\iffieldsequal{#2year}{#2endyear}
+                  {\iffieldsequal{#2month}{#2endmonth}
                     {\csuse{mkbibdate#1}{#2endyear}{}{#2endday}}
                     {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}}
-                 {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}}
-               {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
-             \printfield{extradate}%
-             \enddateuncertainprint
-             \dateeraprint{#2}}}}}}
-
+                   {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}}
+                {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
+              \enddateuncertainprint
+              \dateeraprint{#2}}}}}%
+  \endgroup}
+\protected\gdef\lbx@us@mkdaterangetrunc@short#1#2{%
+  \begingroup
+    \blx@metadateinfo{#2}%
+    \iffieldundef{#2year}
+      {}
+      {\datecircaprint
+       \printtext[#2date]{%
+         \iffieldundef{#2season}
+           {\iffieldsequal{#2year}{#2endyear}
+             {\csuse{mkbibdate#1}{}{#2month}{#2day}}
+             {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}
+              \dateeraprint{#2}}}
+           {\iffieldsequal{#2year}{#2endyear}
+             {\csuse{mkbibseasondate#1}{}{#2season}}
+             {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
+              \dateeraprint{#2}}%
+         \dateuncertainprint
+         \iffieldundef{#2endyear}
+           {}
+           {\iffieldequalstr{#2endyear}{}
+              {\mbox{\bibdaterangesep}}
+              {\bibdaterangesepx{#2}%
+               \enddatecircaprint
+               \iffieldundef{#2season}
+                 {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}
+                 {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
+               \enddateuncertainprint
+               \dateeraprint{#2}}}}}%
+  \endgroup}
+\protected\gdef\lbx@us@mkdaterangetruncextra@long#1#2{%
+  \begingroup
+    \blx@metadateinfo{#2}%
+    \iffieldundef{#2year}
+      {}
+      {\datecircaprint
+       \printtext[#2date]{%
+         \iffieldundef{#2season}
+           {\iffieldsequal{#2year}{#2endyear}
+             {\csuse{mkbibdate#1}{}{#2month}{#2day}}
+             {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}}}
+           {\iffieldsequal{#2year}{#2endyear}
+             {\csuse{mkbibseasondate#1}{}{#2season}}
+             {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
+              \dateeraprint{#2}}%
+         \dateuncertainprint
+         \iffieldundef{#2endyear}
+           {\printfield{extradate}}
+           {\iffieldequalstr{#2endyear}{}
+              {\printfield{extradate}%
+               \mbox{\bibdaterangesep}}
+              {\bibdaterangesepx{#2}%
+               \enddatecircaprint
+               \iffieldundef{#2season}
+                 {\iffieldsequal{#2year}{#2endyear}
+                   {\iffieldsequal{#2month}{#2endmonth}
+                      {\csuse{mkbibdate#1}{#2endyear}{}{#2endday}}
+                      {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}}
+                   {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}}
+                 {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
+               \printfield{extradate}%
+               \enddateuncertainprint
+               \dateeraprint{#2}}}}}%
+  \endgroup}
 \protected\gdef\lbx@us@mkdaterangetruncextra@short#1#2{%
-  \iffieldundef{#2year}
-    {}
-    {\datecircaprint
-     \printtext[#2date]{%
-       \iffieldundef{#2season}
-         {\iffieldsequal{#2year}{#2endyear}
-           {\csuse{mkbibdate#1}{}{#2month}{#2day}}
-           {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}}}
-         {\iffieldsequal{#2year}{#2endyear}
-           {\csuse{mkbibseasondate#1}{}{#2season}}
-           {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
-            \dateeraprint{#2}}%
-       \dateuncertainprint
-       \iffieldundef{#2endyear}
-         {\printfield{extradate}}
-         {\iffieldequalstr{#2endyear}{}
-            {\printfield{extradate}%
-          \mbox{\bibdaterangesep}}
-         {\bibdaterangesepx{#2}%
-          \enddatecircaprint
-          \iffieldundef{#2season}
-            {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}
-            {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
-          \printfield{extradate}%
-          \enddateuncertainprint
-          \dateeraprint{#2}}}}}}
+  \begingroup
+    \blx@metadateinfo{#2}%
+    \iffieldundef{#2year}
+      {}
+      {\datecircaprint
+       \printtext[#2date]{%
+         \iffieldundef{#2season}
+           {\iffieldsequal{#2year}{#2endyear}
+             {\csuse{mkbibdate#1}{}{#2month}{#2day}}
+             {\csuse{mkbibdate#1}{#2year}{#2month}{#2day}}}
+           {\iffieldsequal{#2year}{#2endyear}
+             {\csuse{mkbibseasondate#1}{}{#2season}}
+             {\csuse{mkbibseasondate#1}{#2year}{#2season}}%
+              \dateeraprint{#2}}%
+         \dateuncertainprint
+         \iffieldundef{#2endyear}
+           {\printfield{extradate}}
+           {\iffieldequalstr{#2endyear}{}
+              {\printfield{extradate}%
+               \mbox{\bibdaterangesep}}
+              {\bibdaterangesepx{#2}%
+               \enddatecircaprint
+               \iffieldundef{#2season}
+                 {\iffieldsequal{#2year}{#2endyear}
+                   {\iffieldsequal{#2month}{#2endmonth}
+                      {\csuse{mkbibdate#1}{#2endyear}{}{#2endday}}
+                      {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}}
+                   {\csuse{mkbibdate#1}{#2endyear}{#2endmonth}{#2endday}}}
+                 {\csuse{mkbibseasondate#1}{#2endyear}{#2endseason}}%
+               \printfield{extradate}%
+               \enddateuncertainprint
+               \dateeraprint{#2}}}}}%
+  \endgroup}
 %    \end{macrocode}
-% \end{localization}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
 %
 %</englishLBX>
 %<*PenglishLBX>
