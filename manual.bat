@@ -1,5 +1,12 @@
 REM install the biblatex-archaeology package
-
+call cleanup.bat
+call bibtex.bat
+del biblatex-archaeology.pdf
+perl abbrev.pl
+call cleanup.bat
+pdflatex -file-line-error biblatex-archaeology.dtx
+Biber biblatex-archaeology
+perl datamodel.pl
 call cleanup.bat
 pdflatex -file-line-error biblatex-archaeology.dtx
 Biber biblatex-archaeology
