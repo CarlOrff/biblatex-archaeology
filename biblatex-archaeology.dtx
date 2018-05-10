@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 % !TEX program  = pdfLaTeX
 %
-% Copyright (C) 2005-2017 by Ingram Braun
+% Copyright (C) 2005-2018 by Ingram Braun
 %
 % This file may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either
@@ -190,7 +190,8 @@
 % \changes{1.4}{2018/04/04}{Added new generic style \Stil{numeric-comp-archaeology} (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/13}{issue \#13})}
 % \changes{1.4}{2018/04/04}{Added new style \Stil{rgk-numeric}}
 % \changes{1.4}{2018/04/04}{Added new style \Stil{rgzm-numeric}}
-% 
+% \changes{2.0}{2018/05/10}{Separated \Kbd{development} from {master} branch on GitHub}
+%
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
 % \DoNotIndex{\@ne}
@@ -486,6 +487,11 @@
 %
 % \item[]\DescribeOption{minbooknames}=\meta{integer}\\
 % Similar to \Option{minnames}, but only affects bookauthors/editors.
+%
+% \item[]\DescribeOption{minrealdatediff}=\meta{integer}\\
+% If both \Feld{date} and \Feld{realdate} (or \Feld{origdate} and \Feld{origrealdate} respectively) contain numeric years, \Feld{realdate}
+% only gets printed if its difference from \Feld{date} is greater equal \Option{minrealdatediff}. This is to rule out ll cases where the item
+% appeared only one year earlier or later than its given copyright date or journal year.
 %
 % \item[]\DescribeOption{nothesistitlepunct}=\meta{bool}\\
 % If \meta{true}, in \Typ{thesis} there is no punctuation between the title and the institution/location block.
