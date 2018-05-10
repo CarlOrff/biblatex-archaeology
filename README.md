@@ -1,4 +1,4 @@
-# The `biblatex-archaeology` package [v1.4]
+# The `biblatex-archaeology` package [v2.0]
 
 ## Objective
 
@@ -68,7 +68,7 @@ Remark that `biblatex-archaeology` makes heavy use of Biber-only features. It wo
 ## Help
 
 The package is hosted on [GitHub](https://github.com/CarlOrff/biblatex-archaeology). If you have any concerns it is by far best to use the issue tracker there.
-Alternatively you can e-mail me through the [contact form on my website](https://ingram-braun.net/public/about/legal-notice/#ib_campaign=biblatex-archaeology-1.4&ib_medium=repository&ib_source=readme). Or you can employ the comment script of a project page on my personal website: [The `biblatex-archaeology` styles for German cultural anthropology](https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/#ib_campaign=biblatex-archaeology-1.4&ib_medium=repository&ib_source=readme).
+Alternatively you can e-mail me through the [contact form on my website](https://ingram-braun.net/public/about/legal-notice/#ib_campaign=biblatex-archaeology-2.0.4&ib_medium=repository&ib_source=readme). Or you can employ the comment script of a project page on my personal website: [The `biblatex-archaeology` styles for German cultural anthropology](https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/#ib_campaign=biblatex-archaeology-2.0&ib_medium=repository&ib_source=readme).
 
 Normally you will get the latest production version through the update script of your TeX distribution. If you want to keep track actively, use
 the news feeds of CTAN, GitHub or my personal website.
