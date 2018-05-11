@@ -56,7 +56,7 @@
     %style=dguf-apa,
     %style=eaz,
     %style=eaz-alt,
-    %style=foe,
+    style=foe,
     %style=jb-halle,
     %style=jb-kreis-neuss,
     %style=karl,
@@ -69,7 +69,7 @@
     %style=rgk-inline,
 	%style=rgk-numeric,
     %style=rgk-verbose,
-    style=rgzm-inline,
+    %style=rgzm-inline,
 	%style=rgzm-numeric,
     %style=rgzm-verbose,
     %style=ufg-muenster-inline,
@@ -78,6 +78,7 @@
     %style=volkskunde,
     %style=zaak,
     %style=zaes,
+	editionsuperscript=prelabel,
 ]{biblatex}
 \providetoggle{archbool:shortseries}
 \providetoggle{archbool:shortjournal}
@@ -124,7 +125,53 @@
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
-
+\renewbibmacro*{repeatlabel}{%
+    \let\blxarch@buffer@repeatfamily\mkbibnamefamily%
+    \let\blxarch@buffer@repeatprefix\mkbibnameprefix%
+    \let\blxarch@buffer@repeatgiven\mkbibnamegiven%
+    \let\blxarch@buffer@repeatsuffix\mkbibnamesuffix%
+    \let\mkbibnamefamily\mkbibrepeatfamily%
+    \let\mkbibnameprefix\mkbibrepeatprefix%
+    \let\mkbibnamegiven\mkbibrepeatgiven%
+    \let\mkbibnamesuffix\mkbibrepeatsuffix%
+    \let\blxarch@buffer@repeatnames\c@minnames%
+    \let\blxarch@buffer@maxnames\c@maxnames%
+    \let\blxarch@buffer@minnames\c@minnames%
+    \let\c@maxnames\blx@maxcitenames%
+    \let\c@minnames\blx@mincitenames%
+    \ifhyperref
+        {\let\bibhyperref\@empty}
+        {}%
+	\printtext[repeatlabel]{%
+		\iffieldundef{shorthand}
+			{\ifboolexpr{
+				test {\ifrepeatlabel{dashed}}
+				and
+				test {\iffieldequalcs{namehash}{blxarch@field@namehash}}}
+				{\printtext{\repeatlabeldash}%
+				 \ifeditionsuperscript{prelabel}{\usebibmacro{editionsuperscript}}{}%
+				 \usebibmacro{cite:labeldate+extradate}%
+				 \ifeditionsuperscript{postlabel}{\usebibmacro{editionsuperscript}}{}}
+				{\ifthenelse{\ifnameundef{labelname}\OR\iffieldundef{labelyear}}
+					{\usebibmacro{cite:label}%
+					 \setunit{\printdelim{nonameyeardelim}}}
+					{\printnames{labelname}%
+					 \setunit{\printdelim{nameyeardelim}}}%
+				 \ifeditionsuperscript{prelabel}{\usebibmacro{editionsuperscript}}{}%
+				 \usebibmacro{cite:labeldate+extradate}%
+				 \ifeditionsuperscript{postlabel}{\usebibmacro{editionsuperscript}}{}}}%
+			{\usebibmacro{cite:shorthand}}%
+	}%
+    \ifhyperref{\let\bibhyperref\blxarch@buffer@hyperref}{}%
+    \let\c@maxnames\blxarch@buffer@maxnames%
+    \let\c@minnames\blxarch@buffer@minnames%
+    \let\mkbibnamefamily\blxarch@buffer@repeatfamily%
+    \let\mkbibnameprefix\blxarch@buffer@repeatprefix%
+    \let\mkbibnamegiven\blxarch@buffer@repeatgiven%
+    \let\mkbibnamesuffix\blxarch@buffer@repeatsuffix%
+	\savefield{namehash}{\blxarch@field@namehash}%
+}
+%    \end{macrocode}
 
 %%% END EXPERIMENTAL CODE HERE:
 \makeatother
