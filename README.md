@@ -60,6 +60,7 @@ Remark that `biblatex-archaeology` makes heavy use of Biber-only features. It wo
 - rgzm-numeric
 - rgzm-verbose
 - ufg-muenster-inline
+- ufg-muenster-numeric
 - ufg-muenster-verbose
 - volkskunde
 - zaak

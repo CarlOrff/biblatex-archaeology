@@ -194,6 +194,7 @@
 % \changes{2.0}{2018/04/04}{Added new generic style \Stil{numeric-comp-archaeology} (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/13}{issue \#13})}
 % \changes{2.0}{2018/04/04}{Added new style \Stil{rgk-numeric}}
 % \changes{2.0}{2018/04/04}{Added new style \Stil{rgzm-numeric}}
+% \changes{2.0}{2018/05/10}{Added new style \Stil{ufg-muenster-numeric}}
 % \changes{2.0}{2018/05/10}{Separated \Kbd{development} from {master} branch on GitHub}
 %
 % \GetFileInfo{biblatex-archaeology.sty}
@@ -427,6 +428,10 @@
 %
 % \item[]\DescribeStyle{ufg-muenster-inline}
 % The author date style of the \Deutsch{Westf\"alische Wilhelms-Universit\"at M\"unster, Historisches Seminar, Abteilung f\"ur Ur- und Fr\"uhgeschichtliche Arch\"aologie}.\autocite{guidelines:muenster}
+%
+% \item[]\DescribeStyle{ufg-muenster-numeric}
+% The style of the \Deutsch{Westf\"alische Wilhelms-Universit\"at M\"unster, Historisches Seminar, Abteilung f\"ur Ur- und Fr\"uhgeschichtliche Arch\"aologie} with numeric labels.
+% Keep in mind that \Feld{prenote} and \Feld{postnote} fields are senseless in numeric styles.
 %
 % \item[]\DescribeStyle{ufg-muenster-verbose}
 % The verbose style of the \Deutsch{Westf\"alische Wilhelms-Universit\"at M\"unster, Historisches Seminar, Abteilung f\"ur Ur- und Fr\"uhgeschichtliche Arch\"aologie}.\autocite{guidelines:muenster}
@@ -838,7 +843,7 @@
 % \begin{itemize}
 %
 % \item[]\DescribeFormat{lnyvt}
-% This sorting scheme is intended for the use in conjunction with option \Option{repeatlabel}\Kbd{=true}.
+% This sorting scheme is intended for the use in conjunction with option \Option{repeatlabel}\Kbd{=true$\|$dashed}.
 % It evaluates the \Feld{label}, \Feld{shortauthor} and \Feld{shorttitle} fields
 % in order to sort the exact labels.
 %
@@ -994,7 +999,8 @@
 % and \meta{false} otherwise. Issues an error if \marg{name} does not exist.
 %
 % \item[]\DescribeMacro{\ifrepeatlabel}\marg{string}\marg{true}\marg{false}\\
-% Does \meta{true} if option \Option{repeatlabel} is \Kbd{true} or \Kbd{dashed} and in bibliography.
+% \meta{string} must be one of the keys of the \Option{repeatlabel} option  (see \ref{kap:pkgopt}) and checks wether it was set so. Outside bibliographies only \Kbd{false}
+% evaluates to \marg{true}.
 %
 % \item[]\DescribeMacro{\ifseenote}\marg{true}\marg{false}\\
 % A complex test that checks the conditions for a back reference in \Stil{verbose-trad2note}. In all other generic
@@ -8175,7 +8181,7 @@
 %
 % \begin{macro}{\ifrepeatlabel}
 % \meta{string}\meta{true}\meta{false}
-% \Kbd{string} must be one of the valid values from option \Option{shortform}. \Kbd{true} only if in
+% \Kbd{string} must be one of the valid values from option \Option{repeatlabel}. \Kbd{true} only if in
 % in bibliography and if option \Option{repeatlabel} not \Kbd{false}.
 %    \begin{macrocode}
 \newcommand{\ifrepeatlabel}[3]{%
@@ -8185,7 +8191,12 @@
 			{\ifcsdef{blxarch@opt@repeatlabel@#1}
 				{#3}
 				{\blxarch@errmsg{\blxarch@repeatlabel@errstr{\unexpanded{\ifrepeatlabel}}}}}}%
-		{#3}}
+		{\ifstrequal{false}{#1}
+			{#2}
+			{\ifcsdef{blxarch@opt@repeatlabel@#1}
+				{#3}
+				{\blxarch@errmsg{\blxarch@repeatlabel@errstr{\unexpanded{\ifrepeatlabel}}}}}}%
+}
 %    \end{macrocode}
 % \changes{2.0}{2018/05/09}{\Stark{Incompatible}: \Befehl{ifrepeatlabel} has a third parameter}
 % \end{macro}
@@ -11150,6 +11161,7 @@
 % \begin{macro}{\blxarch@style@mpk}
 % \begin{macro}{\blxarch@style@muenster}
 % \begin{macro}{\blxarch@style@muensterinline}
+% \begin{macro}{\blxarch@style@muensternumeric}
 % \begin{macro}{\blxarch@style@muensterverbose}
 % \begin{macro}{\blxarch@style@nnu}
 % \begin{macro}{\blxarch@style@offa}
@@ -11192,6 +11204,7 @@
 \edef\blxarch@style@mpk{Mitteilung der Pr\"ahistorischen Kommission}
 \edef\blxarch@style@muenster{Ur- und Fr\"uhgeschichtliche Arch\"aologie M\"unster}
 \edef\blxarch@style@muensterverbose{\blxarch@style@muenster\space(geisteswissenschaftlich)}
+\edef\blxarch@style@muensternumeric{\blxarch@style@muenster\space(numerisch)}
 \edef\blxarch@style@muensterinline{\blxarch@style@muenster\space(naturwissenschaftlich)}
 \edef\blxarch@style@nnu{Nachrichten aus Niedersachsens Urgeschichte}
 \edef\blxarch@style@offa{Offa}
@@ -11208,6 +11221,7 @@
 \edef\blxarch@style@zaak{Zeitschrift f\"ur Arch\"aologie au\ss ereurop\"aischer Kulturen (ZAAK)}
 \edef\blxarch@style@zaes{Zeitschrift f\"ur \"Agyptische Sprache und Altertumskunde (Z\"AS)}
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
@@ -15927,6 +15941,35 @@
 %    \end{macrocode}
 %
 %</ufgmuensterverboseBBX>
+%<*ufgmuensternumericBBX>
+%
+% \subsubsection{File \Datei{ufg-muenster-numeric.bbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{ufg-muenster-numeric.bbx}
+[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireBibliographyStyle{numeric-comp-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeobibstyletitle}
+%    \begin{macrocode}
+\def\archaeobibstyletitle{\blxarch@style@muensternumeric}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+    ibidtracker=false,
+    idemtracker=false,
+    loccittracker=false,
+    maxbibnames=500,
+}
+%    \end{macrocode}
+%
+%</ufgmuensternumericBBX>
 %<*ufgmuensterinlineBBX>
 %
 % \subsubsection{File \Datei{ufg-muenster-inline.bbx}}
@@ -15948,6 +15991,7 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
+	dashed=false,
     ibidtracker=false,
     idemtracker=true,
     loccittracker=false,
@@ -15979,7 +16023,6 @@
 %    \end{macrocode}
 % \blx options:
 %    \begin{macrocode}
-    dashed=false,
     doi=false,       
     eprint=false,
     giveninits=true,    
@@ -16007,6 +16050,7 @@
     pagesfirst=false,
     positionlabeldate=location,
     preservelastauthor=false,
+	repeatlabel=false,
     shortform=title,
     shortjournal=true,
     shortseries=true,
@@ -17706,6 +17750,26 @@
 %    \end{macrocode}
 %
 %</ufgmuensterverboseCBX>
+%<*ufgmuensternumericCBX>
+%
+% \subsubsection{File \Datei{ufg-muenster-numeric.cbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{ufg-muenster-inline.cbx}
+[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireCitationStyle{numeric-comp-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeocitestyletitle}
+%    \begin{macrocode}
+\def\archaeocitestyletitle{\blxarch@style@muensternumeric}
+%    \end{macrocode}
+% \end{macro}
+%
+%</ufgmuensternumericCBX>
 %<*ufgmuensterinlineCBX>
 %
 % \subsubsection{File \Datei{ufg-muenster-inline.cbx}}
@@ -20741,6 +20805,13 @@
 %    \end{macrocode}
 %
 %</ufgmuensterinlineDBX>
+%<*ufgmuensternumericDBX>
+%
+%    \begin{macrocode}
+\ProvidesFile{ufg-muenster-numeric.dbx}
+%    \end{macrocode}
+%
+%</ufgmuensternumericDBX>
 %<*ufgmuensterverboseDBX>
 %
 %    \begin{macrocode}
