@@ -8263,28 +8263,26 @@
     \ifhyperref
         {\let\bibhyperref\@empty}
         {}%
-	\printtext[repeatlabel]{%
-		\ifboolexpr{
-			test {\ifrepeatlabel{dashed}}
-			and
-			test {\iffieldequalcs{namehash}{blxarch@field@namehash}}
-		}
-				{\printtext{\repeatlabeldash}%
-				 \ifeditionsuperscript{prelabel}{\usebibmacro{editionsuperscript}}{}%
-				 \usebibmacro{cite:labeldate+extradate}%
-				 \ifeditionsuperscript{prelabel}{\usebibmacro{editionsuperscript}}{}}
-				{\iffieldundef{shorthand}
-					{\ifthenelse{\ifnameundef{labelname}\OR\iffieldundef{labelyear}}
-						{\usebibmacro{cite:label}%
-							\setunit{\printdelim{nonameyeardelim}}}
-						{\printnames{labelname}%
-							\setunit{\printdelim{nameyeardelim}}}%
-						\ifeditionsuperscript{prelabel}{\usebibmacro{editionsuperscript}}{}%
-						\usebibmacro{cite:labeldate+extradate}%
-						\ifeditionsuperscript{prelabel}{\usebibmacro{editionsuperscript}}{}}%
-					{\usebibmacro{cite:shorthand}}%
-				}%
-	}%
+    \printtext[repeatlabel]{%
+        \iffieldundef{shorthand}
+            {\ifboolexpr{
+                test {\ifrepeatlabel{dashed}}
+                and
+                test {\iffieldequalcs{namehash}{blxarch@field@namehash}}}
+                {\printtext{\repeatlabeldash}%
+                 \ifeditionsuperscript{prelabel}{\usebibmacro{editionsuperscript}}{}%
+                 \usebibmacro{cite:labeldate+extradate}%
+                 \ifeditionsuperscript{postlabel}{\usebibmacro{editionsuperscript}}{}}
+                {\ifthenelse{\ifnameundef{labelname}\OR\iffieldundef{labelyear}}
+                    {\usebibmacro{cite:label}%
+                     \setunit{\printdelim{nonameyeardelim}}}
+                    {\printnames{labelname}%
+                     \setunit{\printdelim{nameyeardelim}}}%
+                 \ifeditionsuperscript{prelabel}{\usebibmacro{editionsuperscript}}{}%
+                 \usebibmacro{cite:labeldate+extradate}%
+                 \ifeditionsuperscript{postlabel}{\usebibmacro{editionsuperscript}}{}}}%
+            {\usebibmacro{cite:shorthand}}%
+    }%
     \ifhyperref{\let\bibhyperref\blxarch@buffer@hyperref}{}%
     \let\c@maxnames\blxarch@buffer@maxnames%
     \let\c@minnames\blxarch@buffer@minnames%
@@ -8292,7 +8290,7 @@
     \let\mkbibnameprefix\blxarch@buffer@repeatprefix%
     \let\mkbibnamegiven\blxarch@buffer@repeatgiven%
     \let\mkbibnamesuffix\blxarch@buffer@repeatsuffix%
-	\savefield{namehash}{\blxarch@field@namehash}%
+    \savefield{namehash}{\blxarch@field@namehash}%
 }
 %    \end{macrocode}
 % \end{bibmacro} 
@@ -8456,7 +8454,7 @@
 %    \begin{macrocode}
     \ifrepeatlabel{false}
         {}
-		{\usebibmacro{repeatlabel}\repeatlabeldelim}%
+        {\usebibmacro{repeatlabel}\repeatlabeldelim}%
     \let\blxarch@buffer@list@namegiven\mkbibnamegiven%
     \let\blxarch@buffer@list@namefamily\mkbibnamefamily%
     \let\blxarch@buffer@list@nameprefix\mkbibnameprefix%
@@ -8752,7 +8750,7 @@
 %    \begin{macrocode}
 \xpretocmd{\bibsetup}{%
     \def\blxarch@buffer@hyperref{\bibhyperref}%
-	\let\blxarch@field@namehash\undefined%
+    \let\blxarch@field@namehash\undefined%
 }{}{}
 %    \end{macrocode}
 % \end{macro}
@@ -9336,7 +9334,7 @@
 % Remove parenthesis' from journal years and use \Format{bibliographydate} macro.
 %    \begin{macrocode}
 \def\blxarch@issuedate{%
-	\savebibmacro{issue+date}%
+    \savebibmacro{issue+date}%
     \renewbibmacro*{issue+date}{%
       \printtext[journaldateparens]{%
         \printfield{issue}%
@@ -9489,14 +9487,14 @@
 % =\meta{expression}\\
 % Where to print the edition number. The following expressions are allowed:
 % \begin{optkeys}{3em}
-% 	\item[\Kbd{predate}] superscript ahead of date;
-% 	\item[\Kbd{postdate}] superscript after date;
-% 	\item[\Kbd{prelabel}] superscript ahead of label year;
-% 	\item[\Kbd{postlabel}] superscript after label year;
-% 	\item[\Kbd{preloc}] superscript ahead of location;
-% 	\item[\Kbd{postloc}]  superscript after location;
-% 	\item[\Kbd{posttitle}] superscript after title;
-% 	\item[\Kbd{none}] normal text ahead of \Feld{location}/\Feld{date} as the standard styles do;
+%     \item[\Kbd{predate}] superscript ahead of date;
+%     \item[\Kbd{postdate}] superscript after date;
+%     \item[\Kbd{prelabel}] superscript ahead of label year;
+%     \item[\Kbd{postlabel}] superscript after label year;
+%     \item[\Kbd{preloc}] superscript ahead of location;
+%     \item[\Kbd{postloc}]  superscript after location;
+%     \item[\Kbd{posttitle}] superscript after title;
+%     \item[\Kbd{none}] normal text ahead of \Feld{location}/\Feld{date} as the standard styles do;
 % \end{optkeys}
 %    \begin{macrocode}
 \DeclareBibliographyOption[string]{editionsuperscript}[posttitle]{%
@@ -9568,9 +9566,9 @@
 % =\meta{expression}\\
 % Where to print the label date. The following expressions are allowed:
 % \begin{optkeys}{5em}
-% 	\item[\Kbd{false}] print no location at all;
-% 	\item[\Kbd{omitifseries}] print location or series;
-% 	\item[\Kbd{true}] always print location;
+%     \item[\Kbd{false}] print no location at all;
+%     \item[\Kbd{omitifseries}] print location or series;
+%     \item[\Kbd{true}] always print location;
 % \end{optkeys}
 %    \begin{macrocode}
 \DeclareBibliographyOption[string]{uselocation}[true]{%
@@ -9753,12 +9751,12 @@
 % =\meta{string}\\
 % Whether to print the \Feld{institution} field:
 % \begin{optkeys}{6em}
-% 	\item[\Kbd{aspublisher}] handle \Feld{type} like \Feld{publisher};
-% 	\item[\Kbd{false}] omit \Feld{institution} field;
-% 	\item[\Kbd{locationfirst}] like \Kbd{false}, but \Feld{type} after \Feld{location};
-% 	\item[\Kbd{omitlocation}] omit \Feld{location};
-% 	\item[\Kbd{omitlocatonifurl}] omit \Feld{institution} if URL available;
-% 	\item[\Kbd{pluslocation}] print both \Feld{institution} and \Feld{location};
+%     \item[\Kbd{aspublisher}] handle \Feld{type} like \Feld{publisher};
+%     \item[\Kbd{false}] omit \Feld{institution} field;
+%     \item[\Kbd{locationfirst}] like \Kbd{false}, but \Feld{type} after \Feld{location};
+%     \item[\Kbd{omitlocation}] omit \Feld{location};
+%     \item[\Kbd{omitlocatonifurl}] omit \Feld{institution} if URL available;
+%     \item[\Kbd{pluslocation}] print both \Feld{institution} and \Feld{location};
 % \end{optkeys}
 %    \begin{macrocode}
 \DeclareBibliographyOption[string]{useinstitution}[pluslocation]{%
@@ -9955,9 +9953,9 @@
 % =\meta{expression}\\
 % Where to print the label date. The following expressions are allowed:
 % \begin{optkeys}{3em}
-% 	\item[\Kbd{both}] date after label name and location;
-%	\item[\Kbd{label}] date after label name;
-% 	\item[\Kbd{location}] date after location;
+%     \item[\Kbd{both}] date after label name and location;
+%    \item[\Kbd{label}] date after label name;
+%     \item[\Kbd{location}] date after location;
 % \end{optkeys}
 %    \begin{macrocode}
 \DeclareBibliographyOption[string]{positionlabeldate}[both]{%
@@ -10053,42 +10051,42 @@
 % We delete day and month since extended dates would print these.
 %    \begin{macrocode}
     \clearfield{#1day}%
-	\clearfield{#1month}%
-	\clearfield{#1endday}%
-	\clearfield{#1endmonth}%
+    \clearfield{#1month}%
+    \clearfield{#1endday}%
+    \clearfield{#1endmonth}%
 %    \end{macrocode}
 % If both year arguments are integers, than check if they match or exceed the minimum difference:
 %    \begin{macrocode}
-	\iffieldint{#1year}
-		{\iffieldint{#2endyear}
-			{\ifnumcomp{\thefield{#1year}}{>}{\thefield{#2endyear}}
-				{\setcounter{currentrealdatediff}{\thefield{#1year}}%
-				 \addtocounter{currentrealdatediff}{-\thefield{#2endyear}}}
-				{\setcounter{currentrealdatediff}{\thefield{#2endyear}}%
-				 \addtocounter{currentrealdatediff}{-\thefield{#1year}}}
-			 \ifnumcomp{\value{currentrealdatediff}}{>}{\value{minrealdatediff}}
-				 {\printtext[#1dateparen]{\csuse{print#1date}}}
-				 {}%
-			}
-			{\iffieldint{#2year}
-				{\ifnumcomp{\thefield{#1year}}{>}{\thefield{#2year}}
-					{\setcounter{currentrealdatediff}{\thefield{#1year}}%
-					 \addtocounter{currentrealdatediff}{-\thefield{#2year}}}
-					{\setcounter{currentrealdatediff}{\thefield{#2year}}%
-					 \addtocounter{currentrealdatediff}{-\thefield{#1year}}}
-				 \ifnumcomp{\value{currentrealdatediff}}{>}{\value{minrealdatediff}}
-					 {\printtext[#1dateparen]{\csuse{print#1date}}}
-					 {}%
-				}%
-				{}%
-			}%
-		}
+    \iffieldint{#1year}
+        {\iffieldint{#2endyear}
+            {\ifnumcomp{\thefield{#1year}}{>}{\thefield{#2endyear}}
+                {\setcounter{currentrealdatediff}{\thefield{#1year}}%
+                 \addtocounter{currentrealdatediff}{-\thefield{#2endyear}}}
+                {\setcounter{currentrealdatediff}{\thefield{#2endyear}}%
+                 \addtocounter{currentrealdatediff}{-\thefield{#1year}}}
+             \ifnumcomp{\value{currentrealdatediff}}{>}{\value{minrealdatediff}}
+                 {\printtext[#1dateparen]{\csuse{print#1date}}}
+                 {}%
+            }
+            {\iffieldint{#2year}
+                {\ifnumcomp{\thefield{#1year}}{>}{\thefield{#2year}}
+                    {\setcounter{currentrealdatediff}{\thefield{#1year}}%
+                     \addtocounter{currentrealdatediff}{-\thefield{#2year}}}
+                    {\setcounter{currentrealdatediff}{\thefield{#2year}}%
+                     \addtocounter{currentrealdatediff}{-\thefield{#1year}}}
+                 \ifnumcomp{\value{currentrealdatediff}}{>}{\value{minrealdatediff}}
+                     {\printtext[#1dateparen]{\csuse{print#1date}}}
+                     {}%
+                }%
+                {}%
+            }%
+        }
 %    \end{macrocode}
 % If one of both year arguments is not an integer, than always print the \Feld{realdate}:
 %    \begin{macrocode}
         {\iffieldundef{#1year}
-			{}
-			{\printtext[#1dateparen]{\csuse{print#1date}}}}%
+            {}
+            {\printtext[#1dateparen]{\csuse{print#1date}}}}%
 }
 %    \end{macrocode}
 % \end{bibmacro}
@@ -11424,10 +11422,10 @@
 % in \Befehl{fullcite}-like commands.
 %    \begin{macrocode}
 \xpretobibmacro{begentry}{%
-	\csuse{blxarch@issuedate}%
+    \csuse{blxarch@issuedate}%
 }{}{}
 \xpretobibmacro{finentry}{%
-	\restorebibmacro{issue+date}%
+    \restorebibmacro{issue+date}%
 }{}{}
 %    \end{macrocode}
 % \end{bibmacro}
@@ -11598,7 +11596,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=false,
     notitlepunct=true,
     origfields=false,
@@ -11778,7 +11776,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=true,
     notitlepunct=true,
     origfields=true,
@@ -11996,7 +11994,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=true,
     notitlepunct=true,
     origfields=true,
@@ -12185,7 +12183,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=false,
     notitlepunct=false,
     origfields=true,
@@ -12407,7 +12405,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=false,
     notitlepunct=true,
     origfields=true,
@@ -12604,7 +12602,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=false,
     notitlepunct=false,
     origfields=true,
@@ -12828,7 +12826,7 @@
     journallocation=false,
     maxbooknames=7,
     minbooknames=7,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=false,
     notitlepunct=false,
     origfields=false,
@@ -13183,7 +13181,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=false,
     notitlepunct=false,
     origfields=true,
@@ -13358,7 +13356,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=false,
     notitlepunct=false,
     origfields=true,
@@ -13624,7 +13622,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=4,
+    minrealdatediff=4,
     nothesistitlepunct=false,
     notitlepunct=false,
     origfields=true,
@@ -13873,7 +13871,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=true,
     notitlepunct=false,
     origfields=true,
@@ -14115,7 +14113,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=false,
     notitlepunct=false,
     origfields=true,
@@ -14341,7 +14339,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     noseries=true,
     nothesistitlepunct=false,
     notitlepunct=false,
@@ -14502,7 +14500,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=false,
     notitlepunct=true,
     origfields=false,
@@ -14705,7 +14703,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=false,
     notitlepunct=false,
     origfields=true,
@@ -14927,7 +14925,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=true,
     notitlepunct=true,
     origfields=true,
@@ -15162,7 +15160,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=3,
+    minrealdatediff=3,
     nothesistitlepunct=true,
     notitlepunct=true,
     origfields=true,
@@ -15443,7 +15441,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=true,
     notitlepunct=true,
     origfields=true,
@@ -15759,7 +15757,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=1,
+    minrealdatediff=1,
     nothesistitlepunct=true,
     notitlepunct=true,
     origfields=true,
@@ -15991,7 +15989,7 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	dashed=false,
+    dashed=false,
     ibidtracker=false,
     idemtracker=true,
     loccittracker=false,
@@ -16043,14 +16041,14 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=true,
     notitlepunct=true,
     origfields=true,
     pagesfirst=false,
     positionlabeldate=location,
     preservelastauthor=false,
-	repeatlabel=false,
+    repeatlabel=false,
     shortform=title,
     shortjournal=true,
     shortseries=true,
@@ -16275,7 +16273,7 @@
     journallocation=false,
     maxbooknames=3,
     minbooknames=1,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=false,
     notitlepunct=false,
     origfields=false,
@@ -16449,7 +16447,7 @@
     journallocation=true,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=false,
     notitlepunct=false,
     origfields=false,
@@ -16688,7 +16686,7 @@
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
-	minrealdatediff=\blxarch@maxnumber,
+    minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=false,
     notitlepunct=false,
     origfields=false,
