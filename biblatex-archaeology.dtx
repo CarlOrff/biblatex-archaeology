@@ -884,9 +884,11 @@
 %       \Kbd{\textbackslash shortformcite\{rga:bewaffnung\}}\\
 %       \Mittelpfeil\\
 %       \begin{minipage}{.5\textwidth}
-%           \textellipsis\footnote[1]{RGA \RN{2}, 422 s.~v. Bewaffnung (J. Garbsch)}
+%			\setcounter{mpfootnote}{0}
+%			\renewcommand{\thempfootnote}{\arabic{mpfootnote}}
+%           \textellipsis\footnote{RGA \RN{2}, 422 s.~v. Bewaffnung (J. Garbsch)}
 %       \end{minipage}
-%   \end{tabular}
+%    \end{tabular}
 % }
 % As usual, the pre- and postnote arguments are optional. Styles that do not use these short forms
 % (some verbose styles and all author date styles) fall back to \Befehl{autocite}. Some author date
@@ -978,6 +980,9 @@
 %
 % \item[]\DescribeMacro{\mkbibsourcenamesuffix}\marg{text}\\
 % Similar to \Befehl{mkbibsourcenamefamily}, but intended for the name suffix.
+%
+% \item[]\DescribeMacro{\mkbibandothers}\marg{text}\\
+% Formatting the \emph{et\,al.} part in labels.
 %
 % \end{itemize}
 % 
@@ -1275,6 +1280,8 @@
 % Verbose styles that use backreferences to footnotes are vulnerable to disambiguition problems. Conceive the following case:
 % \Beispiel{%
 %   \begin{minipage}{.5\textwidth}
+%		\setcounter{mpfootnote}{0}
+%		\renewcommand{\thempfootnote}{\arabic{mpfootnote}}
 %       \textellipsis\footnote{G. Miller, A title (London 2013).-- Idem, Another title (Cambridge 2013).}\\
 %       \textellipsis\footnote{Miller (see note a) 25 ff.}
 %   \end{minipage}
@@ -1450,7 +1457,7 @@
 }
 @INREFERENCE{bauchhenss:et:al:1978,
   AUTHOR = {Bauchhenß, G. AND Beck, Heinrich AND Hassel, F. J. AND Capelle,
-    Torsten AND Wilson, David M.},
+	Torsten AND Wilson, David M.},
   TITLE = {Brettspiel},
   EDITION = {2},
   PAGES = {450--458},
@@ -1479,6 +1486,15 @@
   KEYWORDS = {Grabstein, St. Kastor, Koblenz, Rheinland-Pfalz, Römer, Mittelalter},
   XREF = {stanzl:1998},
   GENDER = {sf},
+}
+@ARTICLE{caselitz:1980a,
+  AUTHOR = {Caselitz, Peter},
+  TITLE = {Schwangerschaft im archäologischen Befund},
+  JOURNALTITLE = {The archaeological Advertiser},
+  DATE = {1980},
+  PAGES = {20--26},
+  ABSTRACT = {Über Funde von Feten im Pelvis.},
+  KEYWORDS = {Schwangerschaft, Anthropologie, Mortalität}
 }
 @ARTICLE{cossel:1933-35,
   AUTHOR = {von Cossel, Otto},
@@ -1548,13 +1564,22 @@
 @ARTICLE{michaelsen:1978,
   AUTHOR = {Michaelsen, K.},
   TITLE = {Die Ausgrabung der beiden Hünenbetten von Kleinenkneten in Oldenburg
-    1934--39},
+	1934--39},
   JOURNALTITLE = {Oldenburger Jahrbuch},
   DATE = {1975/1976},
   VOLUME = {75/76},
   PAGES = {215--249},
   KEYWORDS = {Kleinenkneten, Megalithik, Neolithikum, Niedersachsen},
   REALDATE = {1978},
+}
+@ARTICLE{nass:1938,
+  AUTHOR = {Naß, Karl},
+  TITLE = {Karolingische Reihengräberfelder aus Hessen},
+  JOURNALTITLE = {Germania},
+  DATE = {1938},
+  VOLUME = {22},
+  PAGES = {41--50},
+  KEYWORDS = {Karolingerzeit, Frühmittelalter, Totenkult, Hessen}
 }
 @INPROCEEDINGS{schaedler:1999,
   AUTHOR = {Schädler, Ulrich},
@@ -1578,10 +1603,20 @@
   GENDER = {sf},
   LOCATION = {London},
 }
+@ARTICLE{steinmetz:strahl:wilbers:1979,
+  AUTHOR = {Steinmetz, Wolf-Dieter AND Strahl, Erwin AND Wilbers, Susanne},
+  TITLE = {Vor- und frühgeschichtliche Ausgrabungen im Landkreis Osnabrück
+	1978},
+  JOURNALTITLE = {Osnabrücker Mitteilungen},
+  DATE = {1979},
+  VOLUME = {85},
+  PAGES = {9--15},
+  KEYWORDS = {Ur- und Frühgeschichte, Niedersachsen}
+}
 @INCOLLECTION{summerhayes:et:al:1993,
   AUTHOR = {Summerhayes, G. R. AND Gosden, C. AND Fullagar, Richard AND Specht,
-    J. AND Torrence, R. AND Bird, J. Roger AND Shahgholi, N. AND Katsaros,
-    A.},
+	J. AND Torrence, R. AND Bird, J. Roger AND Shahgholi, N. AND Katsaros,
+	A.},
   TITLE = {West New Britain obsidian},
   SUBTITLE = {Production and consumption patterns},
   PAGES = {57--68},
@@ -1599,12 +1634,12 @@
 @THESIS{apetz:1989,
   AUTHOR = {Apetz, Rotraud},
   TITLE = {Zetel, Ketzendorf, Maschen, Oldendorf -- Gräberfelder an der
-    Peripherie des karolingischen Reiches},
+	Peripherie des karolingischen Reiches},
   TYPE = {magisterthesis},
   DATE = {1989},
   SUBTITLE = {Grabformen und Grabsitten am Übergang zum Christentum},
   KEYWORDS = {Zetel, Ketzendorf, Oldendorf, Maschen, Niedersachsen, Frühmittelalter,
-    Sachsen, Friesen, Bestattung, Christentum, Totenkult},
+	Sachsen, Friesen, Bestattung, Christentum, Totenkult},
   LOCATION = {Kiel},
   VOLUMES = {2},
   GENDER = {sf},
@@ -1620,10 +1655,23 @@
   LANGUAGE = {swedish},
   GENDER = {pp},
 }
+@BOOK{buss:2004,
+  AUTHOR = {Buss, David M.},
+  TITLE = {Evolutionäre Psychologie},
+  DATE = {2004},
+  EDITION = {2},
+  PUBLISHER = {Pearson Studium},
+  ISBN = {3827370949},
+  PAGETOTAL = {599},
+  TRANSLATOR = {Hoffrage, Ulrich},
+  ORIGLANGUAGE = {american},
+  LOCATION = {München},
+  KEYWORDS = {Psychologie, Ethologie, Evolution, Methodologie, Biologie}
+}
 @THESIS{czarnetzki:1966,
   AUTHOR = {Czarnetzki, Alfred},
   TITLE = {Die menschlichen Skelettreste aus vier neolithischen Steinkisten
-    Hessens und Niedersachsens},
+	Hessens und Niedersachsens},
   TYPE = {Diss. rer. nat.},
   DATE = {1966},
   KEYWORDS = {Neolithikum, Niedersachsen, Calden, Anthropologie, Megalithik, Hessen},
@@ -1651,7 +1699,7 @@
   TITLE = {Dramatizations of social change},
   DATE = {1978},
   SUBTITLE = {Herman Heijermans' plays as compared with selected dramas by Ibsen,
-    Hauptmann and Chekhov},
+	Hauptmann and Chekhov},
   PUBLISHER = {Martinus Nijhoff},
   ISBN = {90 247 2117 7},
   PAGETOTAL = {81},
@@ -1659,7 +1707,7 @@
   NUMBER = {5},
   LOCATION = {The Hague AND Boston AND London},
   ABSTRACT = {Behandelt \mkbibquote{Ghetto}, \mkbibquote{Op Hoop van Zegen} und \mkbibquote{Ora
-    et Labora}},
+	et Labora}},
   KEYWORDS = {Niederlande, Literatur, Theater, Naturalismus},
   GENDER = {sf},
   LANGUAGE = {english},
@@ -1682,14 +1730,14 @@
   SERIES = ufg-OccasionalPapersPrehist,
   NUMBER = {22},
   PUBLISHER = {Department of Prehistory, Research School of Pacific Studies, The
-    Australian National University},
+	Australian National University},
   LOCATION = {Canberra},
   LANGUAGE = {english},
   GENDER = {pm},
 }
 @COLLECTION{fuchs:kh:et:al:1998,
   EDITOR = {Fuchs, Karl-Heinz AND Kempa, Martin AND Redies, Rainer AND Theune-Großkopf,
-    Claudia AND Wais, Andr\'e},
+	Claudia AND Wais, Andr\'e},
   TITLE = {Die Alamannen},
   DATE = {1998},
   EDITION = {3},
@@ -1814,7 +1862,7 @@
   DATE = {2003},
   ISBN = {9186438247},
   KEYWORDS = {Schweden, Lappland, Ethnologie, Biologie, Botanik, 18. Jahrhundert,
-    Norwegen, Finnland},
+	Norwegen, Finnland},
   ORIGDATE = {1732},
   PAGETOTAL = {532},
   PUBLISHER = {Kungl. Skytteanska Samfundet},
@@ -1826,15 +1874,30 @@
   AUTHOR = {Mette, Otto},
   TITLE = {Affoldern},
   DATE = {1990},
-    date+an = {=attributed},
+	date+an = {=attributed},
   PUBLISHER = {Waldeckischer Geschichtsverein e.\,V.},
   SERIES = {Waldeckische Ortssippenbücher},
   NUMBER = {34},
   LOCATION = {Arolsen},
   KEYWORDS = {Ortssippenbuch, Affoldern, Historische Demographie, Waldeck, Neuzeit,
-    Hessen, Genealogie, Edertal},
+	Hessen, Genealogie, Edertal},
   LANGUAGE = {german},
   GENDER = {sm},
+}
+@BOOK{molleson:cox:1993,
+  AUTHOR = {Molleson, Theya AND Cox, Margaret},
+  MAINTITLE = {The Spitalfields Project Volume},
+  VOLUME = 2,
+  TITLE = {the anthropology},
+  DATE = {1993},
+  SUBTITLE = {The Middling Sort},
+  PUBLISHER = {Council for British Archaeology},
+  SERIES = {CBA Research Report},
+  NUMBER = {86},
+  LOCATION = {Walmgate},
+  KEYWORDS = {Anthropologie, Osteologie, Paläodemographie, Paläopathologie,
+	Kirchenarchäologie, Bestattung, Frühneuzeit, England, Spitalfields,
+	Hugenotten}
 }
 @PROCEEDINGS{oberlechner:1999,
   EDITOR = {Oberlechner, Manfred},
@@ -1885,7 +1948,7 @@
 }
 @COLLECTION{siebert:u:et:al:o:j,
   EDITOR = {Siebert, Ursula AND Rousselot, Jean-Loup AND Jaeger, Astrid AND Jaeger,
-    Halvor},
+	Halvor},
   TITLE = {Schachspiele},
   SUBTITLE = {Wandel im Laufe der Kunst- und Kulturgeschichte},
   TITLEADDON = {Privatsammlung Jaeger},
@@ -1961,7 +2024,7 @@
   MULTIVENUE = {Oldenburg AND Hannover},
   MULTIEVENTDATE = {1981/82 AND 1982},
   ORGANIZATION = {Braunschweigisches Landesmuseum AND Staatliches Museum für Naturkunde
-    und Vorgeschichte AND Niedersächsisches Landesmuseum},
+	und Vorgeschichte AND Niedersächsisches Landesmuseum},
   VENUE = {Wolfenbüttel},
   EVENTDATE = {1981},
   EVENTTYPE = {exhibition},
@@ -1971,14 +2034,14 @@
 @THESIS{volk:1972,
   AUTHOR = {Volk, Peter},
   TITLE = {Medizingeschichtliche Überlieferung der römischen Antike
-    und moderner archäologisch-pathologischer Befund am Beispiel
-    eines römischen Brandgräberfeldes},
+	und moderner archäologisch-pathologischer Befund am Beispiel
+	eines römischen Brandgräberfeldes},
   TYPE = {postdocthesis},
   DATE = {1972},
   SUBTITLE = {Paläopathologische, paläodemographische und medizingeschichtliche
-    Untersuchungen},
+	Untersuchungen},
   KEYWORDS = {Römer, Paläodemographie, Paläopathologie, Medizingeschichte,
-    Anthropologie, Baden-Württemberg},
+	Anthropologie, Baden-Württemberg},
   LOCATION = {Freiburg/Br.},
   LANGUAGE = {german},
   GENDER = {sm},
@@ -10685,6 +10748,50 @@
 %    \end{macrocode}
 % \end{option}
 %
+% \begin{macro}{\mkbibandothers}
+% The formatting of the \emph{et.\,al.} part;
+% \changes{2.0}{2018/05/16}{New formatting command \Befehl{mkbibandothers}}
+%    \begin{macrocode}
+\newcommand*{\mkbibandothers}[1]{#1}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{bibmacro}{name:andothers}
+% include \Befehl{mkbibandothers}
+%    \begin{macrocode}
+\renewbibmacro*{name:andothers}{%
+  \ifboolexpr{
+    test {\ifnumequal{\value{listcount}}{\value{liststop}}}
+    and
+    test \ifmorenames
+  }
+    {\ifnumgreater{\value{liststop}}{1}
+       {\finalandcomma}
+       {}%
+     \printdelim{andothersdelim}\bibstring[\mkbibandothers]{andothers}}%
+    {}}
+%    \end{macrocode}
+% \end{bibmacro}
+%
+% \begin{bibmacro}{name:andothersgenitive}
+% The genitive form for use in \Befehl{posscite} and friends.
+%    \begin{macrocode}
+\newbibmacro*{name:andothersgenitive}{%
+  \ifboolexpr{
+    test {\ifnumequal{\value{listcount}}{\value{liststop}}}
+    and
+    test \ifmorenames
+  }
+    {\ifnumgreater{\value{liststop}}{1}
+       {\finalandcomma}
+       {}%
+     \printdelim{andothersdelim}\bibstring[\mkbibandothers]{genitiveandothers}%
+     \let\blxarch@namepartfamily\@empty}
+    {}%
+}
+%    \end{macrocode}
+% \end{bibmacro}
+%
 % \subsubsubsection{Roles}
 %
 % \begin{format}{authortype}
@@ -10875,17 +10982,19 @@
 % \end{macro}
 %
 % \begin{bibmacro}{genitive}
-% Prints the \Kbd{genitives} or \Kbd{genitiveapostrophe} bibstring respectively.
+% \marg{command}\\
+% Prints the \Kbd{genitives} or \Kbd{genitiveapostrophe} bibstring respectively. The argument must be a command that
+% can be expanded to a string.
 %    \begin{macrocode}
 \newtoggle{archbool:genitiveapostrophe}
 \newbibmacro*{genitive}[1]{%
-    \ifblank{#1}
+    \ifdefvoid{#1}
         {}
         {\togglefalse{archbool:genitiveapostrophe}%
          \fullexpandarg%
-         \StrRemoveBraces{#1}[\cbxnobraces]%
+         \StrRemoveBraces{#1}[\blxarch@nobraces]%
          \renewcommand*{\do}[1]{%
-            \IfEndWith{\cbxnobraces}{##1}
+            \IfEndWith{\blxarch@nobraces}{##1}
                 {\toggletrue{archbool:genitiveapostrophe}\listbreak}
                 {}%
          }%
@@ -10911,7 +11020,7 @@
     \or
         \usebibmacro{name:given-family}{\namepartfamily}{\namepartgiven}{\namepartprefix}{\namepartsuffix}%
     \fi
-    \usebibmacro{name:andothers}%
+    \usebibmacro{name:andothersgenitive}%
     \ifnumequal{\value{listcount}}{\value{liststop}}{\usebibmacro{genitive}{\blxarch@namepartfamily}}{}}
 %    \end{macrocode}
 % \end{format}
@@ -10919,11 +11028,12 @@
 % \begin{format}{shorthand:poss}
 % \begin{format}{citetitle:poss}
 % \begin{format}{label:poss}
+% We must transform the fields into a macro in order to have the same \Befehl{ifdefvoid} check as with the \Befehl{namepartfamily} macro.
 %    \begin{macrocode}
 \DeclareFieldFormat{shorthand:poss}{%
-    \ifnameundef{labelname}{#1\usebibmacro{genitive}{#1}{}}}
-\DeclareFieldFormat{citetitle:poss}{#1\usebibmacro{genitive}{#1}}
-\DeclareFieldFormat{label:poss}{#1\usebibmacro{genitive}{#1}}
+    \ifnameundef{labelname}{#1\def\blxarch@genitivecheck{#1}\usebibmacro{genitive}{\blxarch@genitivecheck}}{}}
+\DeclareFieldFormat{citetitle:poss}{#1\def\blxarch@genitivecheck{#1}\usebibmacro{genitive}{\blxarch@genitivecheck}}
+\DeclareFieldFormat{label:poss}{#1\def\blxarch@genitivecheck{#1}\usebibmacro{genitive}{\blxarch@genitivecheck}}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -12609,13 +12719,13 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{bibmacro}{name:andothers}
+% \begin{macro}{\mkbibandothers}
 %    \begin{macrocode}
-\xpatchbibmacro{name:andothers}{\bibstring{andothers}}{\bibstring[\mkbibnamefamily]{andothers}}{}{}
+\renewcommand*{\mkbibandothers}[1]{\mkbibnamefamily{\#1}}
 %    \end{macrocode}
-% \end{bibmacro}
+% \end{macro}
 %
-% \begin{format}{urldate}
+% \begin{format}{bookauthor}
 % \begin{format}{sortname}
 %    \begin{macrocode}
 \DeclareNameAlias{bookauthor}{given-family}
@@ -19087,6 +19197,12 @@
 \NewBibliographyString{festschrift}
 %    \end{macrocode}
 % \end{localization}
+% \begin{localization}{genitiveandothers}
+% \changes{2.0}{2018/05/16}{New bibstring \Kbd{genitiveandothers}}
+%    \begin{macrocode}
+\NewBibliographyString{genitiveandothers}
+%    \end{macrocode}
+% \end{localization}
 % \begin{localization}{genitiveapostrophe}
 % \changes{2.0}{2018/05/13}{New bibstring \Kbd{genitiveapostrophe}}
 %    \begin{macrocode}
@@ -19195,6 +19311,7 @@
 %
 % Define new localizazion strings
 % \begin{localization}{articledated}
+% \begin{localization}{genitiveandothers}
 % \begin{localization}{genitiveapostrophe}
 % \begin{localization}{genitives}
 % \begin{localization}{auction}
@@ -19228,6 +19345,7 @@
 \DeclareBibliographyStrings{%
     inherit                   = {english},
     articledated              = {{article dated}{article dated}},
+    genitiveandothers         = {{et\addabbrvspace al\adddot's}{et\addabbrvspace al\adddot's}},
     genitiveapostrophe        = {{'}{'}},
     genitives                 = {{'s}{'s}},
     auction                   = {{auction}{auktion}},
@@ -19293,6 +19411,8 @@
 % \end{localization}
 % \end{localization}
 % \end{localization}
+% \end{localization}
+%
 % \begin{localization}{urlfrom}
 %    \begin{macrocode}
     urlfrom  = {{Online}{Online}},
@@ -19478,6 +19598,7 @@
 %
 % Define new localizazion strings:
 % \begin{localization}{articledated}
+% \begin{localization}{genitiveandothers}
 % \begin{localization}{genitiveapostrophe}
 % \begin{localization}{genitives}
 % \begin{localization}{auction}
@@ -19508,6 +19629,7 @@
 \DeclareBibliographyStrings{%
     inherit                   = {german},
     articledated              = {{Artikel vom}{Artikel vom}},
+    genitiveandothers         = {{u.\,a\adddot s}{u.\,a\adddot s}},
     genitiveapostrophe        = {{'}{'}},
     genitives                 = {{s}{s}},
     auction                   = {{Auktion}{Auktion}},
@@ -19537,6 +19659,7 @@
     unpublishedpostdocthesis  = {{ungedruckte Habilitationsschrift}{ungedr. Habil.-Schr\adddot}},
     unpublishedphdthesis      = {{ungedruckte Dissertation}{ungedr. Diss\adddot}},
 %    \end{macrocode}
+% \end{localization}
 % \end{localization}
 % \end{localization}
 % \end{localization}
@@ -19813,6 +19936,7 @@
 %    \end{macrocode}
 %
 % \begin{localization}{andothers}
+% \begin{localization}{genitiveandothers}
 % \begin{localization}{urlseen}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
@@ -19820,9 +19944,11 @@
 \DeclareBibliographyStrings{%
     inherit  = {german-archaeology},
     andothers = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
+    genitiveandothers = {{et\addabbrvspace al\adddot s}{et\addabbrvspace al\adddot s}},
     urlseen  = {{letzter Zugriff}{letzter Zugriff}},
 }
 %    \end{macrocode}
+% \end{localization}
 % \end{localization}
 % \end{localization}
 %
@@ -19861,6 +19987,7 @@
 % \begin{localization}{andothers}
 % \begin{localization}{bathesis}
 % \begin{localization}{diplomathesis}
+% \begin{localization}{genitiveandothers}
 % \begin{localization}{magisterthesis}
 % \begin{localization}{mathesis}
 % \begin{localization}{phdthesis}
@@ -19870,7 +19997,8 @@
 \InheritBibliographyStrings{german-archaeology}
 \DeclareBibliographyStrings{%
     inherit        = {german-archaeology},
-    andothers      = {{et\space al\adddot}{et\space al\adddot}},
+    andothers = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
+    genitiveandothers = {{et\addabbrvspace al\adddot s}{et\addabbrvspace al\adddot s}},
     bathesis       = {{Bachelorarbeit}{Bachelorarbeit}},
     diplomathesis  = {{Diplomarbeit}{Diplomarbeit}},
     magisterthesis = {{Magisterarbeit}{Magisterarbeit}},
@@ -19879,6 +20007,7 @@
     postdocthesis  = {{Habilitationsschrift}{Habilitationsschrift}},
 }
 %    \end{macrocode}
+% \end{localization}
 % \end{localization}
 % \end{localization}
 % \end{localization}
@@ -20358,6 +20487,7 @@
 %    \end{macrocode}
 %
 % \begin{localization}{andothers}
+% \begin{localization}{genitiveandothers}
 % \begin{localization}{urlseen}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
@@ -20365,9 +20495,11 @@
 \DeclareBibliographyStrings{%
     inherit  = {german-archaeology},
     andothers = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
+    genitiveandothers = {{et\addabbrvspace al\adddot s}{et\addabbrvspace al\adddot s}},
     urlseen  = {{letzter Zugriff}{letzter Zugriff}},
 }
 %    \end{macrocode}
+% \end{localization}
 % \end{localization}
 % \end{localization}
 %

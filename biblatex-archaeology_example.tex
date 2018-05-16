@@ -3,7 +3,8 @@
 % no fontenc support by tex4ht:
 \ifdefined\HCode% detect tex4ht
     \usepackage[T1]{fontenc}
-    \usepackage[utf8]{inputenc} 
+	\usepackage[utf8]{inputenc} 
+    %\usepackage[ansinew]{inputenc}
     \usepackage[USenglish,nswissgerman]{babel}
     \usepackage{lmodern}
     \usepackage[osf,sc]{mathpazo}
@@ -78,8 +79,7 @@
     %style=volkskunde,
     %style=zaak,
     %style=zaes,
-	uniquename=false,
-	editionsuperscript=prelabel,
+	bibencoding=utf8, % necessary if *.tex file is in other encoding
 ]{biblatex}
 \providetoggle{archbool:shortseries}
 \providetoggle{archbool:shortjournal}
@@ -123,6 +123,7 @@
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
+%\DefineGenitiveApostropheChars{german}{r}
 
 %%% END EXPERIMENTAL CODE HERE:
 \makeatother
@@ -208,22 +209,19 @@
 		{\item[\Befehl{posscite}] \posscite[48]{auler:hiller:2015a}}
 		{\texfbf{undefined!}}%
 	\ifcsdef{posscites}
-		{\item[\Befehl{posscites}] \posscites[48]{auler:hiller:2015a}[19]{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}}
+		{\item[\Befehl{posscites}] \posscites[48]{auler:hiller:2015a}[19]{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
 		{\texfbf{undefined!}}%
 	\ifcsdef{Posscite}
 		{\item[\Befehl{Posscite}] \Posscite[48]{auler:hiller:2015a}}
 		{\texfbf{undefined!}}%
 	\ifcsdef{Posscites}
-		{\item[\Befehl{Posscites}] \Posscites[48]{auler:hiller:2015a}[19]{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}}
+		{\item[\Befehl{Posscites}] \Posscites[48]{auler:hiller:2015a}[19]{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
 		{\texfbf{undefined!}}%
     \item[\Befehl{footcite}] \footcites{auler:hiller:2015}{harsdoerffer:1656}
 \end{enumerate}
 
 
 \section{Ligatures}
-
-%\subsection{Print the whole list}
-%\printaddligatureslist
 
 \subsection{First name ligatures}
 \begin{itemize}
@@ -397,8 +395,8 @@
 
 \subsection{\Feld{realdate}}
 \begin{itemize}
-    \item[Δ 1 y.]\fullcite{ib:domino:dormagen}%
-    \item[Δ 3 y.]\fullcite{michaelsen:1978}%
+    \item[$\Delta 1$ y.]\fullcite{ib:domino:dormagen}%
+    \item[$\Delta 3$ y.]\fullcite{michaelsen:1978}%
 \end{itemize}
 
 %\printshorthands
