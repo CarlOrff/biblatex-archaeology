@@ -15,9 +15,9 @@
     \raggedright
 \else 
     \usepackage{fontspec,polyglossia}
-    \setdefaultlanguage{german}
-    \setotherlanguage{english}
-    \setmainfont{TeX Gyre Termes}
+    %\setdefaultlanguage{english}\setotherlanguage{german}
+	\setdefaultlanguage{german}\setotherlanguage{english}
+    \setmainfont{Noto Serif}
 % command is missing in some fonts:
 %    \DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\} 
 \fi
@@ -78,6 +78,7 @@
     %style=volkskunde,
     %style=zaak,
     %style=zaes,
+	uniquename=false,
 	editionsuperscript=prelabel,
 ]{biblatex}
 \providetoggle{archbool:shortseries}
@@ -106,15 +107,12 @@
 \usepackage[useregional]{datetime2}
 \let\today\DTMnow
 \ifcsdef{archaeobibstyletitle}
-    {\def\explhead{\archaeobibstyletitle\ (\texttt{bibstyle}) --- \archaeocitestyletitle\ (\texttt{citestyle})}}
+    {\def\explhead{\archaeobibstyletitle\ (\texttt{bibstyle})\\\archaeocitestyletitle\ (\texttt{citestyle})}}
     {\def\explhead{no biblatex-archaeology style}}
 \title{biblatex-archaeology example document}
 \subtitle{\explhead}
 \author{Ingram Braun}
-    
-\ifcsdef{shortformcite}{}{\let\shortformcite\autocite}
-\ifcsdef{shortformcites}{}{\let\shortformcites\autocites}
-    
+      
 % technical expressions
 \newcommand{\Befehl}[1]{\texttt{\textbackslash#1}}
 \newcommand{\Typ}[1]{\texttt{\symbol{64}#1}}
@@ -131,8 +129,6 @@
 
 
 \begin{document}
-
-\selectlanguage{german}
 
 \maketitle
 \tableofcontents
@@ -159,51 +155,69 @@
 
 \section{Citation commands}
 
-\begin{itemize}
-    \item\Befehl{cite}: \cite[159--187]{auler:hiller:2015}
-    \item\Befehl{Cite}: \Cite[159--187]{auler:hiller:2015}
-    \item\Befehl{cite*}: \cite*[159--187]{auler:hiller:2015}
-    \item\Befehl{autocite}: \autocite[159--187]{auler:hiller:2015}.
-    \item\Befehl{Autocite}: \Autocite[159--187]{auler:hiller:2015}
-    \item\Befehl{autocite*}: \autocite*[159--187]{auler:hiller:2015}.-
-    \item\Befehl{Autocite*}: \Autocite*[159--187]{auler:hiller:2015}
-    \item\Befehl{parencite}: \parencite[159--187]{auler:hiller:2015}.
-    \item\Befehl{parencite*}: \parencite*[159--187]{auler:hiller:2015}.
-    \item\Befehl{Parencite}: \Parencite[159--187]{auler:hiller:2015}.
-    \item\Befehl{textcite}: \textcite[159--187]{auler:hiller:2015}.
-    \item\Befehl{Textcite}: \Textcite[159--187]{auler:hiller:2015}.
-    %\item\Befehl{supercite}: \supercite{auler:hiller:2015}.
-    \item\Befehl{footcite}: \footcite[159--187]{auler:hiller:2015}.
-    \item\Befehl{footcitetext}: \footcitetext[159--187]{auler:hiller:2015}.
-%    \item\Befehl{smartcite}: \smartcite[159--187]{auler:hiller:2015}.
-%    \item\Befehl{Smartcite}: \smartcite[159--187]{auler:hiller:2015}.
-    \item\Befehl{cites}: \cites[159--187]{auler:hiller:2015}
-    \item\Befehl{Cites}: \Cites[159--187]{auler:hiller:2015}
-    \item\Befehl{autocites}: \autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
-    \item\Befehl{Autocites}: \Autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
-    \item\Befehl{footcites}: \footcites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
-    \item\Befehl{footcitetexts}: \footcitetexts[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
-    \item\Befehl{parencites}: \parencites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
-    \item\Befehl{Parencites}: \Parencites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
-    \item\Befehl{textcites}: \textcites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
-    \item\Befehl{Textcites}: \Textcites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
-    \item\Befehl{citeauthor}: \citeauthor{auler:hiller:2015}
-    \item\Befehl{citeauthor}: \Citeauthor{auler:hiller:2015}
-    \item\Befehl{citetitle}: \citetitle{auler:hiller:2015}
-    \item\Befehl{citetitle*}: \citetitle*{auler:hiller:2015}
-    \item\Befehl{citedate}: \citedate{auler:hiller:2015}
-    \item\Befehl{citeyear}: \citeyear{auler:hiller:2015}
-    \item\Befehl{citeurl}: \citeurl{kenmore}
-    \item\Befehl{fullcite}: \fullcite{auler:hiller:2015}.
-    \item\Befehl{footfullcite}: \footfullcite[159--187]{auler:hiller:2015}.
-\ifcsdef{archaeobibstyletitle}
-    {\item\Befehl{shortformcite}: \shortformcite[433]{bauchhenss:et:al:1978}%
-    \item\Befehl{shortformcites}: \shortformcites[433]{bauchhenss:et:al:1978}[501]{authen-blom:1989}%
-    \item\Befehl{sfcite}: \sfcite[433]{bauchhenss:et:al:1978}%
-    \item\Befehl{sfcites}: \sfcites[433]{bauchhenss:et:al:1978}[501]{authen-blom:1989}}%
-    {}
-    \item\Befehl{footcite}: \footcites{auler:hiller:2015}{harsdoerffer:1656}
-\end{itemize}
+\begin{enumerate}
+    \item[\Befehl{cite}] \cite[159--187]{auler:hiller:2015}
+    \item[\Befehl{Cite}] \Cite[159--187]{auler:hiller:2015}
+    \item[\Befehl{cite*}] \cite*[159--187]{auler:hiller:2015}
+    \item[\Befehl{autocite}] \autocite[159--187]{auler:hiller:2015}.
+    \item[\Befehl{Autocite}] \Autocite[159--187]{auler:hiller:2015}
+    \item[\Befehl{autocite*}] \autocite*[159--187]{auler:hiller:2015}.-
+    \item[\Befehl{Autocite*}] \Autocite*[159--187]{auler:hiller:2015}
+    \item[\Befehl{parencite}] \parencite[159--187]{auler:hiller:2015}.
+    \item[\Befehl{parencite*}] \parencite*[159--187]{auler:hiller:2015}.
+    \item[\Befehl{Parencite}] \Parencite[159--187]{auler:hiller:2015}.
+    \item[\Befehl{textcite}] \textcite[159--187]{auler:hiller:2015}.
+    \item[\Befehl{Textcite}] \Textcite[159--187]{auler:hiller:2015}.
+    %\item[\Befehl{supercite}] \supercite{auler:hiller:2015}.
+    \item[\Befehl{footcite}] \footcite[159--187]{auler:hiller:2015}.
+    \item[\Befehl{footcitetext}] \footcitetext[159--187]{auler:hiller:2015}.
+%    \item[\Befehl{smartcite}] \smartcite[159--187]{auler:hiller:2015}.
+%    \item[\Befehl{Smartcite}] \smartcite[159--187]{auler:hiller:2015}.
+    \item[\Befehl{cites}] \cites[159--187]{auler:hiller:2015}
+    \item[\Befehl{Cites}] \Cites[159--187]{auler:hiller:2015}
+    \item[\Befehl{autocites}] \autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+    \item[\Befehl{Autocites}] \Autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+    \item[\Befehl{footcites}] \footcites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+    \item[\Befehl{footcitetexts}] \footcitetexts[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+    \item[\Befehl{parencites}] \parencites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+    \item[\Befehl{Parencites}] \Parencites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+    \item[\Befehl{textcites}] \textcites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+    \item[\Befehl{Textcites}] \Textcites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}.
+    \item[\Befehl{citeauthor}] \citeauthor{auler:hiller:2015}
+    \item[\Befehl{citeauthor}] \Citeauthor{auler:hiller:2015}
+    \item[\Befehl{citetitle}] \citetitle{auler:hiller:2015}
+    \item[\Befehl{citetitle*}] \citetitle*{auler:hiller:2015}
+    \item[\Befehl{citedate}] \citedate{auler:hiller:2015}
+    \item[\Befehl{citeyear}] \citeyear{auler:hiller:2015}
+    \item[\Befehl{citeurl}] \citeurl{kenmore}
+    \item[\Befehl{fullcite}] \fullcite{auler:hiller:2015}.
+    \item[\Befehl{footfullcite}] \footfullcite[159--187]{auler:hiller:2015}.
+	\ifcsdef{shortformcite}
+		{\item[\Befehl{shortformcite}] \shortformcite[433]{bauchhenss:et:al:1978}}
+		{\texfbf{undefined!}}%
+	\ifcsdef{shortformcites}
+		{\item[\Befehl{shortformcites}] \shortformcites[433]{bauchhenss:et:al:1978}[501]{authen-blom:1989}}
+		{\texfbf{undefined!}}%
+	\ifcsdef{sfcite}
+		{\item[\Befehl{sfcite}] \sfcite[433]{bauchhenss:et:al:1978}}
+		{\texfbf{undefined!}}%
+	\ifcsdef{sfcites}
+		{\item[\Befehl{sfcites}] \sfcites[433]{bauchhenss:et:al:1978}[501]{authen-blom:1989}}
+		{\texfbf{undefined!}}%
+	\ifcsdef{posscite}
+		{\item[\Befehl{posscite}] \posscite[48]{auler:hiller:2015a}}
+		{\texfbf{undefined!}}%
+	\ifcsdef{posscites}
+		{\item[\Befehl{posscites}] \posscites[48]{auler:hiller:2015a}[19]{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}}
+		{\texfbf{undefined!}}%
+	\ifcsdef{Posscite}
+		{\item[\Befehl{Posscite}] \Posscite[48]{auler:hiller:2015a}}
+		{\texfbf{undefined!}}%
+	\ifcsdef{Posscites}
+		{\item[\Befehl{Posscites}] \Posscites[48]{auler:hiller:2015a}[19]{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}}
+		{\texfbf{undefined!}}%
+    \item[\Befehl{footcite}] \footcites{auler:hiller:2015}{harsdoerffer:1656}
+\end{enumerate}
 
 
 \section{Ligatures}

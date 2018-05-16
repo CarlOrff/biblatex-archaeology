@@ -122,8 +122,8 @@
 \newcommand{\StringBox}[2]{\parbox{\textwidth}{\raggedright#1 #2}}
 \usepackage{enumitem}
 \newenvironment{optkeys}[1]
-	{\begin{enumerate}[align=parleft, labelsep=#1,itemsep=0.0ex,]}
-	{\end{enumerate}}
+    {\begin{enumerate}[align=parleft, labelsep=#1,itemsep=0.0ex,]}
+    {\end{enumerate}}
 \usepackage{hypdoc,hyperxmp}
 \hypersetup{
     linktocpage=true,       % only page numbers are clickable
@@ -362,15 +362,15 @@
 % (ArchA).\autocites{guidelines:austriaca:2013}{guidelines:austriaca:de}{guidelines:austriaca:en}
 %
 % \item[]\DescribeStyle{dguf}
-% An obsolete author date style of the \Deutsch{Deutsche Gesellschaft f\"ur Ur- und Fr\"ugeschichte}.\autocite{guidelines:dguf:neu} Their
+% An obsolete author date style of the \Deutsch{Deutsche Gesellschaft f\"ur Ur- und Fr\"uhgeschichte}.\autocite{guidelines:dguf:neu} Their
 % current style is \Kbd{dguf-apa} (\ref{kap:dguf:apa}).
 %
 % \item[]\DescribeStyle{dguf-alt}
-% An obsolete author date style of the \Deutsch{Deutsche Gesellschaft f\"ur Ur- und Fr\"ugeschichte}.\autocite{guidelines:dguf:alt} Their
+% An obsolete author date style of the \Deutsch{Deutsche Gesellschaft f\"ur Ur- und Fr\"uhgeschichte}.\autocite{guidelines:dguf:alt} Their
 % current style is \Kbd{dguf-apa} (\ref{kap:dguf:apa}).
 %
 % \item[]\DescribeStyle{dguf-apa}\label{kap:dguf:apa}
-% The current author date style of the \Deutsch{Deutsche Gesellschaft f\"ur Ur- und Fr\"ugeschichte}.\autocite{guidelines:dguf:apa}
+% The current author date style of the \Deutsch{Deutsche Gesellschaft f\"ur Ur- und Fr\"uhgeschichte}.\autocite{guidelines:dguf:apa}
 %
 % \item[]\DescribeStyle{eaz}
 % The author date style of the \Deutsch{Ethnographisch-Arch\"aologische Zeitschrift}.\autocite{guidelines:eaz:article}
@@ -476,8 +476,8 @@
 %   \begin{tabular}{l}
 %       \Kbd{\textbackslash usepackage[givenintligatures=\{Ch,Ph,St,Th\},style=xyz]\{biblatex\}}\\
 %       \Mittelpfeil\\
-%       \Stark{Th}. G. \Stark{St}. Ackermann 2015: \dots\\
-%       R. \Stark{Ph}. Bauer 2012: \dots
+%       \Stark{Th}. G. \Stark{St}. Ackermann 2015: \textellipsis\\
+%       R. \Stark{Ph}. Bauer 2012: \textellipsis
 %   \end{tabular}
 % }
 %
@@ -486,7 +486,7 @@
 %
 % \item[]\DescribeOption{injournal}=\meta{bool}\\
 % If \meta{true}, journal titles are preceeded by an \Kbd{in}.
-% \Beispiel{G. Popp, A title. \Stark{In:} Journal of Things 56 \dots}
+% \Beispiel{G. Popp, A title. \Stark{In:} Journal of Things 56 \textellipsis}
 %
 % \item[]\DescribeOption{journallocation}=\meta{bool}\\
 % If \meta{true}, the \Feld{location} field is printed in \Typ{article}.
@@ -532,13 +532,13 @@
 % }
 %
 % \item[]\DescribeOption{preservelastauthor}=\meta{bool}\\
-% \blx truncates name lists by omitting the last names und mark it with et~al. If this option is \meta{true}
+% \blx truncates name lists by omitting the last names und marks them with \emph{et~al.} If this option is \meta{true}
 % the names beetwen \Kbd{maxnames}$-1$ and the last names are omitted:
 % \Beispiel{%
 %   \begin{tabular}{l}
 %       \Kbd{\textbackslash usepackage[preservelastauthor=true,style=xyz]\{biblatex\}}\\
 %       \Mittelpfeil\\
-%       G. Ackermann, R. Bauer \Stark{\dots} F. Berger: A title. Hamburg 2015.
+%       G. Ackermann, R. Bauer \Stark{\textellipsis} F. Berger: A title. Hamburg 2015.
 %   \end{tabular}
 % }
 %
@@ -781,7 +781,7 @@
 % then it is automatically generated. See \ref{kap:entry}.
 %
 % \item[]\DescribeFormat{origrealdate} field (date)\\
-% Similar to \Feld{realdate}, but intended for the use in conjunction with other \Kbd{orig\dots} fields.
+% Similar to \Feld{realdate}, but intended for the use in conjunction with other \Kbd{orig\textellipsis} fields.
 %
 % \item[]\DescribeFormat{realdate} field (date)\\
 % This field holds the real date of a publication if the official date lacks or is wrong. This fairly often happens with delayed journal issues which are
@@ -789,12 +789,12 @@
 % \Beispiel{%
 %   \begin{tabular}{l}
 %       \Kbd{\symbol{64}BOOKLET\{unknown:date,}\\
-%       \Kbd{\dots}\\
+%       \Kbd{\textellipsis}\\
 %       \Kbd{location = \{London\},}\\
 %       \Kbd{realdate = \{1930\textasciitilde\},}\\
 %       \Kbd{\}}\\
 %       \Mittelpfeil\\
-%       \dots London n.~d. \Stark{[ca. 1930]}.
+%       \textellipsis London n.~d. \Stark{[ca. 1930]}.
 %   \end{tabular}
 % }
 % Do not confuse it with \Feld{origdate}, which refers to the primary edition of a reprint. Since \blx 3.11 it is possible to mark attributed dates
@@ -802,12 +802,12 @@
 % \Beispiel{%
 %   \begin{tabular}{l}
 %       \Kbd{\symbol{64}BOOKLET\{attributed:date,}\\
-%       \Kbd{\dots}\\
+%       \Kbd{\textellipsis}\\
 %       \Kbd{date = \{1930\},}\\
 %       \Kbd{date+an = \{=attributed\},}\\
 %       \Kbd{\}}\\
 %       \Mittelpfeil\\
-%       \dots London n.~d. \Stark{[1930]}.
+%       \textellipsis London n.~d. \Stark{[1930]}.
 %   \end{tabular}
 % }
 % \archbib supports this format, too. The problem here is that this works only with lacking dates, not with wrong or falsified ones. Nonetheless, in order to keep
@@ -855,10 +855,26 @@
 %
 % \begin{itemize}
 %
+% \item[]\DescribeMacro{\posscite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% The same as \Befehl{textcite} but as genitive form. The cite label is handled as an entity in that way that only the last \Feld{labelname} (or the \enquote{et.\,al.}
+% part respectively) is in the genitive.
+% \Beispiel{In \Stark{Miller's (2015)} famous book \textellipsis}
+% Remark that this does not work in the -- probably rare -- case of a corporate author in the plural. For German or Scandinavian languages with a special handling
+% depending on the last character(s) of the noun there is a mechanism to define such tokens (see \ref{kap:langset}).
+%
+% \item[]\DescribeMacro{\Posscite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{posscite} but capitalizes a trailing prefix.
+% 
+% \item[]\DescribeMacro{\posscites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% The multicite variant of \Befehl{posscite}.
+% 
+% \item[]\DescribeMacro{\Posscites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{posscites} but capitalizes a trailing prefix.
+%
 % \item[]\DescribeMacro{\sfcite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
 % Similar to \Befehl{shortformcite}, but not wrapped in a footnote and falls back to \Befehl{cite}.
 %
-% \item[]\DescribeMacro{\sfcites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\dots[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% \item[]\DescribeMacro{\sfcites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
 % Similar to \Befehl{shortformcites}, but not wrapped in a footnote and falls back to \Befehl{cites}.
 %
 % \item[]\DescribeMacro{\shortformcite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
@@ -868,7 +884,7 @@
 %       \Kbd{\textbackslash shortformcite\{rga:bewaffnung\}}\\
 %       \Mittelpfeil\\
 %       \begin{minipage}{.5\textwidth}
-%           \dots\footnote{RGA \RN{2}, 422 s.~v. Bewaffnung (J. Garbsch)}
+%           \textellipsis\footnote[1]{RGA \RN{2}, 422 s.~v. Bewaffnung (J. Garbsch)}
 %       \end{minipage}
 %   \end{tabular}
 % }
@@ -877,7 +893,7 @@
 % styles use these short forms in the bibliography; this is enabled by the option \Option{shortform} (see \ref{kap:pkgopt})
 % and has no relation to this particular command.
 %
-% \item[]\DescribeMacro{\shortformcites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\dots[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% \item[]\DescribeMacro{\shortformcites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
 % The multicite version of \Befehl{shortformcite}. Note: all keys must be short forms.
 %
 % \end{itemize}
@@ -1054,7 +1070,7 @@
 % The delimiter between the next to last and the last secondary \Feld{editor}.
 %
 % \item[]\DescribeMacro{\inbookbookdelim}\\
-% The punctuation after the \Feld{title} of an \Typ{in\dots} type.
+% The punctuation after the \Feld{title} of an \Typ{in\textellipsis} type.
 %
 % \item[]\DescribeMacro{\institutionlocationdelim}\\
 % The delimiter between \Feld{institution} and \Feld{location}.
@@ -1115,6 +1131,22 @@
 %
 % \end{itemize}
 % 
+% \subsubsection{Language settings}\label{kap:langset}
+%
+% \begin{itemize}
+%
+% \item[]\DescribeMacro{\DefineGenitiveApostropheChars}\marg{language}\marg{csv}\\
+% The second argument takes a comma separated list of substrings requiring a different genitive token.
+% \Beispiel{In German: \Stark{\Deutsch{in Fischers (2018) Buch}} but \Stark{\Deutsch{in Hess' (2018) Buch}}}
+% This command is for use in the document preamble only. The language must be one of the languages loaded with the
+% \Paket{babel} or \Paket{polyglossia} packages. Please note that checks on non-ASCII characters are likely to be
+% false negative or fail to compile at all!\footnote{cf. \href{https://tex.stackexchange.com/questions/431475/different-results-of-xstring-test-with-inputenc-and-fontspec}{TeX.StackExchange}}
+%
+% \item[]\DescribeMacro{\DeclareGenitiveApostropheChars}\marg{csv}\\
+% The same as \Befehl{DefineGenitiveApostropheChars} but for use in \Kbd{*.lbx} files.
+%
+% \end{itemize}
+%
 % \subsubsection{Counters and length registers}
 %
 % \begin{itemize}
@@ -1243,8 +1275,8 @@
 % Verbose styles that use backreferences to footnotes are vulnerable to disambiguition problems. Conceive the following case:
 % \Beispiel{%
 %   \begin{minipage}{.5\textwidth}
-%       \dots\footnote{G. Miller, A title (London 2013).-- Idem, Another title (Cambridge 2013).}\\
-%       \dots\footnote{Miller (see note a) 25 ff.}
+%       \textellipsis\footnote{G. Miller, A title (London 2013).-- Idem, Another title (Cambridge 2013).}\\
+%       \textellipsis\footnote{Miller (see note a) 25 ff.}
 %   \end{minipage}
 % }
 % \blx does not provide a disambiguition check for this. It always prints the \Feld{shorttitle} field and falls back to the \Feld{title} field
@@ -1257,20 +1289,20 @@
 % \Beispiel{%
 %   \begin{tabular}{l}
 %       (Hessen 1989.-- Meer 1938.-- Sarzec 1888)\\
-%       \dots\\
-%       Hessen, O. von 1989: \dots\\
-%       Meer, F. van der 1938: \dots\\
-%       Sarzec, E. de 1888: \dots
+%       \textellipsis\\
+%       Hessen, O. von 1989: \textellipsis\\
+%       Meer, F. van der 1938: \textellipsis\\
+%       Sarzec, E. de 1888: \textellipsis
 %   \end{tabular}
 % }
 % If \Kbd{true}, then
 % \Beispiel{%
 %   \begin{tabular}{l}
 %       (von Hessen 1989.-- van der Meer 1938.-- de Sarzec 1888)\\
-%       \dots\\
-%       de Sarzec, E. 1888: \dots\\
-%       van der Meer, F. 1938: \dots\\
-%       von Hessen, O. 1989: \dots
+%       \textellipsis\\
+%       de Sarzec, E. 1888: \textellipsis\\
+%       van der Meer, F. 1938: \textellipsis\\
+%       von Hessen, O. 1989: \textellipsis
 %   \end{tabular}
 % }
 % Usually \archbib styles have \Option{useprefix}\Kbd{=true} by default. Some styles differentiate between non-sorting (von, van) and sorting prefixes (de). This can not get handled by \blx or \archbib. Use the \Feld{sortname} field if wrong ordering occurs or the \Feld{shortname} field to affect label generation.
@@ -1281,7 +1313,7 @@
 % \Beispiel{%
 %   \begin{tabular}{l}
 %       (Schulz 2015, \Stark{123~f.}-- Zeller 2016, \Stark{75~ff.})\\
-%       \dots\\
+%       \textellipsis\\
 %       Bolle,~C. 2013: Some title. In: Journal of Magic 45, \Stark{310~ff.} 
 %   \end{tabular}
 % }
@@ -1310,7 +1342,7 @@
 % they are needed to discriminate ambigous titles. \Datei{biblatex-archaeology-strings-full-subtitle.bib} contains full titles plus subtitles. If you followed the
 % installation instructions from \ref{kap:install}, you can call these databases without path. Appendix \ref{kap:strings} provides a list of availabe strings ordered
 % by string, and \ref{kap:journals} ordered by journal. The strings are namespaced in order to allow the use of other lists alongside, especially those from
-% \Stil{archaeologie}. The strings were automatically generated from an MS Excel data sheet provided by the \Deutsch{Deutsche Gesellschaft f\"ur Ur- und Fr\"ugeschichte}.\footnote{\url{http://www.dguf.de/fileadmin/user_upload/Arbeitskreise/AK_DGUF-Zotero/RGK_Zeitschriften.xls}}
+% \Stil{archaeologie}. The strings were automatically generated from an MS Excel data sheet provided by the \Deutsch{Deutsche Gesellschaft f\"ur Ur- und Fr\"uhgeschichte}.\footnote{\url{http://www.dguf.de/fileadmin/user_upload/Arbeitskreise/AK_DGUF-Zotero/RGK_Zeitschriften.xls}}
 % If they are ambigous due to modified (sub-)titles there are counted by adding colon and number from the the second onwards.
 %
 % \subsection{Electronic identifiers}
@@ -1418,7 +1450,7 @@
 }
 @INREFERENCE{bauchhenss:et:al:1978,
   AUTHOR = {Bauchhenß, G. AND Beck, Heinrich AND Hassel, F. J. AND Capelle,
-	Torsten AND Wilson, David M.},
+    Torsten AND Wilson, David M.},
   TITLE = {Brettspiel},
   EDITION = {2},
   PAGES = {450--458},
@@ -1516,7 +1548,7 @@
 @ARTICLE{michaelsen:1978,
   AUTHOR = {Michaelsen, K.},
   TITLE = {Die Ausgrabung der beiden Hünenbetten von Kleinenkneten in Oldenburg
-	1934--39},
+    1934--39},
   JOURNALTITLE = {Oldenburger Jahrbuch},
   DATE = {1975/1976},
   VOLUME = {75/76},
@@ -1548,8 +1580,8 @@
 }
 @INCOLLECTION{summerhayes:et:al:1993,
   AUTHOR = {Summerhayes, G. R. AND Gosden, C. AND Fullagar, Richard AND Specht,
-	J. AND Torrence, R. AND Bird, J. Roger AND Shahgholi, N. AND Katsaros,
-	A.},
+    J. AND Torrence, R. AND Bird, J. Roger AND Shahgholi, N. AND Katsaros,
+    A.},
   TITLE = {West New Britain obsidian},
   SUBTITLE = {Production and consumption patterns},
   PAGES = {57--68},
@@ -1567,12 +1599,12 @@
 @THESIS{apetz:1989,
   AUTHOR = {Apetz, Rotraud},
   TITLE = {Zetel, Ketzendorf, Maschen, Oldendorf -- Gräberfelder an der
-	Peripherie des karolingischen Reiches},
+    Peripherie des karolingischen Reiches},
   TYPE = {magisterthesis},
   DATE = {1989},
   SUBTITLE = {Grabformen und Grabsitten am Übergang zum Christentum},
   KEYWORDS = {Zetel, Ketzendorf, Oldendorf, Maschen, Niedersachsen, Frühmittelalter,
-	Sachsen, Friesen, Bestattung, Christentum, Totenkult},
+    Sachsen, Friesen, Bestattung, Christentum, Totenkult},
   LOCATION = {Kiel},
   VOLUMES = {2},
   GENDER = {sf},
@@ -1591,7 +1623,7 @@
 @THESIS{czarnetzki:1966,
   AUTHOR = {Czarnetzki, Alfred},
   TITLE = {Die menschlichen Skelettreste aus vier neolithischen Steinkisten
-	Hessens und Niedersachsens},
+    Hessens und Niedersachsens},
   TYPE = {Diss. rer. nat.},
   DATE = {1966},
   KEYWORDS = {Neolithikum, Niedersachsen, Calden, Anthropologie, Megalithik, Hessen},
@@ -1619,7 +1651,7 @@
   TITLE = {Dramatizations of social change},
   DATE = {1978},
   SUBTITLE = {Herman Heijermans' plays as compared with selected dramas by Ibsen,
-	Hauptmann and Chekhov},
+    Hauptmann and Chekhov},
   PUBLISHER = {Martinus Nijhoff},
   ISBN = {90 247 2117 7},
   PAGETOTAL = {81},
@@ -1627,7 +1659,7 @@
   NUMBER = {5},
   LOCATION = {The Hague AND Boston AND London},
   ABSTRACT = {Behandelt \mkbibquote{Ghetto}, \mkbibquote{Op Hoop van Zegen} und \mkbibquote{Ora
-	et Labora}},
+    et Labora}},
   KEYWORDS = {Niederlande, Literatur, Theater, Naturalismus},
   GENDER = {sf},
   LANGUAGE = {english},
@@ -1650,14 +1682,14 @@
   SERIES = ufg-OccasionalPapersPrehist,
   NUMBER = {22},
   PUBLISHER = {Department of Prehistory, Research School of Pacific Studies, The
-	Australian National University},
+    Australian National University},
   LOCATION = {Canberra},
   LANGUAGE = {english},
   GENDER = {pm},
 }
 @COLLECTION{fuchs:kh:et:al:1998,
   EDITOR = {Fuchs, Karl-Heinz AND Kempa, Martin AND Redies, Rainer AND Theune-Großkopf,
-	Claudia AND Wais, Andr\'e},
+    Claudia AND Wais, Andr\'e},
   TITLE = {Die Alamannen},
   DATE = {1998},
   EDITION = {3},
@@ -1782,7 +1814,7 @@
   DATE = {2003},
   ISBN = {9186438247},
   KEYWORDS = {Schweden, Lappland, Ethnologie, Biologie, Botanik, 18. Jahrhundert,
-	Norwegen, Finnland},
+    Norwegen, Finnland},
   ORIGDATE = {1732},
   PAGETOTAL = {532},
   PUBLISHER = {Kungl. Skytteanska Samfundet},
@@ -1794,13 +1826,13 @@
   AUTHOR = {Mette, Otto},
   TITLE = {Affoldern},
   DATE = {1990},
-	date+an = {=attributed},
+    date+an = {=attributed},
   PUBLISHER = {Waldeckischer Geschichtsverein e.\,V.},
   SERIES = {Waldeckische Ortssippenbücher},
   NUMBER = {34},
   LOCATION = {Arolsen},
   KEYWORDS = {Ortssippenbuch, Affoldern, Historische Demographie, Waldeck, Neuzeit,
-	Hessen, Genealogie, Edertal},
+    Hessen, Genealogie, Edertal},
   LANGUAGE = {german},
   GENDER = {sm},
 }
@@ -1853,7 +1885,7 @@
 }
 @COLLECTION{siebert:u:et:al:o:j,
   EDITOR = {Siebert, Ursula AND Rousselot, Jean-Loup AND Jaeger, Astrid AND Jaeger,
-	Halvor},
+    Halvor},
   TITLE = {Schachspiele},
   SUBTITLE = {Wandel im Laufe der Kunst- und Kulturgeschichte},
   TITLEADDON = {Privatsammlung Jaeger},
@@ -1929,7 +1961,7 @@
   MULTIVENUE = {Oldenburg AND Hannover},
   MULTIEVENTDATE = {1981/82 AND 1982},
   ORGANIZATION = {Braunschweigisches Landesmuseum AND Staatliches Museum für Naturkunde
-	und Vorgeschichte AND Niedersächsisches Landesmuseum},
+    und Vorgeschichte AND Niedersächsisches Landesmuseum},
   VENUE = {Wolfenbüttel},
   EVENTDATE = {1981},
   EVENTTYPE = {exhibition},
@@ -1939,14 +1971,14 @@
 @THESIS{volk:1972,
   AUTHOR = {Volk, Peter},
   TITLE = {Medizingeschichtliche Überlieferung der römischen Antike
-	und moderner archäologisch-pathologischer Befund am Beispiel
-	eines römischen Brandgräberfeldes},
+    und moderner archäologisch-pathologischer Befund am Beispiel
+    eines römischen Brandgräberfeldes},
   TYPE = {postdocthesis},
   DATE = {1972},
   SUBTITLE = {Paläopathologische, paläodemographische und medizingeschichtliche
-	Untersuchungen},
+    Untersuchungen},
   KEYWORDS = {Römer, Paläodemographie, Paläopathologie, Medizingeschichte,
-	Anthropologie, Baden-Württemberg},
+    Anthropologie, Baden-Württemberg},
   LOCATION = {Freiburg/Br.},
   LANGUAGE = {german},
   GENDER = {sm},
@@ -8056,9 +8088,9 @@
 % =\meta{string}\\
 % Where to print the label date. The following expressions are allowed:
 % \begin{optkeys}{3em}
-% 	\item[\Kbd{both}] date after label name and location;
-% 	\item[\Kbd{label}] date after label name;
-% 	\item[\Kbd{location}] date after location;
+%     \item[\Kbd{both}] date after label name and location;
+%     \item[\Kbd{label}] date after label name;
+%     \item[\Kbd{location}] date after location;
 % \end{optkeys}
 %    \begin{macrocode}
 \DeclareBibliographyOption[string]{shortform}[true]{%
@@ -8185,17 +8217,17 @@
 % in bibliography and if option \Option{repeatlabel} not \Kbd{false}.
 %    \begin{macrocode}
 \newcommand{\ifrepeatlabel}[3]{%
-	\ifbibliography
-		{\ifdefstring{\blxarch@repeatlabel@value}{#1}
-			{#2}
-			{\ifcsdef{blxarch@opt@repeatlabel@#1}
-				{#3}
-				{\blxarch@errmsg{\blxarch@repeatlabel@errstr{\unexpanded{\ifrepeatlabel}}}}}}%
-		{\ifstrequal{false}{#1}
-			{#2}
-			{\ifcsdef{blxarch@opt@repeatlabel@#1}
-				{#3}
-				{\blxarch@errmsg{\blxarch@repeatlabel@errstr{\unexpanded{\ifrepeatlabel}}}}}}%
+    \ifbibliography
+        {\ifdefstring{\blxarch@repeatlabel@value}{#1}
+            {#2}
+            {\ifcsdef{blxarch@opt@repeatlabel@#1}
+                {#3}
+                {\blxarch@errmsg{\blxarch@repeatlabel@errstr{\unexpanded{\ifrepeatlabel}}}}}}%
+        {\ifstrequal{false}{#1}
+            {#2}
+            {\ifcsdef{blxarch@opt@repeatlabel@#1}
+                {#3}
+                {\blxarch@errmsg{\blxarch@repeatlabel@errstr{\unexpanded{\ifrepeatlabel}}}}}}%
 }
 %    \end{macrocode}
 % \changes{2.0}{2018/05/09}{\Stark{Incompatible}: \Befehl{ifrepeatlabel} has a third parameter}
@@ -8204,9 +8236,9 @@
 % \begin{option}{repeatlabel}
 % =\meta{string}
 % \begin{optkeys}{3em}
-% 	\item[\Kbd{dashed}] cite label shall be repeated and repeated names dashed;
-% 	\item[\Kbd{false}] don't;
-% 	\item[\Kbd{true}] cite label shall be repeated, always with full names;
+%     \item[\Kbd{dashed}] cite label shall be repeated and repeated names dashed;
+%     \item[\Kbd{false}] don't;
+%     \item[\Kbd{true}] cite label shall be repeated, always with full names;
 % \end{optkeys}
 %    \begin{macrocode}
 \DeclareBibliographyOption[string]{repeatlabel}[true]{%
@@ -8472,7 +8504,6 @@
 % \begin{option}{usemultivenue}
 % =\meta{bool}\\
 % Wether to use \Feld{multivenue} in title notes.
-% get added as addendum.
 %    \begin{macrocode}
 \newtoggle{archbool:usemultivenue}
 \DeclareBibliographyOption{usemultivenue}[false]{%
@@ -8484,7 +8515,6 @@
 % \begin{option}{useeventdate}
 % =\meta{bool}\\
 % Wether to use \Feld{eventdate} in title notes.
-% get added as addendum.
 %    \begin{macrocode}
 \newtoggle{archbool:useeventdate}
 \DeclareBibliographyOption{useeventdate}[true]{%
@@ -8496,7 +8526,6 @@
 % \begin{option}{useeventnumber}
 % =\meta{bool}\\
 % Wether to use \Feld{eventnumber} in title notes.
-% get added as addendum.
 %    \begin{macrocode}
 \newtoggle{archbool:useeventnumber}
 \DeclareBibliographyOption{useeventnumber}[true]{%
@@ -8508,7 +8537,6 @@
 % \begin{option}{usefestschriftaddon}
 % =\meta{bool}\\
 % Wether to use \Feld{usefestschriftaddon} in title notes.
-% get added as addendum.
 %    \begin{macrocode}
 \newtoggle{archbool:usefestschriftaddon}
 \DeclareBibliographyOption{usefestschriftaddon}[true]{%
@@ -9603,7 +9631,6 @@
 % \begin{option}{origfields}
 % =\meta{bool}\\
 % If true, then fields \Feld{origdate} and \Feld{origlocation} apply. \Feld{date} and \Feld{location}
-% get added as addendum.
 %    \begin{macrocode}
 \newtoggle{archbool:origfields}
 \DeclareBibliographyOption{origfields}[true]{%
@@ -9615,7 +9642,6 @@
 % \begin{option}{usepublisher}
 % =\meta{bool}\\
 % Wether to use \Feld{publisher} and \Feld{origpublisher} apply. \Feld{date} and \Feld{location}
-% get added as addendum.
 %    \begin{macrocode}
 \newtoggle{archbool:usepublisher}
 \DeclareBibliographyOption{usepublisher}[true]{%
@@ -10025,7 +10051,7 @@
 % \end{macro}
 %
 % \begin{format}{newsparens}
-% Formatting of an \enquote{article dated \dots} expression.
+% Formatting of an \enquote{article dated \textellipsis} expression.
 %    \begin{macrocode}
 \DeclareFieldFormat*{newsparens}{\addcomma\space#1}
 %    \end{macrocode}
@@ -10632,7 +10658,6 @@
 % \begin{option}{idemincitation}
 % =\meta{bool}\\
 % Wether to use \Kbd{idem} in full citations.
-% get added as addendum.
 %    \begin{macrocode}
 \newtoggle{archbool:idemincitation}
 \DeclareBibliographyOption{idemincitation}[true]{%
@@ -10642,7 +10667,7 @@
 % \end{option}
 %
 % \begin{macro}{\seenotedelim}
-% Delimiter before bibstring \Kbd{seenote}
+% Delimiter before bibstring \Kbd{seenote}.
 %    \begin{macrocode}
 \newcommand*{\seenotedelim}{\addspace}
 %    \end{macrocode}
@@ -10652,7 +10677,6 @@
 % =\meta{bool}\\
 % If this option is enabled, a namelist longer than \Option{maxnames} is truncated
 % between $\Option{maxnames} - 1$ and the last author.
-% get added as addendum.
 %    \begin{macrocode}
 \newtoggle{archbool:preservelastauthor}
 \DeclareBibliographyOption{preservelastauthor}[true]{%
@@ -10771,7 +10795,7 @@
 % \begin{macro}{\finalnameellipsis}
 % The ellipsis if \option{preservelastauthor} is enabled.
 %    \begin{macrocode}
-\newcommand{\finalnameellipsis}{\addspace\dots\space}
+\newcommand{\finalnameellipsis}{\addspace\textellipsis\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -10820,6 +10844,124 @@
 %    \end{macrocode}
 % \end{bibmacro}
 % \end{bibmacro}
+%
+%
+%\subsubsubsection{Genitive forms}
+%
+% \begin{macro}{\DefineGenitiveApostropheChars}
+% \marg{language}\marg{csv}\\
+% Sets a set of tokens after which an alternate genitive form is needed. To be used in the document preamble.
+% \changes{2.0}{2018/05/15}{New command \Befehl{DefineGenitiveApostropheChars}}
+%    \begin{macrocode}
+\newrobustcmd{\DefineGenitiveApostropheChars}[2]{%
+    \DefineBibliographyExtras{#1}{%
+        \let\blxarch@genitiveapostrophechars\@empty%
+        \forcsvlist{\listadd\blxarch@genitiveapostrophechars}{#2}%
+}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\DeclareGenitiveApostropheChars}
+% \marg{csv}\\
+% Sets a set of tokens after which an alternate genitive form is needed. To be used in \Kbd{*.lbx} files.
+% \changes{2.0}{2018/05/15}{New command \Befehl{DeclareGenitiveApostropheChars}}
+%    \begin{macrocode}
+\newrobustcmd{\DeclareGenitiveApostropheChars}[1]{%
+    \DeclareBibliographyExtras{%
+        \let\blxarch@genitiveapostrophechars\@empty%
+        \forcsvlist{\listadd\blxarch@genitiveapostrophechars}{#1}%
+}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{bibmacro}{genitive}
+% Prints the \Kbd{genitives} or \Kbd{genitiveapostrophe} bibstring respectively.
+%    \begin{macrocode}
+\newtoggle{archbool:genitiveapostrophe}
+\newbibmacro*{genitive}[1]{%
+    \ifblank{#1}
+        {}
+        {\togglefalse{archbool:genitiveapostrophe}%
+         \fullexpandarg%
+         \StrRemoveBraces{#1}[\cbxnobraces]%
+         \renewcommand*{\do}[1]{%
+            \IfEndWith{\cbxnobraces}{##1}
+                {\toggletrue{archbool:genitiveapostrophe}\listbreak}
+                {}%
+         }%
+         \dolistloop{\blxarch@genitiveapostrophechars}%
+         \iftoggle{archbool:genitiveapostrophe}
+            {\bibstring{genitiveapostrophe}}
+            {\bibstring{genitives}}%
+        }%
+}
+%    \end{macrocode}
+% \end{bibmacro}
+%
+% \begin{format}{labelname:poss}
+%    \begin{macrocode}
+\DeclareNameFormat{labelname:poss}{% Based on labelname from biblatex.def
+    \let\blxarch@namepartfamily\namepartfamily%
+    \ifcase\value{uniquename}%
+        \usebibmacro{name:family}{\namepartfamily}{\namepartgiven}{\namepartprefix}{\namepartsuffix}%
+    \or
+        \ifuseprefix
+            {\usebibmacro{name:given-family}{\namepartfamily}{\blxarch@ligatureinitchars{\namepartgiven}}{\namepartprefix}{\namepartsuffixi}}
+            {\usebibmacro{name:given-family}{\namepartfamily}{\blxarch@ligatureinitchars{\namepartgiven}}{\namepartprefixi}{\namepartsuffixi}}%
+    \or
+        \usebibmacro{name:given-family}{\namepartfamily}{\namepartgiven}{\namepartprefix}{\namepartsuffix}%
+    \fi
+    \usebibmacro{name:andothers}%
+    \ifnumequal{\value{listcount}}{\value{liststop}}{\usebibmacro{genitive}{\blxarch@namepartfamily}}{}}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{shorthand:poss}
+% \begin{format}{citetitle:poss}
+% \begin{format}{label:poss}
+%    \begin{macrocode}
+\DeclareFieldFormat{shorthand:poss}{%
+    \ifnameundef{labelname}{#1\usebibmacro{genitive}{#1}{}}}
+\DeclareFieldFormat{citetitle:poss}{#1\usebibmacro{genitive}{#1}}
+\DeclareFieldFormat{label:poss}{#1\usebibmacro{genitive}{#1}}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+% \end{format}
+%
+% \begin{macro}{\posscitealias}
+% Change formats to its genitive variants locally.
+%    \begin{macrocode}
+\newrobustcmd*{\posscitealias}{%
+    \AtNextCite{%
+        \DeclareNameAlias{labelname}{labelname:poss}%
+        \DeclareFieldAlias{shorthand}{shorthand:poss}%
+        \DeclareFieldAlias{citetitle}{citetitle:poss}%
+        \DeclareFieldAlias{label}{label:poss}}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\posscite}
+% \begin{macro}{\Posscite}
+% \begin{macro}{\posscites}
+% Possessive \Befehl{textcite}-like cite commands.
+% \changes{2.0}{2018/05/15}{New cite command \Befehl{posscite}}
+% \changes{2.0}{2018/05/15}{New cite command \Befehl{Posscite}}
+% \changes{2.0}{2018/05/15}{New cite command \Befehl{posscites}}
+% \changes{2.0}{2018/05/15}{New cite command \Befehl{Posscites}}
+%    \begin{macrocode}
+\newrobustcmd*{\posscite}{%
+    \posscitealias%
+    \textcite}
+\newrobustcmd*{\Posscite}{\bibsentence\posscite}
+\newrobustcmd*{\posscites}{%
+    \posscitealias%
+    \textcites}
+\newrobustcmd*{\Posscites}{\bibsentence\posscites}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
 %
 %\subsubsubsection{Formatting in citations}
 %
@@ -18945,9 +19087,16 @@
 \NewBibliographyString{festschrift}
 %    \end{macrocode}
 % \end{localization}
-% \begin{localization}{postdocthesis}
+% \begin{localization}{genitiveapostrophe}
+% \changes{2.0}{2018/05/13}{New bibstring \Kbd{genitiveapostrophe}}
 %    \begin{macrocode}
-\NewBibliographyString{postdocthesis}
+\NewBibliographyString{genitiveapostrophe}
+%    \end{macrocode}
+% \end{localization}
+% \begin{localization}{genitives}
+% \changes{2.0}{2018/05/13}{New bibstring \Kbd{genitives}}
+%    \begin{macrocode}
+\NewBibliographyString{genitives}
 %    \end{macrocode}
 % \end{localization}
 % \begin{localization}{magisterthesis}
@@ -18968,6 +19117,11 @@
 % \begin{localization}{plate}
 %    \begin{macrocode}
 \NewBibliographyString{plate}
+%    \end{macrocode}
+% \end{localization}
+% \begin{localization}{postdocthesis}
+%    \begin{macrocode}
+\NewBibliographyString{postdocthesis}
 %    \end{macrocode}
 % \end{localization}
 % \begin{localization}{specialauction}
@@ -19041,6 +19195,8 @@
 %
 % Define new localizazion strings
 % \begin{localization}{articledated}
+% \begin{localization}{genitiveapostrophe}
+% \begin{localization}{genitives}
 % \begin{localization}{auction}
 % \begin{localization}{auctions}
 % \begin{localization}{bathesis}
@@ -19072,6 +19228,8 @@
 \DeclareBibliographyStrings{%
     inherit                   = {english},
     articledated              = {{article dated}{article dated}},
+    genitiveapostrophe        = {{'}{'}},
+    genitives                 = {{'s}{'s}},
     auction                   = {{auction}{auktion}},
     auctions                  = {{auktions}{auctions}},
     bathesis                  = {{Bachelor thesis}{BA\addabbrvspace thesis}},
@@ -19105,6 +19263,8 @@
     unpublishedpostdocthesis  = {{unpublished Habilitationsschrift}{unpubl. Habil.-Schr\adddot}},
     unpublishedphdthesis      = {{unpublished PhD\addabbrvspace thesis}{unpubl. PhD\addabbrvspace thesis}},,
 %    \end{macrocode}
+% \end{localization}
+% \end{localization}
 % \end{localization}
 % \end{localization}
 % \end{localization}
@@ -19282,6 +19442,11 @@
 % \end{macro}
 % \end{macro}
 %
+% No alternate genitive in English (\enquote{Smith'} book is possible but considered bad style).
+%    \begin{macrocode}
+\DeclareGenitiveApostropheChars{}
+%    \end{macrocode}
+%
 %</englishLBX>
 %<*PenglishLBX>
 %
@@ -19313,6 +19478,8 @@
 %
 % Define new localizazion strings:
 % \begin{localization}{articledated}
+% \begin{localization}{genitiveapostrophe}
+% \begin{localization}{genitives}
 % \begin{localization}{auction}
 % \begin{localization}{auctions}
 % \begin{localization}{bathesis}
@@ -19341,6 +19508,8 @@
 \DeclareBibliographyStrings{%
     inherit                   = {german},
     articledated              = {{Artikel vom}{Artikel vom}},
+    genitiveapostrophe        = {{'}{'}},
+    genitives                 = {{s}{s}},
     auction                   = {{Auktion}{Auktion}},
     auctions                  = {{Auktionen}{Auktionen}},
     catalogue                 = {{Katalog}{Kat\adddot}},
@@ -19368,6 +19537,8 @@
     unpublishedpostdocthesis  = {{ungedruckte Habilitationsschrift}{ungedr. Habil.-Schr\adddot}},
     unpublishedphdthesis      = {{ungedruckte Dissertation}{ungedr. Diss\adddot}},
 %    \end{macrocode}
+% \end{localization}
+% \end{localization}
 % \end{localization}
 % \end{localization}
 % \end{localization}
@@ -19423,6 +19594,12 @@
 % \end{localization}
 % \end{localization}
 % \end{localization}
+%
+% Unfortunately we must use a literal \ss{} here. \Paket{xstring} tests on identy of \Befehl{ss} and \ss{} are
+% not reliable. cf. \href{https://www.duden.de/sprachwissen/rechtschreibregeln/apostroph}{Duden} on the ruleset.
+%    \begin{macrocode}
+\DeclareGenitiveApostropheChars{ce,s,x,z,ß,\ss}
+%    \end{macrocode}
 %
 %</germanLBX>
 %<*PgermanLBX>
