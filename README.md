@@ -17,12 +17,12 @@ Create the directories `{TEXMF}/bibtex/bib/biblatex-archaeology` and `{TEXMF}/te
 	
 Create a directory `{TEXMF}/doc/latex/biblatex-archaeology` and move `biblatex-archaeology.pdf` and the example folder there. In case you want to compile the manual yourself, do 
 
-	pdflatex biblatex-archaeology
+	lualatex biblatex-archaeology
 	Biber biblatex-archaeology
 	makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
 	makeindex -s gind.ist biblatex-archaeology.idx
-	pdflatex biblatex-archaeology
-	pdflatex biblatex-archaeology
+	lualatex biblatex-archaeology
+	lualatex biblatex-archaeology
 
 Remark that you MUST employ Biber. BibTeX won't work.
 
