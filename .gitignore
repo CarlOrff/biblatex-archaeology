@@ -222,3 +222,6 @@ biblatex-archaeology_example-ent.*
 
 # hyperref
 *.out
+
+# Nextcloud
+*_conflict-*
