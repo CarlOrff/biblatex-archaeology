@@ -1,4 +1,4 @@
-# The `biblatex-archaeology` package [v1.4]
+# The `biblatex-archaeology` styles [v2.0]
 
 ## Objective
 
@@ -17,12 +17,12 @@ Create the directories `{TEXMF}/bibtex/bib/biblatex-archaeology` and `{TEXMF}/te
 	
 Create a directory `{TEXMF}/doc/latex/biblatex-archaeology` and move `biblatex-archaeology.pdf` and the example folder there. In case you want to compile the manual yourself, do 
 
-	pdflatex biblatex-archaeology
+	lualatex biblatex-archaeology
 	Biber biblatex-archaeology
 	makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
 	makeindex -s gind.ist biblatex-archaeology.idx
-	pdflatex biblatex-archaeology
-	pdflatex biblatex-archaeology
+	lualatex biblatex-archaeology
+	lualatex biblatex-archaeology
 
 Remark that you MUST employ Biber. BibTeX won't work.
 
@@ -60,6 +60,7 @@ Remark that `biblatex-archaeology` makes heavy use of Biber-only features. It wo
 - rgzm-numeric
 - rgzm-verbose
 - ufg-muenster-inline
+- ufg-muenster-numeric
 - ufg-muenster-verbose
 - volkskunde
 - zaak
@@ -68,14 +69,14 @@ Remark that `biblatex-archaeology` makes heavy use of Biber-only features. It wo
 ## Help
 
 The package is hosted on [GitHub](https://github.com/CarlOrff/biblatex-archaeology). If you have any concerns it is by far best to use the issue tracker there.
-Alternatively you can e-mail me through the [contact form on my website](https://ingram-braun.net/public/about/legal-notice/#ib_campaign=biblatex-archaeology-1.4&ib_medium=repository&ib_source=readme). Or you can employ the comment script of a project page on my personal website: [The `biblatex-archaeology` styles for German cultural anthropology](https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/#ib_campaign=biblatex-archaeology-1.4&ib_medium=repository&ib_source=readme).
+Alternatively you can e-mail me through the [contact form on my website](https://ingram-braun.net/public/about/legal-notice/#ib_campaign=biblatex-archaeology-2.0.4&ib_medium=readme&ib_source=github&ib_content=helpsection). Or you can employ the comment script of a project page on my personal website: [The `biblatex-archaeology` styles for German cultural anthropology](https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/#ib_campaign=biblatex-archaeology-2.0&ib_medium=readme&ib_source=github&ib_content=helpsection).
 
 Normally you will get the latest production version through the update script of your TeX distribution. If you want to keep track actively, use
-the news feeds of CTAN, GitHub or my personal website.
+the news feeds of CTAN, GitHub, Academia or my personal website.
 
 ## Copyright
 
-© 2005–2018 by [Ingram Braun](https://ingram-braun.net/#ib_campaign=biblatex-archaeology-1.4&ib_medium=repository&ib_source=readme)
+© 2005–2018 by [Ingram Braun](https://ingram-braun.net/#ib_campaign=biblatex-archaeology-1.4&ib_medium=readme&ib_source=github&ib_content=copyright)
 
 ## License
 
