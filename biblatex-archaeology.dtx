@@ -17,19 +17,20 @@
 % \iffalse 
 %<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<package>\ProvidesPackage{biblatex-archaeology}
-%<package>[2018/05/11 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
+%<package>[2018/05/19 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
 %
 %<*driver>
-%\listfiles
-\documentclass[11pt]{ltxdoc}
-\usepackage[osf,sc]{mathpazo}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-% select teletext font (Luximono is non-free):
-\IfFileExists{luximono.sty}
-    {\usepackage[scaled=.75]{luximono}}
-    {\usepackage[ttscale=.8]{libertine}}
-\usepackage[french,latin,ngerman,english]{babel}
+\listfiles
+\documentclass[10pt]{ltxdoc}
+\usepackage{fontspec}
+% it's best to use the ltxdoc defaults for monospace.
+\setmainfont[Ligatures=TeX]{NotoSerif}
+\setsansfont{NotoSans}
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\setotherlanguage[spelling=new]{german}
+\setotherlanguage{french}
+\setotherlanguage{latin}
 \usepackage{csquotes,dox,ellipsis,fancyhdr,longtable,sectsty,xcolor,xspace}
 \usepackage[toc,page]{appendix}
 \usepackage[many]{tcolorbox}
@@ -89,6 +90,7 @@
 \newrobustcmd*{\blx}{\Paket{bib\-la\-tex}\xspace}
 \makeatletter
 \newrobustcmd*{\archbib}{\Paket{\blxarch@name@hyph}\xspace}
+\newrobustcmd*{\Biber}{\Paket{Biber}\xspace}
 \makeatother
 \newrobustcmd*{\Befehl}[1]{\texttt{\cs{#1}}}
 \newrobustcmd*{\Datei}[1]{\texttt{#1}}
@@ -109,16 +111,15 @@
 \setcounter{secnumdepth}{5}
 \newcommand{\Stark}[1]{\textcolor{\headingscolor}{\textbf{#1}}}
 % Example boxes:
-\newcommand{\Beispiel}[1]{%
-    \tcbox[
-        center,
+\newenvironment{Beispiel}
+    {\begin{tcolorbox}[
         colback=\backgroundcolor,
         colframe=\headingscolor,
         fonttitle=\bfseries\sffamily,
         title=\vspace{0.7ex}Example,
-    ]{#1}%
-}
-\newcommand{\Mittelpfeil}{\multicolumn{1}{c}{$\Downarrow$}}
+        halign=flush left,
+    ]}%
+    {\end{tcolorbox}}
 \newcommand{\StringBox}[2]{\parbox{\textwidth}{\raggedright#1 #2}}
 \usepackage{enumitem}
 \newenvironment{optkeys}[1]
@@ -138,6 +139,7 @@
     pdfpagemode={UseOutlines}, % show pdf bookmarks (indices) on startup; does not function all the time
     pdfdisplaydoctitle=true,
     pdfauthor={Ingram Braun},
+    pdfcaptionwriter={Ingram Braun},
     pdflang=en,
     pdfmenubar=true,        % make PDF viewer's menu bar visible
     pdfkeywords={archaeology, anthropology, bibliography, typesetting, LaTeX, BibTeX, biblatex, history, Egyptology},
@@ -145,8 +147,9 @@
     pdfaconformance=B,
     pdfmetalang=en,
     pdfcaptionwriter={Ingram Braun},
-    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=repository&ib_source=manual, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7},
+    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7},
     pdflicenseurl = {http://www.latex-project.org/lppl.txt},
+    pdfsource={\jobname.dtx},
     pdftype=Software,
     pdftitle={The biblatex-archaeology styles [v2.0]},
     baseurl={http://mirror.ctan.org/macros/latex/contrib/biblatex-contrib/biblatex-archaeology}
@@ -190,12 +193,13 @@
 % \changes{2.0}{2017/11/19}{Fixed some formattings in style \Stil{karl}}
 % \changes{2.0}{2018/03/20}{CTAN files in read-only mode (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/11}{issue \#11})}
 % \changes{2.0}{2018/03/20}{Some German expressions not translated into English (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/12}{issue \#12})}
-% \changes{2.0}{2018/03/21}{Added XML datamodel snippet for \Kbd{Biber}'s tool mode (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/10}{issue \#10})}
+% \changes{2.0}{2018/03/21}{Added XML datamodel snippet for \Biber's tool mode (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/10}{issue \#10})}
 % \changes{2.0}{2018/04/04}{Added new generic style \Stil{numeric-comp-archaeology} (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/13}{issue \#13})}
 % \changes{2.0}{2018/04/04}{Added new style \Stil{rgk-numeric}}
 % \changes{2.0}{2018/04/04}{Added new style \Stil{rgzm-numeric}}
 % \changes{2.0}{2018/05/10}{Added new style \Stil{ufg-muenster-numeric}}
 % \changes{2.0}{2018/05/10}{Separated \Kbd{development} from {master} branch on GitHub}
+% \changes{2.0}{2018/05/19}{Manual layout fixed}
 %
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -208,8 +212,8 @@
 % \IndexPrologue{\section*{Index}\addcontentsline{toc}{section}{Index}}
 % \GlossaryPrologue{\section*{Changelog}\addcontentsline{toc}{section}{Changelog}}
 %
-% \title{\LARGE\color{\headingscolor}The \textsf{\jobname} styles\thanks{This document corresponds to \archbib~v2.0, dated~2018/05/11.}}
-% \author{\Large Ingram Braun \\ \href{https://ingram-braun.net/\#ib_campaign=biblatex-archaeology-2.0\&ib_medium=repository\&ib_source=manual}{\Kbd{https://ingram-braun.net/}}}
+% \title{\LARGE\color{\headingscolor}The \textsf{\jobname} styles\thanks{This document corresponds to \archbib~v2.0, dated~2018/05/19.}}
+% \author{\Large Ingram Braun \\ \href{https://ingram-braun.net/\#ib_campaign=biblatex-archaeology-2.0\&ib_medium=manual\&ib_source=github\&ib_content=titlepage}{\Kbd{https://ingram-braun.net/}}}
 %
 % \maketitle
 %
@@ -251,12 +255,12 @@
 %<*verbman>
 % \fi
 % \begin{verbatim}
-   pdflatex biblatex-archaeology
+   lualatex biblatex-archaeology
    Biber biblatex-archaeology
    makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
    makeindex -s gind.ist biblatex-archaeology.idx
-   pdflatex biblatex-archaeology
-   pdflatex biblatex-archaeology
+   lualatex biblatex-archaeology
+   lualatex biblatex-archaeology
  \end{verbatim}
 % \iffalse
 %</verbman>
@@ -283,13 +287,14 @@
 % employ \bibtex. Doing so will issue an error.
 % 
 % \subsection{Usage}
+%
 % \par As usual, \archbib gets loaded if one of its styles is selected with \blx' \Option{style} option.
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Befehl{usepackage}\Kbd{[style=rgk-verbose]\{biblatex\}}\\
-%       \Befehl{addbibresource}\Kbd{\{mybibliography.bib\}}\\
-%   \end{tabular}
-% }
+%
+% \begin{Beispiel}
+%   \Befehl{usepackage}\Kbd{[style=rgk-verbose]\{biblatex\}}\\
+%   \Befehl{addbibresource}\Kbd{\{mybibliography.bib\}}\\
+% \end{Beispiel}
+%
 % \par Please study the main part of this manual and the example database \Datei{biblatex-archaeology-example.bib} (see \ref{kap:bib}) carefully!
 % 
 % \subsection{Other solutions}
@@ -304,12 +309,12 @@
 % 
 % \subsection{Help}\label{kap:help}
 % \par If there are any concerns you can reach me directly via the
-% \href{https://github.com/CarlOrff/biblatex-archaeology/issues}{GitHub tracker} or the comment section on
-% a \href{https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=repository&ib_source=manual}
+% \href{https://github.com/CarlOrff/biblatex-archaeology/issues}{GitHub tracker} or comment section on
+% a \href{https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github\&ib_content=helpsection}
 %{small project page on my personal website}.
-% Alternatively you can e-mail me through the \href{https://ingram-braun.net/public/about/legal-notice/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=repository&ib_source=manual}{contact form} there.
+% Alternatively you can e-mail me through the \href{https://ingram-braun.net/public/about/legal-notice/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github\&ib_content=helpsection}{contact form} there.
 % Of course, \href{http://tex.stackexchange.com}{TeX Stack Exchange} is always worth a try.
-% \par The \href{https://ingram-braun.net/public/programming/tex/bibtex-database-latex-bibliography-form/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=repository&ib_source=manual}{Online \blx Editor}
+% \par The \href{https://ingram-braun.net/public/programming/tex/bibtex-database-latex-bibliography-form/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github\&ib_content=helpsection}{Online \blx Editor}
 % on my website provides the additional \archbib fields.
 % 
 % \section{Reference}
@@ -455,7 +460,7 @@
 %
 % \item[]\DescribeOption{editionsuperscript}=\meta{key}\\
 % This option controls where to print the edition number. The following keys are available:
-% \begin{optkeys}{3em}
+% \begin{optkeys}{4em}
 %   \item[\Kbd{none}] use the \blx standard.
 %   \item[\Kbd{predate}] superscript ahead of \Feld{date}.
 %   \item[\Kbd{postdate}] superscript after \Feld{date}.
@@ -472,21 +477,23 @@
 % the list stops after the first hit. If you want to have Christian abbreviated Chr. and Cheryl
 % Ch., then Chr must be enlisted before Ch. Provide an empty list in order to disable this function.
 % Of course, the list must be enclosed in braces.
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Kbd{\textbackslash usepackage[givenintligatures=\{Ch,Ph,St,Th\},style=xyz]\{biblatex\}}\\
-%       \Mittelpfeil\\
-%       \Stark{Th}. G. \Stark{St}. Ackermann 2015: \textellipsis\\
-%       R. \Stark{Ph}. Bauer 2012: \textellipsis
-%   \end{tabular}
-% }
+%
+% \begin{Beispiel}
+%    \Kbd{\textbackslash usepackage[givenintligatures=\{Ch,Ph,St,Th\},style=xyz]\\
+%     \{biblatex\}}
+%    \tcblower%
+%    \Stark{Th}. G. \Stark{St}. Ackermann 2015: \textellipsis\\
+%    R. \Stark{Ph}. Bauer 2012: \textellipsis
+% \end{Beispiel}
 %
 % \item[]\DescribeOption{idemincitation}=\meta{bool}\\
 % \blx never uses \Kbd{idem} idem strings in \Befehl{fullcite} commands. The option enables this.
 %
 % \item[]\DescribeOption{injournal}=\meta{bool}\\
 % If \meta{true}, journal titles are preceeded by an \Kbd{in}.
-% \Beispiel{G. Popp, A title. \Stark{In:} Journal of Things 56 \textellipsis}
+% \begin{Beispiel}
+%   G. Popp, A title. \Stark{In:} Journal of Things 56 \textellipsis
+% \end{Beispiel}
 %
 % \item[]\DescribeOption{journallocation}=\meta{bool}\\
 % If \meta{true}, the \Feld{location} field is printed in \Typ{article}.
@@ -523,24 +530,21 @@
 %   \item[\Kbd{label}] after author names.
 %   \item[\Kbd{location}] after location.
 % \end{optkeys}
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Kbd{\textbackslash usepackage[positionlabeldate=both,style=xyz]\{biblatex\}}\\
-%       \Mittelpfeil\\
-%       G. Ackermann \Stark{2015}: A title. Hamburg \Stark{2015}.
-%   \end{tabular}
-% }
+% \begin{Beispiel}
+%    \Kbd{\textbackslash usepackage[positionlabeldate=both,style=xyz]\{biblatex\}}\\
+%    \tcblower
+%    G. Ackermann \Stark{2015}: A title. Hamburg \Stark{2015}.
+% \end{Beispiel}
 %
 % \item[]\DescribeOption{preservelastauthor}=\meta{bool}\\
 % \blx truncates name lists by omitting the last names und marks them with \emph{et~al.} If this option is \meta{true}
 % the names beetwen \Kbd{maxnames}$-1$ and the last names are omitted:
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Kbd{\textbackslash usepackage[preservelastauthor=true,style=xyz]\{biblatex\}}\\
-%       \Mittelpfeil\\
-%       G. Ackermann, R. Bauer \Stark{\textellipsis} F. Berger: A title. Hamburg 2015.
-%   \end{tabular}
-% }
+% 
+% \begin{Beispiel}
+%    \Kbd{\textbackslash usepackage[preservelastauthor=true,style=xyz]\{biblatex\}}
+%    \tcblower%
+%    G. Ackermann, R. Bauer \Stark{\textellipsis} F. Berger: A title. Hamburg 2015.
+% \end{Beispiel}
 %
 % \item[]\DescribeOption{repeatlabel}=\meta{key}\\
 % If \meta{true} or \meta{dashed}, the exact label is printed in the bibliography. This affects author date styles only.
@@ -549,12 +553,10 @@
 %   \item[\Kbd{false}] do not repeat labels.
 %   \item[\Kbd{true}] repeat labels and print \Befehl{labelname}s every time.
 % \end{optkeys}
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Stark{Ackermann et~al. 2015}\\
+% \begin{Beispiel}
+%       \Stark{Ackermann et\,al. 2015}\\
 %       G. Ackermann, R. Bauer, F. Berger: A title. Hamburg 2015.
-%   \end{tabular}
-% }
+% \end{Beispiel}
 %
 % \item[]\DescribeOption{shortform}=\meta{key}\\
 % Wether to print short forms like \Deutsch{RGA} or \Latein{CIL} in bibliographies. The following keys are available:
@@ -580,81 +582,67 @@
 %
 % \item[]\DescribeOption{tabbedlabeldate}=\meta{bool}\\
 % If \meta{true}, the label date is written into an extra column. This works with author date styles only.
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Kbd{\textbackslash usepackage[tabbedlabeldate=true,style=xyz]\{biblatex\}}\\
-%       \Kbd{\textbackslash renewcommand\{\textbackslash nameyeardelim\}\{\textbackslash newline\}}\\
-%       \Mittelpfeil\\
-%       G. Ackermann\\
-%       \begin{tabular}{ll}
-%           \Stark{2013} & A title. In: Journal of Most Important Issues 80,\\
-%           \empty & pp.~34--67.
-%       \end{tabular}
+% \begin{Beispiel}
+%   \Kbd{\textbackslash usepackage[tabbedlabeldate=true,style=xyz]\{biblatex\}}\\
+%   \Kbd{\textbackslash renewcommand\{\textbackslash nameyeardelim\}\{\textbackslash newline\}}
+%   \tcblower%
+%   G. Ackermann\\
+%   \begin{tabular}{ll}
+%      \Stark{2013} & A title. In: Journal of Most Important Issues 80,\\
+%      \empty & pp.~34--67.
 %   \end{tabular}
-% }
+% \end{Beispiel}
 %
 % \item[]\DescribeOption{titlebrackets}=\meta{bool}\\
 % If \meta{true}, the \Feld{titleaddon} is not printed as a field of its own but as an addendum in parentheses
 % to the \Feld{title} field.
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Kbd{\textbackslash usepackage[titlebrackets=true,style=xyz]\{biblatex\}}\\
-%       \Mittelpfeil\\
+%   \begin{Beispiel}
+%       \Kbd{\textbackslash usepackage[titlebrackets=true,style=xyz]\{biblatex\}}
+%       \tcblower%
 %       G. Popp (ed.) 2011: A title \Stark{(Conference proceedings Oxford 2010)}. Oxford.
-%   \end{tabular}
-% }
+%   \end{Beispiel}
 %
 % \item[]\DescribeOption{titlenote}=\meta{bool}\\
 % If \meta{true}, the \Feld{titleaddon} is replaced by a shorthand:
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Kbd{\textbackslash usepackage[titlenote=true,style=xyz]\{biblatex\}}\\
-%       \Mittelpfeil\\
-%       G. Popp (ed.) 2011: A title. \Stark{Conf. Oxford}. Oxford.
-%   \end{tabular}
-% }
+% \begin{Beispiel}
+%    \Kbd{\textbackslash usepackage[titlenote=true,style=xyz]\{biblatex\}}
+%    \tcblower%
+%    G. Popp (ed.) 2011: A title. \Stark{Conf. Oxford}. Oxford.
+% \end{Beispiel}
 %
 % \item[]\DescribeOption{useeventdate}=\meta{bool}\\
 % If \meta{true}, \Feld{eventdate} is used in \Feld{titlenote}s.
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Kbd{\textbackslash usepackage[useeventdate=true,style=xyz]\{biblatex\}}\\
-%       \Mittelpfeil\\
+% \begin{Beispiel}
+%       \Kbd{\textbackslash usepackage[useeventdate=true,style=xyz]\{biblatex\}}
+%       \tcblower%
 %       G. Popp (ed.) 2011: A title. Conf. Oxford \Stark{2010}. Oxford.
-%   \end{tabular}
-% }
+% \end{Beispiel}
 %
 % \item[]\DescribeOption{useeventnumber}=\meta{bool}\\
 % If \meta{true}, \Feld{eventnumber} is used in \Feld{titlenote}s.
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Kbd{\textbackslash usepackage[useeventnumber=true,style=xyz]\{biblatex\}}\\
-%       \Mittelpfeil\\
-%       Sotheby's 2011: A title. Auction \Stark{311} Oxford. Oxford.
-%   \end{tabular}
-% }
+% \begin{Beispiel}
+%    \Kbd{\textbackslash usepackage[useeventnumber=true,style=xyz]\{biblatex\}}\\
+%    \tcblower%
+%    Sotheby's 2011: A title. Auction \Stark{311} Oxford. Oxford.
+% \end{Beispiel}
 %
 % \item[]\DescribeOption{usefestschriftaddon}=\meta{bool}\\
 % If \meta{true}, \Feld{usefestschriftaddon} is used in \Feld{titlenote}s.
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Kbd{\textbackslash usepackage[usefestschriftaddon=true,style=xyz]\{biblatex\}}\\
-%       \Mittelpfeil\\
-%       G. Popp (ed.) 2011: A title. Festschr. \Stark{65. Geb.} H. Maulwurf. Bochum.
-%   \end{tabular}
-% }
+% \begin{Beispiel}
+%    \Kbd{\textbackslash usepackage[usefestschriftaddon=true,style=xyz]\{biblatex\}}\\
+%    \tcblower%
+%    G. Popp (ed.) 2011: A title. Festschr. \Stark{65. Geb.} H. Maulwurf. Bochum.
+% \end{Beispiel}
 %
 % \item[]\DescribeOption{useinstitution}=\meta{key}\\
 % If and how to handle the \Feld{institution} field in \Typ{thesis}.
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Kbd{\textbackslash usepackage[useinstitution=true,style=xyz]\{biblatex\}}\\
-%       \Mittelpfeil\\
-%       H. Gallert 2013: A title. PhD thesis \Stark{Univ. Hamburg}, Hamburg.
-%   \end{tabular}
-% }
+% \begin{Beispiel}
+%    \Kbd{\textbackslash usepackage[useinstitution=true,style=xyz]\{biblatex\}}\\
+%    \tcblower%
+%    H. Gallert 2013: A title. PhD thesis \Stark{Univ. Hamburg}, Hamburg.
+% \end{Beispiel}
 % The following keys are available:
-% \begin{optkeys}{6em}
+% \begin{optkeys}{7em}
 %   \item[\Kbd{aspublisher}] handles \Feld{type} field like \Feld{publisher} field.
 %   \item[\Kbd{false}] omits \Feld{institution} field.
 %   \item[\Kbd{locationfirst }] similar to \Kbd{false}, but \Feld{type} field is printed after \Feld{location} field.
@@ -665,13 +653,11 @@
 %
 % \item[]\DescribeOption{usemultivenue}=\meta{bool}\\
 % If \meta{true}, \Feld{multivenue} is used in \Feld{titlenote}s. This is mainly meant for travelling exhibitions.
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Kbd{\textbackslash usepackage[useeventdate=true,style=xyz]\{biblatex\}}\\
-%       \Mittelpfeil\\
-%       N. Taylor (ed.) 2009: A title. Exhibition catalogue \Stark{London, New York, Canberra}. London.
-%   \end{tabular}
-% }
+% \begin{Beispiel}
+%    \Kbd{\textbackslash usepackage[useeventdate=true,style=xyz]\{biblatex\}}\\
+%    \tcblower%
+%    N. Taylor (ed.) 2009: A title. Exhibition catalogue \Stark{London, New York, Canberra}. London.
+% \end{Beispiel}
 %
 % \item[]\DescribeOption{uselocation}=\meta{key}\\
 % If to print the \Feld{location} field.
@@ -690,13 +676,11 @@
 % \item[]\DescribeOption{usesourceeditor}=\meta{bool}\\
 % Typically \Feld{editor}s are not printed in self-contained works if there is an \Feld{author}. If \meta{true}, such secondary
 % authors are printed, too. This affects particularly editions of historical texts.
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Kbd{\textbackslash usepackage[usesourceeditor=true,style=xyz]\{biblatex\}}\\
-%       \Mittelpfeil\\
+% \begin{Beispiel}
+%       \Kbd{\textbackslash usepackage[usesourceeditor=true,style=xyz]\{biblatex\}}
+%       \tcblower%
 %       P. C. Tacitus 1981: Germania. \Stark{Ed. by A. Editor}. Stuttgart.
-%   \end{tabular}
-% }
+% \end{Beispiel}
 %
 % \item[]\DescribeOption{volumeafterseries}=\meta{bool}\\
 % Typically \Feld{volume} numbers of self-contained works are printed immediatly after the title. If this option is \meta{true}, it is
@@ -786,30 +770,26 @@
 % \item[]\DescribeFormat{realdate} field (date)\\
 % This field holds the real date of a publication if the official date lacks or is wrong. This fairly often happens with delayed journal issues which are
 % counted as if they had appeared regularly. Uncertain dates according to \blx' Extended Date/Time Format are allowed here.
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Kbd{\symbol{64}BOOKLET\{unknown:date,}\\
-%       \Kbd{\textellipsis}\\
-%       \Kbd{location = \{London\},}\\
-%       \Kbd{realdate = \{1930\textasciitilde\},}\\
-%       \Kbd{\}}\\
-%       \Mittelpfeil\\
-%       \textellipsis London n.~d. \Stark{[ca. 1930]}.
-%   \end{tabular}
-% }
+% \begin{Beispiel}
+%    \Kbd{\symbol{64}BOOKLET\{unknown:date,}\\
+%    \Kbd{\textellipsis}\\
+%    \Kbd{location = \{London\},}\\
+%    \Kbd{realdate = \{1930\textasciitilde\},}\\
+%    \Kbd{\}}
+%    \tcblower%
+%    \textellipsis{} London n.\,d. \Stark{[ca. 1930]}.
+% \end{Beispiel}
 % Do not confuse it with \Feld{origdate}, which refers to the primary edition of a reprint. Since \blx 3.11 it is possible to mark attributed dates
 % by employing \blx' field annotation feature:
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       \Kbd{\symbol{64}BOOKLET\{attributed:date,}\\
-%       \Kbd{\textellipsis}\\
-%       \Kbd{date = \{1930\},}\\
-%       \Kbd{date+an = \{=attributed\},}\\
-%       \Kbd{\}}\\
-%       \Mittelpfeil\\
-%       \textellipsis London n.~d. \Stark{[1930]}.
-%   \end{tabular}
-% }
+% \begin{Beispiel}
+%    \Kbd{\symbol{64}BOOKLET\{attributed:date,}\\
+%    \Kbd{\textellipsis}\\
+%    \Kbd{date = \{1930\},}\\
+%    \Kbd{date+an = \{=attributed\},}\\
+%    \Kbd{\}}
+%    \tcblower%
+%    \textellipsis{} London n.\,d. \Stark{[1930]}.
+% \end{Beispiel}
 % \archbib supports this format, too. The problem here is that this works only with lacking dates, not with wrong or falsified ones. Nonetheless, in order to keep
 % compatibility with standard styles as much as possible, you should prefer this style as long as it fits to the data.
 %
@@ -858,7 +838,9 @@
 % \item[]\DescribeMacro{\posscite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
 % The same as \Befehl{textcite} but as genitive form. The cite label is handled as an entity in that way that only the last \Feld{labelname} (or the \enquote{et.\,al.}
 % part respectively) is in the genitive.
-% \Beispiel{In \Stark{Miller's (2015)} famous book \textellipsis}
+% \begin{Beispiel}
+%    In \Stark{Bowman \& Miller's (2015)} famous book \textellipsis
+% \end{Beispiel}
 % Remark that this does not work in the -- probably rare -- case of a corporate author in the plural. For German or Scandinavian languages with a special handling
 % depending on the last character(s) of the noun there is a mechanism to define such tokens (see \ref{kap:langset}).
 %
@@ -871,25 +853,16 @@
 % \item[]\DescribeMacro{\Posscites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
 % Like \Befehl{posscites} but capitalizes a trailing prefix.
 %
-% \item[]\DescribeMacro{\sfcite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
-% Similar to \Befehl{shortformcite}, but not wrapped in a footnote and falls back to \Befehl{cite}.
-%
-% \item[]\DescribeMacro{\sfcites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
-% Similar to \Befehl{shortformcites}, but not wrapped in a footnote and falls back to \Befehl{cites}.
-%
 % \item[]\DescribeMacro{\shortformcite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
 % Some verbose styles format entries in encyclopedias in a special way:
-% \Beispiel{%
-%    \begin{tabular}{l}
-%       \Kbd{\textbackslash shortformcite\{rga:bewaffnung\}}\\
-%       \Mittelpfeil\\
-%       \begin{minipage}{.5\textwidth}
-%			\setcounter{mpfootnote}{0}
-%			\renewcommand{\thempfootnote}{\arabic{mpfootnote}}
-%           \textellipsis\footnote{RGA \RN{2}, 422 s.~v. Bewaffnung (J. Garbsch)}
-%       \end{minipage}
-%    \end{tabular}
-% }
+% \begin{Beispiel}
+%   \Kbd{\textbackslash shortformcite\{rga:bewaffnung\}}
+%   \tcblower%
+%   \begin{minipage}{\textwidth}
+%      \textellipsis\textsuperscript{1}\vspace{0.5\baselineskip}\footnoterule%
+%      \footnotesize\textsuperscript{1}RGA \RN{2}, 422 s.\,v. Bewaffnung (J. Garbsch)
+%   \end{minipage}
+% \end{Beispiel}
 % As usual, the pre- and postnote arguments are optional. Styles that do not use these short forms
 % (some verbose styles and all author date styles) fall back to \Befehl{autocite}. Some author date
 % styles use these short forms in the bibliography; this is enabled by the option \Option{shortform} (see \ref{kap:pkgopt})
@@ -897,6 +870,12 @@
 %
 % \item[]\DescribeMacro{\shortformcites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
 % The multicite version of \Befehl{shortformcite}. Note: all keys must be short forms.
+%
+% \item[]\DescribeMacro{\sfcite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Similar to \Befehl{shortformcite}, but not wrapped in a footnote and falls back to \Befehl{cite}.
+%
+% \item[]\DescribeMacro{\sfcites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Similar to \Befehl{shortformcites}, but not wrapped in a footnote and falls back to \Befehl{cites}.
 %
 % \end{itemize}
 % 
@@ -949,13 +928,11 @@
 % \item[]\DescribeMacro{\mkbiblocationaddon}\marg{text}\\
 % In comma separated location lists American-style addons to locations do not look pretty well. Therefore \archbib wraps
 % these addons into a formatting command:
-% \Beispiel{%
-%    \begin{tabular}{l}
-%       \Kbd{location = "Menlo Park, Cal."}\\
-%       \Mittelpfeil\\
-%       \Kbd{location = "Menlo Park\Befehl{mkbiblocationaddon}\{Cal.\}"}
-%    \end{tabular}
-% }
+% \begin{Beispiel}
+%    \Kbd{location = "Menlo Park, Cal."}
+%    \tcblower%
+%    \Kbd{location = "Menlo Park\Befehl{mkbiblocationaddon}\{Cal.\}"}
+% \end{Beispiel}
 %
 % \item[]\DescribeMacro{\mkbibrepeatfamily}\marg{text}\\
 % Formatting of the family name if labels are printed in the bibliography by \Option{repeatlabel} (see \ref{kap:pkgopt}).
@@ -1117,7 +1094,9 @@
 % Some styles differentiate between the usual \Befehl{multicitedelim} and a strong version, in fact a replacement for
 % paragraphs which are typically not allowed in footnotes. \Befehl{strongcitedelim} can not be set within a multicite
 % command. Do something like this instead:
-% \Beispiel{\Befehl{footnote}\Kbd{\{}\Befehl{cite}\Kbd{\{key1\}}\Befehl{strongcitedelim}\Befehl{cite}\Kbd{\{key2\}}\Kbd{\}}}
+% \begin{Beispiel}
+%    \Befehl{footnote}\Kbd{\{}\Befehl{cite}\Kbd{\{key1\}}\Befehl{strongcitedelim}\Befehl{cite}\Kbd{\{key2\}}\Kbd{\}}
+% \end{Beispiel}
 %
 % \item[]\DescribeMacro{\subnumberseriesdelim}\\
 % The delimiter between \Feld{subnumber} and \Feld{series} fields.
@@ -1141,11 +1120,14 @@
 % \begin{itemize}
 %
 % \item[]\DescribeMacro{\DefineGenitiveApostropheChars}\marg{language}\marg{csv}\\
-% The second argument takes a comma separated list of substrings requiring a different genitive token.
-% \Beispiel{In German: \Stark{\Deutsch{in Fischers (2018) Buch}} but \Stark{\Deutsch{in Hess' (2018) Buch}}}
+% The second argument takes a comma separated list of trailing substrings requiring a different genitive token (fi. \enquote{'} instead of \enquote{s} in German).
+% \begin{Beispiel}
+%    \Deutsch{\textellipsis \Stark{in Fischers (2018)} Buch und \Stark{in Hess' (2018)} Artikel.}
+% \end{Beispiel}
 % This command is for use in the document preamble only. The language must be one of the languages loaded with the
-% \Paket{babel} or \Paket{polyglossia} packages. Please note that checks on non-ASCII characters are likely to be
-% false negative or fail to compile at all!\footnote{cf. \href{https://tex.stackexchange.com/questions/431475/different-results-of-xstring-test-with-inputenc-and-fontspec}{TeX.StackExchange}}
+% \Paket{babel} or \Paket{polyglossia} packages. The default list for German is \Kbd{ce,s,x,z,\ss,\detokenize{\ss}}.
+% Please note that checks on non-ASCII characters are likely to be false negative or fail to compile at
+% all!\footnote{cf. \href{https://tex.stackexchange.com/questions/431475/different-results-of-xstring-test-with-inputenc-and-fontspec}{my question on TeX.StackExchange}}
 %
 % \item[]\DescribeMacro{\DeclareGenitiveApostropheChars}\marg{csv}\\
 % The same as \Befehl{DefineGenitiveApostropheChars} but for use in \Kbd{*.lbx} files.
@@ -1272,59 +1254,91 @@
 % The expression \enquote{symposium} (\Deutsch{Symposium}).
 %
 % \end{itemize}
+%
+% \subsubsection{Possessive forms}\label{kap:possform}
+%
+% \begin{itemize}
+%
+% \item[]\DescribeLocalization{genitives}\\
+% The regular genitive suffix like \enquote{'s} in English or \enquote{s} in German.
+%
+% \item[]\DescribeLocalization{genitiveapostrophe}\\
+% The divergent genitive suffix in some Germanic languages (German, Scandinavian) after particular trailing characters. These characters must
+% be declared in the \Kbd{*.lbx} file with \Befehl{DeclareGenitiveApostropheChars} or in the preamble with \Befehl{DefineGenitiveApostropheChars}
+% (see \ref{kap:langset}).
+%
+% \item[]\DescribeLocalization{genitiveandothers}\\
+% The expression \enquote{et.\,al.} in the genitive.
+%
+% \end{itemize}
 % 
 % \section{Bugs, hints and caveats}
 %
 % \subsection{Disambiguition in \Stil{verbose-trad2note}}\label{kap:trad2note}
 %
 % Verbose styles that use backreferences to footnotes are vulnerable to disambiguition problems. Conceive the following case:
-% \Beispiel{%
-%   \begin{minipage}{.5\textwidth}
-%		\setcounter{mpfootnote}{0}
-%		\renewcommand{\thempfootnote}{\arabic{mpfootnote}}
-%       \textellipsis\footnote{G. Miller, A title (London 2013).-- Idem, Another title (Cambridge 2013).}\\
-%       \textellipsis\footnote{Miller (see note a) 25 ff.}
+% \begin{Beispiel}
+%   \begin{minipage}{\textwidth}
+%      \textellipsis\textsuperscript{1}\\
+%      \textellipsis\textsuperscript{2}\vspace{0.5\baselineskip}\footnoterule%
+%      \footnotesize\textsuperscript{1}G. Miller, A title (London 2013).-- Idem, Another title (Cambridge 2013).\\
+%      \textsuperscript{2}Miller (see note 1) 25 ff.
 %   \end{minipage}
-% }
+% \end{Beispiel}
 % \blx does not provide a disambiguition check for this. It always prints the \Feld{shorttitle} field and falls back to the \Feld{title} field
 % if there is none. \Stil{verbose-trad2note} behaves in a different manner. It only prints a \Feld{shorttitle} or \Feld{title} if the entry
 % option \Option{uselabeltitle} is \Kbd{true}. But this has to be controlled manually by the author.
 %
-% \subsection{Sorting with name prefixes}
+% \subsection{Sorting in author date styles}
+%
+% Sorting in author date styles is pretty delicate. It is carried out by \Biber ahead of any \LaTeX{} macro expansion. Fi. it is not possible to define a \Befehl{bibstring} for \enquote{Anonymous}
+% or \enquote{N.\,N.} analogous to \enquote{no date} or \enquote{no place} as set automatically by \archbib because \Biber would not know how to sort it when used as \Feld{labelname}.
+%
+% \subsubsection{\textellipsis{} with name prefixes}
 %
 % Handling of name prefixes (also referred to as the \enquote{von part}) like Otto \Stark{von} Hessen, Frits \Stark{van der} Meer and Ernest \Stark{de} Sarzec is directed by \blx' \Option{useprefix} package option. If \Kbd{false}, then
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       (Hessen 1989.-- Meer 1938.-- Sarzec 1888)\\
-%       \textellipsis\\
-%       Hessen, O. von 1989: \textellipsis\\
-%       Meer, F. van der 1938: \textellipsis\\
-%       Sarzec, E. de 1888: \textellipsis
-%   \end{tabular}
-% }
+% \begin{Beispiel}
+%    (Hessen 1989.-- Meer 1938.-- Sarzec 1888)\\
+%    \textellipsis\\
+%    Hessen, O. von 1989: \textellipsis\\
+%    Meer, F. van der 1938: \textellipsis\\
+%    Sarzec, E. de 1888: \textellipsis
+% \end{Beispiel}
 % If \Kbd{true}, then
-% \Beispiel{%
-%   \begin{tabular}{l}
-%       (von Hessen 1989.-- van der Meer 1938.-- de Sarzec 1888)\\
-%       \textellipsis\\
-%       de Sarzec, E. 1888: \textellipsis\\
-%       van der Meer, F. 1938: \textellipsis\\
-%       von Hessen, O. 1989: \textellipsis
-%   \end{tabular}
-% }
-% Usually \archbib styles have \Option{useprefix}\Kbd{=true} by default. Some styles differentiate between non-sorting (von, van) and sorting prefixes (de). This can not get handled by \blx or \archbib. Use the \Feld{sortname} field if wrong ordering occurs or the \Feld{shortname} field to affect label generation.
+% \begin{Beispiel}
+%    (von Hessen 1989.-- van der Meer 1938.-- de Sarzec 1888)\\
+%    \textellipsis\\
+%    de Sarzec, E. 1888: \textellipsis\\
+%    van der Meer, F. 1938: \textellipsis\\
+%    von Hessen, O. 1989: \textellipsis
+% \end{Beispiel}
+% Usually \archbib styles have \Option{useprefix}\Kbd{=true} by default. Some styles differentiate between non-sorting (von, van) and sorting prefixes (de). This can not get handled by \blx or \archbib. Use the \Feld{sortname} field if only wrong ordering occurs or the \Feld{shortname} field to
+% affect label generation.
+%
+% \subsubsection{\textellipsis{} with bigraphs and trigraphs}
+%
+% Bigraphs and trigraphs -- I won't change the awkward designator \Option{giveninitligatures} due to backward compatibility -- are generated by a \archbib macro after sorting. This may lead to wrong
+% sorting. Conceive the following case:
+% \begin{Beispiel}
+%    Meier, Tanja 2005: \textellipsis\\
+%    Meier, Thomas 2013: \textellipsis\\
+%    Meier, Trude 2017: \textellipsis
+%    \tcblower
+%    Meier,~T. 2013: \textellipsis\\
+%    Meier,~Th. 2013: \textellipsis\\
+%    Meier,~T. 2017: \textellipsis
+% \end{Beispiel}
+% Except for employing the \Feld{sortname} field, I would recommend to set \Option{repeatlabel}\Kbd{=true$\|$dashed} here.
 %
 % \subsection{Sequentes in postnotes}
 %
 % Some styles compress page ranges. This can happen in the postnotes of citation commands and in the bibliography as well:
-% \Beispiel{%
-%   \begin{tabular}{l}
+% \begin{Beispiel}
 %       (Schulz 2015, \Stark{123~f.}-- Zeller 2016, \Stark{75~ff.})\\
 %       \textellipsis\\
 %       Bolle,~C. 2013: Some title. In: Journal of Magic 45, \Stark{310~ff.} 
-%   \end{tabular}
-% }
-% \Kbd{Biber} is able to parse the \Feld{pages} field and compress the ranges. But it only affects the bibliography since \Kbd{Biber} does not see the citation postnotes.
+% \end{Beispiel}
+% \Biber is able to parse the \Feld{pages} field and compress the ranges. But it only affects the bibliography since \Biber does not see the citation postnotes.
 %
 % \subsection{Authors in auction catalogues}
 %
@@ -1372,17 +1386,17 @@
 % In German documents the \Feld{gender} field is needed if the style replaces repeated names by \Deutsch{ders[elbe]},
 % \Deutsch{dies[elbe(n)]} or \Deutsch{dass[elbe]}.
 %
-% \subsection{Additional fields in \Kbd{Biber}'s tool mode}\label{kap:bibertool}
+% \subsection{Additional fields in \Biber's tool mode}\label{kap:bibertool}
 %
-% \Kbd{Biber} does not see any data model file (\Kbd{*.dbx}) when in tool mode (with option \Kbd{--}\Option{tool} instead of job name)
+% \Biber does not see any data model file (\Kbd{*.dbx}) when in tool mode (with option \Kbd{--}\Option{tool} instead of job name)
 % and therefore omits all fields unknown to the standard styles. In order to avoid this we must provide our extended data model
-% in \Kbd{Biber}'s \Kbd{*.conf} file. Find it in the file \Datei{biblatex-archaeology.conf} (or \ref{kap:biberconf}) and replace the 
-% \Kbd{<datamodel>\textellipsis</datamodel>} group in \Kbd{Biber}'s \Kbd{*.conf} file by it. If you do not know where it is located, you
-% can retrieve the path by calling \Kbd{Biber} with the single option \Kbd{--}\Option{tool-config}. If you do not want to manipulate 
-% the original file, copy it to a new one and call \Kbd{Biber} with option \Kbd{--}\Option{configfile}\Kbd{ /path/custom/biber.conf}.
+% in \Biber's \Kbd{*.conf} file. Find it in the file \Datei{biblatex-archaeology.conf} (or \ref{kap:biberconf}) and replace the 
+% \Kbd{<datamodel>\textellipsis</datamodel>} group in \Biber's \Kbd{*.conf} file by it. If you do not know where it is located, you
+% can retrieve the path by calling \Biber with the single option \Kbd{--}\Option{tool-config}. If you do not want to manipulate 
+% the original file, copy it to a new one and call \Biber with option \Kbd{--}\Option{configfile}\Kbd{ /path/custom/biber.conf}.
 %
 % \PrintChanges
-% \nocite{guidelines:ethno:ffm,guidelines:ethno:goe:2014,guidelines:aaa:2009,guidelines:rlm:trier,guidelines:kunstgeschichte:goettingen,guidelines:kunstgeschichte:freiburg,guidelines:aja,guidelines:schlagworte:dai,guidelines:egypt:goe}
+% \nocite{guidelines:ethno:ffm,guidelines:ethno:goe:2014,guidelines:aaa:2009,guidelines:rlm:trier,guidelines:kunstgeschichte:goettingen,guidelines:kunstgeschichte:freiburg,guidelines:aja,guidelines:schlagworte:dai,guidelines:egypt:goe,grando:bernhard:2003}
 % \printbibliography[heading=bibintoc,title=References]
 %
 % \StopEventually{}
@@ -7227,6 +7241,8 @@
 %
 % \section{Implementation}
 %
+% This section presents the commented \LaTeX{} source code for \archbib. Read this section only if you want to learn how \archbib is implemented.
+%
 %<*sty>
 % \subsection{File \Datei{\filename}}
 %
@@ -7505,7 +7521,7 @@
 \def\blxarch@giveninitialletters#1{%
     \fullexpandarg%
     \StrLeft{#1}{1}[\blxarch@str]%
-    \renewcommand{\do}[1]{%
+    \renewcommand*{\do}[1]{%
         \IfBeginWith{#1}{##1}
             {\def\blxarch@str{##1}\listbreak}
             {}%
@@ -7595,7 +7611,7 @@
     {}
     {\ifthenelse{\blxarch@posbuffer<\blxarch@namefirstsepposition}{%
             \let\blxarch@namefirstsepposition\blxarch@posbuffer%
-            \renewcommand{\blxarch@namefirstsep}{#1}}
+            \renewcommand*{\blxarch@namefirstsep}{#1}}
         {}}%
 }
 %    \end{macrocode}
@@ -7622,11 +7638,11 @@
 %
 %    \begin{macrocode}
 \ProvidesPackage{biblatex-archaeology}
-[2018/05/11 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
+[2018/05/19 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
 \RequirePackage{xpatch}
 %    \end{macrocode}
 %
-% Restrictions: \Kbd{biber} only and minimum \Paket{biblatex} version
+% Restrictions: \Biber only and minimum \Paket{biblatex} version
 %    \begin{macrocode}
 \RequireBiber[3]
 \@ifpackagelater{biblatex}{2018/02/20}
@@ -8027,7 +8043,7 @@
 % \begin{macro}{\mkbibacro}
 % No small caps here.
 %    \begin{macrocode}
-\renewcommand{\mkbibacro}[1]{\MakeLowercase{#1}}
+\renewcommand*{\mkbibacro}[1]{\MakeLowercase{#1}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -8048,7 +8064,7 @@
 % \begin{macro}{\mkbibletterspacing}
 % A wrapper for letter spaced names.
 %    \begin{macrocode}
-\newcommand{\mkbibletterspacing}[1]{\ifcsdef{textls}{\textls{#1}}{#1}}
+\newcommand*{\mkbibletterspacing}[1]{\ifcsdef{textls}{\textls{#1}}{#1}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -8058,10 +8074,10 @@
 % \begin{macro}{\mkbibnamesuffix}
 % Different name formatting in the \texttt{by author/editor} block.
 %    \begin{macrocode}
-\renewcommand{\mkbibnamegiven}[1]{#1}
-\renewcommand{\mkbibnamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbibnameprefix}[1]{\textsc{#1}}
-\renewcommand{\mkbibnamesuffix}[1]{#1}
+\renewcommand*{\mkbibnamegiven}[1]{#1}
+\renewcommand*{\mkbibnamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbibnameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibnamesuffix}[1]{#1}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -8074,10 +8090,10 @@
 % \begin{macro}{\mkbibrepeatsuffix}
 % Different name formatting in repeated labels.
 %    \begin{macrocode}
-\newcommand{\mkbibrepeatgiven}[1]{#1}
-\newcommand{\mkbibrepeatfamily}[1]{\textsc{#1}}
-\newcommand{\mkbibrepeatprefix}[1]{\textsc{#1}}
-\newcommand{\mkbibrepeatsuffix}[1]{#1}
+\newcommand*{\mkbibrepeatgiven}[1]{#1}
+\newcommand*{\mkbibrepeatfamily}[1]{\textsc{#1}}
+\newcommand*{\mkbibrepeatprefix}[1]{\textsc{#1}}
+\newcommand*{\mkbibrepeatsuffix}[1]{#1}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -8090,10 +8106,10 @@
 % \begin{macro}{\mkbibbooknamesuffix}
 % Different name formatting of \Feld{bookauthor}/\Feld{editor}.
 %    \begin{macrocode}
-\newcommand{\mkbibbooknamegiven}[1]{#1}
-\newcommand{\mkbibbooknamefamily}[1]{#1}
-\newcommand{\mkbibbooknameprefix}[1]{#1}
-\newcommand{\mkbibbooknamesuffix}[1]{#1}
+\newcommand*{\mkbibbooknamegiven}[1]{#1}
+\newcommand*{\mkbibbooknamefamily}[1]{#1}
+\newcommand*{\mkbibbooknameprefix}[1]{#1}
+\newcommand*{\mkbibbooknamesuffix}[1]{#1}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -8106,10 +8122,10 @@
 % \begin{macro}{\mkbibsourcenamesuffix}
 % Different name formatting of \Feld{bookauthor}/\Feld{editor}.
 %    \begin{macrocode}
-\newcommand{\mkbibsourcenamegiven}[1]{#1}
-\newcommand{\mkbibsourcenamefamily}[1]{#1}
-\newcommand{\mkbibsourcenameprefix}[1]{#1}
-\newcommand{\mkbibsourcenamesuffix}[1]{#1}
+\newcommand*{\mkbibsourcenamegiven}[1]{#1}
+\newcommand*{\mkbibsourcenamefamily}[1]{#1}
+\newcommand*{\mkbibsourcenameprefix}[1]{#1}
+\newcommand*{\mkbibsourcenamesuffix}[1]{#1}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -8122,10 +8138,10 @@
 % \begin{macro}{\mkbiblistnamesuffix}
 % Different name formatting of \Feld{author}/\Feld{editor}.
 %    \begin{macrocode}
-\newcommand{\mkbiblistnamegiven}[1]{#1}
-\newcommand{\mkbiblistnamefamily}[1]{#1}
-\newcommand{\mkbiblistnameprefix}[1]{#1}
-\newcommand{\mkbiblistnamesuffix}[1]{#1}
+\newcommand*{\mkbiblistnamegiven}[1]{#1}
+\newcommand*{\mkbiblistnamefamily}[1]{#1}
+\newcommand*{\mkbiblistnameprefix}[1]{#1}
+\newcommand*{\mkbiblistnamesuffix}[1]{#1}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -8227,7 +8243,7 @@
 %
 % \begin{macro}{\nameshortformdelim}
 %    \begin{macrocode}
-\newcommand{\nameshortformdelim}{\usebibmacro{in:}}
+\newcommand*{\nameshortformdelim}{\usebibmacro{in:}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -8276,6 +8292,7 @@
 %
 % \begin{macro}{\ifrepeatlabel}
 % \meta{string}\meta{true}\meta{false}
+% \changes{2.0}{2018/05/09}{\Stark{Incompatible}: \Befehl{ifrepeatlabel} has a third parameter}
 % \Kbd{string} must be one of the valid values from option \Option{repeatlabel}. \Kbd{true} only if in
 % in bibliography and if option \Option{repeatlabel} not \Kbd{false}.
 %    \begin{macrocode}
@@ -8293,11 +8310,11 @@
                 {\blxarch@errmsg{\blxarch@repeatlabel@errstr{\unexpanded{\ifrepeatlabel}}}}}}%
 }
 %    \end{macrocode}
-% \changes{2.0}{2018/05/09}{\Stark{Incompatible}: \Befehl{ifrepeatlabel} has a third parameter}
 % \end{macro}
 %
 % \begin{option}{repeatlabel}
 % =\meta{string}
+% \changes{2.0}{2018/05/09}{Option \Option{repeatlabel} has a third value: \Kbd{dashed}}
 % \begin{optkeys}{3em}
 %     \item[\Kbd{dashed}] cite label shall be repeated and repeated names dashed;
 %     \item[\Kbd{false}] don't;
@@ -8310,29 +8327,28 @@
         {\blxarch@errmsg{\blxarch@repeatlabel@errstr{option 'repeatlabel'}}}}
 \ExecuteBibliographyOptions{repeatlabel}
 %    \end{macrocode}
-% \changes{2.0}{2018/05/09}{Option \Option{repeatlabel} has a third value: \Kbd{dashed}}
 % \end{option}
 %
 % \begin{macro}{\repeatlabeldash}
+% \changes{2.0}{2018/05/09}{New command \Befehl{repeatlabeldash}}
 % Replaces repeated names in repeated labels.
 %    \begin{macrocode}
 \newcommand*{\repeatlabeldash}{--\addspace}
 %    \end{macrocode}
-% \changes{2.0}{2018/05/09}{New command \Befehl{repeatlabeldash}}
 % \end{macro}
 %
 % \begin{format}{repeatlabel}
+% \changes{2.0}{2018/05/09}{\Stark{Incompatible:} removed \Befehl{repeatlabelwrap}} 
 % Format the repeated label.
 %    \begin{macrocode}
 \DeclareFieldFormat*{repeatlabel}{#1}
 %    \end{macrocode}
-% \changes{2.0}{2018/05/09}{\Stark{Incompatible:} removed \Befehl{repeatlabelwrap}} 
 % \end{format}
 %
 % \begin{macro}{\repeatlabeldelim}
 % The delimiter after an repeated label
 %    \begin{macrocode}
-\newcommand{\repeatlabeldelim}{\newline}
+\newcommand*{\repeatlabeldelim}{\newline}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -8620,10 +8636,10 @@
 % \begin{macro}{\mkbibfestschriftnamesuffix}
 % Name formatting of persons to whom a festschrift is dedicatetd.
 %    \begin{macrocode}
-\newcommand{\mkbibfestschriftnamegiven}[1]{#1}
-\newcommand{\mkbibfestschriftnamefamily}[1]{#1}
-\newcommand{\mkbibfestschriftnameprefix}[1]{#1}
-\newcommand{\mkbibfestschriftnamesuffix}[1]{#1}
+\newcommand*{\mkbibfestschriftnamegiven}[1]{#1}
+\newcommand*{\mkbibfestschriftnamefamily}[1]{#1}
+\newcommand*{\mkbibfestschriftnameprefix}[1]{#1}
+\newcommand*{\mkbibfestschriftnamesuffix}[1]{#1}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -8631,7 +8647,7 @@
 % \end{macro}
 %
 % \begin{bibmacro}{festschrift}
-% \marg{string}
+% \marg{string}\\
 % Formatting of the festschrift string. \meta{string} should be \Feld{title},
 % \Feld{maintitle} or \Feld{booktitle}.
 %    \begin{macrocode}
@@ -8665,7 +8681,7 @@
 % \end{bibmacro}
 %
 % \begin{bibmacro}{auction}
-% \marg{string}
+% \marg{string}\\
 % Formatting of an event with {fullevendate}. \meta{string} should be \Feld{title},
 % \Feld{maintitle} or \Feld{booktitle}.
 %    \begin{macrocode}
@@ -8690,7 +8706,7 @@
 % \end{bibmacro}
 %
 % \begin{bibmacro}{exhibition/conference}
-% \marg{string}
+% \marg{string}\\
 % Formatting of an event with {fullevendate}. \meta{string} should be \Feld{title},
 % \Feld{maintitle} or \Feld{booktitle}.
 %    \begin{macrocode}
@@ -8757,14 +8773,14 @@
 % \begin{macro}{\multivenuedelim}
 % The delimiter between venues.
 %    \begin{macrocode}
-\newcommand{\multivenuedelim}{\addcomma\space}
+\newcommand*{\multivenuedelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\eventtypepunct}
 % The punctuation after the eventtype.
 %    \begin{macrocode}
-\newcommand{\eventtypepunct}{\addspace}
+\newcommand*{\eventtypepunct}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -8880,7 +8896,7 @@
 % \begin{macro}{\titleseriesdelim}
 % The delimiter after an repeated label
 %    \begin{macrocode}
-\newcommand{\titleseriesdelim}{\addperiod\space}
+\newcommand*{\titleseriesdelim}{\addperiod\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -8969,7 +8985,7 @@
 %
 % \begin{macro}{\subtitlepunct}
 %    \begin{macrocode}
-\renewcommand{\subtitlepunct}{\addperiod\space}
+\renewcommand*{\subtitlepunct}{\addperiod\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -9248,7 +9264,7 @@
 % \begin{macro}{\articlesubtitlepunct}
 % Subtitle puncuation differs between \Typ{article} and \Typ{book}.
 %    \begin{macrocode}
-\newcommand{\articlesubtitlepunct}{\addcolon\space\midsentence}
+\newcommand*{\articlesubtitlepunct}{\addcolon\space\midsentence}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -9284,8 +9300,8 @@
 % \begin{macro}{\finalsourceeditordelim}
 % Delimiters between the names of multiple secondary editors.
 %    \begin{macrocode}
-\newcommand{\multisourceeditordelim}{\addcomma\space}
-\newcommand{\finalsourceeditordelim}{\addspace\bibstring{and}\space}
+\newcommand*{\multisourceeditordelim}{\addcomma\space}
+\newcommand*{\finalsourceeditordelim}{\addspace\bibstring{and}\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -9414,7 +9430,7 @@
 % The punctuation after the \Format{in:} block.
 %    \begin{macrocode}
 \DeclareDelimFormat{booknametitledelim}{\booklabelnamepunct}
-\newcommand{\booklabelnamepunct}{\addcomma\space}
+\newcommand*{\booklabelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -9454,21 +9470,21 @@
 % \begin{macro}{\volumedatedelim}
 % The punctuation between volume and date in journals.
 %    \begin{macrocode}
-\newcommand{\volumedatedelim}{\addcomma\space}
+\newcommand*{\volumedatedelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\journalvolumedelim}
 % The punctuation between journal and its volume.
 %    \begin{macrocode}
-\newcommand{\journalvolumedelim}{\addspace}
+\newcommand*{\journalvolumedelim}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\volumenumberdelim}
 % The punctuation between volume and number in journals.
 %    \begin{macrocode}
-\newcommand{\volumenumberdelim}{\addslash}
+\newcommand*{\volumenumberdelim}{\addslash}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -9577,7 +9593,7 @@
 % \begin{option}{editionsuperscript}
 % =\meta{expression}\\
 % Where to print the edition number. The following expressions are allowed:
-% \begin{optkeys}{3em}
+% \begin{optkeys}{4em}
 %     \item[\Kbd{predate}] superscript ahead of date;
 %     \item[\Kbd{postdate}] superscript after date;
 %     \item[\Kbd{prelabel}] superscript ahead of label year;
@@ -9630,13 +9646,13 @@
 % \begin{macro}{\mkbiblocationaddon}
 % Wrap American-style location addons into a formatting command and omit them by default.
 %    \begin{macrocode}
-\newcommand{\mkbiblocationaddon}[1]{}
+\newcommand*{\mkbiblocationaddon}[1]{}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\finallistdelim}
 %    \begin{macrocode}
-\renewcommand{\finallistdelim}{\multilistdelim}
+\renewcommand*{\finallistdelim}{\multilistdelim}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -9684,7 +9700,7 @@
 % \begin{macro}{\ifpagesfirst}
 % checks if option \Option{pagesfirst} is true and applies to the current entry type.
 %    \begin{macrocode}
-\newcommand{\ifpagesfirst}[2]{%
+\newcommand*{\ifpagesfirst}[2]{%
     \iftoggle{archbool:pagesfirst}
         {#1}
         {#2}}%
@@ -9716,7 +9732,7 @@
 % \begin{macro}{\locationpublisherdelim}
 % The delimiter between \Feld{location} and \Feld{publisher}.
 %    \begin{macrocode}
-\newcommand{\locationpublisherdelim}{\addcolon\space}
+\newcommand*{\locationpublisherdelim}{\addcolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -9839,7 +9855,7 @@
 % \begin{option}{useinstitution}
 % =\meta{string}\\
 % Whether to print the \Feld{institution} field:
-% \begin{optkeys}{6em}
+% \begin{optkeys}{7em}
 %     \item[\Kbd{aspublisher}] handle \Feld{type} like \Feld{publisher};
 %     \item[\Kbd{false}] omit \Feld{institution} field;
 %     \item[\Kbd{locationfirst}] like \Kbd{false}, but \Feld{type} after \Feld{location};
@@ -10012,14 +10028,14 @@
 % \begin{macro}{\institutionlocationdelim}
 % Delimiter between \Feld{institution} and \Feld{location}.
 %    \begin{macrocode}
-\newcommand{\institutionlocationdelim}{\addcomma\space}
+\newcommand*{\institutionlocationdelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\typeinstitutiondelim}
 % Delimiter between \Feld{institution} and \Feld{type}.
 %    \begin{macrocode}
-\newcommand{\typeinstitutiondelim}{\addspace}
+\newcommand*{\typeinstitutiondelim}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -10057,6 +10073,7 @@
 %
 % \begin{macro}{\ifnewspaper}
 % \marg{true}\marg{false}
+% \changes{1.1}{2017/05/23}{new Boolean test (see \ref{kap:bool})}
 % Wether an article must be cited with full year.
 %    \begin{macrocode}
 \newcommand{\ifnewspaper}[2]{%
@@ -10068,7 +10085,6 @@
        {#1}
        {#2}}
 %    \end{macrocode}
-% \changes{1.1}{2017/05/23}{new Boolean test (see \ref{kap:bool})}
 % \end{macro}
 %
 % \begin{bibmacro}{newsdate}
@@ -10095,6 +10111,7 @@
 %
 % \begin{macro}{\ifbibextrayear}
 % \marg{true}\marg{false}
+% \changes{1.1}{2017/05/23}{new Boolean test (see \ref{kap:bool})}
 % Wether to print the extrayear field in the bibliography
 %    \begin{macrocode}
 \newcommand{\ifbibextrayear}[2]{%
@@ -10110,7 +10127,6 @@
        {#1}
        {#2}}
 %    \end{macrocode}
-% \changes{1.1}{2017/05/23}{new Boolean test (see \ref{kap:bool})}
 % \end{macro}
 %
 % \begin{format}{newsparens}
@@ -10183,14 +10199,14 @@
 % \begin{macro}{\daterealdatedelim}
 % Delimiter between \Feld{date} and \Feld{realdate}.
 %    \begin{macrocode}
-\newcommand{\daterealdatedelim}{\addspace}
+\newcommand*{\daterealdatedelim}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{bibmacro}{bibliographydate}
+% \changes{1.1}{2017/05/23}{Do not print \Feld{extrayear} field in verbose styles. (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/3}{issue \#3})}
 % We never have an empty date but a string like 'sine anno' or the \Feld{pubstate}.
 % The newsdate has always to be printed because the label contains the year only.
-% \changes{1.1}{2017/05/23}{Do not print \Feld{extrayear} field in verbose styles. (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/3}{issue \#3})}
 %    \begin{macrocode}
 \newbibmacro*{bibliographydate}{%
     \ifpositionlabeldate{label}
@@ -10249,12 +10265,12 @@
 %
 % \begin{macro}{\bibdaterangesep}
 % \begin{macro}{\bibdatesubseqesep}
+% \changes{2.0}{2018/04/01}{Added \Befehl{bibdatesubseqesep} as replacement for \Befehl{bibdaterangesep} if two years of a date range are consecutive (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/15}{issue \#15})}
 % Different \Befehl{bibrangedashe}s for subsequent years and longer periods:
 %    \begin{macrocode}
 \renewrobustcmd*{\bibdaterangesep}{\bibrangedash}
 \newrobustcmd*{\bibdatesubseqesep}{\slash}
 %    \end{macrocode}
-% \changes{2.0}{2018/04/01}{Added \Befehl{bibdatesubseqesep} as replacement for \Befehl{bibdaterangesep} if two years of a date range are consecutive (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/15}{issue \#15})}
 % \end{macro}
 % \end{macro}
 
@@ -10749,8 +10765,8 @@
 % \end{option}
 %
 % \begin{macro}{\mkbibandothers}
-% The formatting of the \emph{et.\,al.} part;
 % \changes{2.0}{2018/05/16}{New formatting command \Befehl{mkbibandothers}}
+% The formatting of the \emph{et.\,al.} part;
 %    \begin{macrocode}
 \newcommand*{\mkbibandothers}[1]{#1}
 %    \end{macrocode}
@@ -10902,7 +10918,7 @@
 % \begin{macro}{\finalnameellipsis}
 % The ellipsis if \option{preservelastauthor} is enabled.
 %    \begin{macrocode}
-\newcommand{\finalnameellipsis}{\addspace\textellipsis\space}
+\newcommand*{\finalnameellipsis}{\addspace\textellipsis\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -10957,8 +10973,8 @@
 %
 % \begin{macro}{\DefineGenitiveApostropheChars}
 % \marg{language}\marg{csv}\\
-% Sets a set of tokens after which an alternate genitive form is needed. To be used in the document preamble.
 % \changes{2.0}{2018/05/15}{New command \Befehl{DefineGenitiveApostropheChars}}
+% Sets a set of tokens after which an alternate genitive form is needed. To be used in the document preamble.
 %    \begin{macrocode}
 \newrobustcmd{\DefineGenitiveApostropheChars}[2]{%
     \DefineBibliographyExtras{#1}{%
@@ -10970,8 +10986,8 @@
 %
 % \begin{macro}{\DeclareGenitiveApostropheChars}
 % \marg{csv}\\
-% Sets a set of tokens after which an alternate genitive form is needed. To be used in \Kbd{*.lbx} files.
 % \changes{2.0}{2018/05/15}{New command \Befehl{DeclareGenitiveApostropheChars}}
+% Sets a set of tokens after which an alternate genitive form is needed. To be used in \Kbd{*.lbx} files.
 %    \begin{macrocode}
 \newrobustcmd{\DeclareGenitiveApostropheChars}[1]{%
     \DeclareBibliographyExtras{%
@@ -11080,8 +11096,8 @@
 % Delimiter beween multiple citations. Some styles have a strong delimiter, mainly
 % to avoid paragraphs in footnotes.
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addspace\textendash\space}
-\newcommand\strongcitedelim{\addperiod\space\textendash\space}
+\renewcommand*{\multicitedelim}{\addspace\textendash\space}
+\newcommand*\strongcitedelim{\addperiod\space\textendash\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -11089,7 +11105,7 @@
 % \begin{macro}{\compcitedelim}
 % Delimiter in compressed citations.
 %    \begin{macrocode}
-\renewcommand{\compcitedelim}{\addsemicolon\space}
+\renewcommand*{\compcitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -11120,7 +11136,7 @@
 %
 % \begin{macro}{\labelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\unspace\addcolon\space}
+\renewcommand*{\labelnamepunct}{\unspace\addcolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -11250,7 +11266,7 @@
 % \begin{macro}{\seriespunct}
 % Punctuation after series+number, defaults to \Befehl{addperiod}.
 %    \begin{macrocode}
-\newcommand{\seriespunct}{\addperiod\space}
+\newcommand*{\seriespunct}{\addperiod\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -11259,21 +11275,21 @@
 % having seen the \Format{series+number} macro. That is why we need a punctuation
 % command if there is no \Feld{series} field.
 %    \begin{macrocode}
-\newcommand{\noseriespunct}{\seriespunct}
+\newcommand*{\noseriespunct}{\seriespunct}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\seriesnumberdelim}
 % Delimiter between series and number, defaults to \Befehl{addspace}.
 %    \begin{macrocode}
-\newcommand{\seriesnumberdelim}{\addspace}
+\newcommand*{\seriesnumberdelim}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\subnumberseriesdelim}
 % Delimiter between subnumber and series, defaults to \Befehl{addspace}=\Befehl{space}.
 %    \begin{macrocode}
-\newcommand{\subnumberseriesdelim}{\addspace=\space}
+\newcommand*{\subnumberseriesdelim}{\addspace=\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -11339,7 +11355,7 @@
 % We never have an empty date but a string like
 % 'sine anno' in authoryear styles.
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\adddot\space}
+\renewcommand*{\labelnamepunct}{\adddot\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -11355,7 +11371,7 @@
 % \begin{macro}{\finalnamedelim}
 % Delimiter between the last to names in a list.
 %    \begin{macrocode}
-\renewcommand{\finalnamedelim}{\addcomma\addspace}
+\renewcommand*{\finalnamedelim}{\addcomma\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -11381,7 +11397,7 @@
 % Prints the list from \Option{giveninitligatures}.
 %    \begin{macrocode}
 \newcommand{\printgiveninitligatureslist}{%
-    \renewcommand{\do}[1]{\space##1}
+    \renewcommand*{\do}[1]{\space##1}
         \dolistloop{\@blxarch@list@add@ligatures}}
 %    \end{macrocode}
 % \end{macro}
@@ -11393,6 +11409,69 @@
 % \begin{macro}{\blxarch@style@numc}
 % \begin{macro}{\blxarch@style@vi}
 % \begin{macro}{\blxarch@style@vttwo}
+% Style titles for the example file.
+%    \begin{macrocode}
+\edef\blxarch@style@ay{authoryear-archaeology (generic)}
+\edef\blxarch@style@ayc{authoryear-comp-archaeology (generic)}
+\edef\blxarch@style@ayi{authoryear-ibid-archaeology (generic)}
+\edef\blxarch@style@ayic{authoryear-icomp-archaeology (generic)}
+\edef\blxarch@style@numc{numeric-comp-archaeology (generic)}
+\edef\blxarch@style@vi{verbose-ibid-archaeology (generic)}
+\edef\blxarch@style@vttwo{verbose-trad2note-archaeology (generic)}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\blxarch@style@rgk}
+% \begin{macro}{\blxarch@style@rgkinline}
+% \begin{macro}{\blxarch@style@rgknumeric}
+% \begin{macro}{\blxarch@style@rgkverbose}
+%    \begin{macrocode}
+\edef\blxarch@style@rgk{R\"omisch-Germanische Kommission}
+\edef\blxarch@style@rgkverbose{\blxarch@style@rgk\space(geisteswissenschaftlich)}
+\edef\blxarch@style@rgkinline{\blxarch@style@rgk\space(naturwissenschaftlich)}
+\edef\blxarch@style@rgknumeric{\blxarch@style@rgk\space(numerisch)}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\blxarch@style@rgzm}
+% \begin{macro}{\blxarch@style@rgzminline}
+% \begin{macro}{\blxarch@style@rgknumeric}
+% \begin{macro}{\blxarch@style@rgzmverbose}
+%    \begin{macrocode}
+\edef\blxarch@style@rgzm{R\"omisch-Germanisches Zentralmuseum Mainz}
+\edef\blxarch@style@rgzminline{\blxarch@style@rgzm\space(naturwissenschaftlich)}
+\edef\blxarch@style@rgzmnumeric{\blxarch@style@rgzm\space(numerisch)}
+\edef\blxarch@style@rgzmverbose{\blxarch@style@rgzm\space(geisteswissenschaftlich)}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\blxarch@style@muenster}
+% \begin{macro}{\blxarch@style@muensterinline}
+% \begin{macro}{\blxarch@style@muensternumeric}
+% \begin{macro}{\blxarch@style@muensterverbose}
+%    \begin{macrocode}
+\edef\blxarch@style@muenster{Ur- und Fr\"uhgeschichtliche Arch\"aologie M\"unster}
+\edef\blxarch@style@muensterverbose{\blxarch@style@muenster\space(geisteswissenschaftlich)}
+\edef\blxarch@style@muensternumeric{\blxarch@style@muenster\space(numerisch)}
+\edef\blxarch@style@muensterinline{\blxarch@style@muenster\space(naturwissenschaftlich)}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \begin{macro}{\blxarch@style@aefkw}
 % \begin{macro}{\blxarch@style@afwl}
 % \begin{macro}{\blxarch@style@amit}
@@ -11409,33 +11488,13 @@
 % \begin{macro}{\blxarch@style@karl}
 % \begin{macro}{\blxarch@style@maja}
 % \begin{macro}{\blxarch@style@mpk}
-% \begin{macro}{\blxarch@style@muenster}
-% \begin{macro}{\blxarch@style@muensterinline}
-% \begin{macro}{\blxarch@style@muensternumeric}
-% \begin{macro}{\blxarch@style@muensterverbose}
 % \begin{macro}{\blxarch@style@nnu}
 % \begin{macro}{\blxarch@style@offa}
-% \begin{macro}{\blxarch@style@rgk}
-% \begin{macro}{\blxarch@style@rgkinline}
-% \begin{macro}{\blxarch@style@rgknumeric}
-% \begin{macro}{\blxarch@style@rgkverbose}
-% \begin{macro}{\blxarch@style@rgzm}
-% \begin{macro}{\blxarch@style@rgzminline}
-% \begin{macro}{\blxarch@style@rgknumeric}
-% \begin{macro}{\blxarch@style@rgzmverbose}
 % \begin{macro}{\blxarch@style@sak}
 % \begin{macro}{\blxarch@style@volkskunde}
 % \begin{macro}{\blxarch@style@zaak}  
 % \begin{macro}{\blxarch@style@zaes}
-% Style titles for the example file.
 %    \begin{macrocode}
-\edef\blxarch@style@ay{authoryear-archaeology (generic)}
-\edef\blxarch@style@ayc{authoryear-comp-archaeology (generic)}
-\edef\blxarch@style@ayi{authoryear-ibid-archaeology (generic)}
-\edef\blxarch@style@ayic{authoryear-icomp-archaeology (generic)}
-\edef\blxarch@style@numc{numeric-comp-archaeology (generic)}
-\edef\blxarch@style@vi{verbose-ibid-archaeology (generic)}
-\edef\blxarch@style@vttwo{verbose-trad2note-archaeology (generic)}
 \edef\blxarch@style@aefkw{\"Agyptologische Forschungsst\"atte f\"ur Kulturwissenschaft (\"AFKW)}
 \edef\blxarch@style@afwl{Ausgrabungen und Funde in Westfalen-Lippe}
 \edef\blxarch@style@amit{Arch\"aologische Berichte aus Iran und Turan (AMIT)}
@@ -11452,44 +11511,13 @@
 \edef\blxarch@style@karl{Karl. Das kulturelle Schachmagazin}
 \edef\blxarch@style@maja{M\"unchner Arbeitskreis Junge Aegyptologie (MAJA)}
 \edef\blxarch@style@mpk{Mitteilung der Pr\"ahistorischen Kommission}
-\edef\blxarch@style@muenster{Ur- und Fr\"uhgeschichtliche Arch\"aologie M\"unster}
-\edef\blxarch@style@muensterverbose{\blxarch@style@muenster\space(geisteswissenschaftlich)}
-\edef\blxarch@style@muensternumeric{\blxarch@style@muenster\space(numerisch)}
-\edef\blxarch@style@muensterinline{\blxarch@style@muenster\space(naturwissenschaftlich)}
 \edef\blxarch@style@nnu{Nachrichten aus Niedersachsens Urgeschichte}
 \edef\blxarch@style@offa{Offa}
-\edef\blxarch@style@rgk{R\"omisch-Germanische Kommission}
-\edef\blxarch@style@rgkverbose{\blxarch@style@rgk\space(geisteswissenschaftlich)}
-\edef\blxarch@style@rgkinline{\blxarch@style@rgk\space(naturwissenschaftlich)}
-\edef\blxarch@style@rgknumeric{\blxarch@style@rgk\space(numerisch)}
-\edef\blxarch@style@rgzm{R\"omisch-Germanisches Zentralmuseum Mainz}
-\edef\blxarch@style@rgzminline{\blxarch@style@rgzm\space(naturwissenschaftlich)}
-\edef\blxarch@style@rgzmnumeric{\blxarch@style@rgzm\space(numerisch)}
-\edef\blxarch@style@rgzmverbose{\blxarch@style@rgzm\space(geisteswissenschaftlich)}
 \edef\blxarch@style@sak{Studien zur Alt\"agyptischen Kultur}
 \edef\blxarch@style@volkskunde{Zeitschrift f\"ur Volkskunde}
 \edef\blxarch@style@zaak{Zeitschrift f\"ur Arch\"aologie au\ss ereurop\"aischer Kulturen (ZAAK)}
 \edef\blxarch@style@zaes{Zeitschrift f\"ur \"Agyptische Sprache und Altertumskunde (Z\"AS)}
 %    \end{macrocode}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
@@ -11523,7 +11551,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-archaeology.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeobibstyletitle}
@@ -11543,7 +11571,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-comp-archaeology.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -11563,7 +11591,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-ibid-archaeology.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -11584,7 +11612,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-icomp-archaeology.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Datei{biblatex-archaeology.sty} always after a style.
@@ -11691,7 +11719,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{numeric-comp-archaeology.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\blxarch@fork@numeric}
@@ -11718,7 +11746,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-ibid-archaeology.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)] 
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -11739,7 +11767,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-trad2note-archaeology.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)] 
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -11806,7 +11834,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{aefkw.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -11879,7 +11907,7 @@
 %
 % \begin{macro}{\newunitpunct}
 %    \begin{macrocode}
-\renewcommand{\newunitpunct}{\addcomma\space}
+\renewcommand*{\newunitpunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -11895,8 +11923,8 @@
 % \begin{macro}{\booklabelnamepunct}
 % \begin{macro}{\labelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
-\renewcommand{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -11904,8 +11932,8 @@
 % \begin{macro}{\mkbiblistnamefamily}
 % \begin{macro}{\mkbiblistnameprefix}
 %    \begin{macrocode}
-\renewcommand{\mkbiblistnamefamily}[1]{\ifcitation{\textsc{#1}}{#1}}
-\renewcommand{\mkbiblistnameprefix}[1]{\ifcitation{\textsc{#1}}{#1}}
+\renewcommand*{\mkbiblistnamefamily}[1]{\ifcitation{\textsc{#1}}{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\ifcitation{\textsc{#1}}{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -11913,15 +11941,15 @@
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
-\renewcommand{\multinamedelim}{\addslash}
-\renewcommand{\finalnamedelim}{\addslash}
+\renewcommand*{\multinamedelim}{\addslash}
+\renewcommand*{\finalnamedelim}{\addslash}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
 % \begin{macro}{\bibnamedash}
 %    \begin{macrocode}
-\renewcommand{\bibnamedash}{\printtext{\bibstring[\mkbiblistnamefamily]{idem\thefield{gender}}}}
+\renewcommand*{\bibnamedash}{\printtext{\bibstring[\mkbiblistnamefamily]{idem\thefield{gender}}}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -11953,8 +11981,8 @@
 % \begin{macro}{\titleseriesdelim}
 % \begin{macro}{\seriespunct}
 %    \begin{macrocode}
-\renewcommand{\titleseriesdelim}{\unspace\nopunct}
-\renewcommand{\seriespunct}{\addspace}
+\renewcommand*{\titleseriesdelim}{\unspace\nopunct}
+\renewcommand*{\seriespunct}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -11985,7 +12013,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{afwl.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12084,8 +12112,8 @@
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
-\renewcommand{\multinamedelim}{\addslash}
-\renewcommand{\finalnamedelim}{\addslash}
+\renewcommand*{\multinamedelim}{\addslash}
+\renewcommand*{\finalnamedelim}{\addslash}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -12093,8 +12121,8 @@
 % \begin{macro}{\labelnamepunct}
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addcomma\space}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -12110,7 +12138,7 @@
 % \begin{macro}{\seriespunct}
 % \begin{format}{seriesparens}
 %    \begin{macrocode}
-\renewcommand{\seriespunct}{\addspace}
+\renewcommand*{\seriespunct}{\addspace}
 \DeclareFieldFormat*{seriesparens}{#1}
 %    \end{macrocode}
 % \end{format}
@@ -12119,7 +12147,7 @@
 % \begin{macro}{\volumenumberdelim}
 % The punctuation between volume and number in journals.
 %    \begin{macrocode}
-\renewcommand{\volumenumberdelim}{\addcomma\space}
+\renewcommand*{\volumenumberdelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -12165,7 +12193,7 @@
 %
 % \begin{macro}{\bibpagespunct}
 %    \begin{macrocode}
-\renewcommand{\bibpagespunct}{%
+\renewcommand*{\bibpagespunct}{%
     \iffieldundef{journaltitle}
         {\addspace}
         {\addcomma\space}}
@@ -12181,7 +12209,7 @@
 % \begin{macro}{\multicitedelim}
 % Delimiter beween multiple citations. Some styles have a strong delimiter.
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addsemicolon\space}
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -12191,7 +12219,7 @@
 %    \begin{macrocode}
 \DeclareFieldFormat*{url}{\url{#1}}
 \let\blxarch@buffer@url\url
-\renewcommand{\url}[1]{\textless\blxarch@buffer@url{#1}\textgreater}
+\renewcommand*{\url}[1]{\textless\blxarch@buffer@url{#1}\textgreater}
 %    \end{macrocode}
 % \end{macro}
 % \end{format}
@@ -12203,7 +12231,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{amit.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12287,8 +12315,8 @@
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
-\renewcommand{\multinamedelim}{\addslash}
-\renewcommand{\finalnamedelim}{\addslash}
+\renewcommand*{\multinamedelim}{\addslash}
+\renewcommand*{\finalnamedelim}{\addslash}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -12296,8 +12324,8 @@
 % \begin{macro}{\labelnamepunct}
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addcomma\space}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -12305,7 +12333,7 @@
 % \begin{macro}{\seriespunct}
 % \begin{format}{seriesparens}
 %    \begin{macrocode}
-\renewcommand{\seriespunct}{\addspace}
+\renewcommand*{\seriespunct}{\addspace}
 \DeclareFieldFormat*{seriesparens}{#1}
 %    \end{macrocode}
 % \end{format}
@@ -12314,7 +12342,7 @@
 % \begin{macro}{\volumenumberdelim}
 % The punctuation between volume and number in journals.
 %    \begin{macrocode}
-\renewcommand{\volumenumberdelim}{\addcomma\space}
+\renewcommand*{\volumenumberdelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -12344,7 +12372,7 @@
 %
 % \begin{macro}{\bibpagespunct}
 %    \begin{macrocode}
-\renewcommand{\bibpagespunct}{%
+\renewcommand*{\bibpagespunct}{%
     \iffieldundef{journaltitle}
         {\addspace}
         {\addcomma\space}}
@@ -12359,7 +12387,7 @@
 %
 % \begin{macro}{\multicitedelim}
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addsemicolon\space}
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -12369,14 +12397,14 @@
 %    \begin{macrocode}
 \DeclareFieldFormat*{url}{\url{#1}}
 \let\blxarch@buffer@url\url
-\renewcommand{\url}[1]{\textless\blxarch@buffer@url{#1}\textgreater}
+\renewcommand*{\url}[1]{\textless\blxarch@buffer@url{#1}\textgreater}
 %    \end{macrocode}
 % \end{macro}
 % \end{format}
 %
 % \begin{macro}{\nameshortformdelim}
 %    \begin{macrocode}
-\renewcommand{\nameshortformdelim}{\addspace in\space}
+\renewcommand*{\nameshortformdelim}{\addspace in\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -12387,7 +12415,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{archa.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12485,10 +12513,10 @@
 % \begin{macro}{\mkbibbooknamesuffix}
 % Different name formatting of \Feld{bookauthor}/\Feld{editor}.
 %    \begin{macrocode}
-\renewcommand{\mkbibbooknamegiven}[1]{\textsc{#1}}
-\renewcommand{\mkbibbooknamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbibbooknameprefix}[1]{\textsc{#1}}
-\renewcommand{\mkbibbooknamesuffix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknamegiven}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknamesuffix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -12501,10 +12529,10 @@
 % \begin{macro}{\mkbibsourcenamesuffix}
 % Different name formatting of \Feld{bookauthor}/\Feld{editor}.
 %    \begin{macrocode}
-\renewcommand{\mkbibsourcenamegiven}[1]{\textsc{#1}}
-\renewcommand{\mkbibsourcenamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbibsourcenameprefix}[1]{\textsc{#1}}
-\renewcommand{\mkbibsourcenamesuffix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibsourcenamegiven}[1]{\textsc{#1}}
+\renewcommand*{\mkbibsourcenamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbibsourcenameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibsourcenamesuffix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -12517,10 +12545,10 @@
 % \begin{macro}{\mkbiblistnamesuffix}
 % Different name formatting of \Feld{author}/\Feld{editor}.
 %    \begin{macrocode}
-\renewcommand{\mkbiblistnamegiven}[1]{\textsc{#1}}
-\renewcommand{\mkbiblistnamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbiblistnameprefix}[1]{\textsc{#1}}
-\renewcommand{\mkbiblistnamesuffix}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamegiven}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamesuffix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -12531,9 +12559,9 @@
 % \begin{macro}{\booklabelpunct}
 % \begin{macro}{\newunitpunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addcomma\space}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
-\renewcommand{\newunitpunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\newunitpunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -12541,20 +12569,20 @@
 %
 % \begin{macro}{\subtitlepunct}
 %    \begin{macrocode}
-\renewcommand{\subtitlepunct}{\addcolon\space}
+\renewcommand*{\subtitlepunct}{\addcolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\titleseriesdelim}
 %    \begin{macrocode}
-\renewcommand{\titleseriesdelim}{\addperiod\space}
+\renewcommand*{\titleseriesdelim}{\addperiod\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\seriespunct}
 % \begin{format}{seriesparens}
 %    \begin{macrocode}
-\renewcommand{\seriespunct}{\addspace}
+\renewcommand*{\seriespunct}{\addspace}
 \DeclareFieldFormat*{seriesparens}{#1}
 %    \end{macrocode}
 % \end{format}
@@ -12562,7 +12590,7 @@
 %
 % \begin{macro}{\subnumberseriesdelim}
 %    \begin{macrocode}
-\renewcommand{\subnumberseriesdelim}{\newunitpunct}
+\renewcommand*{\subnumberseriesdelim}{\newunitpunct}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -12615,7 +12643,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12697,15 +12725,15 @@
 %
 % \begin{macro}{\multilistdelim}
 %    \begin{macrocode}
-\renewcommand{\multilistdelim}{\addspace-\space}
+\renewcommand*{\multilistdelim}{\addspace-\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\labelnamepunct}
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addcomma\space}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -12713,8 +12741,8 @@
 % \begin{macro}{\mkbiblistnamefamily}
 % \begin{macro}{\mkbiblistnameprefix}
 %    \begin{macrocode}
-\renewcommand{\mkbiblistnamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbiblistnameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -12746,7 +12774,7 @@
 % \begin{macro}{\seriespunct}
 % \begin{format}{seriesparens}
 %    \begin{macrocode}
-\renewcommand{\seriespunct}{\addspace}
+\renewcommand*{\seriespunct}{\addspace}
 \DeclareFieldFormat*{seriesparens}{#1}
 %    \end{macrocode}
 % \end{format}
@@ -12779,7 +12807,7 @@
 % \begin{macro}{\institutionlocationdelim}
 % Delimiter between \Feld{institution} and \Feld{location}.
 %    \begin{macrocode}
-\renewcommand{\institutionlocationdelim}{\addspace}
+\renewcommand*{\institutionlocationdelim}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -12794,7 +12822,7 @@
 %
 % \begin{macro}{\bibpagespunct}
 %    \begin{macrocode}
-\renewcommand{\bibpagespunct}{%
+\renewcommand*{\bibpagespunct}{%
     \iffieldundef{journaltitle}
         {\addspace}
         {\unspace\addcomma\space}}
@@ -12808,7 +12836,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-alt.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)] 
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12895,8 +12923,8 @@
 % \begin{macro}{\labelnamepunct}
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addspace}
-\renewcommand{\booklabelnamepunct}{\addspace}
+\renewcommand*{\labelnamepunct}{\addspace}
+\renewcommand*{\booklabelnamepunct}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -12924,15 +12952,15 @@
 %
 % \begin{macro}{\multilistdelim}
 %    \begin{macrocode}
-\renewcommand{\multilistdelim}{\addslash}
+\renewcommand*{\multilistdelim}{\addslash}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
-\renewcommand{\multinamedelim}{\addcomma\space}
-\renewcommand{\finalnamedelim}{\addspace\&\space}
+\renewcommand*{\multinamedelim}{\addcomma\space}
+\renewcommand*{\finalnamedelim}{\addspace\&\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -12940,8 +12968,8 @@
 % \begin{macro}{\mkbibnamefamily}
 % \begin{macro}{\mkbibnameprefix}
 %    \begin{macrocode}
-\renewcommand{\mkbibnamefamily}[1]{\MakeUppercase{#1}}
-\renewcommand{\mkbibnameprefix}[1]{\MakeUppercase{#1}}
+\renewcommand*{\mkbibnamefamily}[1]{\MakeUppercase{#1}}
+\renewcommand*{\mkbibnameprefix}[1]{\MakeUppercase{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -12949,8 +12977,8 @@
 % \begin{macro}{\mkbibbooknamefamily}
 % \begin{macro}{\mkbibbooknameprefix}
 %    \begin{macrocode}
-\renewcommand{\mkbibbooknamefamily}[1]{\MakeUppercase{#1}}
-\renewcommand{\mkbibbooknameprefix}[1]{\MakeUppercase{#1}}
+\renewcommand*{\mkbibbooknamefamily}[1]{\MakeUppercase{#1}}
+\renewcommand*{\mkbibbooknameprefix}[1]{\MakeUppercase{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -12958,8 +12986,8 @@
 % \begin{macro}{\mkbiblistnamefamily}
 % \begin{macro}{\mkbiblistnameprefix}
 %    \begin{macrocode}
-\renewcommand{\mkbiblistnamefamily}[1]{\MakeUppercase{#1}}
-\renewcommand{\mkbiblistnameprefix}[1]{\MakeUppercase{#1}}
+\renewcommand*{\mkbiblistnamefamily}[1]{\MakeUppercase{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\MakeUppercase{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -13013,7 +13041,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-apa.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)] 
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -13118,13 +13146,13 @@
 %
 % \begin{macro}{\finalcitedelim}
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addsemicolon\space}
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\nameyeardelim}
 %    \begin{macrocode}
-\renewcommand{\nameyeardelim}{\addcomma\space}
+\renewcommand*{\nameyeardelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -13132,8 +13160,8 @@
 % \begin{macro}{\finalnamedelim}
 % Different name formatting in the \texttt{by author/editor} block.
 %    \begin{macrocode}
-\renewcommand{\multinamedelim}{\addcomma\space}
-\renewcommand{\finalnamedelim}{\addspace\&\space}
+\renewcommand*{\multinamedelim}{\addcomma\space}
+\renewcommand*{\finalnamedelim}{\addspace\&\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -13150,22 +13178,22 @@
 % \begin{macro}{\labelnamepunct}
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addperiod\space}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addperiod\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
 % \begin{macro}{\intitlepunct}
 %    \begin{macrocode}
-\renewcommand{\intitlepunct}{\printunit{\addspace}}
+\renewcommand*{\intitlepunct}{\printunit{\addspace}}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\finentrypunct}
 % No period after bare electronic identifiers
 %    \begin{macrocode}
-\renewcommand{\finentrypunct}{%
+\renewcommand*{\finentrypunct}{%
     \iffieldundef{doi}
         {\ifboolexpr{
             not test {\iffieldundef{eprint}}
@@ -13248,15 +13276,15 @@
 %
 % \begin{macro}{\subtitlepunct}
 %    \begin{macrocode}
-\renewcommand{\subtitlepunct}{\addcolon\space}
+\renewcommand*{\subtitlepunct}{\addcolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\titleseriesdelim}
-%    \begin{macrocode}
-\renewcommand{\titleseriesdelim}{\addspace}
-%    \end{macrocode}
 % \changes{1.1}{2017/05/23}{Must be a space in \Stil{dguf-apa}. (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/1}{issue \#1})}
+%    \begin{macrocode}
+\renewcommand*{\titleseriesdelim}{\addspace}
+%    \end{macrocode}
 % \end{macro}
 %
 % \begin{format}{titlebrackets}
@@ -13293,8 +13321,8 @@
 % \begin{macro}{\volumenumberdelim}
 % \begin{macro}{\journalvolumedelim}
 %    \begin{macrocode}
-\renewcommand{\volumenumberdelim}{}
-\renewcommand{\journalvolumedelim}{\addcomma\space}
+\renewcommand*{\volumenumberdelim}{}
+\renewcommand*{\journalvolumedelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -13337,7 +13365,7 @@
 \DeclareFieldFormat*{pages}{%
     \mkbibparens{\mkpageprefix[bookpagination]{#1}}}
 \DeclareFieldFormat[article,review,suppperiodical]{pages}{#1}
-\renewcommand{\bibpagespunct}{%
+\renewcommand*{\bibpagespunct}{%
     \iffieldundef{journaltitle}
         {\addspace}
         {\addcomma\space}}
@@ -13368,7 +13396,7 @@
 %
 % \begin{macro}{\typeinstitutiondelim}
 %    \begin{macrocode}
-\renewcommand{\typeinstitutiondelim}{\addcomma\space}
+\renewcommand*{\typeinstitutiondelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -13386,7 +13414,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -13474,8 +13502,8 @@
 % \begin{macro}{\labelnamepunct}
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addcomma\space}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -13488,22 +13516,22 @@
 %
 % \begin{macro}{\bibnamedash}
 %    \begin{macrocode}
-\renewcommand{\bibnamedash}{\printtext{\bibstring{idem\thefield{gender}}}}
+\renewcommand*{\bibnamedash}{\printtext{\bibstring{idem\thefield{gender}}}}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
-\renewcommand{\multinamedelim}{\addslash}
-\renewcommand{\finalnamedelim}{\multinamedelim}
+\renewcommand*{\multinamedelim}{\addslash}
+\renewcommand*{\finalnamedelim}{\multinamedelim}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
 % \begin{macro}{\repeatlabeldelim}
 %    \begin{macrocode}
-\renewcommand{\repeatlabeldelim}{\addcolon\space}
+\renewcommand*{\repeatlabeldelim}{\addcolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -13537,7 +13565,7 @@
 % \begin{macro}{\institutionlocationdelim}
 % Delimiter between \Feld{institution} and \Feld{location}.
 %    \begin{macrocode}
-\renewcommand{\institutionlocationdelim}{\addspace}
+\renewcommand*{\institutionlocationdelim}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -13565,7 +13593,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz-alt.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -13671,10 +13699,10 @@
 % \begin{macro}{\mkbibbooknameprefix}
 % \begin{macro}{\mkbibbooknamesuffix}
 %    \begin{macrocode}
-\renewcommand{\mkbibbooknamegiven}[1]{\textsc{#1}}
-\renewcommand{\mkbibbooknamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbibbooknameprefix}[1]{\textsc{#1}}
-\renewcommand{\mkbibbooknamesuffix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknamegiven}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknamesuffix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -13686,10 +13714,10 @@
 % \begin{macro}{\mkbibsourcenameprefix}
 % \begin{macro}{\mkbibsourcenamesuffix}
 %    \begin{macrocode}
-\renewcommand{\mkbibsourcenamegiven}[1]{\textsc{#1}}
-\renewcommand{\mkbibsourcenamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbibsourcenameprefix}[1]{\textsc{#1}}
-\renewcommand{\mkbibsourcenamesuffix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibsourcenamegiven}[1]{\textsc{#1}}
+\renewcommand*{\mkbibsourcenamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbibsourcenameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibsourcenamesuffix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -13701,10 +13729,10 @@
 % \begin{macro}{\mkbiblistnameprefix}
 % \begin{macro}{\mkbiblistnamesuffix}
 %    \begin{macrocode}
-\renewcommand{\mkbiblistnamegiven}[1]{\textsc{#1}}
-\renewcommand{\mkbiblistnamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbiblistnameprefix}[1]{\textsc{#1}}
-\renewcommand{\mkbiblistnamesuffix}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamegiven}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamesuffix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -13727,15 +13755,15 @@
 %
 % \begin{macro}{\bibnamedash}
 %    \begin{macrocode}
-\renewcommand{\bibnamedash}{\parbox{\bibhang}{\hfill\textendash\hspace*{0.4em}}}
+\renewcommand*{\bibnamedash}{\parbox{\bibhang}{\hfill\textendash\hspace*{0.4em}}}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\labelnamepunct}
 % \begin{macro}{\booklabelpunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addcolon\space}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcolon\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -13749,7 +13777,7 @@
 %
 % \begin{macro}{\multilistdelim}
 %    \begin{macrocode}
-\renewcommand{\multilistdelim}{\addspace\textendash\space}
+\renewcommand*{\multilistdelim}{\addspace\textendash\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -13773,13 +13801,13 @@
 %
 % \begin{macro}{\seriespunct}
 %    \begin{macrocode}
-\renewcommand{\seriespunct}{\addspace}
+\renewcommand*{\seriespunct}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\noseriespunct}
 %    \begin{macrocode}
-\renewcommand{\noseriespunct}{\addperiod\space}
+\renewcommand*{\noseriespunct}{\addperiod\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -13806,7 +13834,7 @@
 %
 % \begin{macro}{\institutionlocationdelim}
 %    \begin{macrocode}
-\renewcommand{\institutionlocationdelim}{\addspace}
+\renewcommand*{\institutionlocationdelim}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -13827,7 +13855,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{foe.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -13915,7 +13943,7 @@
 % \begin{macro}{\repeatlabeldelim}
 % \begin{format}{repeatlabel}
 %    \begin{macrocode}
-\renewcommand{\repeatlabeldelim}{\mkbibbold{\addcolon\space}}
+\renewcommand*{\repeatlabeldelim}{\mkbibbold{\addcolon\space}}
 \DeclareFieldFormat*{repeatlabel}{\mkbibbold{#1}}
 %    \end{macrocode}
 % \end{format}
@@ -13935,10 +13963,10 @@
 % \begin{macro}{\mkbibbooknameprefix}
 % \begin{macro}{\mkbibbooknamesuffix}
 %    \begin{macrocode}
-\renewcommand{\mkbibbooknamegiven}[1]{\textsc{#1}}
-\renewcommand{\mkbibbooknamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbibbooknameprefix}[1]{\textsc{#1}}
-\renewcommand{\mkbibbooknamesuffix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknamegiven}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknamesuffix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -13950,10 +13978,10 @@
 % \begin{macro}{\mkbibsourcenameprefix}
 % \begin{macro}{\mkbibsourcenamesuffix}
 %    \begin{macrocode}
-\renewcommand{\mkbibsourcenamegiven}[1]{\textsc{#1}}
-\renewcommand{\mkbibsourcenamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbibsourcenameprefix}[1]{\textsc{#1}}
-\renewcommand{\mkbibsourcenamesuffix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibsourcenamegiven}[1]{\textsc{#1}}
+\renewcommand*{\mkbibsourcenamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbibsourcenameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibsourcenamesuffix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -13965,10 +13993,10 @@
 % \begin{macro}{\mkbiblistnameprefix}
 % \begin{macro}{\mkbiblistnamesuffix}
 %    \begin{macrocode}
-\renewcommand{\mkbiblistnamegiven}[1]{\textsc{#1}}
-\renewcommand{\mkbiblistnamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbiblistnameprefix}[1]{\textsc{#1}}
-\renewcommand{\mkbiblistnamesuffix}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamegiven}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamesuffix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -14001,9 +14029,9 @@
 % \begin{macro}{\booklabelpunct}
 % \begin{macro}{\newunitpunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addcomma\space}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
-\renewcommand{\newunitpunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\newunitpunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -14012,20 +14040,20 @@
 % \begin{macro}{\inbookbookdelim}
 % Change \Befehl{newunit} ahead of \Format{in:}
 %    \begin{macrocode}
-\renewcommand{\inbookbookdelim}{\addperiod\space}
+\renewcommand*{\inbookbookdelim}{\addperiod\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
-\renewcommand{\finalnamedelim}{\addspace\biblstring{and}\space}
+\renewcommand*{\finalnamedelim}{\addspace\biblstring{and}\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\seriespunct}
 % \begin{format}{seriesparens}
 %    \begin{macrocode}
-\renewcommand{\seriespunct}{\addcomma\addspace}
+\renewcommand*{\seriespunct}{\addcomma\addspace}
 \DeclareFieldFormat*{seriesparens}{#1}
 %    \end{macrocode}
 % \end{format}
@@ -14033,7 +14061,7 @@
 %
 % \begin{macro}{\subnumberseriesdelim}
 %    \begin{macrocode}
-\renewcommand{\subnumberseriesdelim}{\newunitpunct}
+\renewcommand*{\subnumberseriesdelim}{\newunitpunct}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -14080,7 +14108,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-halle.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -14176,8 +14204,8 @@
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
-\renewcommand{\multinamedelim}{\addslash}
-\renewcommand{\finalnamedelim}{\addslash}
+\renewcommand*{\multinamedelim}{\addslash}
+\renewcommand*{\finalnamedelim}{\addslash}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -14185,8 +14213,8 @@
 % \begin{macro}{\labelnamepunct}
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addcomma\space}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -14201,7 +14229,7 @@
 % \begin{macro}{\seriespunct}
 % \begin{format}{seriesparens}
 %    \begin{macrocode}
-\renewcommand{\seriespunct}{\addspace}
+\renewcommand*{\seriespunct}{\addspace}
 \DeclareFieldFormat*{seriesparens}{#1}
 %    \end{macrocode}
 % \end{format}
@@ -14210,7 +14238,7 @@
 % \begin{macro}{\booklabelnamepunct}
 % The punctuation between volume and number in journals.
 %    \begin{macrocode}
-\renewcommand{\volumenumberdelim}{\addcomma\space}
+\renewcommand*{\volumenumberdelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -14267,7 +14295,7 @@
 %
 % \begin{macro}{\bibpagespunct}
 %    \begin{macrocode}
-\renewcommand{\bibpagespunct}{%
+\renewcommand*{\bibpagespunct}{%
     \iffieldundef{journaltitle}
         {\addspace}
         {\addcomma\space}}
@@ -14292,7 +14320,7 @@
 %
 % \begin{macro}{\multicitedelim}
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addsemicolon\space}
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -14302,14 +14330,14 @@
 %    \begin{macrocode}
 \DeclareFieldFormat*{url}{\url{#1}}
 \let\blxarch@buffer@url\url
-\renewcommand{\url}[1]{\textless\blxarch@buffer@url{#1}\textgreater}
+\renewcommand*{\url}[1]{\textless\blxarch@buffer@url{#1}\textgreater}
 %    \end{macrocode}
 % \end{macro}
 % \end{format}
 %
 % \begin{macro}{\nameshortformdelim}
 %    \begin{macrocode}
-\renewcommand{\nameshortformdelim}{\addspace in\space}
+\renewcommand*{\nameshortformdelim}{\addspace in\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -14320,7 +14348,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-kreis-neuss.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -14404,15 +14432,15 @@
 % \begin{macro}{\newunitpunct}
 % The delimiter between volume and date.
 %    \begin{macrocode}
-\renewcommand{\newunitpunct}{\addcomma\space}
+\renewcommand*{\newunitpunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\booklabelnamepunct}
 % \begin{macro}{\labelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\booklabelnamepunct}{\addcolon\space}
-\renewcommand{\labelnamepunct}{\addcolon\space}
+\renewcommand*{\booklabelnamepunct}{\addcolon\space}
+\renewcommand*{\labelnamepunct}{\addcolon\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -14420,28 +14448,28 @@
 % \begin{macro}{\volumedatedelim}
 % The delimiter between volume and date.
 %    \begin{macrocode}
-\renewcommand{\volumedatedelim}{\addspace}
+\renewcommand*{\volumedatedelim}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\volumedatedelim}
 % The delimiter between volume and date.
 %    \begin{macrocode}
-\renewcommand{\titleseriesdelim}{\addspace}
+\renewcommand*{\titleseriesdelim}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\multinamedelim}
 % Delimiter beween multiple citations.
 %    \begin{macrocode}
-\renewcommand{\multinamedelim}{\addspace\addslash\space}
+\renewcommand*{\multinamedelim}{\addspace\addslash\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\finalnamedelim}
 % Delimiter beween multiple citations.
 %    \begin{macrocode}
-\renewcommand{\finalnamedelim}{\multinamedelim}
+\renewcommand*{\finalnamedelim}{\multinamedelim}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -14494,7 +14522,7 @@
 %
 % \begin{macro}{\seriesnumberdelim}
 %    \begin{macrocode}
-\renewcommand{\seriesnumberdelim}{\newunitpunct}
+\renewcommand*{\seriesnumberdelim}{\newunitpunct}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -14506,25 +14534,26 @@
 %
 % \begin{macro}{\noseriespunct}
 %    \begin{macrocode}
-\renewcommand{\noseriespunct}{\newunitpunct}
+\renewcommand*{\noseriespunct}{\newunitpunct}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\multilistdelim}
 % Delimiter beween multiple citations.
 %    \begin{macrocode}
-\renewcommand{\multilistdelim}{\addspace\addslash\space}
+\renewcommand*{\multilistdelim}{\addspace\addslash\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\sqspace}
 % Use string \Kbd{sequens} without space (only if two consecutive pages get cited!).
 %    \begin{macrocode}
-\renewcommand{\sqspace}{}
+\renewcommand*{\sqspace}{}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{format}{pages}
+% \changes{1.3}{2017/08/15}{\Befehl{rangelen} error fixed}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{%
     \ifpages{#1}
@@ -14537,7 +14566,6 @@
         {#1}%
 }
 %    \end{macrocode}
-% \changes{1.3}{2017/08/15}{\Befehl{rangelen} error fixed}
 % \end{format}
 %
 %</jbkreisneussBBX>
@@ -14547,7 +14575,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{karl.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14632,19 +14660,19 @@
 %
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
-\renewcommand{\finalnamedelim}{\addspace\biblstring{and}\space}
+\renewcommand*{\finalnamedelim}{\addspace\biblstring{and}\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\newunitpunct}
 %    \begin{macrocode}
-\renewcommand{\newunitpunct}{\addcomma\space}
+\renewcommand*{\newunitpunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addcolon\space}
+\renewcommand*{\labelnamepunct}{\addcolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -14709,7 +14737,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{maja.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14783,7 +14811,7 @@
 %
 % \begin{macro}{\newunitpunct}
 %    \begin{macrocode}
-\renewcommand{\newunitpunct}{\addcomma\space}
+\renewcommand*{\newunitpunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -14796,8 +14824,8 @@
 % \begin{macro}{\booklabelnamepunct}
 % \begin{macro}{\labelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
-\renewcommand{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -14805,8 +14833,8 @@
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
-\renewcommand{\multinamedelim}{\addspace\slash\space}
-\renewcommand{\finalnamedelim}{\addspace\slash\space}
+\renewcommand*{\multinamedelim}{\addspace\slash\space}
+\renewcommand*{\finalnamedelim}{\addspace\slash\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -14823,8 +14851,8 @@
 % \begin{macro}{\titleseriesdelim}
 % \begin{macro}{\seriespunct}
 %    \begin{macrocode}
-\renewcommand{\titleseriesdelim}{\newunitpunct}
-\renewcommand{\seriespunct}{\newunitpunct}
+\renewcommand*{\titleseriesdelim}{\newunitpunct}
+\renewcommand*{\seriespunct}{\newunitpunct}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -14875,13 +14903,13 @@
 %
 % \begin{macro}{\volumenumberdelim}
 %    \begin{macrocode}
-\renewcommand{\volumedatedelim}{\addspace}
+\renewcommand*{\volumedatedelim}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\multilistdelim}
 %    \begin{macrocode}
-\renewcommand{\multilistdelim}{\addspace\slash\space}
+\renewcommand*{\multilistdelim}{\addspace\slash\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -14906,7 +14934,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{mpk.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -15003,8 +15031,8 @@
 % \begin{macro}{\mkbibbooknameprefix}
 % Different name formatting of \Feld{bookauthor}/\Feld{editor}.
 %    \begin{macrocode}
-\renewcommand{\mkbibbooknamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbibbooknameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknameprefix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -15013,8 +15041,8 @@
 % \begin{macro}{\mkbibsourcenameprefix}
 % Different name formatting of \Feld{bookauthor}/\Feld{editor}.
 %    \begin{macrocode}
-\renewcommand{\mkbibsourcenamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbibsourcenameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibsourcenamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbibsourcenameprefix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -15023,8 +15051,8 @@
 % \begin{macro}{\mkbiblistnameprefix}
 % Different name formatting of \Feld{author}/\Feld{editor}.
 %    \begin{macrocode}
-\renewcommand{\mkbiblistnamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbiblistnameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -15033,9 +15061,9 @@
 % \begin{macro}{\booklabelpunct}
 % \begin{macro}{\newunitpunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addcomma\space}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
-\renewcommand{\newunitpunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\newunitpunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -15043,14 +15071,14 @@
 %
 % \begin{macro}{\titleseriesdelim}
 %    \begin{macrocode}
-\renewcommand{\titleseriesdelim}{\addperiod\space}
+\renewcommand*{\titleseriesdelim}{\addperiod\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\seriespunct}
 % \begin{format}{seriesparens}
 %    \begin{macrocode}
-\renewcommand{\seriespunct}{\newunitpunct}
+\renewcommand*{\seriespunct}{\newunitpunct}
 \DeclareFieldFormat*{seriesparens}{#1}
 %    \end{macrocode}
 % \end{format}
@@ -15058,7 +15086,7 @@
 %
 % \begin{macro}{\subnumberseriesdelim}
 %    \begin{macrocode}
-\renewcommand{\subnumberseriesdelim}{\newunitpunct}
+\renewcommand*{\subnumberseriesdelim}{\newunitpunct}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -15113,7 +15141,7 @@
 % \begin{macro}{\finentrypunct}
 %    \begin{macrocode}
 \let\blxarch@buffer@finentrypunct\finentrypunct
-\renewcommand{\finentrypunct}{%
+\renewcommand*{\finentrypunct}{%
     \ifboolexpr{
         test {\ifentrytype{online}}
         or
@@ -15134,7 +15162,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{nnu.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -15224,8 +15252,8 @@
 % \begin{macro}{\mkbiblistnamefamily}
 % \begin{macro}{\mkbiblistnameprefix}
 %    \begin{macrocode}
-\renewcommand{\mkbiblistnamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbiblistnameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -15233,8 +15261,8 @@
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
-\renewcommand{\multinamedelim}{\addslash}
-\renewcommand{\finalnamedelim}{\addslash}
+\renewcommand*{\multinamedelim}{\addslash}
+\renewcommand*{\finalnamedelim}{\addslash}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -15242,8 +15270,8 @@
 % \begin{macro}{\labelnamepunct}
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addcomma\space}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -15259,7 +15287,7 @@
 % \begin{macro}{\seriespunct}
 % \begin{format}{seriesparens}
 %    \begin{macrocode}
-\renewcommand{\seriespunct}{\addspace}
+\renewcommand*{\seriespunct}{\addspace}
 \DeclareFieldFormat*{seriesparens}{#1}
 %    \end{macrocode}
 % \end{format}
@@ -15268,7 +15296,7 @@
 % \begin{macro}{\booklabelnamepunct}
 % The punctuation between volume and number in journals.
 %    \begin{macrocode}
-\renewcommand{\volumenumberdelim}{\addcomma\space}
+\renewcommand*{\volumenumberdelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -15314,7 +15342,7 @@
 %
 % \begin{macro}{\bibpagespunct}
 %    \begin{macrocode}
-\renewcommand{\bibpagespunct}{%
+\renewcommand*{\bibpagespunct}{%
     \iffieldundef{journaltitle}
         {\addspace}
         {\addcomma\space}}
@@ -15339,7 +15367,7 @@
 %
 % \begin{macro}{\multicitedelim}
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addsemicolon\space}
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -15348,14 +15376,14 @@
 %    \begin{macrocode}
 \DeclareFieldFormat*{url}{\url{#1}}
 \let\blxarch@buffer@url\url
-\renewcommand{\url}[1]{\textless\blxarch@buffer@url{#1}\textgreater}
+\renewcommand*{\url}[1]{\textless\blxarch@buffer@url{#1}\textgreater}
 %    \end{macrocode}
 % \end{macro}
 % \end{format}
 %
 % \begin{macro}{\nameshortformdelim}
 %    \begin{macrocode}
-\renewcommand{\nameshortformdelim}{\addspace in\space}
+\renewcommand*{\nameshortformdelim}{\addspace in\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -15366,7 +15394,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{offa.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15453,51 +15481,51 @@
 % \begin{macro}{\mkbibrepeatfamily}
 % \begin{macro}{\mkbibrepeatprefix}
 %    \begin{macrocode}
-\renewcommand{\mkbibrepeatfamily}[1]{#1}
-\renewcommand{\mkbibrepeatprefix}[1]{#1}
+\renewcommand*{\mkbibrepeatfamily}[1]{#1}
+\renewcommand*{\mkbibrepeatprefix}[1]{#1}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
 % \begin{macro}{\multicitedelim}
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addsemicolon\space}
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
-\renewcommand{\multinamedelim}{\addslash}
-\renewcommand{\finalnamedelim}{\addslash}
+\renewcommand*{\multinamedelim}{\addslash}
+\renewcommand*{\finalnamedelim}{\addslash}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
 % \begin{macro}{\multilistdelim}
 %    \begin{macrocode}
-\renewcommand{\multilistdelim}{\addslash}
+\renewcommand*{\multilistdelim}{\addslash}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\repeatlabeldelim}
 %    \begin{macrocode}
-\renewcommand{\repeatlabeldelim}{\addcolon\space}
+\renewcommand*{\repeatlabeldelim}{\addcolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\booklabelnamepunct}
 % \begin{macro}{\labelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
-\renewcommand{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
 % \begin{macro}{\seriespunct}
 %    \begin{macrocode}
-\renewcommand{\seriespunct}{\addspace}
+\renewcommand*{\seriespunct}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -15533,7 +15561,7 @@
 %
 % \begin{macro}{\institutionlocationdelim}
 %    \begin{macrocode}
-\renewcommand{\institutionlocationdelim}{\addspace}
+\renewcommand*{\institutionlocationdelim}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -15553,7 +15581,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-verbose.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15584,7 +15612,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-verbose.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15614,7 +15642,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-inline.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15650,15 +15678,15 @@
 %
 % \begin{macro}{\bibnamedash}
 %    \begin{macrocode}
-\renewcommand{\bibnamedash}{\printtext{\bibstring[\mkbiblistnamefamily]{idem\thefield{gender}}}}
+\renewcommand*{\bibnamedash}{\printtext{\bibstring[\mkbiblistnamefamily]{idem\thefield{gender}}}}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\mkbibrepeatfamily}
 % \begin{macro}{\mkbibrepeatprefix}
 %    \begin{macrocode}
-\renewcommand{\mkbiblistnamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbiblistnameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -15733,8 +15761,8 @@
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
-\renewcommand{\multinamedelim}{\addslash}
-\renewcommand{\finalnamedelim}{\addslash}
+\renewcommand*{\multinamedelim}{\addslash}
+\renewcommand*{\finalnamedelim}{\addslash}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -15742,8 +15770,8 @@
 % \begin{macro}{\mkbiblistnamefamily}
 % \begin{macro}{\mkbiblistnamefamily}
 %    \begin{macrocode}
-\renewcommand{\mkbiblistnamefamily}[1]{\textsc{#1}}
-\renewcommand{\mkbiblistnameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -15751,8 +15779,8 @@
 % \begin{macro}{\labelnamepunct}
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addcomma\space}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -15768,7 +15796,7 @@
 % \begin{macro}{\seriespunct}
 % \begin{format}{seriesparens}
 %    \begin{macrocode}
-\renewcommand{\seriespunct}{\addspace}
+\renewcommand*{\seriespunct}{\addspace}
 \DeclareFieldFormat*{seriesparens}{#1}
 %    \end{macrocode}
 % \end{format}
@@ -15776,7 +15804,7 @@
 %
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\volumenumberdelim}{\addcomma\space}
+\renewcommand*{\volumenumberdelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -15822,7 +15850,7 @@
 %
 % \begin{macro}{\bibpagespunct}
 %    \begin{macrocode}
-\renewcommand{\bibpagespunct}{%
+\renewcommand*{\bibpagespunct}{%
     \iffieldundef{journaltitle}
         {\addspace}
         {\addcomma\space}}
@@ -15837,7 +15865,7 @@
 %
 % \begin{macro}{\multicitedelim}
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addsemicolon\space}
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -15846,7 +15874,7 @@
 %    \begin{macrocode}
 \DeclareFieldFormat*{url}{\url{#1}}
 \let\blxarch@buffer@url\url
-\renewcommand{\url}[1]{\textless\blxarch@buffer@url{#1}\textgreater}
+\renewcommand*{\url}[1]{\textless\blxarch@buffer@url{#1}\textgreater}
 %    \end{macrocode}
 % \end{macro}
 % \end{format}
@@ -15858,7 +15886,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-verbose.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15889,7 +15917,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-inline.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15918,7 +15946,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-inline.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15962,15 +15990,15 @@
 % \begin{macro}{\mkbibrepeatfamily}
 % \begin{macro}{\mkbibrepeatprefix}
 %    \begin{macrocode}
-\renewcommand{\mkbibrepeatfamily}[1]{#1}
-\renewcommand{\mkbibrepeatprefix}[1]{#1}
+\renewcommand*{\mkbibrepeatfamily}[1]{#1}
+\renewcommand*{\mkbibrepeatprefix}[1]{#1}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
 % \begin{macro}{\repeatlabeldelim}
 %    \begin{macrocode}
-\renewcommand{\repeatlabeldelim}{\addcolon\space}
+\renewcommand*{\repeatlabeldelim}{\addcolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -16049,8 +16077,8 @@
 % \begin{macro}{\mkbibrepeatfamily}
 % \begin{macro}{\mkbibrepeatprefix}
 %    \begin{macrocode}
-\renewcommand{\mkbibrepeatfamily}[1]{#1}
-\renewcommand{\mkbibrepeatprefix}[1]{#1}
+\renewcommand*{\mkbibrepeatfamily}[1]{#1}
+\renewcommand*{\mkbibrepeatprefix}[1]{#1}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -16058,8 +16086,8 @@
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
-\renewcommand{\multinamedelim}{\addspace\addslash\space}
-\renewcommand{\finalnamedelim}{\addspace\addslash\space}
+\renewcommand*{\multinamedelim}{\addspace\addslash\space}
+\renewcommand*{\finalnamedelim}{\addspace\addslash\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -16067,8 +16095,8 @@
 % \begin{macro}{\labelnamepunct}
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addcomma\space}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -16084,7 +16112,7 @@
 % \begin{macro}{\seriespunct}
 % \begin{format}{seriesparens}
 %    \begin{macrocode}
-\renewcommand{\seriespunct}{\addspace}
+\renewcommand*{\seriespunct}{\addspace}
 \DeclareFieldFormat*{seriesparens}{#1}
 %    \end{macrocode}
 % \end{format}
@@ -16093,7 +16121,7 @@
 % \begin{macro}{\booklabelnamepunct}
 % The punctuation between volume and number in journals.
 %    \begin{macrocode}
-\renewcommand{\volumenumberdelim}{\addcomma\space}
+\renewcommand*{\volumenumberdelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -16132,7 +16160,7 @@
 %
 % \begin{macro}{\bibpagespunct}
 %    \begin{macrocode}
-\renewcommand{\bibpagespunct}{%
+\renewcommand*{\bibpagespunct}{%
     \iffieldundef{journaltitle}
         {\addspace}
         {\addcomma\space}}
@@ -16147,7 +16175,7 @@
 %
 % \begin{macro}{\multicitedelim}
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addsemicolon\space}
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -16167,7 +16195,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-verbose.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16197,7 +16225,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-numeric.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16226,7 +16254,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-inline.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16337,8 +16365,8 @@
 % \begin{macro}{\mkbibrepeatfamily}
 % \begin{macro}{\mkbibrepeatprefix}
 %    \begin{macrocode}
-\renewcommand{\mkbibrepeatfamily}[1]{#1}
-\renewcommand{\mkbibrepeatprefix}[1]{#1}
+\renewcommand*{\mkbibrepeatfamily}[1]{#1}
+\renewcommand*{\mkbibrepeatprefix}[1]{#1}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -16346,8 +16374,8 @@
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
-\renewcommand{\multinamedelim}{\addslash}
-\renewcommand{\finalnamedelim}{\addslash}
+\renewcommand*{\multinamedelim}{\addslash}
+\renewcommand*{\finalnamedelim}{\addslash}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -16355,8 +16383,8 @@
 % \begin{macro}{\labelnamepunct}
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addcomma\space}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -16372,7 +16400,7 @@
 % \begin{macro}{\seriespunct}
 % \begin{format}{seriesparens}
 %    \begin{macrocode}
-\renewcommand{\seriespunct}{\addspace}
+\renewcommand*{\seriespunct}{\addspace}
 \DeclareFieldFormat*{seriesparens}{#1}
 %    \end{macrocode}
 % \end{format}
@@ -16381,7 +16409,7 @@
 % \begin{macro}{\booklabelnamepunct}
 % The punctuation between volume and number in journals.
 %    \begin{macrocode}
-\renewcommand{\volumenumberdelim}{\addcomma\space}
+\renewcommand*{\volumenumberdelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -16424,7 +16452,7 @@
 %
 % \begin{macro}{\bibpagespunct}
 %    \begin{macrocode}
-\renewcommand{\bibpagespunct}{%
+\renewcommand*{\bibpagespunct}{%
     \iffieldundef{journaltitle}
         {\addspace}
         {\addcomma\space}}
@@ -16448,14 +16476,14 @@
 %    \begin{macrocode}
 \DeclareFieldFormat*{url}{\url{#1}}
 \let\blxarch@buffer@url\url
-\renewcommand{\url}[1]{\textless\blxarch@buffer@url{#1}\textgreater}
+\renewcommand*{\url}[1]{\textless\blxarch@buffer@url{#1}\textgreater}
 %    \end{macrocode}
 % \end{macro}
 % \end{format}
 %
 % \begin{macro}{\typeinstitutiondelim}
 %    \begin{macrocode}
-\renewcommand{\typeinstitutiondelim}{\addcolon\space\midsentence}
+\renewcommand*{\typeinstitutiondelim}{\addcolon\space\midsentence}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -16466,7 +16494,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{volkskunde.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -16562,7 +16590,7 @@
 %
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addcolon\space}
+\renewcommand*{\labelnamepunct}{\addcolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -16577,7 +16605,7 @@
 %
 % \begin{macro}{\bibnamedash}
 %    \begin{macrocode}
-\renewcommand{\bibnamedash}{\printtext{\bibstring[\mkbiblistnamefamily]{idem\thefield{gender}}\space}}
+\renewcommand*{\bibnamedash}{\printtext{\bibstring[\mkbiblistnamefamily]{idem\thefield{gender}}\space}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -16590,14 +16618,14 @@
 % \begin{macro}{\titleseriesdelim}
 % The delimiter after an repeated label
 %    \begin{macrocode}
-\renewcommand{\titleseriesdelim}{\addspace}
+\renewcommand*{\titleseriesdelim}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\institutionlocationdelim}
 % Delimiter between \Feld{institution} and \Feld{location}.
 %    \begin{macrocode}
-\renewcommand{\institutionlocationdelim}{\addspace}
+\renewcommand*{\institutionlocationdelim}{\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -16636,7 +16664,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{zaak.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % \begin{format}{bibtex}
@@ -16746,15 +16774,15 @@
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
-\renewcommand{\multinamedelim}{\addspace\addslash\space}
-\renewcommand{\finalnamedelim}{\multinamedelim}
+\renewcommand*{\multinamedelim}{\addspace\addslash\space}
+\renewcommand*{\finalnamedelim}{\multinamedelim}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
 % \begin{macro}{nameyeardelim}
 %    \begin{macrocode}
-\renewcommand{\nameyeardelim}{%
+\renewcommand*{\nameyeardelim}{%
     \iftabbedlabeldate
         {}
         {\addspace}}
@@ -16774,8 +16802,8 @@
 % \begin{format}{seriesparens}
 %    \begin{macrocode}
 \DeclareFieldFormat*{seriesparens}{\mkbibparens{=#1}}
-\renewcommand{\seriespunct}{\addspace}
-\renewcommand{\titleseriesdelim}{\addspace}
+\renewcommand*{\seriespunct}{\addspace}
+\renewcommand*{\titleseriesdelim}{\addspace}
 %    \end{macrocode}
 % \end{format}
 % \end{macro}
@@ -16784,8 +16812,8 @@
 % \begin{macro}{\labelnamepunct}
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\labelnamepunct}{\addspace}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addspace}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -16800,7 +16828,7 @@
 % \begin{macro}{\volumenumberdelim}
 % \begin{format}{number}
 %    \begin{macrocode}
-\renewcommand{\volumenumberdelim}{\addspace}
+\renewcommand*{\volumenumberdelim}{\addspace}
 \DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
 %    \end{macrocode}
 % \end{format}
@@ -16827,14 +16855,14 @@
 %
 % \begin{macro}{\volumedatedelim}
 %    \begin{macrocode}
-\renewcommand{\volumedatedelim}{}
+\renewcommand*{\volumedatedelim}{}
 %    \end{macrocode} 
 % \end{macro}
 %
 % \begin{macro}{\bibpagespunct}
 % Colon ahead of \Feld{volume} groups.
 %    \begin{macrocode}
-\renewcommand{\bibpagespunct}{%
+\renewcommand*{\bibpagespunct}{%
     \ifboolexpr{
         not test {\iffieldundef{usera}}
         and
@@ -16861,7 +16889,7 @@
 %
 % \begin{macro}{\daterealdatedelim}
 %    \begin{macrocode}
-\renewcommand{\daterealdatedelim}{%
+\renewcommand*{\daterealdatedelim}{%
     \iftabbedlabeldate
         {\newline}
         {\addspace}}
@@ -16875,7 +16903,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{zaes.bbx}
-[2018/05/11 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16969,15 +16997,15 @@
 %
 % \begin{macro}{\newunitpunct}
 %    \begin{macrocode}
-\renewcommand{\newunitpunct}{\addcomma\space}
+\renewcommand*{\newunitpunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\booklabelnamepunct}
 % \begin{macro}{\labelnamepunct}
 %    \begin{macrocode}
-\renewcommand{\booklabelnamepunct}{\addcomma\space}
-\renewcommand{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -16994,8 +17022,8 @@
 % \begin{macro}{\mkbibnamefamily}
 % \begin{macro}{\mkbibnameprefix}
 %    \begin{macrocode}
-\renewcommand{\mkbibnamefamily}[1]{\mkbibletterspacing{#1}}
-\renewcommand{\mkbibnameprefix}[1]{\mkbibletterspacing{#1}}
+\renewcommand*{\mkbibnamefamily}[1]{\mkbibletterspacing{#1}}
+\renewcommand*{\mkbibnameprefix}[1]{\mkbibletterspacing{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -17003,8 +17031,8 @@
 % \begin{macro}{\mkbiblistnamefamily}
 % \begin{macro}{\mkbiblistnameprefix}
 %    \begin{macrocode}
-\renewcommand{\mkbiblistnamefamily}[1]{\mkbibletterspacing{#1}}
-\renewcommand{\mkbiblistnameprefix}[1]{\mkbibletterspacing{#1}}
+\renewcommand*{\mkbiblistnamefamily}[1]{\mkbibletterspacing{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\mkbibletterspacing{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -17012,8 +17040,8 @@
 % \begin{macro}{\mkbooknamefamily}
 % \begin{macro}{\mkbooknameprefix}
 %    \begin{macrocode}
-\renewcommand{\mkbibbooknamefamily}[1]{\mkbibletterspacing{#1}}
-\renewcommand{\mkbibbooknameprefix}[1]{\mkbibletterspacing{#1}}
+\renewcommand*{\mkbibbooknamefamily}[1]{\mkbibletterspacing{#1}}
+\renewcommand*{\mkbibbooknameprefix}[1]{\mkbibletterspacing{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -17021,8 +17049,8 @@
 % \begin{macro}{\mksourcenamefamily}
 % \begin{macro}{\mksourcenameprefix}
 %    \begin{macrocode}
-\renewcommand{\mkbibsourcenamefamily}[1]{\mkbibletterspacing{#1}}
-\renewcommand{\mkbibsourcenameprefix}[1]{\mkbibletterspacing{#1}}
+\renewcommand*{\mkbibsourcenamefamily}[1]{\mkbibletterspacing{#1}}
+\renewcommand*{\mkbibsourcenameprefix}[1]{\mkbibletterspacing{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -17039,8 +17067,8 @@
 % \begin{macro}{\titleseriesdelim}
 % \begin{macro}{\seriespunct}
 %    \begin{macrocode}
-\renewcommand{\titleseriesdelim}{\addcomma\space}
-\renewcommand{\seriespunct}{\iffieldundef{pages}{\finentrypunct}{\bibpagespunct}}
+\renewcommand*{\titleseriesdelim}{\addcomma\space}
+\renewcommand*{\seriespunct}{\iffieldundef{pages}{\finentrypunct}{\bibpagespunct}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -17080,13 +17108,13 @@
 %
 % \begin{macro}{\mkbibnameprefix}
 %    \begin{macrocode}
-\renewcommand{\nameshortformdelim}{\addcomma\space}
+\renewcommand*{\nameshortformdelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\mkbibnameprefix}
 %    \begin{macrocode}
-\renewcommand{\noseriespunct}{\addcomma\addspace}
+\renewcommand*{\noseriespunct}{\addcomma\addspace}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -17100,7 +17128,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-archaeology.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -17120,7 +17148,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-comp-archaeology.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -17160,7 +17188,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-icomp-archaeology.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -17180,7 +17208,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{numeric-comp-archaeology.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -17208,7 +17236,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-ibid-archaeology.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -17228,7 +17256,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-trad2note-archaeology.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -17389,7 +17417,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{aefkw.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17409,7 +17437,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{afwl.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17433,7 +17461,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{amit.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17452,7 +17480,7 @@
 %
 % \begin{macro}{\multicitedelim}
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addsemicolon\space}
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -17463,7 +17491,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{archa.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17493,7 +17521,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17513,7 +17541,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-alt.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17532,7 +17560,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-apa.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17578,7 +17606,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17593,7 +17621,7 @@
 %
 % \begin{macro}{\multicitedelim}
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addsemicolon\space}
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -17604,7 +17632,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz-alt.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17624,7 +17652,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{foe.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17648,7 +17676,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-halle.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17668,7 +17696,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-kreis-neuss.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17688,7 +17716,7 @@
 % \begin{macro}{\multicitedelim}
 % Delimiter beween multiple citations.
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addsemicolon\space}
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -17699,7 +17727,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{karl.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17713,7 +17741,7 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addsemicolon\space}
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 %
 %</karlCBX>
@@ -17723,7 +17751,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{maja.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17743,7 +17771,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{mpk.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17762,13 +17790,13 @@
 %
 % \begin{macro}{\multicitedelim}
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addperiod\space\textendash\space}
+\renewcommand*{\multicitedelim}{\addperiod\space\textendash\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\multicitedelim}
 %    \begin{macrocode}
-\renewcommand{\compcitedelim}{%
+\renewcommand*{\compcitedelim}{%
     \multicitedelim\bibsentence%
     \bibstring[\mkbibnamefamily]{idem\thefield{gender}}\addspace}
 %    \end{macrocode}
@@ -17781,7 +17809,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{nnu.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17801,7 +17829,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{offa.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17821,7 +17849,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-inline.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17841,7 +17869,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-numeric.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17861,7 +17889,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-verbose.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17888,7 +17916,7 @@
 %
 % \begin{macro}{\postnotedelim}
 %    \begin{macrocode}
-\renewcommand{\postnotedelim}{%
+\renewcommand*{\postnotedelim}{%
     \ifboolexpr{
         test {\ifentrytype{article}}
         or
@@ -17914,7 +17942,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-numeric.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17934,7 +17962,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-inline.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17954,7 +17982,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-verbose.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17980,7 +18008,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-verbose.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -18006,7 +18034,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-inline.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -18026,7 +18054,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-inline.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -18046,7 +18074,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{volkskunde.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -18061,14 +18089,14 @@
 %
 % \begin{macro}{\multicitedelim}
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addsemicolon\space}
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\postnotedelim}
 %    \begin{macrocode}
-\renewcommand{\postnotedelim}{\addcolon\space}
-\renewcommand{\labelnamepunct}{\addcolon\space}
+\renewcommand*{\postnotedelim}{\addcolon\space}
+\renewcommand*{\labelnamepunct}{\addcolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -18079,7 +18107,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{zaak.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -18099,7 +18127,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{zaes.cbx}
-[2018/05/11 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -18159,28 +18187,28 @@
 % \begin{macro}{\mkbibnamefamily}
 % no small caps in label family names
 %    \begin{macrocode}
-\renewcommand{\mkbibnamefamily}[1]{#1}
+\renewcommand*{\mkbibnamefamily}[1]{#1}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\mkbibnameprefix}
 % no small caps in label name prefixes
 %    \begin{macrocode}
-\renewcommand{\mkbibnameprefix}[1]{#1}
+\renewcommand*{\mkbibnameprefix}[1]{#1}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\mkbibrepeatfamily}
 % no small caps in repeated label family names
 %    \begin{macrocode}
-\renewcommand{\mkbibrepeatfamily}[1]{#1}
+\renewcommand*{\mkbibrepeatfamily}[1]{#1}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\mkbibrepeatprefix}
 % no small caps in repeatedlabel name prefixes
 %    \begin{macrocode}
-\renewcommand{\mkbibrepeatprefix}[1]{#1}
+\renewcommand*{\mkbibrepeatprefix}[1]{#1}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -18200,7 +18228,7 @@
 % \begin{macro}{\articlesubtitlepunct}
 % No special \Befehl{subtitlepunct} in \Typ{article} etc.
 %    \begin{macrocode}
-\renewcommand{\articlesubtitlepunct}{\subtitlepunct}
+\renewcommand*{\articlesubtitlepunct}{\subtitlepunct}
 %    \end{macrocode}
 % \end{macro} 
 %
@@ -18208,6 +18236,7 @@
 %<*sequentes>
 %
 % \begin{format}{pages}
+% \changes{1.3}{2017/08/15}{\Befehl{rangelen} error fixed}
 % Must direct the \Latein{sequentes} in field format since \Befehl{ifpages}\Kbd{\{}\Befehl{thefield}\Kbd{\{pages\}\}}.
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{%
@@ -18221,7 +18250,6 @@
         {#1}%
 }
 %    \end{macrocode}
-% \changes{1.3}{2017/08/15}{\Befehl{rangelen} error fixed}
 % \end{format}
 %
 %</sequentes>
@@ -19299,7 +19327,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-archaeology.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % Use this file for all English spellings
@@ -19573,7 +19601,7 @@
 % \subsubsection{Pointer to \Datei{english-archaeology.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{english-archaeology}
 \InheritBibliographyStrings{english-archaeology}
 %    \end{macrocode}
@@ -19585,7 +19613,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-archaeology.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % Use this file for all German spellings
@@ -19730,7 +19758,7 @@
 % \subsubsection{Pointer to \Datei{german-archaeology.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{german-archaeology}
 \InheritBibliographyStrings{german-archaeology}
 %    \end{macrocode}
@@ -19742,7 +19770,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-aefkw.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{nodate}
@@ -19763,7 +19791,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{zaas-german.lbx}
-[2018/05/11 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
+[2018/05/19 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
 %    \end{macrocode}
 %
 % \begin{localization}{byeditor}
@@ -19888,7 +19916,7 @@
 % \subsubsection{Pointer to \Datei{english-aefkw.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{english-aefkw}
 \InheritBibliographyStrings{english-aefkw}
 %    \end{macrocode}
@@ -19899,7 +19927,7 @@
 % \subsubsection{Pointer to \Datei{german-aefkw.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{german-aefkw}
 \InheritBibliographyStrings{german-aefkw}
 %    \end{macrocode}
@@ -19911,7 +19939,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-archa.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{urlseen}
@@ -19932,7 +19960,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-archa.lbx}
-[2018/05/11 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
+[2018/05/19 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
 %    \end{macrocode}
 %
 % \begin{localization}{andothers}
@@ -19958,7 +19986,7 @@
 % \subsubsection{Pointer to \Datei{english-archa.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{english-archa}
 \InheritBibliographyStrings{english-archa}
 %    \end{macrocode}
@@ -19969,7 +19997,7 @@
 % \subsubsection{Pointer to \Datei{german-archa.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{german-archa}
 \InheritBibliographyStrings{german-archa}
 %    \end{macrocode}
@@ -19981,7 +20009,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-dguf-alt.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{andothers}
@@ -20022,7 +20050,7 @@
 % \subsubsection{Pointer to \Datei{german-dguf-alt.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{german-dguf-alt}
 \InheritBibliographyStrings{german-dguf-alt}
 %    \end{macrocode}
@@ -20034,7 +20062,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-dguf-apa.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -20067,7 +20095,7 @@
 % \subsubsection{Pointer to \Datei{english-dguf-apa.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{english-dguf-apa}
 \InheritBibliographyStrings{english-dguf-apa}
 %    \end{macrocode}
@@ -20079,7 +20107,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-eaz.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{subverbum}
@@ -20100,7 +20128,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-eaz.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{subverbum}
@@ -20120,7 +20148,7 @@
 % \subsubsection{Pointer to \Datei{english-eaz.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{english-eaz}
 \InheritBibliographyStrings{english-eaz}
 %    \end{macrocode}
@@ -20131,7 +20159,7 @@
 % \subsubsection{Pointer to \Datei{german-eaz.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{german-eaz}
 \InheritBibliographyStrings{german-eaz}
 %    \end{macrocode}
@@ -20143,7 +20171,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-foe.lbx}
-[2018/05/11 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
+[2018/05/19 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
 %    \end{macrocode}
 %
 % \begin{localization}{urlseen}
@@ -20172,7 +20200,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-foe.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{urlseen}
@@ -20200,7 +20228,7 @@
 % \subsubsection{Pointer to \Datei{english-foe.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{english-foe}
 \InheritBibliographyStrings{english-foe}
 %    \end{macrocode}
@@ -20211,7 +20239,7 @@
 % \subsubsection{Pointer to \Datei{german-foe.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{german-foe}
 \InheritBibliographyStrings{german-foe}
 %    \end{macrocode}
@@ -20223,7 +20251,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-jb-kreis-neuss.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{ibidem}
@@ -20247,7 +20275,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-jb-kreis-neuss.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{ibidem}
@@ -20270,7 +20298,7 @@
 % \subsubsection{Pointer to \Datei{english-jb-kreis-neuss.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{english-jb-kreis-neuss}
 \InheritBibliographyStrings{english-jb-kreis-neuss}
 %    \end{macrocode}
@@ -20281,7 +20309,7 @@
 % \subsubsection{Pointer to \Datei{german-jb-kreis-neuss.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{german-jb-kreis-neuss}
 \InheritBibliographyStrings{german-jb-kreis-neuss}
 %    \end{macrocode}
@@ -20293,7 +20321,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-karl.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{reprint}
@@ -20316,7 +20344,7 @@
 % \subsubsection{Pointer to \Datei{german-karl.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{german-karl}
 \InheritBibliographyStrings{german-karl}
 %    \end{macrocode}
@@ -20328,7 +20356,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-maja.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{byeditor}
@@ -20450,7 +20478,7 @@
 % \subsubsection{Pointer to \Datei{german-maja.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{german-maja}
 \InheritBibliographyStrings{german-maja}
 %    \end{macrocode}
@@ -20462,7 +20490,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-mpk.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{urlseen}
@@ -20483,7 +20511,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-mpk.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{andothers}
@@ -20509,7 +20537,7 @@
 % \subsubsection{Pointer to \Datei{english-mpk.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{english-mpk}
 \InheritBibliographyStrings{english-mpk}
 %    \end{macrocode}
@@ -20520,7 +20548,7 @@
 % \subsubsection{Pointer to \Datei{german-mpk.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{german-mpk}
 \InheritBibliographyStrings{german-mpk}
 %    \end{macrocode}
@@ -20532,7 +20560,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-offa.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{urlfrom}
@@ -20555,7 +20583,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-offa.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{page}
@@ -20581,7 +20609,7 @@
 % \subsubsection{Pointer to \Datei{english-offa.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{english-offa}
 \InheritBibliographyStrings{english-offa}
 %    \end{macrocode}
@@ -20592,7 +20620,7 @@
 % \subsubsection{Pointer to \Datei{german-offa.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{german-offa}
 \InheritBibliographyStrings{german-offa}
 %    \end{macrocode}
@@ -20604,7 +20632,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-rgzm.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{ibidem}
@@ -20645,7 +20673,7 @@
 % \subsubsection{Pointer to \Datei{german-rgzm.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{german-rgzm}
 \InheritBibliographyStrings{german-rgzm}
 %    \end{macrocode}
@@ -20657,7 +20685,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-zaak.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{urlfrom}
@@ -20678,7 +20706,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-zaak.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{page}
@@ -20704,7 +20732,7 @@
 % \subsubsection{Pointer to \Datei{english-zaak.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{english-zaak}
 \InheritBibliographyStrings{english-zaak}
 %    \end{macrocode}
@@ -20715,7 +20743,7 @@
 % \subsubsection{Pointer to \Datei{german-zaak.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{german-zaak}
 \InheritBibliographyStrings{german-zaak}
 %    \end{macrocode}
@@ -20727,7 +20755,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-zaes.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{ibidem}
@@ -20748,7 +20776,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-zaes.lbx}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % \begin{localization}{byeditor}
@@ -20873,7 +20901,7 @@
 % \subsubsection{Pointer to \Datei{english-zaes.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{english-zaes}
 \InheritBibliographyStrings{english-zaes}
 %    \end{macrocode}
@@ -20884,7 +20912,7 @@
 % \subsubsection{Pointer to \Datei{german-zaes.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{german-zaes}
 \InheritBibliographyStrings{german-zaes}
 %    \end{macrocode}
@@ -21153,7 +21181,7 @@
 %<*DBX>
 %
 %    \begin{macrocode}
-[2018/05/11 v2.0 biblatex-archaeology data model (IB)]
+[2018/05/19 v2.0 biblatex-archaeology data model (IB)]
 %    \end{macrocode}
 %
 % \subsubsubsection{Subserieses}
@@ -21258,7 +21286,7 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
 % \subsubsubsection{annotation fields}
 %
 % Field annotation consist of csv list with a leading equation mark in \Kbd{<field>+an} fields. It
-% appears that they cannot reached via source map steps and are only available, if \Kbd{Biber}
+% appears that they cannot reached via source map steps and are only available, if \Biber
 % was called with \Option{--output-annotation-marker}. There we define those we want to evaluate
 % in source maps as lateral fields. No need to show them up in the \Kbd{*.bbl} file.
 %
@@ -21271,7 +21299,7 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
 %
 %</DBX>
 %
-% \subsubsection{Data model for \Kbd{Biber}'s tool mode}\label{kap:biberconf}
+% \subsubsection{Data model for \Biber's tool mode}\label{kap:biberconf}
 %
 % See explanation in \ref{kap:bibertool}.
 %<*BiberCONF>
@@ -22733,4 +22761,4 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
 % \end{appendices}
 % \Finale
 %
-\endinput   
+\endinput    

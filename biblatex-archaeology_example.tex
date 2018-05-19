@@ -15,10 +15,10 @@
     \makeatother
     \raggedright
 \else 
-    \usepackage{fontspec,polyglossia}
+    \usepackage{fontspec,polyglossia,noto}
+	\setmonofont{NotoMono}[HyphenChar=None]
     %\setdefaultlanguage{english}\setotherlanguage{german}
 	\setdefaultlanguage{german}\setotherlanguage{english}
-    \setmainfont{Noto Serif}
 % command is missing in some fonts:
 %    \DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\} 
 \fi
@@ -57,7 +57,7 @@
     %style=dguf-apa,
     %style=eaz,
     %style=eaz-alt,
-    style=foe,
+    %style=foe,
     %style=jb-halle,
     %style=jb-kreis-neuss,
     %style=karl,
@@ -77,7 +77,8 @@
 	%style=ufg-muenster-numeric,
     %style=ufg-muenster-verbose,
     %style=volkskunde,
-    %style=zaak,
+    %
+	style=zaak,
     %style=zaes,
 	bibencoding=utf8, % necessary if *.tex file is in other encoding
 ]{biblatex}
