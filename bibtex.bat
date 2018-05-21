@@ -1,3 +1,4 @@
+chcp 65001
 set INBIB=%USERPROFILE%/Documents/ingram/Texte/bib/ingram.bib
 call cleanup.bat
 lualatex -file-line-error biblatex-archaeology.dtx

@@ -17,7 +17,7 @@
 % \iffalse 
 %<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<package>\ProvidesPackage{biblatex-archaeology}
-%<package>[2018/05/19 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
+%<package>[2018/05/20 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
 %
 %<*driver>
 \listfiles
@@ -147,7 +147,7 @@
     pdfaconformance=B,
     pdfmetalang=en,
     pdfcaptionwriter={Ingram Braun},
-    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7},
+    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=ctan&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7},
     pdflicenseurl = {http://www.latex-project.org/lppl.txt},
     pdfsource={\jobname.dtx},
     pdftype=Software,
@@ -190,7 +190,7 @@
 % \changes{1.3}{2017/11/15}{\blx version check added}
 % \changes{1.3}{2017/11/16}{Added \Kbd{.lbx} pointer files for language variants}
 % \changes{1.3}{2017/11/16}{\Stark{Incompatible:} \Befehl{nametypedelim} removed}
-% \changes{2.0}{2017/11/19}{Fixed some formattings in style \Stil{karl}}
+% \changes{2.0}{2018/11/19}{Fixed some formatting in style \Stil{karl}}
 % \changes{2.0}{2018/03/20}{CTAN files in read-only mode (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/11}{issue \#11})}
 % \changes{2.0}{2018/03/20}{Some German expressions not translated into English (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/12}{issue \#12})}
 % \changes{2.0}{2018/03/21}{Added XML datamodel snippet for \Biber's tool mode (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/10}{issue \#10})}
@@ -200,6 +200,9 @@
 % \changes{2.0}{2018/05/10}{Added new style \Stil{ufg-muenster-numeric}}
 % \changes{2.0}{2018/05/10}{Separated \Kbd{development} from {master} branch on GitHub}
 % \changes{2.0}{2018/05/19}{Manual layout fixed}
+% \changes{2.0}{2018/05/21}{Suppress warnings of missing files \Kbd{\textless{}language\textgreater-archaeology-\textless{}style\textgreater.lbx} (\href{https://github.com/plk/biblatex/issues/745}{\blx issue 745})}
+% \changes{2.0}{2018/05/21}{Enhanced guidelines fpr style \Stil{mpk}}
+
 %
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -212,8 +215,8 @@
 % \IndexPrologue{\section*{Index}\addcontentsline{toc}{section}{Index}}
 % \GlossaryPrologue{\section*{Changelog}\addcontentsline{toc}{section}{Changelog}}
 %
-% \title{\LARGE\color{\headingscolor}The \textsf{\jobname} styles\thanks{This document corresponds to \archbib~v2.0, dated~2018/05/19.}}
-% \author{\Large Ingram Braun \\ \href{https://ingram-braun.net/\#ib_campaign=biblatex-archaeology-2.0\&ib_medium=manual\&ib_source=github\&ib_content=titlepage}{\Kbd{https://ingram-braun.net/}}}
+% \title{\LARGE\color{\headingscolor}The \textsf{\jobname} styles\thanks{This document corresponds to \archbib~v2.0, dated~2018/05/20.}}
+% \author{\Large Ingram Braun \\ \href{https://ingram-braun.net/\#ib_campaign=biblatex-archaeology-2.0\&ib_medium=manual\&ib_source=ctan\&ib_content=titlepage}{\Kbd{https://ingram-braun.net/}}}
 %
 % \maketitle
 %
@@ -310,11 +313,11 @@
 % \subsection{Help}\label{kap:help}
 % \par If there are any concerns you can reach me directly via the
 % \href{https://github.com/CarlOrff/biblatex-archaeology/issues}{GitHub tracker} or comment section on
-% a \href{https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github\&ib_content=helpsection}
+% a \href{https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=ctan\&ib_content=helpsection}
 %{small project page on my personal website}.
-% Alternatively you can e-mail me through the \href{https://ingram-braun.net/public/about/legal-notice/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github\&ib_content=helpsection}{contact form} there.
+% Alternatively you can e-mail me through the \href{https://ingram-braun.net/public/about/legal-notice/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=ctan\&ib_content=helpsection}{contact form} there.
 % Of course, \href{http://tex.stackexchange.com}{TeX Stack Exchange} is always worth a try.
-% \par The \href{https://ingram-braun.net/public/programming/tex/bibtex-database-latex-bibliography-form/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github\&ib_content=helpsection}{Online \blx Editor}
+% \par The \href{https://ingram-braun.net/public/programming/tex/bibtex-database-latex-bibliography-form/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=ctan\&ib_content=helpsection}{Online \blx Editor}
 % on my website provides the additional \archbib fields.
 % 
 % \section{Reference}
@@ -400,7 +403,7 @@
 %
 % \item[]\DescribeStyle{mpk}
 % The author date style of the
-% \Deutsch{Mitteilungen der Pr\"ahistorischen Kommission der \"Osterreichischen Akademie der Wissenschaften}.\autocite{guidelines:mpk:2013}
+% \Deutsch{Mitteilungen der Pr\"ahistorischen Kommission der \"Osterreichischen Akademie der Wissenschaften}.\autocite{guidelines:mpk:2016:de,guidelines:mpk:2016:en,guidelines:mpk:2013}
 %
 % \item[]\DescribeStyle{nnu}\label{kap:nnu}
 % The current author date style of the department of archaeology of the
@@ -1381,6 +1384,12 @@
 % \archbib styles never print languages. But in some cases the \Feld{language} field influences the localization of a particular entry.
 % Therefore it is useful to provide it, especially if it differs from the main document language.
 %
+% \subsection{Language files}
+%
+% The style specific language settings are stored in \Kbd{*.lbx} files. The naming of the files belonging to the generic styles is
+% \Kbd{\textless{}language\textgreater-archaeology.lbx}. The name scheme of the user styles' ones is \Kbd{\textless{}language\textgreater-\textless{}style\textgreater.lbx}.
+% You can add further language files without any registration in \archbib. As long as they follow the above naming they will be detected automatically. 
+%
 % \subsection{The \Feld{gender} field}
 %
 % In German documents the \Feld{gender} field is needed if the style replaces repeated names by \Deutsch{ders[elbe]},
@@ -1393,7 +1402,7 @@
 % in \Biber's \Kbd{*.conf} file. Find it in the file \Datei{biblatex-archaeology.conf} (or \ref{kap:biberconf}) and replace the 
 % \Kbd{<datamodel>\textellipsis</datamodel>} group in \Biber's \Kbd{*.conf} file by it. If you do not know where it is located, you
 % can retrieve the path by calling \Biber with the single option \Kbd{--}\Option{tool-config}. If you do not want to manipulate 
-% the original file, copy it to a new one and call \Biber with option \Kbd{--}\Option{configfile}\Kbd{ /path/custom/biber.conf}.
+% the original file, copy it to a new one and call \Biber with option \Kbd{--}\Option{configfile}\Kbd{ /path/to/custom/biber.conf}.
 %
 % \PrintChanges
 % \nocite{guidelines:ethno:ffm,guidelines:ethno:goe:2014,guidelines:aaa:2009,guidelines:rlm:trier,guidelines:kunstgeschichte:goettingen,guidelines:kunstgeschichte:freiburg,guidelines:aja,guidelines:schlagworte:dai,guidelines:egypt:goe,grando:bernhard:2003}
@@ -1401,7 +1410,7 @@
 %
 % \StopEventually{}
 %
-% \setcounter{IndexColumns}{2}\PrintIndex
+% %\setcounter{IndexColumns}{2}\PrintIndex
 %
 % \begin{appendices}
 %
@@ -1566,6 +1575,24 @@
   GENDER = {sm},
   KEYWORDS = {Spiel, Domino, Dormagen, Nordrhein-Westfalen, 19. Jahrhundert, Landwirtschaft, Archäologie},
   IDS = {ib:2016},
+}
+@ARTICLE{ib:domino:europa,
+  AUTHOR = {Braun, Ingram},
+  TITLE = {Die Kenntnis des Dominospiels in Europa: Archäologie, Geschichte, Bibliographie},
+  JOURNALTITLE = ufg-BoardGameStud,
+  LOCATION = {Berlin},
+  PUBLISHER = {de Gruyter},
+  LANGUAGE = {german},
+  GENDER = {sm},
+  KEYWORDS = {Spiel, Domino, Europa, Spielbücher, Grafik, Druck, Knochenschnitzerei, Archäologie},
+  SHORTTITLE = {Kenntnis},
+  VOLUME = 10,
+  DATE = 2016,
+  DOI = {10.1515/bgs-2016-0004},
+  URL = {https://www.degruyter.com/view/j/bgs.2016.10.issue-1/bgs-2016-0004/bgs-2016-0004.xml},
+  PAGES = {61--100},
+  IDS = {ib:2016a},
+  ISSN = {1604-7982},
 }
 @ARTICLE{ilinskaja:1965,
   AUTHOR = {Il’inskaja, V.~A.},
@@ -1820,7 +1847,6 @@
   SHORTFORM = {RGA},
   LANGUAGE = {german},
 }
-
 @ONLINE{kenmore,
   URL = {http://www.kenmore.org/kenmore/kp_arch.html},
   URLDATE = {2015-12-23},
@@ -2003,7 +2029,7 @@
 }
 @BOOK{tacitus:1981,
   AUTHOR = {Tacitus, P. Cornelius},
-  TITLE = {xGermania},
+  TITLE = {Germania},
   DATE = {1981},
   EDITOR = {Lindauer, Josef},
   SUBTITLE = {Bericht über Germanien},
@@ -7648,7 +7674,7 @@
 %
 %    \begin{macrocode}
 \ProvidesPackage{biblatex-archaeology}
-[2018/05/19 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
+[2018/05/20 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
 \RequirePackage{xpatch}
 %    \end{macrocode}
 %
@@ -8072,9 +8098,10 @@
 % \subsubsubsection{Local name formatting}
 %
 % \begin{macro}{\mkbibletterspacing}
-% A wrapper for letter spaced names.
+% A wrapper for letter spaced names. Falls back to small caps if \Befehl{textls} is not at hand.
 %    \begin{macrocode}
-\newcommand*{\mkbibletterspacing}[1]{\ifcsdef{textls}{\textls{#1}}{#1}}
+\newcommand*{\mkbibletterspacing}[1]{\textls{#1}}
+\providecommand*{\textls}[1]{\textsc{#1}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -10112,21 +10139,23 @@
 %    \end{macrocode}
 % \end{bibmacro}
 %
-% \begin{format}{extrayear}
-% No parentheses around \Feld{extrayear} if date lacks.
+% \begin{format}{extradate}
+% \changes{2.0}{2018/05/20}{Format \Feld{extradate} field instead of \Feld{extrayear}}
+% No parentheses around \Feld{extradate} if date lacks.
 %    \begin{macrocode}
-\DeclareFieldFormat*{extrayear}{\mknumalph{#1}}%
+\DeclareFieldFormat*{extradate}{\mknumalph{#1}}%
 %    \end{macrocode}
 % \end{format}
 %
 % \begin{macro}{\ifbibextrayear}
+% \changes{2.0}{2018/05/20}{Check for \Feld{extradate} field instead of \Feld{extrayear}}
 % \marg{true}\marg{false}
 % \changes{1.1}{2017/05/23}{new Boolean test (see \ref{kap:bool})}
 % Wether to print the extrayear field in the bibliography
 %    \begin{macrocode}
 \newcommand{\ifbibextrayear}[2]{%
      \ifboolexpr{
-        not test {\iffieldundef{extrayear}}
+        not test {\iffieldundef{extradate}}
         and
         test {\ifpositionlabeldate{location}}
         and
@@ -10215,6 +10244,7 @@
 %
 % \begin{bibmacro}{bibliographydate}
 % \changes{1.1}{2017/05/23}{Do not print \Feld{extrayear} field in verbose styles. (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/3}{issue \#3})}
+% \changes{2.0}{2018/05/20}{Print \Feld{extradate} field instead of \Feld{extrayear}}
 % We never have an empty date but a string like 'sine anno' or the \Feld{pubstate}.
 % The newsdate has always to be printed because the label contains the year only.
 %    \begin{macrocode}
@@ -10236,7 +10266,7 @@
                         {\printtext[missingfield]{\midsentence\printfield{pubstate}}}}%
                     {\printdate}%
                  \ifbibextrayear
-                    {\printfield{extrayear}}
+                    {\printfield{extradate}}
                     {}%
                 }%
             \ifeditionsuperscript{postdate}
@@ -11122,7 +11152,7 @@
 % \subsubsubsection{Label generation}
 %
 % \begin{format}{labeldate}
-% Changed. We only use date because it can happen that the \Feld{extrayear}
+% Changed. We only use date because it can happen that the \Feld{extradate}
 % has to be printed in the \Feld{location}/\Feld{date} block.
 %    \begin{macrocode}
 \DeclareLabeldate{%
@@ -11561,7 +11591,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-archaeology.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeobibstyletitle}
@@ -11581,7 +11611,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-comp-archaeology.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -11601,7 +11631,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-ibid-archaeology.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -11622,7 +11652,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-icomp-archaeology.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Datei{biblatex-archaeology.sty} always after a style.
@@ -11729,7 +11759,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{numeric-comp-archaeology.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\blxarch@fork@numeric}
@@ -11756,7 +11786,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-ibid-archaeology.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)] 
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -11777,7 +11807,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-trad2note-archaeology.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)] 
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -11844,7 +11874,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{aefkw.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -12023,7 +12053,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{afwl.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12241,7 +12271,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{amit.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12425,7 +12455,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{archa.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12653,7 +12683,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -12846,7 +12876,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-alt.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)] 
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -13051,7 +13081,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-apa.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)] 
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)] 
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -13424,7 +13454,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -13603,7 +13633,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz-alt.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -13865,7 +13895,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{foe.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -14118,7 +14148,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-halle.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -14358,7 +14388,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-kreis-neuss.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -14585,7 +14615,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{karl.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14747,7 +14777,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{maja.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -14944,7 +14974,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{mpk.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -15172,7 +15202,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{nnu.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -15404,7 +15434,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{offa.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15591,7 +15621,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-verbose.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15622,7 +15652,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-verbose.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15652,7 +15682,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-inline.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15896,7 +15926,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-verbose.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15927,7 +15957,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-inline.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -15956,7 +15986,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-inline.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16205,7 +16235,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-verbose.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16235,7 +16265,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-numeric.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16264,7 +16294,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-inline.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -16504,7 +16534,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{volkskunde.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % Load \Paket{biblatex-archaeology} after a style.
@@ -16674,7 +16704,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{zaak.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 % \begin{format}{bibtex}
@@ -16913,7 +16943,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{zaes.bbx}
-[2018/05/19 v2.0 biblatex-archaeology bibliography style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17138,7 +17168,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-archaeology.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -17158,7 +17188,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-comp-archaeology.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -17198,7 +17228,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-icomp-archaeology.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -17218,7 +17248,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{numeric-comp-archaeology.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -17246,7 +17276,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-ibid-archaeology.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -17266,7 +17296,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-trad2note-archaeology.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -17427,7 +17457,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{aefkw.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17447,7 +17477,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{afwl.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17471,7 +17501,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{amit.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17501,7 +17531,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{archa.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17531,7 +17561,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17551,7 +17581,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-alt.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17570,7 +17600,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-apa.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17616,7 +17646,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17642,7 +17672,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz-alt.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17662,7 +17692,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{foe.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17686,7 +17716,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-halle.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17706,7 +17736,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-kreis-neuss.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17737,7 +17767,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{karl.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17761,7 +17791,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{maja.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17781,7 +17811,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{mpk.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17819,7 +17849,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{nnu.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17839,7 +17869,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{offa.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17859,7 +17889,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-inline.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17879,7 +17909,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-numeric.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17899,7 +17929,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-verbose.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17952,7 +17982,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-numeric.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17972,7 +18002,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-inline.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -17992,7 +18022,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-verbose.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -18018,7 +18048,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-verbose.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -18044,7 +18074,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-inline.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -18064,7 +18094,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-inline.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -18084,7 +18114,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{volkskunde.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -18117,7 +18147,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{zaak.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -18137,7 +18167,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{zaes.cbx}
-[2018/05/19 v2.0 biblatex-archaeology citation style (IB)]
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -19337,13 +19367,12 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-archaeology.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % Use this file for all English spellings
 %    \begin{macrocode}
 \InheritBibliographyExtras{british}
-\InheritBibliographyStrings{british}
 \DeclareRedundantLanguages{english}{english,american,british,canadian,australian,newzealand,USenglish,UKenglish}
 %    \end{macrocode}
 %
@@ -19611,9 +19640,8 @@
 % \subsubsection{Pointer to \Datei{english-archaeology.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
 \InheritBibliographyExtras{english-archaeology}
-\InheritBibliographyStrings{english-archaeology}
 %    \end{macrocode}
 %
 %</PenglishLBX>
@@ -19623,7 +19651,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-archaeology.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
 %    \end{macrocode}
 %
 % Use this file for all German spellings
@@ -19768,9 +19796,9 @@
 % \subsubsection{Pointer to \Datei{german-archaeology.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{german-archaeology}
-\InheritBibliographyStrings{german-archaeology}
 %    \end{macrocode}
 %
 %</PgermanLBX>
@@ -19780,13 +19808,13 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-aefkw.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{nodate}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
-\InheritBibliographyStrings{german-archaeology}
 \DeclareBibliographyStrings{%
     inherit  = {german-archaeology},
     nodate   = {{no date}{n.d\adddot}},
@@ -19801,7 +19829,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{zaas-german.lbx}
-[2018/05/19 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
+[2018/05/20 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
 %    \end{macrocode}
 %
 % \begin{localization}{byeditor}
@@ -19834,7 +19862,6 @@
 % \begin{localization}{nodate}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
-\InheritBibliographyStrings{german-archaeology}
 \DeclareBibliographyStrings{%
     inherit = {german-archaeology},
     byeditor         = {{herausgegeben von}{hg\adddotspace von}},
@@ -19926,7 +19953,8 @@
 % \subsubsection{Pointer to \Datei{english-aefkw.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{english-aefkw}
 \InheritBibliographyStrings{english-aefkw}
 %    \end{macrocode}
@@ -19937,7 +19965,8 @@
 % \subsubsection{Pointer to \Datei{german-aefkw.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{german-aefkw}
 \InheritBibliographyStrings{german-aefkw}
 %    \end{macrocode}
@@ -19949,13 +19978,13 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-archa.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{urlseen}
 %    \begin{macrocode}
 \InheritBibliographyExtras{english-archaeology}
-\InheritBibliographyStrings{english-archaeology}
 \DeclareBibliographyStrings{%
     inherit  = {english-archaeology},
     urlseen  = {{last access}{last access}},
@@ -19970,7 +19999,7 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-archa.lbx}
-[2018/05/19 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
+[2018/05/20 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
 %    \end{macrocode}
 %
 % \begin{localization}{andothers}
@@ -19978,7 +20007,6 @@
 % \begin{localization}{urlseen}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
-\InheritBibliographyStrings{german-archaeology}
 \DeclareBibliographyStrings{%
     inherit  = {german-archaeology},
     andothers = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
@@ -19996,7 +20024,8 @@
 % \subsubsection{Pointer to \Datei{english-archa.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{english-archa}
 \InheritBibliographyStrings{english-archa}
 %    \end{macrocode}
@@ -20007,7 +20036,8 @@
 % \subsubsection{Pointer to \Datei{german-archa.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{german-archa}
 \InheritBibliographyStrings{german-archa}
 %    \end{macrocode}
@@ -20019,7 +20049,8 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-dguf-alt.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{andothers}
@@ -20032,7 +20063,6 @@
 % \begin{localization}{postdocthesis}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
-\InheritBibliographyStrings{german-archaeology}
 \DeclareBibliographyStrings{%
     inherit        = {german-archaeology},
     andothers = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
@@ -20060,7 +20090,8 @@
 % \subsubsection{Pointer to \Datei{german-dguf-alt.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{german-dguf-alt}
 \InheritBibliographyStrings{german-dguf-alt}
 %    \end{macrocode}
@@ -20072,7 +20103,8 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-dguf-apa.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -20105,7 +20137,8 @@
 % \subsubsection{Pointer to \Datei{english-dguf-apa.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{english-dguf-apa}
 \InheritBibliographyStrings{english-dguf-apa}
 %    \end{macrocode}
@@ -20117,13 +20150,13 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-eaz.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{subverbum}
 %    \begin{macrocode}
 \InheritBibliographyExtras{english-archaeology}
-\InheritBibliographyStrings{english-archaeology}
 \DeclareBibliographyStrings{%
     inherit    = {english-archaeology},
     subverbum  = {{keyword}{keyword}},
@@ -20138,13 +20171,13 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-eaz.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{subverbum}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
-\InheritBibliographyStrings{german-archaeology}
 \DeclareBibliographyStrings{%
     inherit    = {german-archaeology},
     subverbum  = {{Stichwort}{Stichwort}},
@@ -20158,7 +20191,8 @@
 % \subsubsection{Pointer to \Datei{english-eaz.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{english-eaz}
 \InheritBibliographyStrings{english-eaz}
 %    \end{macrocode}
@@ -20169,7 +20203,8 @@
 % \subsubsection{Pointer to \Datei{german-eaz.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{german-eaz}
 \InheritBibliographyStrings{german-eaz}
 %    \end{macrocode}
@@ -20181,13 +20216,12 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-foe.lbx}
-[2018/05/19 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
+[2018/05/20 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
 %    \end{macrocode}
 %
 % \begin{localization}{urlseen}
 %    \begin{macrocode}
 \InheritBibliographyExtras{english-archaeology}
-\InheritBibliographyStrings{english-archaeology}
 \DeclareBibliographyStrings{%
     inherit  = {english-archaeology},
     urlseen  = {{accessed}{accessed}},
@@ -20210,13 +20244,13 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-foe.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{urlseen}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
-\InheritBibliographyStrings{german-archaeology}
 \DeclareBibliographyStrings{%
     inherit  = {german-archaeology},
     urlseen  = {{Zugriff}{Zugriff}},
@@ -20238,7 +20272,8 @@
 % \subsubsection{Pointer to \Datei{english-foe.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{english-foe}
 \InheritBibliographyStrings{english-foe}
 %    \end{macrocode}
@@ -20249,7 +20284,8 @@
 % \subsubsection{Pointer to \Datei{german-foe.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{german-foe}
 \InheritBibliographyStrings{german-foe}
 %    \end{macrocode}
@@ -20261,14 +20297,14 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-jb-kreis-neuss.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{ibidem}
 % \begin{localization}{volume}
 %    \begin{macrocode}
 \InheritBibliographyExtras{english-archaeology}
-\InheritBibliographyStrings{english-archaeology}
 \DeclareBibliographyStrings{%
     inherit = {english-archaeology},
     ibidem  = {{ibidem}{ibidem}},
@@ -20285,14 +20321,14 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-jb-kreis-neuss.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{ibidem}
 % \begin{localization}{volume}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
-\InheritBibliographyStrings{german-archaeology}
 \DeclareBibliographyStrings{%
     inherit = {german-archaeology},
     ibidem  = {{ebenda}{ebenda}},
@@ -20308,7 +20344,8 @@
 % \subsubsection{Pointer to \Datei{english-jb-kreis-neuss.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{english-jb-kreis-neuss}
 \InheritBibliographyStrings{english-jb-kreis-neuss}
 %    \end{macrocode}
@@ -20319,7 +20356,8 @@
 % \subsubsection{Pointer to \Datei{german-jb-kreis-neuss.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{german-jb-kreis-neuss}
 \InheritBibliographyStrings{german-jb-kreis-neuss}
 %    \end{macrocode}
@@ -20331,14 +20369,14 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-karl.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{reprint}
 % \begin{localization}{urlfrom}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
-\InheritBibliographyStrings{german-archaeology}
 \DeclareBibliographyStrings{%
     inherit  = {german-archaeology},
     seenote  = {{wie Fu\ss{}note}{wie Fn.}},
@@ -20354,7 +20392,8 @@
 % \subsubsection{Pointer to \Datei{german-karl.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{german-karl}
 \InheritBibliographyStrings{german-karl}
 %    \end{macrocode}
@@ -20366,7 +20405,8 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-maja.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{byeditor}
@@ -20398,60 +20438,59 @@
 % \begin{localization}{editors}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
-\InheritBibliographyStrings{german-archaeology}
 \DeclareBibliographyStrings{%
-    inherit = {german-archaeology},
-    byeditor         = {{herausgegeben von}{hg\adddotspace von}},
-    byeditortr       = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
-                      {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
-    byeditorco       = {{herausgegeben und kommentiert von}%
-                      {hg\adddotspace und komm\adddot\ von}},
-    byeditoran       = {{herausgegeben und erl\"autert von}%
-                        {hg\adddotspace und erl\"aut\adddot\ von}},
-    byeditorin       = {{herausgegeben und mit einer Einleitung versehen von}%
-                        {hg\adddotspace und mit einer Einl\adddot\ vers\adddot\ von}},
-    byeditorfo       = {{herausgegeben und mit einem Vorwort versehen von}%
-                        {hg\adddotspace und mit einem Vorw\adddot\ vers\adddot\ von}},
-    byeditoraf       = {{herausgegeben und mit einem Nachwort versehen von}%
-                        {hg\adddotspace und mit einem Nachw\adddot\ vers\adddot\ von}},
-    byeditortrco     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und kommentiert von}%
-                        {hg., \lbx@sfromlang \"ubers\adddot\ und komm\adddot\ von}},
-    byeditortran     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und erl\"autert von}%
-                        {hg., \lbx@sfromlang \"ubers\adddot\ und erl\"aut\adddot\ von}},
-    byeditortrin     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einer Einleitung versehen von}%
-                        {hg., \lbx@sfromlang \"ubers\adddot\ und Einl\adddot\ von}},
-    byeditortrfo     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Vorwort versehen von}%
-                        {hg., \lbx@sfromlang \"ubers\adddot\ und Vorw\adddot\ von}},
-    byeditortraf     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Nachwort versehen von}%
-                        {hg., \lbx@sfromlang \"ubers\adddot\ und Nachw\adddot\ von}},
-    byeditorcoin     = {{herausgegeben, kommentiert und mit einer Einleitung versehen von}%
-                        {hg., komm\adddot\ und Einl\adddot\ von}},
-    byeditorcofo     = {{herausgegeben, kommentiert und mit einem Vorwort versehen von}%
-                        {hg., komm\adddot\ und Vorw\adddot\ von}},
-    byeditorcoaf     = {{herausgegeben, kommentiert und mit einem Nachwort versehen von}%
-                        {hg., komm\adddot\ und mit einem Nachw\adddot\ vers\adddot\ von}},
-    byeditoranin     = {{herausgegeben, erl\"autert und mit einer Einleitung versehen von}%
-                        {hg., erl\"aut\adddot\ und Einl\adddot\ von}},
-    byeditoranfo     = {{herausgegeben, erl\"autert und mit einem Vorwort versehen von}%
-                        {hg., erl\"aut\adddot\ und Vorw\adddot\ von}},
-    byeditoranaf     = {{herausgegeben, erl\"autert und mit einem Nachwort versehen von}%
-                        {hg., erl\"aut\adddot\ und Nachw\adddot\ von}},
-    byeditortrcoin   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einer Einleitung versehen von}%
-                        {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Einl\adddot\ von}},
-    byeditortrcofo   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Vorwort versehen von}%
-                        {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Vorw\adddot\ von}},
-    byeditortrcoaf   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Nachwort versehen von}%
-                        {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Nachw\adddot\ von}},
-    byeditortranin   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einer Einleitung versehen von}%
-                        {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Einl\adddot\ von}},
-    byeditortranfo   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Vorwort versehen von}%
-                        {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Vorw\adddot\ von}},
-    byeditortranaf   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Nachwort versehen von}%
+  inherit = {german-archaeology},
+  byeditor         = {{herausgegeben von}{hg\adddotspace von}},
+  byeditortr       = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
+                    {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
+  byeditorco       = {{herausgegeben und kommentiert von}%
+                    {hg\adddotspace und komm\adddot\ von}},
+  byeditoran       = {{herausgegeben und erl\"autert von}%
+                      {hg\adddotspace und erl\"aut\adddot\ von}},
+  byeditorin       = {{herausgegeben und mit einer Einleitung versehen von}%
+                      {hg\adddotspace und mit einer Einl\adddot\ vers\adddot\ von}},
+  byeditorfo       = {{herausgegeben und mit einem Vorwort versehen von}%
+                      {hg\adddotspace und mit einem Vorw\adddot\ vers\adddot\ von}},
+  byeditoraf       = {{herausgegeben und mit einem Nachwort versehen von}%
+                      {hg\adddotspace und mit einem Nachw\adddot\ vers\adddot\ von}},
+  byeditortrco     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und kommentiert von}%
+                      {hg., \lbx@sfromlang \"ubers\adddot\ und komm\adddot\ von}},
+  byeditortran     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und erl\"autert von}%
+                      {hg., \lbx@sfromlang \"ubers\adddot\ und erl\"aut\adddot\ von}},
+  byeditortrin     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einer Einleitung versehen von}%
+                      {hg., \lbx@sfromlang \"ubers\adddot\ und Einl\adddot\ von}},
+  byeditortrfo     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Vorwort versehen von}%
+                      {hg., \lbx@sfromlang \"ubers\adddot\ und Vorw\adddot\ von}},
+  byeditortraf     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Nachwort versehen von}%
+                      {hg., \lbx@sfromlang \"ubers\adddot\ und Nachw\adddot\ von}},
+  byeditorcoin     = {{herausgegeben, kommentiert und mit einer Einleitung versehen von}%
+                      {hg., komm\adddot\ und Einl\adddot\ von}},
+  byeditorcofo     = {{herausgegeben, kommentiert und mit einem Vorwort versehen von}%
+                      {hg., komm\adddot\ und Vorw\adddot\ von}},
+  byeditorcoaf     = {{herausgegeben, kommentiert und mit einem Nachwort versehen von}%
+                      {hg., komm\adddot\ und mit einem Nachw\adddot\ vers\adddot\ von}},
+  byeditoranin     = {{herausgegeben, erl\"autert und mit einer Einleitung versehen von}%
+                      {hg., erl\"aut\adddot\ und Einl\adddot\ von}},
+  byeditoranfo     = {{herausgegeben, erl\"autert und mit einem Vorwort versehen von}%
+                      {hg., erl\"aut\adddot\ und Vorw\adddot\ von}},
+  byeditoranaf     = {{herausgegeben, erl\"autert und mit einem Nachwort versehen von}%
+                      {hg., erl\"aut\adddot\ und Nachw\adddot\ von}},
+  byeditortrcoin   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einer Einleitung versehen von}%
+                      {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Einl\adddot\ von}},
+  byeditortrcofo   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Vorwort versehen von}%
+                      {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Vorw\adddot\ von}},
+  byeditortrcoaf   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Nachwort versehen von}%
+                      {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Nachw\adddot\ von}},
+  byeditortranin   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einer Einleitung versehen von}%
+                      {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Einl\adddot\ von}},
+  byeditortranfo   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Vorwort versehen von}%
+                      {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Vorw\adddot\ von}},
+  byeditortranaf   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Nachwort versehen von}%
                       {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Nachw\adddot\ von}},
-    byeditortr       = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
+  byeditortr       = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
                       {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
-    editor = {{Herausgeber}{Hg\adddot}},
-    editors = {{Herausgeber}{Hgg\adddot}},
+  editor = {{Herausgeber}{Hg\adddot}},
+  editors = {{Herausgeber}{Hgg\adddot}},
 }
 %    \end{macrocode}
 % \end{localization}
@@ -20488,7 +20527,8 @@
 % \subsubsection{Pointer to \Datei{german-maja.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{german-maja}
 \InheritBibliographyStrings{german-maja}
 %    \end{macrocode}
@@ -20500,13 +20540,13 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-mpk.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{urlseen}
 %    \begin{macrocode}
 \InheritBibliographyExtras{english-archaeology}
-\InheritBibliographyStrings{english-archaeology}
 \DeclareBibliographyStrings{%
     inherit  = {english-archaeology},
     urlseen  = {{last access}{last access}},
@@ -20521,7 +20561,8 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-mpk.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{andothers}
@@ -20529,12 +20570,12 @@
 % \begin{localization}{urlseen}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
-\InheritBibliographyStrings{german-archaeology}
 \DeclareBibliographyStrings{%
-    inherit  = {german-archaeology},
-    andothers = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
-    genitiveandothers = {{et\addabbrvspace al\adddot s}{et\addabbrvspace al\adddot s}},
-    urlseen  = {{letzter Zugriff}{letzter Zugriff}},
+  inherit  = {german-archaeology},
+  andothers = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
+  genitiveandothers = {{et\addabbrvspace al\adddot s}
+	                   {et\addabbrvspace al\adddot s}},
+  urlseen  = {{letzter Zugriff}{letzter Zugriff}},
 }
 %    \end{macrocode}
 % \end{localization}
@@ -20547,7 +20588,8 @@
 % \subsubsection{Pointer to \Datei{english-mpk.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{english-mpk}
 \InheritBibliographyStrings{english-mpk}
 %    \end{macrocode}
@@ -20558,7 +20600,8 @@
 % \subsubsection{Pointer to \Datei{german-mpk.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{german-mpk}
 \InheritBibliographyStrings{german-mpk}
 %    \end{macrocode}
@@ -20570,13 +20613,13 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-offa.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{urlfrom}
 %    \begin{macrocode}
 \InheritBibliographyExtras{english-archaeology}
-\InheritBibliographyStrings{english-archaeology}
 \DeclareBibliographyStrings{%
     inherit    = {english-archaeology},
     nodate     = {{no date}{n.d\adddot}},
@@ -20593,7 +20636,8 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-offa.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{page}
@@ -20601,7 +20645,6 @@
 % \begin{localization}{urlfrom}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
-\InheritBibliographyStrings{german-archaeology}
 \DeclareBibliographyStrings{%
     inherit    = {german-archaeology},
     nodate     = {{ohne Jahr}{o.J\adddot}},
@@ -20619,7 +20662,8 @@
 % \subsubsection{Pointer to \Datei{english-offa.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{english-offa}
 \InheritBibliographyStrings{english-offa}
 %    \end{macrocode}
@@ -20630,7 +20674,8 @@
 % \subsubsection{Pointer to \Datei{german-offa.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{german-offa}
 \InheritBibliographyStrings{german-offa}
 %    \end{macrocode}
@@ -20642,7 +20687,8 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-rgzm.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{ibidem}
@@ -20655,17 +20701,16 @@
 % \begin{localization}{phdthesis}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
-\InheritBibliographyStrings{german-archaeology}
 \DeclareBibliographyStrings{%
-    inherit        = {german-archaeology},
-    ibidem         = {{ebenda}{ebenda}},
-    reprint        = {{Nachdruck}{Nachdruck}},
-    bathesis       = {{Bachelorarbeit}{Bachelorarbeit}},
-    diplomathesis  = {{Diplomarbeit}{Diplomarbeit}},
-    magisterthesis = {{Magisterarbeit}{Magisterarbeit}},
-    mathesis       = {{Masterarbeit}{Masterarbeit}},
-    phdthesis      = {{Dissertation}{unpubl. Diss\adddot}},
-    postdocthesis  = {{Habilitationsschrift}{unpubl. Habilitationsschr\adddot}},
+  inherit        = {german-archaeology},
+  ibidem         = {{ebenda}{ebenda}},
+  reprint        = {{Nachdruck}{Nachdruck}},
+  bathesis       = {{Bachelorarbeit}{Bachelorarbeit}},
+  diplomathesis  = {{Diplomarbeit}{Diplomarbeit}},
+  magisterthesis = {{Magisterarbeit}{Magisterarbeit}},
+  mathesis       = {{Masterarbeit}{Masterarbeit}},
+  phdthesis      = {{Dissertation}{unpubl. Diss\adddot}},
+  postdocthesis  = {{Habilitationsschrift}{unpubl. Habilitationsschr\adddot}},
 }
 %    \end{macrocode}
 % \end{localization}
@@ -20683,7 +20728,8 @@
 % \subsubsection{Pointer to \Datei{german-rgzm.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{german-rgzm}
 \InheritBibliographyStrings{german-rgzm}
 %    \end{macrocode}
@@ -20695,13 +20741,13 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-zaak.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{urlfrom}
 %    \begin{macrocode}
 \InheritBibliographyExtras{english-archaeology}
-\InheritBibliographyStrings{english-archaeology}
 \DeclareBibliographyStrings{%
     inherit  = {english-archaeology},
     urlfrom  = {{In}{In}},
@@ -20716,7 +20762,8 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-zaak.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{page}
@@ -20724,7 +20771,6 @@
 % \begin{localization}{urlfrom}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
-\InheritBibliographyStrings{german-archaeology}
 \DeclareBibliographyStrings{%
     inherit  = {german-archaeology},
     page     = {{Seite}{p\adddot}},
@@ -20742,7 +20788,8 @@
 % \subsubsection{Pointer to \Datei{english-zaak.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{english-zaak}
 \InheritBibliographyStrings{english-zaak}
 %    \end{macrocode}
@@ -20753,7 +20800,8 @@
 % \subsubsection{Pointer to \Datei{german-zaak.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{german-zaak}
 \InheritBibliographyStrings{german-zaak}
 %    \end{macrocode}
@@ -20765,13 +20813,13 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{english-zaes.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{ibidem}
 %    \begin{macrocode}
 \InheritBibliographyExtras{english-archaeology}
-\InheritBibliographyStrings{english-archaeology}
 \DeclareBibliographyStrings{%
     inherit  = {english-archaeology},
     ibidem   = {{l.\,c\adddot}{l.\,c\adddot}},
@@ -20786,7 +20834,8 @@
 %
 %    \begin{macrocode}
 \ProvidesFile{german-zaes.lbx}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 %    \end{macrocode}
 %
 % \begin{localization}{byeditor}
@@ -20819,61 +20868,60 @@
 % \begin{localization}{ibidem}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
-\InheritBibliographyStrings{german-archaeology}
 \DeclareBibliographyStrings{%
-    inherit = {german-archaeology},
-    byeditor         = {{herausgegeben von}{hg\adddotspace von}},
-    byeditortr       = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
-                      {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
-    byeditorco       = {{herausgegeben und kommentiert von}%
-                      {hg\adddotspace und komm\adddot\ von}},
-    byeditoran       = {{herausgegeben und erl\"autert von}%
-                        {hg\adddotspace und erl\"aut\adddot\ von}},
-    byeditorin       = {{herausgegeben und mit einer Einleitung versehen von}%
-                        {hg\adddotspace und mit einer Einl\adddot\ vers\adddot\ von}},
-    byeditorfo       = {{herausgegeben und mit einem Vorwort versehen von}%
-                        {hg\adddotspace und mit einem Vorw\adddot\ vers\adddot\ von}},
-    byeditoraf       = {{herausgegeben und mit einem Nachwort versehen von}%
-                        {hg\adddotspace und mit einem Nachw\adddot\ vers\adddot\ von}},
-    byeditortrco     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und kommentiert von}%
-                        {hg., \lbx@sfromlang \"ubers\adddot\ und komm\adddot\ von}},
-    byeditortran     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und erl\"autert von}%
-                        {hg., \lbx@sfromlang \"ubers\adddot\ und erl\"aut\adddot\ von}},
-    byeditortrin     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einer Einleitung versehen von}%
-                        {hg., \lbx@sfromlang \"ubers\adddot\ und Einl\adddot\ von}},
-    byeditortrfo     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Vorwort versehen von}%
-                        {hg., \lbx@sfromlang \"ubers\adddot\ und Vorw\adddot\ von}},
-    byeditortraf     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Nachwort versehen von}%
-                        {hg., \lbx@sfromlang \"ubers\adddot\ und Nachw\adddot\ von}},
-    byeditorcoin     = {{herausgegeben, kommentiert und mit einer Einleitung versehen von}%
-                        {hg., komm\adddot\ und Einl\adddot\ von}},
-    byeditorcofo     = {{herausgegeben, kommentiert und mit einem Vorwort versehen von}%
-                        {hg., komm\adddot\ und Vorw\adddot\ von}},
-    byeditorcoaf     = {{herausgegeben, kommentiert und mit einem Nachwort versehen von}%
-                        {hg., komm\adddot\ und mit einem Nachw\adddot\ vers\adddot\ von}},
-    byeditoranin     = {{herausgegeben, erl\"autert und mit einer Einleitung versehen von}%
-                        {hg., erl\"aut\adddot\ und Einl\adddot\ von}},
-    byeditoranfo     = {{herausgegeben, erl\"autert und mit einem Vorwort versehen von}%
-                        {hg., erl\"aut\adddot\ und Vorw\adddot\ von}},
-    byeditoranaf     = {{herausgegeben, erl\"autert und mit einem Nachwort versehen von}%
-                        {hg., erl\"aut\adddot\ und Nachw\adddot\ von}},
-    byeditortrcoin   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einer Einleitung versehen von}%
-                        {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Einl\adddot\ von}},
-    byeditortrcofo   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Vorwort versehen von}%
-                        {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Vorw\adddot\ von}},
-    byeditortrcoaf   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Nachwort versehen von}%
-                        {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Nachw\adddot\ von}},
-    byeditortranin   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einer Einleitung versehen von}%
-                        {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Einl\adddot\ von}},
-    byeditortranfo   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Vorwort versehen von}%
-                        {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Vorw\adddot\ von}},
-    byeditortranaf   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Nachwort versehen von}%
-                      {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Nachw\adddot\ von}},
-    byeditortr       = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
-                      {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
-    editor = {{Herausgeber}{Hg\adddot}},
-    editors = {{Herausgeber}{Hgg\adddot}},
-    ibidem = {{\midsentence l.\,c\adddot}{l.\,c\adddot}},
+  inherit = {german-archaeology},
+  byeditor       = {{herausgegeben von}{hg\adddotspace von}},
+   byeditortr    = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
+                    {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
+  byeditorco     = {{herausgegeben und kommentiert von}%
+                    {hg\adddotspace und komm\adddot\ von}},
+  byeditoran     = {{herausgegeben und erl\"autert von}%
+                    {hg\adddotspace und erl\"aut\adddot\ von}},
+  byeditorin     = {{herausgegeben und mit einer Einleitung versehen von}%
+                    {hg\adddotspace und mit einer Einl\adddot\ vers\adddot\ von}},
+  byeditorfo     = {{herausgegeben und mit einem Vorwort versehen von}%
+                    {hg\adddotspace und mit einem Vorw\adddot\ vers\adddot\ von}},
+  byeditoraf     = {{herausgegeben und mit einem Nachwort versehen von}%
+                    {hg\adddotspace und mit einem Nachw\adddot\ vers\adddot\ von}},
+  byeditortrco   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und kommentiert von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und komm\adddot\ von}},
+  byeditortran   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und erl\"autert von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und erl\"aut\adddot\ von}},
+  byeditortrin   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einer Einleitung versehen von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und Einl\adddot\ von}},
+  byeditortrfo   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Vorwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und Vorw\adddot\ von}},
+  byeditortraf   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Nachwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und Nachw\adddot\ von}},
+  byeditorcoin   = {{herausgegeben, kommentiert und mit einer Einleitung versehen von}%
+                    {hg., komm\adddot\ und Einl\adddot\ von}},
+  byeditorcofo   = {{herausgegeben, kommentiert und mit einem Vorwort versehen von}%
+                    {hg., komm\adddot\ und Vorw\adddot\ von}},
+  byeditorcoaf   = {{herausgegeben, kommentiert und mit einem Nachwort versehen von}%
+                    {hg., komm\adddot\ und mit einem Nachw\adddot\ vers\adddot\ von}},
+  byeditoranin   = {{herausgegeben, erl\"autert und mit einer Einleitung versehen von}%
+                    {hg., erl\"aut\adddot\ und Einl\adddot\ von}},
+  byeditoranfo   = {{herausgegeben, erl\"autert und mit einem Vorwort versehen von}%
+                    {hg., erl\"aut\adddot\ und Vorw\adddot\ von}},
+  byeditoranaf   = {{herausgegeben, erl\"autert und mit einem Nachwort versehen von}%
+                    {hg., erl\"aut\adddot\ und Nachw\adddot\ von}},
+  byeditortrcoin = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einer Einleitung versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Einl\adddot\ von}},
+  byeditortrcofo = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Vorwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Vorw\adddot\ von}},
+  byeditortrcoaf = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Nachwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Nachw\adddot\ von}},
+  byeditortranin = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einer Einleitung versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Einl\adddot\ von}},
+  byeditortranfo = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Vorwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Vorw\adddot\ von}},
+  byeditortranaf = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Nachwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Nachw\adddot\ von}},
+  byeditortr     = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
+                    {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
+  editor = {{Herausgeber}{Hg\adddot}},
+  editors = {{Herausgeber}{Hgg\adddot}},
+  ibidem = {{\midsentence l.\,c\adddot}{l.\,c\adddot}},
 }
 %    \end{macrocode}
 % \end{localization}
@@ -20911,7 +20959,8 @@
 % \subsubsection{Pointer to \Datei{english-zaes.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{english-zaes}
 \InheritBibliographyStrings{english-zaes}
 %    \end{macrocode}
@@ -20922,7 +20971,8 @@
 % \subsubsection{Pointer to \Datei{german-zaes.lbx}}
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology localization (IB)]
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
 \InheritBibliographyExtras{german-zaes}
 \InheritBibliographyStrings{german-zaes}
 %    \end{macrocode}
@@ -21191,7 +21241,7 @@
 %<*DBX>
 %
 %    \begin{macrocode}
-[2018/05/19 v2.0 biblatex-archaeology data model (IB)]
+[2018/05/20 v2.0 biblatex-archaeology data model (IB)]
 %    \end{macrocode}
 %
 % \subsubsubsection{Subserieses}

@@ -38,6 +38,8 @@ my $time = time;
 my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
 $year += 1900;
 
+system_call( "chcp 65001" ) if $^O eq 'MSWin32';
+
 # pathes to local bib files
 my @bib;
 $bib[0] = $ENV{USERPROFILE}.'/Documents/ingram/Texte/bib/ingram.bib' if exists( $ENV{USERPROFILE} );
@@ -104,25 +106,25 @@ add_zip( "$package.dtx", $package );
 add_zip( "$package-nodoc.dtx", $package );
 add_zip( "$package.ins", $package );
 add_zip( "$package.conf", $package );
-add_zip( "README.md", $package );
+my $markdown = add_zip( "README.md", $package );
 add_zip( "$package.pdf", $package );
 add_zip( $expltex, $expldir );
 
-# We add a README.html for optimized backlinks from CTAN mirrors
-my $readmemd = FileHandle->new('README.md', O_RDONLY);
-my $markdown;
-while( <$readmemd> ) { $markdown .= $_ }
-undef $readmemd;      # automatically closes the file
-my $readmehtml = FileHandle->new('README.html', O_WRONLY|O_TRUNC|O_CREAT);
+# We add a README.htm for optimized backlinks from CTAN mirrors
+my $html = 'README.htm';
+my $readmehtml = FileHandle->new($html, O_RDWR|O_TRUNC_|O_CREAT);
 if ( defined $readmehtml ) {
+	$markdown =~ s/\bib_medium=readme\.md\b/'ib_medium='.lc($html)/egs;
 	$markdown = markdown( $markdown, {
         empty_element_suffix => '>',
         tab_width => 5,
     } );
 	
+	finish( "Could not populate markdown file $html!" ) if length $markdown < 100;
 	print $readmehtml '<!doctype html><html><meta charset="utf-8"></html><body>' . $markdown . '</body>';
-	add_zip( "README.html", $package );
+	add_zip( $html, $package );
 }
+else { finish( "Could not open $html: $!" ) }
 undef $readmehtml;      # automatically closes the file
 
 # generate example PDF for every style
@@ -137,8 +139,8 @@ undef $eh;       # automatically closes the file
 
 foreach my $style ( @styles ) {
 
-   $example =~ s/ingram-braun-local\.sty/this-file-does-not.exist/; # use package databases
-    $example =~ s/\\usepackage((?:(?!\\usepackage).)*)\{biblatex\}/\\usepackage[style=$style,backend=biber]{biblatex}/s;
+   $example =~ s/ingram-braun-local\.sty/this-file-does-not.exist/; # for test purposes: use package databases
+    $example =~ s/\\usepackage((?:(?!\\usepackage).)*)\{biblatex\}/\\usepackage[style=$style]{biblatex}/s;
     my $jobname = $style . "-example";
     $eh = FileHandle->new( "$jobname.tex", O_WRONLY|O_CREAT );
     
@@ -196,24 +198,31 @@ sub add_zip {
     my $filename = shift;
     my $dir = shift;	
           
+	add_log("Trying to open file ", $filename, "\n");
     if ($filename !~ /\.pdf$/) {
 
         my $handle = FileHandle->new($filename, O_RDONLY);
         
         if (defined $handle) {
             my $text;
-            while(<$handle>) {$text .= $_}
+			
+            read( $handle, $text, -s $filename );
             undef $handle;       # automatically closes the file
+			
+			add_log("Number of characters: ", length $text, "\n");
+			finish( "FATAL ERROR: empty file $filename" ) if length $text  < 1;
         
             # Ensure proper UTF-8 encoding and UNIX-like linebreaks.
             $text =~ s/\n/$newline/gs;
         
             my @lines = split( $newline, $text );
-            add_log("Number of lines: ", $#lines, "\n");
+            add_log("Number of lines: ", scalar @lines, "\n");
+			finish( "FATAL ERROR: no content to store in file '$filename'" ) if scalar @lines  < 1;
+			
             foreach my $line (@lines) {
                 my $line =
                     eval { decode( 'UTF-8', $line, Encode::FB_CROAK ) }
-                    or add_log("Could not decode string $line: $@\n") if length $line > 0;
+                    or finish("FATAL ERROR: Could not decode string $line: $@\n") if length $line > 0;
             }
             
             my $member = $zip->addString( $text, "/$dir/$filename", COMPRESSION_LEVEL_BEST_COMPRESSION );
@@ -222,15 +231,21 @@ sub add_zip {
 			$member->unixFileAttributes( 0644 ); # -rw-r--r--
 			
             add_log("File $filename successfully added to ZIP archive.\n");
+			return $text;
+			
         }
         else {
-            finish("Could not open $filename: $!");
+            finish("FATAL ERROR: Could not open $filename: $!");
         }
+		
+		
 	}
     else {
 
         $zip->addFile( $filename, "/$dir/$filename", COMPRESSION_LEVEL_BEST_COMPRESSION );
         add_log("PDF file $filename successfully added to ZIP archive.\n");
+		
+		return "";
     }
 }
 
@@ -285,7 +300,7 @@ sub finish {
 		print $logfh $log;
 		die "\n$log";
 	}
-	else {die "Could not write build log: $!"}
+	else {die "FATAL ERROR: Could not write build log: $!"}
 }
 
 # call arg1 on command line and log result

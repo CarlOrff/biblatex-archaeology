@@ -1,4 +1,5 @@
 REM install the biblatex-archaeology package
+chcp 65001
 call cleanup.bat
 call bibtex.bat
 del biblatex-archaeology.pdf

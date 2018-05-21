@@ -1,4 +1,6 @@
-REM install the biblatex-archaeology package 
+REM install the biblatex-archaeology package
+REM UTF-8
+chcp 65001
 
 REM remove outdated files
 call cleanup.bat
