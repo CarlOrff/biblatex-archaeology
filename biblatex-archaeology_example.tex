@@ -3,7 +3,7 @@
 % no fontenc support by tex4ht:
 \ifdefined\HCode% detect tex4ht
     \usepackage[T1]{fontenc}
-	\usepackage[utf8]{inputenc} 
+    \usepackage[utf8]{inputenc} 
     %\usepackage[ansinew]{inputenc}
     \usepackage[USenglish,nswissgerman]{babel}
     \usepackage{lmodern}
@@ -16,9 +16,9 @@
     \raggedright
 \else 
     \usepackage{fontspec,polyglossia,noto}
-	\setmonofont{NotoMono}[HyphenChar=None]
+    \setmonofont{NotoMono}[HyphenChar=None]
     %\setdefaultlanguage{english}\setotherlanguage{german}
-	\setdefaultlanguage{german}\setotherlanguage{english}
+    \setdefaultlanguage{german}\setotherlanguage{english}
 % command is missing in some fonts:
 %    \DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\} 
 \fi
@@ -39,13 +39,14 @@
     %style=historische-zeitschrift,
     %style=ijsra,
     %style=musuos,
-	%style=numeric-comp,
+    %style=numeric-comp,
     %style=verbose-trad1,
     %style=verbose-trad2,
     %style=verbose-trad3,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %style=authoryear-archaeology,
     %style=authoryear-ibid-archaeology,
-	%style=numeric-comp-archaeology,
+    %style=numeric-comp-archaeology,
     %style=verbose-trad2note-archaeology,
     %style=verbose-ibid-archaeology,
     %style=aefkw,
@@ -63,30 +64,31 @@
     %style=karl,
     %style=kunde,
     %style=maja,
-    style=mpk,
+    %style=mpk,
+    style=mpkoeaw,
     %style=nnu,
     %style=nnu-alt,
     %style=offa,
     %style=rgk-inline,
-	%style=rgk-numeric,
+    %style=rgk-numeric,
     %style=rgk-verbose,
     %style=rgzm-inline,
-	%style=rgzm-numeric,
+    %style=rgzm-numeric,
     %style=rgzm-verbose,
     %style=ufg-muenster-inline,
-	%style=ufg-muenster-numeric,
+    %style=ufg-muenster-numeric,
     %style=ufg-muenster-verbose,
     %style=volkskunde,
     %style=zaak,
     %style=zaes,
-	bibencoding=utf8, % necessary if *.tex file is in other encoding
+    bibencoding=utf8, % necessary if *.tex file is in other encoding
 ]{biblatex}
 \providetoggle{archbool:shortseries}
 \providetoggle{archbool:shortjournal}
 \providecommand{\ResolveBibtexStrings}{
     \ifboolexpr{
-		togl {archbool:shortseries}
-		or
+        togl {archbool:shortseries}
+        or
         togl {archbool:shortjournal}
     }
         {\addbibresource{biblatex-archaeology-strings-rgk.bib}}
@@ -107,23 +109,22 @@
 \usepackage[useregional]{datetime2}
 \let\today\DTMnow
 \ifcsdef{archaeobibstyletitle}
-    {\def\explhead{\archaeobibstyletitle\ (\texttt{bibstyle})\\\archaeocitestyletitle\ (\texttt{citestyle})}}
+    {\def\explhead{\scriptsize{\texttt{bibstyle}: \archaeobibstyletitle\\\texttt{citestyle}: \archaeocitestyletitle}}}
     {\def\explhead{no biblatex-archaeology style}}
 \title{biblatex-archaeology example document}
 \subtitle{\explhead}
 \author{Ingram Braun}
       
 % technical expressions
-\newcommand{\Befehl}[1]{\texttt{\textbackslash#1}}
-\newcommand{\Typ}[1]{\texttt{\symbol{64}#1}}
-\newcommand{\Feld}[1]{\texttt{#1}}
+\newcommand*{\Befehl}[1]{\texttt{\textbackslash#1}}
+\newcommand*{\Typ}[1]{\texttt{\symbol{64}#1}}
+\newcommand*{\Feld}[1]{\texttt{#1}}
 
 \newcommand{\exmplwarn}[1]{\textcolor{red}{\Huge!} #1\\}
 
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
-%\DefineGenitiveApostropheChars{german}{r}
 
 %%% END EXPERIMENTAL CODE HERE:
 \makeatother
@@ -193,30 +194,30 @@
     \item[\Befehl{citeurl}] \citeurl{kenmore}
     \item[\Befehl{fullcite}] \fullcite{auler:hiller:2015}.
     \item[\Befehl{footfullcite}] \footfullcite[159--187]{auler:hiller:2015}.
-	\ifcsdef{shortformcite}
-		{\item[\Befehl{shortformcite}] \shortformcite[433]{bauchhenss:et:al:1978}}
-		{\texfbf{undefined!}}%
-	\ifcsdef{shortformcites}
-		{\item[\Befehl{shortformcites}] \shortformcites[433]{bauchhenss:et:al:1978}[501]{authen-blom:1989}}
-		{\texfbf{undefined!}}%
-	\ifcsdef{sfcite}
-		{\item[\Befehl{sfcite}] \sfcite[433]{bauchhenss:et:al:1978}}
-		{\texfbf{undefined!}}%
-	\ifcsdef{sfcites}
-		{\item[\Befehl{sfcites}] \sfcites[433]{bauchhenss:et:al:1978}[501]{authen-blom:1989}}
-		{\texfbf{undefined!}}%
-	\ifcsdef{posscite}
-		{\item[\Befehl{posscite}] \posscite[48]{auler:hiller:2015a}}
-		{\texfbf{undefined!}}%
-	\ifcsdef{posscites}
-		{\item[\Befehl{posscites}] \posscites[48]{auler:hiller:2015a}[19]{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
-		{\texfbf{undefined!}}%
-	\ifcsdef{Posscite}
-		{\item[\Befehl{Posscite}] \Posscite[48]{auler:hiller:2015a}}
-		{\texfbf{undefined!}}%
-	\ifcsdef{Posscites}
-		{\item[\Befehl{Posscites}] \Posscites[48]{auler:hiller:2015a}[19]{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
-		{\texfbf{undefined!}}%
+    \ifcsdef{shortformcite}
+        {\item[\Befehl{shortformcite}] \shortformcite[433]{bauchhenss:et:al:1978}}
+        {\texfbf{undefined!}}%
+    \ifcsdef{shortformcites}
+        {\item[\Befehl{shortformcites}] \shortformcites[433]{bauchhenss:et:al:1978}[501]{authen-blom:1989}}
+        {\texfbf{undefined!}}%
+    \ifcsdef{sfcite}
+        {\item[\Befehl{sfcite}] \sfcite[433]{bauchhenss:et:al:1978}}
+        {\texfbf{undefined!}}%
+    \ifcsdef{sfcites}
+        {\item[\Befehl{sfcites}] \sfcites[433]{bauchhenss:et:al:1978}[501]{authen-blom:1989}}
+        {\texfbf{undefined!}}%
+    \ifcsdef{posscite}
+        {\item[\Befehl{posscite}] \posscite[48]{auler:hiller:2015a}}
+        {\texfbf{undefined!}}%
+    \ifcsdef{posscites}
+        {\item[\Befehl{posscites}] \posscites[48]{auler:hiller:2015a}[19]{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
+        {\texfbf{undefined!}}%
+    \ifcsdef{Posscite}
+        {\item[\Befehl{Posscite}] \Posscite[48]{auler:hiller:2015a}}
+        {\texfbf{undefined!}}%
+    \ifcsdef{Posscites}
+        {\item[\Befehl{Posscites}] \Posscites[48]{auler:hiller:2015a}[19]{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
+        {\texfbf{undefined!}}%
     \item[\Befehl{footcite}] \footcites{auler:hiller:2015}{harsdoerffer:1656}
 \end{enumerate}
 

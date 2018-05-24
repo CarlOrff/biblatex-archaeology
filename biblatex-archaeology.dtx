@@ -147,7 +147,7 @@
     pdfaconformance=B,
     pdfmetalang=en,
     pdfcaptionwriter={Ingram Braun},
-    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=ctan&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7},
+    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7},
     pdflicenseurl = {http://www.latex-project.org/lppl.txt},
     pdfsource={\jobname.dtx},
     pdftype=Software,
@@ -201,7 +201,7 @@
 % \changes{2.0}{2018/05/10}{Separated \Kbd{development} from {master} branch on GitHub}
 % \changes{2.0}{2018/05/19}{Manual layout fixed}
 % \changes{2.0}{2018/05/21}{Suppress warnings of missing files \Kbd{\textless{}language\textgreater-archaeology-\textless{}style\textgreater.lbx} (\href{https://github.com/plk/biblatex/issues/745}{\blx issue 745})}
-% \changes{2.0}{2018/05/21}{New style \Stil{mpk-ii}}
+% \changes{2.0}{2018/05/21}{New style \Stil{mpkoeaw}}
 
 %
 % \GetFileInfo{biblatex-archaeology.sty}
@@ -216,7 +216,7 @@
 % \GlossaryPrologue{\section*{Changelog}\addcontentsline{toc}{section}{Changelog}}
 %
 % \title{\LARGE\color{\headingscolor}The \textsf{\jobname} styles\thanks{This document corresponds to \archbib~v2.0, dated~2018/05/20.}}
-% \author{\Large Ingram Braun \\ \href{https://ingram-braun.net/\#ib_campaign=biblatex-archaeology-2.0\&ib_medium=manual\&ib_source=ctan\&ib_content=titlepage}{\Kbd{https://ingram-braun.net/}}}
+% \author{\Large Ingram Braun \\ \href{https://ingram-braun.net/\#ib_campaign=biblatex-archaeology-2.0\&ib_medium=manual\&ib_source=github\&ib_content=titlepage}{\Kbd{https://ingram-braun.net/}}}
 %
 % \maketitle
 %
@@ -313,11 +313,11 @@
 % \subsection{Help}\label{kap:help}
 % \par If there are any concerns you can reach me directly via the
 % \href{https://github.com/CarlOrff/biblatex-archaeology/issues}{GitHub tracker} or comment section on
-% a \href{https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=ctan\&ib_content=helpsection}
+% a \href{https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github\&ib_content=helpsection}
 %{small project page on my personal website}.
-% Alternatively you can e-mail me through the \href{https://ingram-braun.net/public/about/legal-notice/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=ctan\&ib_content=helpsection}{contact form} there.
+% Alternatively you can e-mail me through the \href{https://ingram-braun.net/public/about/legal-notice/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github\&ib_content=helpsection}{contact form} there.
 % Of course, \href{http://tex.stackexchange.com}{TeX Stack Exchange} is always worth a try.
-% \par The \href{https://ingram-braun.net/public/programming/tex/bibtex-database-latex-bibliography-form/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=ctan\&ib_content=helpsection}{Online \blx Editor}
+% \par The \href{https://ingram-braun.net/public/programming/tex/bibtex-database-latex-bibliography-form/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github\&ib_content=helpsection}{Online \blx Editor}
 % on my website provides the additional \archbib fields.
 % 
 % \section{Reference}
@@ -366,8 +366,9 @@
 % The author date style of the \Deutsch{Eurasien-Abteilung des Deutschen Arch\"aologischen Instituts}.\autocite{guidelines:amit:2002}
 %
 % \item[]\DescribeStyle{archa}
-% The author date style of the Austrian journal \Deutsch{Archaeologia Austriaca}
-% (ArchA).\autocites{guidelines:austriaca:2013}{guidelines:austriaca:de}{guidelines:austriaca:en}
+% The now obsolete author date style of the Austrian journal \Deutsch{Archaeologia Austriaca}
+% (ArchA).\autocites{guidelines:austriaca:2013}{guidelines:austriaca:de}{guidelines:austriaca:en} The current style is identical with
+% \Deutsch{Mitteilungen der Pr\"ahistorischen Kommission der \"Osterreichischen Akademie der Wissenschaften} (\Stil{mpkoeaw}).
 %
 % \item[]\DescribeStyle{dguf}
 % An obsolete author date style of the \Deutsch{Deutsche Gesellschaft f\"ur Ur- und Fr\"uhgeschichte}.\autocite{guidelines:dguf:neu} Their
@@ -402,8 +403,13 @@
 % The verbose style of the \Deutsch{M\"unchner Arbeitskreis Junge Aegyptologie}.\autocite{guidelines:maja:2015}
 %
 % \item[]\DescribeStyle{mpk}
-% The author date style of the
-% \Deutsch{Mitteilungen der Pr\"ahistorischen Kommission der \"Osterreichischen Akademie der Wissenschaften}.\autocite{guidelines:mpk:2016:de,guidelines:mpk:2016:en,guidelines:mpk:2013}
+% The obsolete author date style of the
+% \Deutsch{Mitteilungen der Pr\"ahistorischen Kommission der \"Osterreichischen Akademie der Wissenschaften}.\autocite{guidelines:mpk:2013}
+%
+% \item[]\DescribeStyle{mpkoeaw}
+% The current author date style of the
+% \Deutsch{Mitteilungen der Pr\"ahistorischen Kommission der \"Osterreichischen Akademie der Wissenschaften}.\autocite{guidelines:mpk:2016:de,guidelines:mpk:2016:en}
+% It is structurally different from a \blx point of view, therefore it was forked.
 %
 % \item[]\DescribeStyle{nnu}\label{kap:nnu}
 % The current author date style of the department of archaeology of the
@@ -522,7 +528,7 @@
 % \item[]\DescribeOption{origfields}=\meta{bool}\\
 % If \meta{true}, an expression indicating a reprint is printed.
 %
-% \item[]\DescribeOption{origfields}=\meta{bool}\\
+% \item[]\DescribeOption{pagesfirst}=\meta{bool}\\
 % If \meta{true}, the \Feld{pages} field is printed ahead of the location/publisher block.
 %
 % \item[]\DescribeOption{positionlabeldate}=\meta{key}\\
@@ -604,6 +610,7 @@
 %       \tcblower%
 %       G. Popp (ed.) 2011: A title \Stark{(Conference proceedings Oxford 2010)}. Oxford.
 %   \end{Beispiel}
+% This option is also settable on a per-entry basis.
 %
 % \item[]\DescribeOption{titlenote}=\meta{bool}\\
 % If \meta{true}, the \Feld{titleaddon} is replaced by a shorthand:
@@ -612,6 +619,7 @@
 %    \tcblower%
 %    G. Popp (ed.) 2011: A title. \Stark{Conf. Oxford}. Oxford.
 % \end{Beispiel}
+% This option is also settable on a per-entry basis.
 %
 % \item[]\DescribeOption{useeventdate}=\meta{bool}\\
 % If \meta{true}, \Feld{eventdate} is used in \Feld{titlenote}s.
@@ -694,6 +702,12 @@
 % \subsubsection{Entry options}
 %
 % \begin{itemize}
+%
+% \item[]\DescribeOption{titlebrackets}=\meta{bool}\\
+% Like global option \Option{titlebrackets} (\ref{kap:pkgopt}) but on a per-entry basis.
+%
+% \item[]\DescribeOption{titlenote}=\meta{bool}\\
+% Like global option \Option{titlenote} (\ref{kap:pkgopt}) but on a per-entry basis.
 %
 % \item[]\DescribeOption{uselabeltitle}=\meta{bool}\\
 % If \meta{true}, back references in \Stil{verbose-trad2note} have a \Feld{shorttitle} (see \ref{kap:trad2note}).
@@ -1038,6 +1052,9 @@
 %
 % \item[]\DescribeMacro{\articlesubtitlepunct}\\
 % The punctuation between \Feld{title} and \Feld{subtitle} in journal articles if it is different than in books and other types.
+%
+% \item[]\DescribeMacro{\articletitlepunct}\\
+% The punctuation between \Feld{title} and \Feld{journaltitle}.
 %
 % \item[]\DescribeMacro{\\booklabelnamepunct}\\
 % Similar to \Befehl{labelnamepunct} but intended for the \Feld{bookauthor}/\Feld{editor} block.
@@ -1938,7 +1955,7 @@
   DATE = {1993},
   SUBTITLE = {The Middling Sort},
   PUBLISHER = {Council for British Archaeology},
-  SERIES = {CBA Research Report},
+  SERIES = ufg-CBAResearchReport,
   NUMBER = {86},
   LOCATION = {Walmgate},
   KEYWORDS = {Anthropologie, Osteologie, Paläodemographie, Paläopathologie,
@@ -1950,8 +1967,8 @@
   SERIES = ufg-HomoludensSondernr,
   DATE = {1999},
   TITLE = {5000 Jahre Würfelspiel},
-  TITLEADDON = {Katalog zur Austellung im Schloß Kleßheim vom 31. August--31. Oktober 1999 und im Casino Linz (Casineum) vom 12. November--9. Dezember 1999 sowie 2000 im Casino Baden},
-  NUMBER = {9},
+  TITLEADDON = {Katalog zur Ausstellung im Schloß Kleßheim vom 31. August--31. Oktober 1999 und im Casino Linz (Casineum) vom 12. November--9. Dezember 1999 sowie 2000 im Casino Baden},
+  NUMBER = 9,
   EDITORTYPE = {redactor},
   LOCATION = {Salzburg},
   PUBLISHER = {Institut für Spielforschung und Spielpädagogik der Universität Mozarteum Salzburg},
@@ -2967,6 +2984,7 @@
 % \StringBox{\Stark{\texttt{ufg-CasopisZgodovinoinNarodopisje}}}{Časopis za Zgodovino in Narodopisje}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-Castrelos}}}{Castrelos. Revista do Museo Municipal \mkbibquote{Quiñones de León}}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-CastrumNovum}}}{Castrum Novum}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-CBAResearchReport}}}{CBA Research Report}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-CEDAC}}}{CÉDAC \mkbibparens{Centre d'Études et de Documentation Archéologique de la Conservation de Carthage} Carthage Bulletin}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-Celticum}}}{Celticum}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-CentroStudCeramici}}}{Centro di Studi Ceramici. Bollettino Mensile del Laboratorio Sperimentale di S. Salvatore in Lauro}\\[1.3ex]
@@ -4442,6 +4460,7 @@
 % \StringBox{\Stark{\texttt{ufg-SchwaebMus}}}{Das Schwäbische Museum. Zeitschrift für Kultur, Kunst und Geschichte Schwabens}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-SchweizerMuenzbl}}}{Schweizer Münzblätter}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-SchweizerNumRundschau}}}{Schweizerische Numismatische Rundschau}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-ScienEditor}}}{Science Editor}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-Sciliar}}}{Der Sciliar. Illustrierte Monatsschrift für Heimat-und Volkskunde}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-ScottishArchForum}}}{Scottish Archaeological Forum}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-ScottishArchRev}}}{Scottish Archaeological Review}\\[1.3ex]
@@ -5526,6 +5545,7 @@
 % \StringBox{Časopis Zemského Musea v Brně}{\Stark{\texttt{ufg-CasopisZemskehoMusBrno}}}\\[1.3ex]
 % \StringBox{Castrelos. Revista do Museo Municipal \mkbibquote{Quiñones de León}}{\Stark{\texttt{ufg-Castrelos}}}\\[1.3ex]
 % \StringBox{Castrum Novum}{\Stark{\texttt{ufg-CastrumNovum}}}\\[1.3ex]
+% \StringBox{CBA Research Report}{\Stark{\texttt{ufg-CBAResearchReport}}}\\[1.3ex]
 % \StringBox{CÉDAC \mkbibparens{Centre d'Études et de Documentation Archéologique de la Conservation de Carthage} Carthage Bulletin}{\Stark{\texttt{ufg-CEDAC}}}\\[1.3ex]
 % \StringBox{Celticum}{\Stark{\texttt{ufg-Celticum}}}\\[1.3ex]
 % \StringBox{Centro di Studi Ceramici. Bollettino Mensile del Laboratorio Sperimentale di S. Salvatore in Lauro}{\Stark{\texttt{ufg-CentroStudCeramici}}}\\[1.3ex]
@@ -6999,6 +7019,7 @@
 % \StringBox{Schwabenland}{\Stark{\texttt{ufg-Schwabenland}}}\\[1.3ex]
 % \StringBox{Schweizer Münzblätter}{\Stark{\texttt{ufg-SchweizerMuenzbl}}}\\[1.3ex]
 % \StringBox{Schweizerische Numismatische Rundschau}{\Stark{\texttt{ufg-SchweizerNumRundschau}}}\\[1.3ex]
+% \StringBox{Science Editor}{\Stark{\texttt{ufg-ScienEditor}}}\\[1.3ex]
 % \StringBox{Scottish Archaeological Forum}{\Stark{\texttt{ufg-ScottishArchForum}}}\\[1.3ex]
 % \StringBox{Scottish Archaeological Review}{\Stark{\texttt{ufg-ScottishArchRev}}}\\[1.3ex]
 % \StringBox{Seminarium Kondakovianum. Recueil d'Études. Archéologie, Histoire de l'Art, Études Byzantines}{\Stark{\texttt{ufg-SeminariumKondakovianum}}}\\[1.3ex]
@@ -7636,7 +7657,7 @@
 % \end{macro}
 %
 % \begin{macro}{\blxarch@nextnamefirstsep}
-% \marg{string} \\
+% \marg{string}\\
 % Looks for the position of the argument in \Befehl{blxarch@currstr}, a
 % local buffer in \Befehl{blxarch@giveninitialletters}.
 %    \begin{macrocode}
@@ -7695,6 +7716,7 @@
 %    \begin{macrocode}
     abbreviate=true,      % abbreviates bibstrings
     arxiv=pdf,            % although I've never seen an arXiv link we point them to PDFs.
+    autopunct=true,       % wether cite commands should scan ahead for punctuation
     autolang=hyphen,      % language-dependent hyphenation rules
     backref=false,        % wether to print back references in the bilbiography
     block=none,           % no extra spacing between blocks
@@ -7761,7 +7783,9 @@
 %    \end{macrocode}
 % Replace literal thesis types like \enquote{Diss. phil} with \Befehl{bibstring}.
 %    \begin{macrocode}
-        \map[overwrite]{
+        \map[
+            overwrite
+        ]{
             \pertype{thesis}
             \step[
                 fieldsource=type,
@@ -7771,9 +7795,55 @@
             ]
         }
 %    \end{macrocode}
+% Find exhibitions lacking \Feld{eventtype} field.
+%    \begin{macrocode}
+        \map[
+            overwrite=true,
+            foreach={titleaddon,booktitleaddon,maintitleaddon},
+        ]{
+			\pernottype{article}
+            \pernottype{review}
+            \pernottype{reference}
+            \pernottype{inreference}
+            \pernottype{mvreference}
+            \pernottype{thesis}
+             \step[
+                fieldsource=\regexp{$MAPLOOP},
+                match=\regexp{[Ee]xhibi[ct]|[Aa]usstellung|[Uu][dt]st[iä]ll[n]ing|[Tt]entoonstelling|[Ee][xs]posi[cçtz]},
+                fieldset=eventtype,
+                fieldvalue=exhibition,
+                append=true,
+                notfield=eventtype,
+            ]
+%    \end{macrocode}
+% Find conferences lacking \Feld{eventtype} field.
+%    \begin{macrocode}
+             \step[
+                fieldsource=\regexp{$MAPLOOP},
+                match=\regexp{[KkCc]onf[eé]ren[cstz]|[Ss]ymposi|[KkCc]ol{1,2}[oó]qu|[KkCc]onvent|[Mm]eeting|},
+                fieldset=eventtype,
+                fieldvalue=conference,
+                append=true,
+                notfield=eventtype,
+            ]
+%    \end{macrocode}
+% Find auctions lacking \Feld{eventtype} field.
+%    \begin{macrocode}
+             \step[
+                fieldsource=\regexp{$MAPLOOP},
+                match=\regexp{[Aa]u[ck]tion|Versteigerung|\b[Ee]nchère|[Vv]eiling|[Ss]ubasta|[Ll]eil(ões|ão)},
+                fieldset=eventtype,
+                fieldvalue=auction,
+                append=true,
+                notfield=eventtype,
+            ]
+        }
+%    \end{macrocode}
 % Auctions need a copy of \Feld{eventdate} in order to always have access to the full date.
 %    \begin{macrocode}
-        \map[overwrite]{
+        \map[
+            overwrite
+        ]{
             \step[
                 fieldsource=eventtype,
                 match=\regexp{[Aa]u[ck]tion},
@@ -7788,10 +7858,12 @@
 %    \end{macrocode}
 % Attributed dates in biblatex (since 3.11) are mapped to our \Feld{realdate} field:
 %    \begin{macrocode}
-        \map[overwrite]{
+        \map[
+            overwrite
+        ]{
             \step[
                 fieldsource=date+an,
-                match=\regexp{\battributed\b}, % find all date+an field that include "attributed" (<field>+an are csv)
+                match=\regexp{\battributed\b}, % find all date+an field that match "attributed" (<field>+an are csv)
                 final=true, % do not add entries in further steps
             ]
             \step[
@@ -7802,7 +7874,9 @@
 %    \end{macrocode}
 % Attributed dates wrapped in brackets are mapped to our \Feld{realdate} field:
 %    \begin{macrocode}
-        \map[overwrite]{
+        \map[
+            overwrite
+        ]{
             \step[
                 fieldsource=year,
                 match=\regexp{\A\[.+\]\Z},
@@ -7824,7 +7898,9 @@
 %    \end{macrocode}
 % Newspapers that must keep their full date:
 %    \begin{macrocode}
-        \map[overwrite]{
+        \map[
+            overwrite
+        ]{
             \pertype{article}
             \pertype{periodical}
             \pertype{suppperiodical}
@@ -7843,7 +7919,9 @@
 %    \end{macrocode}
 % If there are words (e.\,g. \enquote{revised}) in field \Feld{edition}, we extract the number.
 %    \begin{macrocode}
-        \map[overwrite]{
+        \map[
+            overwrite
+        ]{
             \step[
                 fieldsource=edition,
                 match=\regexp{(\d+)},
@@ -7853,14 +7931,19 @@
 %    \end{macrocode}
 % Wrap American-style location addons into a formatting command:
 %    \begin{macrocode}
-        \map[overwrite, foreach={location, multivenue}]{
+        \map[
+            overwrite,
+            foreach={location, multivenue}
+        ]{
             \step[
                 fieldsource=\regexp{$MAPLOOP},
                 match={\blxarch@regex@location@match},
                 replace={\blxarch@regex@location@replace},
             ]
         }
-        \map[overwrite]{
+        \map[
+            overwrite
+        ]{
             \step[
                 fieldsource=venue,
                 match={\blxarch@regex@location@match},
@@ -8829,7 +8912,7 @@
 % \end{format}
 %
 % \begin{bibmacro}{titlenote}
-% \marg{string}
+% \marg{string}\\
 % Prints a title note. The \Befehl{printtext} command must be inside
 % the conditions, otherwise a lot of empty brackets gets printed.
 % \Format{issue+date} was overwritten in author date styles. \meta{string} should be \Feld{title},
@@ -8916,7 +8999,7 @@
 % \begin{bibliographydriver}{article}
 % \begin{bibliographydriver}{book}
 % \begin{bibliographydriver}{inbook}
-% We are going to reimplement Feld{volume} formatting.
+% We are going to reimplement \Feld{volume} formatting.
 %    \begin{macrocode}
 \xpatchbibdriver{book}{\printfield {volume}}{}{}{}
 \xpatchbibdriver{book}{\printfield {part}}{}{}{}
@@ -8934,6 +9017,14 @@
 % The delimiter after an repeated label
 %    \begin{macrocode}
 \newcommand*{\titleseriesdelim}{\addperiod\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\articletitlepunct}
+% \changes{2.0}{2018/05/23}{New command \Befehl{articletitlepunct}}
+% The punctuation after article titles if other than \Befehl{newunit}.
+%    \begin{macrocode}
+\newcommand*{\articletitlepunct}{\newunitpunct}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -8956,21 +9047,27 @@
 %
 % \begin{option}{titlebrackets}
 % =\meta{bool}\\
+% \changes{2.0}{2018/05/23}{\Option{titlenote} also settable on a per-entry basis}
 %    \begin{macrocode}
 \newtoggle{archbool:titlebrackets}
 \DeclareBibliographyOption{titlebrackets}[true]{%
     \settoggle{archbool:titlebrackets}{#1}}
 \ExecuteBibliographyOptions{titlebrackets}
+\DeclareEntryOption{titlebrackets}[true]{%
+    \settoggle{archbool:titlebrackets}{#1}}
 %    \end{macrocode}
 % \end{option}
 %
 % \begin{option}{titlenote}
 % =\meta{bool}\\
+% \changes{2.0}{2018/05/23}{\Option{titlenote} also settable on a per-entry basis}
 %    \begin{macrocode}
 \newtoggle{archbool:titlenote}
 \DeclareBibliographyOption{titlenote}[true]{%
     \settoggle{archbool:titlenote}{#1}}
 \ExecuteBibliographyOptions{titlenote}
+\DeclareEntryOption{titlenote}[true]{%
+    \settoggle{archbool:titlenote}{#1}}
 %    \end{macrocode}
 % \end{option}
 %
@@ -9038,6 +9135,7 @@
 % \begin{format}{multivenue}
 % \begin{format}{multieventdate}
 % \begin{format}{shortform}
+% \begin{format}{options}
 %    \begin{macrocode}
 \DeclareDataInheritance
 {mvbook,book,collection,mvcollection,proceedings,mvproceedings,reference,mvreference}
@@ -9053,9 +9151,14 @@
   \inherit[override=true]{venue}{venue}
   \inherit[override=true]{multivenue}{multivenue}
   \inherit[override=true]{multieventdate}{multieventdate}
+%    \end{macrocode}
+% Entry option \Option{uselabeltitle} should not be inherited
+%    \begin{macrocode}
+  \inherit[override=true]{options}{options}
   \noinherit{summarytitle}
 }
 %    \end{macrocode}
+% \end{format}
 % \end{format}
 % \end{format}
 % \end{format}
@@ -9175,7 +9278,9 @@
                     {\usebibmacro{titlenote}{title}}
                     {\printfield[titlenote]{titleaddon}}}%
                 {}%
-            \newunit}}%
+            \iffieldundef{journaltitle}
+                {\newunit}
+                {\printunit{\articletitlepunct}}}}%
         \iftoggle{archbool:titlebrackets}
             {}
             {\ifselfcontained
@@ -9830,7 +9935,7 @@
 % \begin{format}{locationdateparens}
 % \begin{bibmacro}{location+date+edition}
 % We add the possibility to enclose this macro in parenthesis.
-% Adds something like "sine loco" by default.
+% Adds something like \enquote{sine loco} by default.
 %    \begin{macrocode}
 \DeclareFieldFormat*{locationdateparens}{\mkbibparens{#1}}
 \newbibmacro*{location+date+edition}{%
@@ -9851,12 +9956,12 @@
 % \end{bibmacro}
 % \end{format}
 %
-% \begin{format}{reprintbrackets}
+% \begin{format}{reprintparens}
 % \begin{bibmacro}{origfields+reprint}
 % The same as before but with original fields instead and an addendum.
-% Adds something like "sine loco" by default.
+% Adds something like \enquote{sine loco} by default.
 %    \begin{macrocode}
-\DeclareFieldFormat*{reprintbrackets}{\mkbibbrackets{#1}}
+\DeclareFieldFormat*{reprintparens}{\mkbibbrackets{#1}}
 \newbibmacro*{origfields+reprint}{%
     \printtext[locationdateparens]{%
         \ifeditionsuperscript{preloc}
@@ -9875,7 +9980,7 @@
         \usebibmacro{origdate}
         \usebibmacro{editionsuperscript}%
         \setunit{\addspace}%
-        \printtext[reprintbrackets]{%
+        \printtext[reprintparens]{%
             \bibstring{reprint}\addspace%
             \printtext{\usebibmacro{location}{location}}%
             \setunit{\locationpublisherdelim}%
@@ -10279,8 +10384,8 @@
 %
 % \begin{bibmacro}{origdate}
 % \begin{bibmacro}{addendum+pubstate}
-% \begin{format}{realdateparen}
-% \begin{format}{origrealdateparen}
+% \begin{format}{realdateparens}
+% \begin{format}{origrealdateparens}
 %    \begin{macrocode}
 \newbibmacro*{origdate}{%
     \printtext{%        
@@ -10292,8 +10397,8 @@
         \usebibmacro{extendeddate}{origreal}{orig}%
 }}
 \xpatchbibmacro{addendum+pubstate}{\printfield{pubstate}}{}{}{}
-\DeclareFieldFormat*{realdateparen}{\mkbibbrackets{#1}}
-\DeclareFieldFormat*{origrealdateparen}{\mkbibbrackets{#1}}
+\DeclareFieldFormat*{realdateparens}{\mkbibbrackets{#1}}
+\DeclareFieldFormat*{origrealdateparens}{\mkbibbrackets{#1}}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -10852,27 +10957,16 @@
 %
 % \begin{format}{authortype}
 % \begin{format}{editortype}
+% \begin{format}{translatortype}
 % Roles enclosed in parentheses.
 %    \begin{macrocode}
-\DeclareFieldFormat*{authortype}{\mkbibparens{#1}}
+\DeclareFieldAlias{authortype}{editortype}
 \DeclareFieldFormat*{editortype}{\mkbibparens{#1}}
+\DeclareFieldAlias{translatortype}{editortype}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
-%
-% \begin{bibmacro}{translatorstrg}
-% use role parentheses
-%    \begin{macrocode}
-\renewbibmacro*{translator+othersstrg}{%
-    \ifboolexpr{
-        test {\ifnumgreater{\value{translator}}{1}}
-        or
-        test {\ifandothers{translator}}
-    }
-    {\printtext[editortype]{\bibstring{translators}}}
-    {\printtext[editortype]{\bibstring{translator}}}}
-%    \end{macrocode}
-% \end{bibmacro}
+% \end{format}
 %
 % \begin{bibmacro}{names:truncate}
 % Truncate name list bigger then \Kbd{maxnames}. Argument is the number of names in
@@ -11180,7 +11274,8 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\labelnamepunct}
+% \begin{macro}{\ifseenote}
+% Only useful in \Stil{verbose-trad2note}-type styles. Therefore always \meta{false} elsewhere.
 %    \begin{macrocode}
 \newcommand{\ifseenote}[2]{#2}
 %    \end{macrocode}
@@ -11188,7 +11283,7 @@
 %
 % \begin{option}{uselabeltitle}
 % =\meta{bool}\\
-% In \Kbd{verbose-trad2note} this option enforces a labeltitle. It has no meaning
+% In \Kbd{verbose-trad2note}-like styles this option enforces a \Feld{labeltitle}. It has no meaning
 % in other styles.
 %    \begin{macrocode}
 \newtoggle{archbool:uselabeltitle}
@@ -11372,7 +11467,7 @@
 %
 % \begin{bibliographydriver}{book}
 % \begin{bibliographydriver}{inbook}
-% We are going to reimplement Feld{volume} formatting.
+% We are going to reimplement \Feld{volume} formatting.
 %    \begin{macrocode}
 \xpatchbibdriver{book}{usebibmacro {series+number}\newunit}
     {usebibmacro{series+number}}{}{}
@@ -11392,8 +11487,6 @@
 % \end{format}
 %
 % \begin{macro}{\labelnamepunct}
-% We never have an empty date but a string like
-% 'sine anno' in authoryear styles.
 %    \begin{macrocode}
 \renewcommand*{\labelnamepunct}{\adddot\space}
 %    \end{macrocode}
@@ -11467,6 +11560,33 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\blxarch@style@dguf@info}
+% \begin{macro}{\blxarch@style@dguf}
+% \begin{macro}{\blxarch@style@dgufalt}
+% \begin{macro}{\blxarch@style@dgufapa}
+%    \begin{macrocode}
+\edef\blxarch@style@dguf@info{Deutsche Gesellschaft f\"ur Ur- und Fr\"uhgeschichte}
+\edef\blxarch@style@dguf{\blxarch@style@dguf@info\space[obsolete \RN{2}]}
+\edef\blxarch@style@dgufalt{\blxarch@style@dguf@info\space[obsolete \RN{1}]}
+\edef\blxarch@style@dgufapa{\blxarch@style@dguf@info\space(APA)}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\blxarch@style@mpk@info}
+% \begin{macro}{\blxarch@style@mpk}
+% \begin{macro}{\blxarch@style@mpkoeaw}
+%    \begin{macrocode}
+\edef\blxarch@style@mpk@info{Mitteilungen der Pr\"ahistorischen Kommission der \"Osterreichischen Akadademie der Wissenschaften}
+\edef\blxarch@style@mpk{\blxarch@style@mpk@info\space[obsolete]}
+\edef\blxarch@style@mpkoeaw{\blxarch@style@mpk@info\space[current]}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \begin{macro}{\blxarch@style@rgk}
 % \begin{macro}{\blxarch@style@rgkinline}
 % \begin{macro}{\blxarch@style@rgknumeric}
@@ -11516,10 +11636,6 @@
 % \begin{macro}{\blxarch@style@afwl}
 % \begin{macro}{\blxarch@style@amit}
 % \begin{macro}{\blxarch@style@archa}
-% \begin{macro}{\blxarch@style@dai}
-% \begin{macro}{\blxarch@style@dguf}
-% \begin{macro}{\blxarch@style@dgufalt}
-% \begin{macro}{\blxarch@style@dgufapa}
 % \begin{macro}{\blxarch@style@eaz}
 % \begin{macro}{\blxarch@style@eazalt}
 % \begin{macro}{\blxarch@style@foe}
@@ -11527,7 +11643,6 @@
 % \begin{macro}{\blxarch@style@jbkreisneuss}
 % \begin{macro}{\blxarch@style@karl}
 % \begin{macro}{\blxarch@style@maja}
-% \begin{macro}{\blxarch@style@mpk}
 % \begin{macro}{\blxarch@style@nnu}
 % \begin{macro}{\blxarch@style@offa}
 % \begin{macro}{\blxarch@style@sak}
@@ -11539,10 +11654,6 @@
 \edef\blxarch@style@afwl{Ausgrabungen und Funde in Westfalen-Lippe}
 \edef\blxarch@style@amit{Arch\"aologische Berichte aus Iran und Turan (AMIT)}
 \edef\blxarch@style@archa{Archaeologia Austriaca (ArchA)}
-\edef\blxarch@style@dai{Deutsches Arch\"aologisches Institut}
-\edef\blxarch@style@dguf{Deutsche Gesellschaft f\"ur Ur- und Fr\"uhgeschichte}
-\edef\blxarch@style@dgufalt{\blxarch@style@dguf\space[obsolete]}
-\edef\blxarch@style@dgufapa{\blxarch@style@dguf\space(APA)}
 \edef\blxarch@style@eaz{Ethnographisch-Arch\"aologische Zeitschrift (EAZ)}
 \edef\blxarch@style@eazalt{\blxarch@style@eaz\space[obsolete]}
 \edef\blxarch@style@foe{Fundberichte aus \"Osterreich (F\"O)}
@@ -11550,7 +11661,6 @@
 \edef\blxarch@style@jbkrneuss{Jahrbuch f\"ur den Rhein-Kreis Neuss}
 \edef\blxarch@style@karl{Karl. Das kulturelle Schachmagazin}
 \edef\blxarch@style@maja{M\"unchner Arbeitskreis Junge Aegyptologie (MAJA)}
-\edef\blxarch@style@mpk{Mitteilung der Pr\"ahistorischen Kommission}
 \edef\blxarch@style@nnu{Nachrichten aus Niedersachsens Urgeschichte}
 \edef\blxarch@style@offa{Offa}
 \edef\blxarch@style@sak{Studien zur Alt\"agyptischen Kultur}
@@ -11575,12 +11685,6 @@
 % \end{macro}
 % \end{macro}
 % \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-% \end{macro}
-%
 %</sty>
 %
 % \subsection{Bibliography style files}
@@ -11702,7 +11806,7 @@
 % \begin{bibliographydriver}{periodical}
 % \begin{bibliographydriver}{thesis}
 % \begin{bibliographydriver}{unpublished}
-% We are going to reimplement Feld{volume} formatting.
+% We are going to reimplement \Feld{volume} formatting.
 %    \begin{macrocode}
 \def\blxarch@settabbedlabeldate#1{%
     \xpatchbibdriver{#1}{\setunit{\printdelim{nametitledelim}}\newblock}
@@ -12191,11 +12295,11 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}{realdateparen}
-% \begin{format}{origrealdateparen}
+% \begin{format}{realdateparens}
+% \begin{format}{origrealdateparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{realdateparen}{\mkbibparens{#1}}
-\DeclareFieldFormat*{origrealdateparen}{\mkbibparens{#1}}
+\DeclareFieldFormat*{realdateparens}{\mkbibparens{#1}}
+\DeclareFieldFormat*{origrealdateparens}{\mkbibparens{#1}}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -12215,7 +12319,7 @@
 %    \end{macrocode}
 % \end{format}
 %
-% \begin{format}{locationdateparen}
+% \begin{format}{locationdateparens}
 % \begin{format}{thesis}
 %    \begin{macrocode}
 \DeclareFieldFormat[thesis]{thesis}{\mkbibparens{#1}}
@@ -12240,9 +12344,9 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}{reprintbrackets}
+% \begin{format}{reprintparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{reprintbrackets}{\addsemicolon\space#1}
+\DeclareFieldFormat*{reprintparens}{\addsemicolon\space#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -12395,7 +12499,7 @@
 % \end{format}
 % \end{format}
 %
-% \begin{format}{locationdateparen}
+% \begin{format}{locationdateparens}
 % \begin{format}{thesis}
 %    \begin{macrocode}
 \DeclareFieldFormat[thesis]{thesis}{\mkbibparens{#1}}
@@ -12419,9 +12523,9 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}{reprintbrackets}
+% \begin{format}{reprintparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{reprintbrackets}{\addsemicolon\space#1}
+\DeclareFieldFormat*{reprintparens}{\addsemicolon\space#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -12646,11 +12750,11 @@
 % \end{format}
 % \end{format}
 %
-% \begin{format}{realdateparen}
-% \begin{format}{origrealdateparen}
+% \begin{format}{realdateparens}
+% \begin{format}{origrealdateparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{realdateparen}{\addcomma\space#1}
-\DeclareFieldFormat*{origrealdateparen}{\addcomma\space#1}
+\DeclareFieldFormat*{realdateparens}{\addcomma\space#1}
+\DeclareFieldFormat*{origrealdateparens}{\addcomma\space#1}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -13060,9 +13164,9 @@
 % \end{format}
 % \end{format}
 %
-% \begin{format}{reprintbrackets}
+% \begin{format}{reprintparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{reprintbrackets}{\addsemicolon\space#1}
+\DeclareFieldFormat*{reprintparens}{\addsemicolon\space#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -13184,7 +13288,7 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\finalcitedelim}
+% \begin{macro}{\multicitedelim}
 %    \begin{macrocode}
 \renewcommand*{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
@@ -14117,11 +14221,11 @@
 % \end{format}
 % \end{format}
 %
-% \begin{format}{realdateparen}
-% \begin{format}{origrealdateparen}
+% \begin{format}{realdateparens}
+% \begin{format}{origrealdateparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{realdateparen}{\mkbibparens{#1}}
-\DeclareFieldFormat*{origrealdateparen}{\mkbibparens{#1}}
+\DeclareFieldFormat*{realdateparens}{\mkbibparens{#1}}
+\DeclareFieldFormat*{origrealdateparens}{\mkbibparens{#1}}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -14282,11 +14386,11 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}{realdateparen}
-% \begin{format}{origrealdateparen}
+% \begin{format}{realdateparens}
+% \begin{format}{origrealdateparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{realdateparen}{\mkbibparens{#1}}
-\DeclareFieldFormat*{origrealdateparen}{\mkbibparens{#1}}
+\DeclareFieldFormat*{realdateparens}{\mkbibparens{#1}}
+\DeclareFieldFormat*{origrealdateparens}{\mkbibparens{#1}}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -14317,7 +14421,7 @@
 %    \end{macrocode}
 % \end{format}
 %
-% \begin{format}{locationdateparen}
+% \begin{format}{locationdateparens}
 % \begin{format}{thesis}
 %    \begin{macrocode}
 \DeclareFieldFormat[thesis]{thesis}{\mkbibparens{#1}}
@@ -14342,9 +14446,9 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}{reprintbrackets}
+% \begin{format}{reprintparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{reprintbrackets}{\addsemicolon\space#1}
+\DeclareFieldFormat*{reprintparens}{\addsemicolon\space#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -14526,10 +14630,10 @@
 % \end{format}
 % \end{format}
 %
-% \begin{format}{reprintbrackets}
+% \begin{format}{reprintparens}
 % Reprints in parentheses.
 %    \begin{macrocode}
-\DeclareFieldFormat*{reprintbrackets}{\mkbibparens{#1}}
+\DeclareFieldFormat*{reprintparens}{\mkbibparens{#1}}
 %    \end{macrocode}
 % \end{format}
 %
@@ -14593,7 +14697,6 @@
 % \end{macro}
 %
 % \begin{format}{pages}
-% \changes{1.3}{2017/08/15}{\Befehl{rangelen} error fixed}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{%
     \ifpages{#1}
@@ -15142,11 +15245,11 @@
 % \end{format}
 % \end{format}
 %
-% \begin{format}{realdateparen}
-% \begin{format}{origrealdateparen}
+% \begin{format}{realdateparens}
+% \begin{format}{origrealdateparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{realdateparen}{\addcomma\space#1}
-\DeclareFieldFormat*{origrealdateparen}{\addcomma\space#1}
+\DeclareFieldFormat*{realdateparens}{\addcomma\space#1}
+\DeclareFieldFormat*{origrealdateparens}{\addcomma\space#1}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -15196,6 +15299,290 @@
 % \end{macro}
 %
 %</mpkBBX>
+%<*mpkoeawBBX>
+%
+% \subsubsection{File \Datei{mpkoeaw.bbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{mpkoeaw.bbx}
+[2018/05/20 v2.0 biblatex-archaeology bibliography style (IB)]
+%    \end{macrocode}
+%
+% Load \Paket{biblatex-archaeology} after a style.
+%    \begin{macrocode}
+\RequireBibliographyStyle{authoryear-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeobibstyletitle}
+%    \begin{macrocode}
+\def\archaeobibstyletitle{\blxarch@style@mpkoeaw}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\DeclareLanguageMappingSuffix{-mpkoeaw}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+%    \end{macrocode}
+% \blx options:
+%    \begin{macrocode}
+    dashed=false,
+    datezeros=true,
+    doi=true,       
+    giveninits=true,    
+    ibidtracker=false,
+    idemtracker=false,
+    loccittracker=false,
+    maxbibnames=500,
+    maxcitenames=3,
+    maxitems=3,
+    mergedate=true,
+    mincitenames=3,         
+    minitems=3,
+    notetype=foot+end,
+    sortcites=true,
+    sorting=lnyvt,
+%    \end{macrocode}
+% \archbib options:
+%    \begin{macrocode}
+    editionsuperscript=predate, % ??, not in guidelines
+    giveninitligatures={},
+    idemincitation=true,
+    injournal=false,
+    journallocation=false,
+    maxbooknames=500,
+    minbooknames=3,
+    minrealdatediff=1,
+    nothesistitlepunct=false,
+    notitlepunct=false,
+    origfields=true,
+    pagesfirst=false,
+    positionlabeldate=location,
+    preservelastauthor=false,
+    repeatlabel=true,
+    shortform=false,
+    shortjournal=false,
+    shortseries=false,
+    subseries=true,
+    summarytitle=false,
+    tabbedlabeldate=false,
+    titlebrackets=false,
+    titlenote=false,
+    useeventdate=true,
+    useeventnumber=false,
+    usefestschriftaddon=false,
+    useinstitution=omitlocation,
+    uselocation=true,
+    usemultivenue=false,
+    usepublisher=false,
+    useunpublishedthesis=true,
+    usesourceeditor=true,
+    volumeafterseries=false,
+}
+%    \end{macrocode}
+%
+% Set \Option{titlenote to \meta{true}} if exhibition detected;
+% \begin{format}{bibtex}
+%    \begin{macrocode}
+\DeclareStyleSourcemap{
+    \maps[datatype=bibtex]{
+        \map[
+            overwrite=true,
+        ]{
+             \step[
+                fieldsource=eventtype,
+                match=\regexp{exhib},
+                fieldset=options,
+                fieldvalue={titlenote=true,titlebrackets=true},
+                append=true,
+                notfield=options,
+            ]
+        }
+        \map[
+            overwrite=true,
+        ]{
+            \step[
+                fieldsource=options,
+                notmatch=\regexp{\btitlenote\b},
+                final,
+            ]
+            \step[
+                fieldsource=eventtype,
+                match=\regexp{exhib},
+                fieldset=options,
+                fieldvalue={,titlenote=true,titlebrackets=true},
+                append=true,
+            ]
+        }
+    }
+}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\bibhang}
+% \begin{macro}{\bibitemsep}
+%    \begin{macrocode}
+\setlength{\bibhang}{0em}
+\setlength{\bibitemsep}{\baselineskip}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{format}{sortname}
+%    \begin{macrocode}
+\DeclareNameAlias{sortname}{given-family}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\mkbibbooknamefamily}
+% \begin{macro}{\mkbibbooknameprefix}
+%    \begin{macrocode}
+\renewcommand*{\mkbibbooknamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknameprefix}[1]{\textsc{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\mkbibsourcenamefamily}
+% \begin{macro}{\mkbibsourcenameprefix}
+%    \begin{macrocode}
+\renewcommand*{\mkbibsourcenamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbibsourcenameprefix}[1]{\textsc{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\mkbiblistnamefamily}
+% \begin{macro}{\mkbiblistnameprefix}
+%    \begin{macrocode}
+\renewcommand*{\mkbiblistnamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\textsc{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\labelnamepunct}
+%    \begin{macrocode}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\subtitlepunct}
+%    \begin{macrocode}
+\renewcommand*{\subtitlepunct}{\addcolon\space\midsentence}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\articletitlepunct}
+%    \begin{macrocode}
+\renewcommand*{\articletitlepunct}{\addcomma\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{titlenote}
+% \begin{format}{booktitlenote}
+% \begin{format}{maintitlenote}
+%    \begin{macrocode}
+\DeclareFieldFormat*{titlenote}{\mkbibparens{#1}}
+\DeclareFieldAlias{booktitlenote}{titlenote}
+\DeclareFieldAlias{maintitlenote}{titlenote}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+% \end{format}
+%
+% \begin{format}{dictionary}
+%    \begin{macrocode}
+\DeclareFieldFormat*{dictionary}{#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{volume}
+%    \begin{macrocode}
+\DeclareFieldFormat*{volume}{\addspace#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\bibdatesubseqesep}
+%    \begin{macrocode}
+\renewrobustcmd*{\bibdatesubseqesep}{\bibdaterangesep}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\volumedatedelim}
+%    \begin{macrocode}
+\renewcommand*{\volumedatedelim}{\addslash}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\subnumberseriesdelim}
+%    \begin{macrocode}
+\renewcommand*{\subnumberseriesdelim}{\addcomma\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{journaldateparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{journaldateparens}{#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{locationdateparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{locationdateparens}{#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{realdateparens}
+% \begin{format}{origrealdateparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{realdateparens}{#1}
+\DeclareFieldFormat*{origrealdateparens}{#1}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+%
+% \begin{macro}{\typeinstitutiondelim}
+%    \begin{macrocode}
+\renewcommand*{\typeinstitutiondelim}{\addcomma\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\daterealdatedelim}
+%    \begin{macrocode}
+\renewcommand*{\daterealdatedelim}{\addcomma\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{reprintparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{reprintparens}{\addcomma\space#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\multilistdelim}
+%    \begin{macrocode}
+\renewcommand*{\multilistdelim}{\addspace\textendash\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{pages}
+%    \begin{macrocode}
+\DeclareFieldFormat*{pages}{#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{url}
+% and  \Typ{thesis} have an URL.
+%    \begin{macrocode}
+\urlstyle{same}
+\DeclareFieldFormat*{url}{\url{#1}}
+%    \end{macrocode}
+% \end{format}
+%
+%</mpkoeawBBX>
 %<*nnuBBX>
 %
 % \subsubsection{File \Datei{nnu.bbx}}
@@ -15340,11 +15727,11 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}{realdateparen}
-% \begin{format}{origrealdateparen}
+% \begin{format}{realdateparens}
+% \begin{format}{origrealdateparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{realdateparen}{\mkbibparens{#1}}
-\DeclareFieldFormat*{origrealdateparen}{\mkbibparens{#1}}
+\DeclareFieldFormat*{realdateparens}{\mkbibparens{#1}}
+\DeclareFieldFormat*{origrealdateparens}{\mkbibparens{#1}}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -15364,7 +15751,7 @@
 %    \end{macrocode}
 % \end{format}
 %
-% \begin{format}{locationdateparen}
+% \begin{format}{locationdateparens}
 % \begin{format}{thesis}
 %    \begin{macrocode}
 \DeclareFieldFormat[thesis]{thesis}{\mkbibparens{#1}}
@@ -15389,9 +15776,9 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}{reprintbrackets}
+% \begin{format}{reprintparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{reprintbrackets}{\addsemicolon\space#1}
+\DeclareFieldFormat*{reprintparens}{\addsemicolon\space#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -15848,11 +16235,11 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}{realdateparen}
-% \begin{format}{origrealdateparen}
+% \begin{format}{realdateparens}
+% \begin{format}{origrealdateparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{realdateparen}{\mkbibparens{#1}}
-\DeclareFieldFormat*{origrealdateparen}{\mkbibparens{#1}}
+\DeclareFieldFormat*{realdateparens}{\mkbibparens{#1}}
+\DeclareFieldFormat*{origrealdateparens}{\mkbibparens{#1}}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -15897,9 +16284,9 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}{reprintbrackets}
+% \begin{format}{reprintparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{reprintbrackets}{\addsemicolon\space#1}
+\DeclareFieldFormat*{reprintparens}{\addsemicolon\space#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -16165,11 +16552,11 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}{realdateparen}
-% \begin{format}{origrealdateparen}
+% \begin{format}{realdateparens}
+% \begin{format}{origrealdateparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{realdateparen}{\mkbibparens{#1}}
-\DeclareFieldFormat*{origrealdateparen}{\mkbibparens{#1}}
+\DeclareFieldFormat*{realdateparens}{\mkbibparens{#1}}
+\DeclareFieldFormat*{origrealdateparens}{\mkbibparens{#1}}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -16189,7 +16576,7 @@
 %    \end{macrocode}
 % \end{format}
 %
-% \begin{format}{locationdateparen}
+% \begin{format}{locationdateparens}
 % \begin{format}{thesis}
 %    \begin{macrocode}
 \DeclareFieldFormat[thesis]{thesis}{\mkbibbrackets{#1}}
@@ -16207,9 +16594,9 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}{reprintbrackets}
+% \begin{format}{reprintparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{reprintbrackets}{\addcomma\space#1}
+\DeclareFieldFormat*{reprintparens}{\addcomma\space#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -16453,11 +16840,11 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}{realdateparen}
-% \begin{format}{origrealdateparen}
+% \begin{format}{realdateparens}
+% \begin{format}{origrealdateparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{realdateparen}{\mkbibparens{#1}}
-\DeclareFieldFormat*{origrealdateparen}{\mkbibparens{#1}}
+\DeclareFieldFormat*{realdateparens}{\mkbibparens{#1}}
+\DeclareFieldFormat*{origrealdateparens}{\mkbibparens{#1}}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -16474,7 +16861,7 @@
 %    \end{macrocode}
 % \end{format}
 %
-% \begin{format}{locationdateparen}
+% \begin{format}{locationdateparens}
 % \begin{format}{thesis}
 %    \begin{macrocode}
 \DeclareFieldFormat[thesis]{thesis}{\mkbibparens{#1}}
@@ -16499,9 +16886,9 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}{reprintbrackets}
+% \begin{format}{reprintparens}
 %    \begin{macrocode}
-\DeclareFieldFormat*{reprintbrackets}{\addsemicolon\space#1}
+\DeclareFieldFormat*{reprintparens}{\addsemicolon\space#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -17423,8 +17810,8 @@
 % \end{bibmacro}
 %    
 % \begin{macro}{\ifseenote}
-% If we are in the same footnote as a former occurrence, we do \emph{loc.~cit.}, in another footnote we set
-% a back reference to the first if it is not \emph{ibidem}.
+% If we are in the same footnote as a former occurrence, we do \Latein{loc.\,cit.}, in another footnote we set
+% a back reference to the first if it is not \Latein{ibidem}.
 %    \begin{macrocode}
 \renewcommand{\ifseenote}[2]{%
     \ifboolexpr{
@@ -17448,7 +17835,18 @@
         {#2}%
 }
 %    \end{macrocode}
-% \end{macro} 
+% \end{macro}
+%
+% \begin{format}{options}
+% Entry option \Option{uselabeltitle} should not be inherited.
+%    \begin{macrocode}
+\DeclareDataInheritance
+{mvbook,book,collection,mvcollection,proceedings,mvproceedings,reference,mvreference}
+{inbook,bookinbook,suppbook,incollection,suppcollection,inproceedings,inreference}{%
+  \noinherit{options}
+}
+%    \end{macrocode}
+% \end{format}
 %
 %</verbosetrad2noteCBX>
 %<*aefkwCBX>
@@ -17834,7 +18232,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\multicitedelim}
+% \begin{macro}{\compcitedelim}
 %    \begin{macrocode}
 \renewcommand*{\compcitedelim}{%
     \multicitedelim\bibsentence%
@@ -17843,6 +18241,36 @@
 % \end{macro}
 %
 %</mpkCBX>
+%<*mpkoeawCBX>
+%
+% \subsubsection{File \Datei{mpkoeaw.cbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{mpk.cbx}
+[2018/05/20 v2.0 biblatex-archaeology citation style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireCitationStyle{authoryear-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeocitestyletitle}
+%    \begin{macrocode}
+\def\archaeocitestyletitle{\blxarch@style@mpkoeaw}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{autocite=footnote}
+%    \end{macrocode}
+%
+% \begin{macro}{\multicitedelim}
+%    \begin{macrocode}
+\renewcommand*{\multicitedelim}{\addperiod\space\textendash\space}
+%    \end{macrocode}
+% \end{macro}
+%
+%</mpkoeawCBX>
 %<*nnuCBX>
 %
 % \subsubsection{File \Datei{nnu.cbx}}
@@ -18956,6 +19384,66 @@
 \ProvidesFile{USenglish-mpk.lbx}
 %    \end{macrocode}
 %</FUSenglishmpkLBX>
+%<*FaustrianmpkoeawLBX>
+%    \begin{macrocode}
+\ProvidesFile{austrian-mpkoeaw.lbx}
+%    \end{macrocode}
+%</FaustrianmpkoeawLBX>
+%<*FnaustrianmpkoeawLBX>
+%    \begin{macrocode}
+\ProvidesFile{naustrian-mpkoeaw.lbx}
+%    \end{macrocode}
+%</FnaustrianmpkoeawLBX>
+%<*FngermanmpkoeawLBX>
+%    \begin{macrocode}
+\ProvidesFile{ngerman-mpkoeaw.lbx}
+%    \end{macrocode}
+%</FngermanmpkoeawLBX>
+%<*FnswissgermanmpkoeawLBX>
+%    \begin{macrocode}
+\ProvidesFile{nswissgerman-mpkoeaw.lbx}
+%    \end{macrocode}
+%</FnswissgermanmpkoeawLBX>
+%<*FswissgermanmpkoeawLBX>
+%    \begin{macrocode}
+\ProvidesFile{swissgerman-mpkoeaw.lbx}
+%    \end{macrocode}
+%</FswissgermanmpkoeawLBX>
+%<*FamericanmpkoeawLBX>
+%    \begin{macrocode}
+\ProvidesFile{american-mpkoeaw.lbx}
+%    \end{macrocode}
+%</FamericanmpkoeawLBX>
+%<*FaustralianmpkoeawLBX>
+%    \begin{macrocode}
+\ProvidesFile{australian-mpkoeaw.lbx}
+%    \end{macrocode}
+%</FaustralianmpkoeawLBX>
+%<*FbritishmpkoeawLBX>
+%    \begin{macrocode}
+\ProvidesFile{british-mpkoeaw.lbx}
+%    \end{macrocode}
+%</FbritishmpkoeawLBX>
+%<*FcanadianmpkoeawLBX>
+%    \begin{macrocode}
+\ProvidesFile{canadian-mpkoeaw.lbx}
+%    \end{macrocode}
+%</FcanadianmpkoeawLBX>
+%<*FnewzealandmpkoeawLBX>
+%    \begin{macrocode}
+\ProvidesFile{newzealand-mpkoeaw.lbx}
+%    \end{macrocode}
+%</FnewzealandmpkoeawLBX>
+%<*FUKenglishmpkoeawLBX>
+%    \begin{macrocode}
+\ProvidesFile{UKenglish-mpkoeaw.lbx}
+%    \end{macrocode}
+%</FUKenglishmpkoeawLBX>
+%<*FUSenglishmpkoeawLBX>
+%    \begin{macrocode}
+\ProvidesFile{USenglish-mpkoeaw.lbx}
+%    \end{macrocode}
+%</FUSenglishmpkoeawLBX>
 %<*FaustrianoffaLBX>
 %    \begin{macrocode}
 \ProvidesFile{austrian-offa.lbx}
@@ -19373,7 +19861,8 @@
 % Use this file for all English spellings
 %    \begin{macrocode}
 \InheritBibliographyExtras{british}
-\DeclareRedundantLanguages{english}{english,american,british,canadian,australian,newzealand,USenglish,UKenglish}
+\DeclareRedundantLanguages{english}
+  {english,american,british,canadian,australian,newzealand,USenglish,UKenglish}
 %    \end{macrocode}
 %
 % Define new localizazion strings
@@ -19659,7 +20148,7 @@
 \InheritBibliographyExtras{german}
 \InheritBibliographyStrings{german}
 \DeclareRedundantLanguages{german}
-{german,ngerman,austrian,naustrian,swissgerman,nswissgerman}
+  {german,ngerman,austrian,naustrian,swissgerman,nswissgerman}
 %    \end{macrocode}
 %
 % Define new localizazion strings:
@@ -19863,59 +20352,59 @@
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
 \DeclareBibliographyStrings{%
-    inherit = {german-archaeology},
-    byeditor         = {{herausgegeben von}{hg\adddotspace von}},
-    byeditortr       = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
-                      {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
-    byeditorco       = {{herausgegeben und kommentiert von}%
-                      {hg\adddotspace und komm\adddot\ von}},
-    byeditoran       = {{herausgegeben und erl\"autert von}%
-                        {hg\adddotspace und erl\"aut\adddot\ von}},
-    byeditorin       = {{herausgegeben und mit einer Einleitung versehen von}%
-                        {hg\adddotspace und mit einer Einl\adddot\ vers\adddot\ von}},
-    byeditorfo       = {{herausgegeben und mit einem Vorwort versehen von}%
-                        {hg\adddotspace und mit einem Vorw\adddot\ vers\adddot\ von}},
-    byeditoraf       = {{herausgegeben und mit einem Nachwort versehen von}%
-                        {hg\adddotspace und mit einem Nachw\adddot\ vers\adddot\ von}},
-    byeditortrco     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und kommentiert von}%
-                        {hg., \lbx@sfromlang \"ubers\adddot\ und komm\adddot\ von}},
-    byeditortran     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und erl\"autert von}%
-                        {hg., \lbx@sfromlang \"ubers\adddot\ und erl\"aut\adddot\ von}},
-    byeditortrin     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einer Einleitung versehen von}%
-                        {hg., \lbx@sfromlang \"ubers\adddot\ und Einl\adddot\ von}},
-    byeditortrfo     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Vorwort versehen von}%
-                        {hg., \lbx@sfromlang \"ubers\adddot\ und Vorw\adddot\ von}},
-    byeditortraf     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Nachwort versehen von}%
-                        {hg., \lbx@sfromlang \"ubers\adddot\ und Nachw\adddot\ von}},
-    byeditorcoin     = {{herausgegeben, kommentiert und mit einer Einleitung versehen von}%
-                        {hg., komm\adddot\ und Einl\adddot\ von}},
-    byeditorcofo     = {{herausgegeben, kommentiert und mit einem Vorwort versehen von}%
-                        {hg., komm\adddot\ und Vorw\adddot\ von}},
-    byeditorcoaf     = {{herausgegeben, kommentiert und mit einem Nachwort versehen von}%
-                        {hg., komm\adddot\ und mit einem Nachw\adddot\ vers\adddot\ von}},
-    byeditoranin     = {{herausgegeben, erl\"autert und mit einer Einleitung versehen von}%
-                        {hg., erl\"aut\adddot\ und Einl\adddot\ von}},
-    byeditoranfo     = {{herausgegeben, erl\"autert und mit einem Vorwort versehen von}%
-                        {hg., erl\"aut\adddot\ und Vorw\adddot\ von}},
-    byeditoranaf     = {{herausgegeben, erl\"autert und mit einem Nachwort versehen von}%
-                        {hg., erl\"aut\adddot\ und Nachw\adddot\ von}},
-    byeditortrcoin   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einer Einleitung versehen von}%
-                        {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Einl\adddot\ von}},
-    byeditortrcofo   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Vorwort versehen von}%
-                        {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Vorw\adddot\ von}},
-    byeditortrcoaf   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Nachwort versehen von}%
-                        {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Nachw\adddot\ von}},
-    byeditortranin   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einer Einleitung versehen von}%
-                        {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Einl\adddot\ von}},
-    byeditortranfo   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Vorwort versehen von}%
-                        {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Vorw\adddot\ von}},
-    byeditortranaf   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Nachwort versehen von}%
-                      {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Nachw\adddot\ von}},
-    byeditortr       = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
-                      {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
-    editor = {{Herausgeber}{Hg\adddot}},
-    editors = {{Herausgeber}{Hgg\adddot}},
-    nodate = {{ohne Jahr}{o.J\adddot}},
+  inherit = {german-archaeology},
+  byeditor       = {{herausgegeben von}{hg\adddotspace von}},
+  byeditortr     = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
+                  {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
+  byeditorco     = {{herausgegeben und kommentiert von}%
+                  {hg\adddotspace und komm\adddot\ von}},
+  byeditoran     = {{herausgegeben und erl\"autert von}%
+                    {hg\adddotspace und erl\"aut\adddot\ von}},
+  byeditorin     = {{herausgegeben und mit einer Einleitung versehen von}%
+                    {hg\adddotspace und mit einer Einl\adddot\ vers\adddot\ von}},
+  byeditorfo     = {{herausgegeben und mit einem Vorwort versehen von}%
+                    {hg\adddotspace und mit einem Vorw\adddot\ vers\adddot\ von}},
+  byeditoraf     = {{herausgegeben und mit einem Nachwort versehen von}%
+                    {hg\adddotspace und mit einem Nachw\adddot\ vers\adddot\ von}},
+  byeditortrco   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und kommentiert von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und komm\adddot\ von}},
+  byeditortran   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und erl\"autert von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und erl\"aut\adddot\ von}},
+  byeditortrin   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einer Einleitung versehen von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und Einl\adddot\ von}},
+  byeditortrfo   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Vorwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und Vorw\adddot\ von}},
+  byeditortraf   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Nachwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und Nachw\adddot\ von}},
+  byeditorcoin   = {{herausgegeben, kommentiert und mit einer Einleitung versehen von}%
+                    {hg., komm\adddot\ und Einl\adddot\ von}},
+  byeditorcofo   = {{herausgegeben, kommentiert und mit einem Vorwort versehen von}%
+                    {hg., komm\adddot\ und Vorw\adddot\ von}},
+  byeditorcoaf   = {{herausgegeben, kommentiert und mit einem Nachwort versehen von}%
+                    {hg., komm\adddot\ und mit einem Nachw\adddot\ vers\adddot\ von}},
+  byeditoranin   = {{herausgegeben, erl\"autert und mit einer Einleitung versehen von}%
+                    {hg., erl\"aut\adddot\ und Einl\adddot\ von}},
+  byeditoranfo   = {{herausgegeben, erl\"autert und mit einem Vorwort versehen von}%
+                    {hg., erl\"aut\adddot\ und Vorw\adddot\ von}},
+  byeditoranaf   = {{herausgegeben, erl\"autert und mit einem Nachwort versehen von}%
+                    {hg., erl\"aut\adddot\ und Nachw\adddot\ von}},
+  byeditortrcoin = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einer Einleitung versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Einl\adddot\ von}},
+  byeditortrcofo = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Vorwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Vorw\adddot\ von}},
+  byeditortrcoaf = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Nachwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Nachw\adddot\ von}},
+  byeditortranin = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einer Einleitung versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Einl\adddot\ von}},
+  byeditortranfo = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Vorwort versehen von}%
+                      {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Vorw\adddot\ von}},
+  byeditortranaf = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Nachwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Nachw\adddot\ von}},
+  byeditortr     = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
+                    {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
+  editor = {{Herausgeber}{Hg\adddot}},
+  editors = {{Herausgeber}{Hgg\adddot}},
+  nodate = {{ohne Jahr}{o.J\adddot}},
 }
 %    \end{macrocode}
 % \end{localization}
@@ -20439,58 +20928,58 @@
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
 \DeclareBibliographyStrings{%
-  inherit = {german-archaeology},
-  byeditor         = {{herausgegeben von}{hg\adddotspace von}},
-  byeditortr       = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
-                    {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
-  byeditorco       = {{herausgegeben und kommentiert von}%
-                    {hg\adddotspace und komm\adddot\ von}},
-  byeditoran       = {{herausgegeben und erl\"autert von}%
-                      {hg\adddotspace und erl\"aut\adddot\ von}},
-  byeditorin       = {{herausgegeben und mit einer Einleitung versehen von}%
-                      {hg\adddotspace und mit einer Einl\adddot\ vers\adddot\ von}},
-  byeditorfo       = {{herausgegeben und mit einem Vorwort versehen von}%
-                      {hg\adddotspace und mit einem Vorw\adddot\ vers\adddot\ von}},
-  byeditoraf       = {{herausgegeben und mit einem Nachwort versehen von}%
-                      {hg\adddotspace und mit einem Nachw\adddot\ vers\adddot\ von}},
-  byeditortrco     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und kommentiert von}%
-                      {hg., \lbx@sfromlang \"ubers\adddot\ und komm\adddot\ von}},
-  byeditortran     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und erl\"autert von}%
-                      {hg., \lbx@sfromlang \"ubers\adddot\ und erl\"aut\adddot\ von}},
-  byeditortrin     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einer Einleitung versehen von}%
-                      {hg., \lbx@sfromlang \"ubers\adddot\ und Einl\adddot\ von}},
-  byeditortrfo     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Vorwort versehen von}%
-                      {hg., \lbx@sfromlang \"ubers\adddot\ und Vorw\adddot\ von}},
-  byeditortraf     = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Nachwort versehen von}%
-                      {hg., \lbx@sfromlang \"ubers\adddot\ und Nachw\adddot\ von}},
-  byeditorcoin     = {{herausgegeben, kommentiert und mit einer Einleitung versehen von}%
-                      {hg., komm\adddot\ und Einl\adddot\ von}},
-  byeditorcofo     = {{herausgegeben, kommentiert und mit einem Vorwort versehen von}%
-                      {hg., komm\adddot\ und Vorw\adddot\ von}},
-  byeditorcoaf     = {{herausgegeben, kommentiert und mit einem Nachwort versehen von}%
-                      {hg., komm\adddot\ und mit einem Nachw\adddot\ vers\adddot\ von}},
-  byeditoranin     = {{herausgegeben, erl\"autert und mit einer Einleitung versehen von}%
-                      {hg., erl\"aut\adddot\ und Einl\adddot\ von}},
-  byeditoranfo     = {{herausgegeben, erl\"autert und mit einem Vorwort versehen von}%
-                      {hg., erl\"aut\adddot\ und Vorw\adddot\ von}},
-  byeditoranaf     = {{herausgegeben, erl\"autert und mit einem Nachwort versehen von}%
-                      {hg., erl\"aut\adddot\ und Nachw\adddot\ von}},
-  byeditortrcoin   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einer Einleitung versehen von}%
-                      {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Einl\adddot\ von}},
-  byeditortrcofo   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Vorwort versehen von}%
-                      {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Vorw\adddot\ von}},
-  byeditortrcoaf   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Nachwort versehen von}%
-                      {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Nachw\adddot\ von}},
-  byeditortranin   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einer Einleitung versehen von}%
-                      {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Einl\adddot\ von}},
-  byeditortranfo   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Vorwort versehen von}%
-                      {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Vorw\adddot\ von}},
-  byeditortranaf   = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Nachwort versehen von}%
-                      {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Nachw\adddot\ von}},
-  byeditortr       = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
+  inherit        = {german-archaeology},
+  byeditor       = {{herausgegeben von}{hg\adddotspace von}},
+  byeditortr     = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
+                  {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
+  byeditorco     = {{herausgegeben und kommentiert von}%
+                  {hg\adddotspace und komm\adddot\ von}},
+  byeditoran     = {{herausgegeben und erl\"autert von}%
+                    {hg\adddotspace und erl\"aut\adddot\ von}},
+  byeditorin     = {{herausgegeben und mit einer Einleitung versehen von}%
+                    {hg\adddotspace und mit einer Einl\adddot\ vers\adddot\ von}},
+  byeditorfo     = {{herausgegeben und mit einem Vorwort versehen von}%
+                    {hg\adddotspace und mit einem Vorw\adddot\ vers\adddot\ von}},
+  byeditoraf     = {{herausgegeben und mit einem Nachwort versehen von}%
+                    {hg\adddotspace und mit einem Nachw\adddot\ vers\adddot\ von}},
+  byeditortrco   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und kommentiert von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und komm\adddot\ von}},
+  byeditortran   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und erl\"autert von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und erl\"aut\adddot\ von}},
+  byeditortrin   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einer Einleitung versehen von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und Einl\adddot\ von}},
+  byeditortrfo   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Vorwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und Vorw\adddot\ von}},
+  byeditortraf   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Nachwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und Nachw\adddot\ von}},
+  byeditorcoin   = {{herausgegeben, kommentiert und mit einer Einleitung versehen von}%
+                    {hg., komm\adddot\ und Einl\adddot\ von}},
+  byeditorcofo   = {{herausgegeben, kommentiert und mit einem Vorwort versehen von}%
+                    {hg., komm\adddot\ und Vorw\adddot\ von}},
+  byeditorcoaf   = {{herausgegeben, kommentiert und mit einem Nachwort versehen von}%
+                    {hg., komm\adddot\ und mit einem Nachw\adddot\ vers\adddot\ von}},
+  byeditoranin   = {{herausgegeben, erl\"autert und mit einer Einleitung versehen von}%
+                    {hg., erl\"aut\adddot\ und Einl\adddot\ von}},
+  byeditoranfo   = {{herausgegeben, erl\"autert und mit einem Vorwort versehen von}%
+                    {hg., erl\"aut\adddot\ und Vorw\adddot\ von}},
+  byeditoranaf   = {{herausgegeben, erl\"autert und mit einem Nachwort versehen von}%
+                    {hg., erl\"aut\adddot\ und Nachw\adddot\ von}},
+  byeditortrcoin = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einer Einleitung versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Einl\adddot\ von}},
+  byeditortrcofo = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Vorwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Vorw\adddot\ von}},
+  byeditortrcoaf = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Nachwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Nachw\adddot\ von}},
+  byeditortranin = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einer Einleitung versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Einl\adddot\ von}},
+  byeditortranfo = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Vorwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Vorw\adddot\ von}},
+  byeditortranaf = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Nachwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Nachw\adddot\ von}},
+  byeditortr     = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
                       {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
-  editor = {{Herausgeber}{Hg\adddot}},
-  editors = {{Herausgeber}{Hgg\adddot}},
+  editor         = {{Herausgeber}{Hg\adddot}},
+  editors        = {{Herausgeber}{Hgg\adddot}},
 }
 %    \end{macrocode}
 % \end{localization}
@@ -20563,6 +21052,7 @@
 \ProvidesFile{german-mpk.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
 \let\blx@lng@suff\@empty
+\InheritBibliographyExtras{german-archaeology}
 %    \end{macrocode}
 %
 % \begin{localization}{andothers}
@@ -20574,7 +21064,7 @@
   inherit  = {german-archaeology},
   andothers = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
   genitiveandothers = {{et\addabbrvspace al\adddot s}
-	                   {et\addabbrvspace al\adddot s}},
+                       {et\addabbrvspace al\adddot s}},
   urlseen  = {{letzter Zugriff}{letzter Zugriff}},
 }
 %    \end{macrocode}
@@ -20591,8 +21081,41 @@
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
 \let\blx@lng@suff\@empty
 \InheritBibliographyExtras{english-mpk}
-\InheritBibliographyStrings{english-mpk}
 %    \end{macrocode}
+%
+% \begin{localization}{unpublishedbathesis}
+% \begin{localization}{unpublisheddiplomathesis}
+% \begin{localization}{unpublishedmagisterthesis}
+% \begin{localization}{unpublishedmathesis}
+% \begin{localization}{unpublishedpostdocthesis}
+% \begin{localization}{unpublishedphdthesis}
+% \begin{localization}{urlseen}
+%    \begin{macrocode}
+\InheritBibliographyExtras{english-archaeology}
+\DeclareBibliographyStrings{%
+  inherit  = {english-archaeology},
+  unpublishedbathesis       = {{unpublished thesis}
+                               {unpublished thesis}},
+  unpublisheddiplomathesis  = {{unpublished thesis}
+                               {unpublished thesis}},
+  unpublishedmagisterthesis = {{unpublished thesis}
+                               {unpublished thesis}},
+  unpublishedmathesis       = {{unpublished thesis}
+                               {unpublished thesis}},
+  unpublishedphdthesis      = {{unpublished PhD Dissertation}
+                               {unpublished PhD Dissertation}},
+  unpublishedpostdocthesis  = {{unpublished Habilitationsschrift}
+                               {unpublished Habilitationsschrift}},
+  urlseen  = {{last access}{last access}},
+}
+%    \end{macrocode}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
 %
 %</PenglishmpkLBX>
 %<*PgermanmpkLBX>
@@ -20607,6 +21130,174 @@
 %    \end{macrocode}
 %
 %</PgermanmpkLBX>
+%<*mpkoeawenglishLBX>
+%
+% \subsubsection{File \Datei{english-mpkoeaw.lbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{english-mpkoeaw.lbx}
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
+\InheritBibliographyExtras{english-archaeology}
+%    \end{macrocode}
+%
+% \begin{localization}{exhibcat}
+% \begin{localization}{exhibition}
+% \begin{localization}{in}
+% \begin{localization}{postdocthesis}
+% \begin{localization}{phdthesis}
+% \begin{localization}{unpublishedbathesis}
+% \begin{localization}{unpublisheddiplomathesis}
+% \begin{localization}{unpublishedmagisterthesis}
+% \begin{localization}{unpublishedmathesis}
+% \begin{localization}{unpublishedpostdocthesis}
+% \begin{localization}{unpublishedphdthesis}
+% \begin{localization}{urlseen}
+%    \begin{macrocode}
+\InheritBibliographyExtras{english-archaeology}
+\DeclareBibliographyStrings{%
+  inherit                   = {english-archaeology},
+  exhibcat                  = {{Exhibition catalogue}{Exhibition catalogue}},
+  exhibition                = {{Exhibition catalogue}{Exhibition catalogue}},
+  in                        = {{In}{In}},
+  phdthesis                 = {{PhD Dissertation}
+                               {PhD Dissertation}},
+  postdocthesis             = {{Habilitationsschrift}
+                               {Habilitationsschrift}},
+  unpublishedbathesis       = {{unpublished thesis}
+                               {unpublished thesis}},
+  unpublisheddiplomathesis  = {{unpublished thesis}
+                               {unpublished thesis}},
+  unpublishedmagisterthesis = {{unpublished thesis}
+                               {unpublished thesis}},
+  unpublishedmathesis       = {{unpublished thesis}
+                               {unpublished thesis}},
+  unpublishedphdthesis      = {{unpublished PhD Dissertation}
+                               {unpublished PhD Dissertation}},
+  unpublishedpostdocthesis  = {{unpublished Habilitationsschrift}
+                               {unpublished Habilitationsschrift}},
+  urlseen                   = {{last access}{last access}},
+}
+%    \end{macrocode}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+%
+%</mpkoeawenglishLBX>
+%<*mpkoeawgermanLBX>
+%
+% \subsubsection{File \Datei{german-mpkoeaw.lbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{german-mpkoeaw.lbx}
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
+\InheritBibliographyExtras{german-archaeology}
+%    \end{macrocode}
+%
+% \begin{localization}{andothers}
+% \begin{localization}{genitiveandothers}
+% \begin{localization}{exhibcat}
+% \begin{localization}{exhibition}
+% \begin{localization}{in}
+% \begin{localization}{bathesis}
+% \begin{localization}{diplomathesis}
+% \begin{localization}{magisterthesis}
+% \begin{localization}{mathesis}
+% \begin{localization}{postdocthesis}
+% \begin{localization}{phdthesis}
+% \begin{localization}{unpublishedbathesis}
+% \begin{localization}{unpublisheddiplomathesis}
+% \begin{localization}{unpublishedmagisterthesis}
+% \begin{localization}{unpublishedmathesis}
+% \begin{localization}{unpublishedpostdocthesis}
+% \begin{localization}{unpublishedphdthesis}
+% \begin{localization}{urlseen}
+%    \begin{macrocode}
+\DeclareBibliographyStrings{%
+  inherit                   = {german-archaeology},
+  andothers                 = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
+  genitiveandothers         = {{et\addabbrvspace al\adddot s}
+                               {et\addabbrvspace al\adddot s}},
+  exhibcat                  = {{Austellungskatalog}{Austellungskatalog}},
+  exhibition                = {{Austellungskatalog}{Austellungskatalog}},
+  in                        = {{In}{In}},
+  reprint                   = {{Nachdruck}{Nachdruck}},
+  bathesis                  = {{Bachelorarbeit}{Bachelorarbeit}},
+  diplomathesis             = {{Diplomarbeit}{Diplomarbeit}},
+  magisterthesis            = {{Magisterarbeit}{Magisterarbeit}},
+  mathesis                  = {{Masterarbeit}{Masterarbeit}},
+  phdthesis                 = {{Dissertation}{Dissertation}},
+  postdocthesis             = {{Habilitationsschrift}
+                               {Habilitationsschrift}},
+  unpublishedbathesis       = {{unver\"offentlichte Bachelorarbeit}
+                               {unver\"offentlichte Bachelorarbeit}},
+  unpublisheddiplomathesis  = {{unver\"offentlichte Diplomarbeit}
+                               {unver\"offentlichte Diplomarbeit}},
+  unpublishedmagisterthesis = {{unver\"offentlichte Magisterarbeit}
+                               {unver\"offentlichte Magisterarbeit}},
+  unpublishedmathesis       = {{unver\"offentlichte Masterarbeit}
+                               {unver\"offentlichte Masterarbeit}},
+  unpublishedphdthesis      = {{unver\"offentlichte Dissertation}
+                               {unver\"offentlichte Dissertation}},
+  unpublishedpostdocthesis  = {{unver\"offentlichte Habilitationsschrift}
+                               {unver\"offentlichte Habilitationsschrift}},
+  urlseen                   = {{letzter Zugriff}{letzter Zugriff}},
+}
+%    \end{macrocode}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+%
+%</mpkoeawgermanLBX>
+%<*PenglishmpkoeawLBX>
+%
+% \subsubsection{Pointer to \Datei{english-mpkoeaw.lbx}}
+%
+%    \begin{macrocode}
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
+\InheritBibliographyExtras{english-mpkoeaw}
+\InheritBibliographyStrings{english-mpkoeaw}
+%    \end{macrocode}
+%
+%</PenglishmpkoeawLBX>
+%<*PgermanmpkoeawLBX>
+%
+% \subsubsection{Pointer to \Datei{german-mpkoeaw.lbx}}
+%
+%    \begin{macrocode}
+[2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\let\blx@lng@suff\@empty
+\InheritBibliographyExtras{german-mpkoeaw}
+%    \end{macrocode}
+%
+
+%</PgermanmpkoeawLBX>
 %<*offaenglishLBX>
 %
 % \subsubsection{File \Datei{english-offa.lbx}}
@@ -21137,6 +21828,13 @@
 %    \end{macrocode}
 %
 %</mpkDBX>
+%<*mpkoeawDBX>
+%
+%    \begin{macrocode}
+\ProvidesFile{mpkoeaw.dbx}
+%    \end{macrocode}
+%
+%</mpkoeawDBX>
 %<*nnuDBX>
 %
 %    \begin{macrocode}
