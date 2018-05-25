@@ -236,6 +236,8 @@ sub clean_cell {
     $string =~ s/(?<=.)Helvetia Arch.+//g;
     $string =~ s/rqueologia da 2\. a /rqueologia da 2\.\\textsuperscript{a} /;
     $string =~ s/(?<=.)Athenaeum\. Studi.+//g;
+    $string =~ s/Pam. Arch. Místopisné Pam. Arch./Pam. Arch. Místopisné/g;
+    $string =~ s/Památky Archaeologické a Místopisné Památky Archeologické/Památky Archaeologické a Místopisné/g;
     
     # trim
     $string =~ s/(^\p{SpacePerl}+|\p{SpacePerl}+$)//g;
