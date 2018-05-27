@@ -7,7 +7,7 @@
 % conditions of the LaTeX Project Public License, either
 % version 1.3c of this license or (at your option) any later
 % version.The latest version of this license is in:
-% 
+% \
 % http://www.latex-project.org/lppl.txt
 %
 % and version 1.3c or later is part of all distributions of
@@ -199,7 +199,7 @@
 % \changes{2.0}{2018/04/04}{Added new style \Stil{rgzm-numeric}}
 % \changes{2.0}{2018/05/10}{Added new style \Stil{ufg-muenster-numeric}}
 % \changes{2.0}{2018/05/10}{Separated \Kbd{development} from {master} branch on GitHub}
-% \changes{2.0}{2018/05/19}{Manual layout fixed}
+% \changes{2.0}{2018/05/19}{Manual layout enhanced}
 % \changes{2.0}{2018/05/21}{Suppress warnings of missing files \Kbd{\textless{}language\textgreater-archaeology-\textless{}style\textgreater.lbx} (\href{https://github.com/plk/biblatex/issues/745}{\blx issue 745})}
 % \changes{2.0}{2018/05/21}{New style \Stil{mpkoeaw}}
 
@@ -1152,6 +1152,8 @@
 % \item[]\DescribeMacro{\DeclareGenitiveApostropheChars}\marg{csv}\\
 % The same as \Befehl{DefineGenitiveApostropheChars} but for use in \Kbd{*.lbx} files.
 %
+% \item[]\DescribeMacro{\SuppressAdditiveLbxSuffixes}\marg{csv}\\
+% Suppresses useless warnings of missing \Kbd{*.lbx} files.\footnote{\url{}}
 % \end{itemize}
 %
 % \subsubsection{Counters and length registers}
@@ -1401,17 +1403,11 @@
 % \archbib styles never print languages. But in some cases the \Feld{language} field influences the localization of a particular entry.
 % Therefore it is useful to provide it, especially if it differs from the main document language.
 %
-% \subsection{Language files}
-%
-% The style specific language settings are stored in \Kbd{*.lbx} files. The naming of the files belonging to the generic styles is
-% \Kbd{\textless{}language\textgreater-archaeology.lbx}. The name scheme of the user styles' ones is \Kbd{\textless{}language\textgreater-\textless{}style\textgreater.lbx}.
-% You can add further language files without any registration in \archbib. As long as they follow the above naming they will be detected automatically. 
 %
 % \subsection{The \Feld{gender} field}
 %
 % In German documents the \Feld{gender} field is needed if the style replaces repeated names by \Deutsch{ders[elbe]},
-% \Deutsch{dies[elbe(n)]} or \Deutsch{dass[elbe]}.
-%
+% \Deutsch{dies[elbe(n)]} or \Deutsch{dass[elbe]}.%
 % \subsection{Additional fields in \Biber's tool mode}\label{kap:bibertool}
 %
 % \Biber does not see any data model file (\Kbd{*.dbx}) when in tool mode (with option \Kbd{--}\Option{tool} instead of job name)
@@ -4138,7 +4134,8 @@
 % \StringBox{\Stark{\texttt{ufg-Pallas}}}{Pallas}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-PamaMuz}}}{Pamiatky a Múzeá}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-PamaPrirodaBratislavy}}}{Pamiatky a Príroda Bratislavy}\\[1.3ex]
-% \StringBox{\Stark{\texttt{ufg-PamArchMistopisnePamArch}}}{Památky Archaeologické a Místopisné}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-PamArch}}}{Památky Archaeologické}\\[1.3ex]
+% \StringBox{\Stark{\texttt{ufg-PamArchMistopisne}}}{Památky Archaeologické a Místopisné}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-Pamatky}}}{Památky. Listy pro Archaeologii a Historii}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-PamKultury}}}{Pamjatniki Kuľtury}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-PamMuzMiedzi}}}{Pamiętnik Muzeum Miedzi}\\[1.3ex]
@@ -6702,7 +6699,8 @@
 % \StringBox{Palestine Exploration Fund. Quarterly Statement}{\Stark{\texttt{ufg-PalestineExplorFund}}}\\[1.3ex]
 % \StringBox{Palestine Exploration Quarterly}{\Stark{\texttt{ufg-PalestineExplorQuart}}}\\[1.3ex]
 % \StringBox{Pallas}{\Stark{\texttt{ufg-Pallas}}}\\[1.3ex]
-% \StringBox{Památky Archaeologické a Místopisné}{\Stark{\texttt{ufg-PamArchMistopisnePamArch}}}\\[1.3ex]
+% \StringBox{Památky Archaeologické}{\Stark{\texttt{ufg-PamArch}}}\\[1.3ex]
+% \StringBox{Památky Archaeologické a Místopisné}{\Stark{\texttt{ufg-PamArchMistopisne}}}\\[1.3ex]
 % \StringBox{Památky. Listy pro Archaeologii a Historii}{\Stark{\texttt{ufg-Pamatky}}}\\[1.3ex]
 % \StringBox{Pamiatky a Múzeá}{\Stark{\texttt{ufg-PamaMuz}}}\\[1.3ex]
 % \StringBox{Pamiatky a Príroda Bratislavy}{\Stark{\texttt{ufg-PamaPrirodaBratislavy}}}\\[1.3ex]
@@ -11110,7 +11108,7 @@
 % \changes{2.0}{2018/05/15}{New command \Befehl{DefineGenitiveApostropheChars}}
 % Sets a set of tokens after which an alternate genitive form is needed. To be used in the document preamble.
 %    \begin{macrocode}
-\newrobustcmd{\DefineGenitiveApostropheChars}[2]{%
+\newrobustcmd*{\DefineGenitiveApostropheChars}[2]{%
     \DefineBibliographyExtras{#1}{%
         \let\blxarch@genitiveapostrophechars\@empty%
         \forcsvlist{\listadd\blxarch@genitiveapostrophechars}{#2}%
@@ -11123,7 +11121,7 @@
 % \changes{2.0}{2018/05/15}{New command \Befehl{DeclareGenitiveApostropheChars}}
 % Sets a set of tokens after which an alternate genitive form is needed. To be used in \Kbd{*.lbx} files.
 %    \begin{macrocode}
-\newrobustcmd{\DeclareGenitiveApostropheChars}[1]{%
+\newrobustcmd*{\DeclareGenitiveApostropheChars}[1]{%
     \DeclareBibliographyExtras{%
         \let\blxarch@genitiveapostrophechars\@empty%
         \forcsvlist{\listadd\blxarch@genitiveapostrophechars}{#1}%
@@ -11532,6 +11530,14 @@
 \newcommand{\printgiveninitligatureslist}{%
     \renewcommand*{\do}[1]{\space##1}
         \dolistloop{\@blxarch@list@add@ligatures}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\printgiveninitligatureslist}
+% Prints the list from \Option{giveninitligatures}.
+%    \begin{macrocode}
+\newrobustcmd*{\SuppressAdditiveLbxSuffixes}{%
+    \let\blx@lng@suff\@empty}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -19549,6 +19555,11 @@
 \ProvidesFile{canadian-rgzm.lbx}
 %    \end{macrocode}
 %</FcanadianrgzmLBX>
+%<*FenglishrgzmLBX>
+%    \begin{macrocode}
+\ProvidesFile{english-rgzm.lbx}
+%    \end{macrocode}
+%</FenglishrgzmLBX>
 %<*FnewzealandrgzmLBX>
 %    \begin{macrocode}
 \ProvidesFile{newzealand-rgzm.lbx}
@@ -20130,7 +20141,9 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{english-archaeology}
+\InheritBibliographyStrings{english-archaeology}
 %    \end{macrocode}
 %
 %</PenglishLBX>
@@ -20146,7 +20159,6 @@
 % Use this file for all German spellings
 %    \begin{macrocode}
 \InheritBibliographyExtras{german}
-\InheritBibliographyStrings{german}
 \DeclareRedundantLanguages{german}
   {german,ngerman,austrian,naustrian,swissgerman,nswissgerman}
 %    \end{macrocode}
@@ -20286,8 +20298,9 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-archaeology}
+\InheritBibliographyStrings{german-archaeology}
 %    \end{macrocode}
 %
 %</PgermanLBX>
@@ -20298,7 +20311,7 @@
 %    \begin{macrocode}
 \ProvidesFile{english-aefkw.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{nodate}
@@ -20443,7 +20456,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{english-aefkw}
 \InheritBibliographyStrings{english-aefkw}
 %    \end{macrocode}
@@ -20455,7 +20468,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-aefkw}
 \InheritBibliographyStrings{german-aefkw}
 %    \end{macrocode}
@@ -20468,7 +20481,7 @@
 %    \begin{macrocode}
 \ProvidesFile{english-archa.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{urlseen}
@@ -20514,7 +20527,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{english-archa}
 \InheritBibliographyStrings{english-archa}
 %    \end{macrocode}
@@ -20526,7 +20539,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-archa}
 \InheritBibliographyStrings{german-archa}
 %    \end{macrocode}
@@ -20539,7 +20552,7 @@
 %    \begin{macrocode}
 \ProvidesFile{german-dguf-alt.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{andothers}
@@ -20580,7 +20593,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-dguf-alt}
 \InheritBibliographyStrings{german-dguf-alt}
 %    \end{macrocode}
@@ -20593,7 +20606,7 @@
 %    \begin{macrocode}
 \ProvidesFile{english-dguf-apa.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -20627,7 +20640,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{english-dguf-apa}
 \InheritBibliographyStrings{english-dguf-apa}
 %    \end{macrocode}
@@ -20640,7 +20653,7 @@
 %    \begin{macrocode}
 \ProvidesFile{english-eaz.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{subverbum}
@@ -20661,7 +20674,7 @@
 %    \begin{macrocode}
 \ProvidesFile{german-eaz.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{subverbum}
@@ -20681,7 +20694,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{english-eaz}
 \InheritBibliographyStrings{english-eaz}
 %    \end{macrocode}
@@ -20693,7 +20706,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-eaz}
 \InheritBibliographyStrings{german-eaz}
 %    \end{macrocode}
@@ -20734,7 +20747,7 @@
 %    \begin{macrocode}
 \ProvidesFile{german-foe.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{urlseen}
@@ -20762,7 +20775,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{english-foe}
 \InheritBibliographyStrings{english-foe}
 %    \end{macrocode}
@@ -20774,7 +20787,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-foe}
 \InheritBibliographyStrings{german-foe}
 %    \end{macrocode}
@@ -20787,7 +20800,7 @@
 %    \begin{macrocode}
 \ProvidesFile{english-jb-kreis-neuss.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{ibidem}
@@ -20811,7 +20824,7 @@
 %    \begin{macrocode}
 \ProvidesFile{german-jb-kreis-neuss.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{ibidem}
@@ -20834,7 +20847,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{english-jb-kreis-neuss}
 \InheritBibliographyStrings{english-jb-kreis-neuss}
 %    \end{macrocode}
@@ -20846,7 +20859,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-jb-kreis-neuss}
 \InheritBibliographyStrings{german-jb-kreis-neuss}
 %    \end{macrocode}
@@ -20859,7 +20872,7 @@
 %    \begin{macrocode}
 \ProvidesFile{german-karl.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{reprint}
@@ -20882,7 +20895,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-karl}
 \InheritBibliographyStrings{german-karl}
 %    \end{macrocode}
@@ -20895,7 +20908,7 @@
 %    \begin{macrocode}
 \ProvidesFile{german-maja.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{byeditor}
@@ -21017,7 +21030,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-maja}
 \InheritBibliographyStrings{german-maja}
 %    \end{macrocode}
@@ -21030,7 +21043,7 @@
 %    \begin{macrocode}
 \ProvidesFile{english-mpk.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{urlseen}
@@ -21051,7 +21064,7 @@
 %    \begin{macrocode}
 \ProvidesFile{german-mpk.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-archaeology}
 %    \end{macrocode}
 %
@@ -21079,7 +21092,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{english-mpk}
 %    \end{macrocode}
 %
@@ -21124,7 +21137,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-mpk}
 \InheritBibliographyStrings{german-mpk}
 %    \end{macrocode}
@@ -21137,7 +21150,7 @@
 %    \begin{macrocode}
 \ProvidesFile{english-mpkoeaw.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{english-archaeology}
 %    \end{macrocode}
 %
@@ -21200,7 +21213,7 @@
 %    \begin{macrocode}
 \ProvidesFile{german-mpkoeaw.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-archaeology}
 %    \end{macrocode}
 %
@@ -21280,7 +21293,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{english-mpkoeaw}
 \InheritBibliographyStrings{english-mpkoeaw}
 %    \end{macrocode}
@@ -21292,7 +21305,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-mpkoeaw}
 %    \end{macrocode}
 %
@@ -21305,7 +21318,7 @@
 %    \begin{macrocode}
 \ProvidesFile{english-offa.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{urlfrom}
@@ -21328,7 +21341,7 @@
 %    \begin{macrocode}
 \ProvidesFile{german-offa.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{page}
@@ -21354,7 +21367,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{english-offa}
 \InheritBibliographyStrings{english-offa}
 %    \end{macrocode}
@@ -21366,7 +21379,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-offa}
 \InheritBibliographyStrings{german-offa}
 %    \end{macrocode}
@@ -21379,7 +21392,7 @@
 %    \begin{macrocode}
 \ProvidesFile{german-rgzm.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{ibidem}
@@ -21420,7 +21433,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-rgzm}
 \InheritBibliographyStrings{german-rgzm}
 %    \end{macrocode}
@@ -21433,7 +21446,7 @@
 %    \begin{macrocode}
 \ProvidesFile{english-zaak.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{urlfrom}
@@ -21454,7 +21467,7 @@
 %    \begin{macrocode}
 \ProvidesFile{german-zaak.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{page}
@@ -21480,7 +21493,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{english-zaak}
 \InheritBibliographyStrings{english-zaak}
 %    \end{macrocode}
@@ -21492,7 +21505,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-zaak}
 \InheritBibliographyStrings{german-zaak}
 %    \end{macrocode}
@@ -21505,7 +21518,7 @@
 %    \begin{macrocode}
 \ProvidesFile{english-zaes.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{ibidem}
@@ -21526,7 +21539,7 @@
 %    \begin{macrocode}
 \ProvidesFile{german-zaes.lbx}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 %    \end{macrocode}
 %
 % \begin{localization}{byeditor}
@@ -21651,7 +21664,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{english-zaes}
 \InheritBibliographyStrings{english-zaes}
 %    \end{macrocode}
@@ -21663,7 +21676,7 @@
 %
 %    \begin{macrocode}
 [2018/05/20 v2.0 biblatex-archaeology localization (IB)]
-\let\blx@lng@suff\@empty
+\SuppressAdditiveLbxSuffixes
 \InheritBibliographyExtras{german-zaes}
 \InheritBibliographyStrings{german-zaes}
 %    \end{macrocode}
