@@ -73,15 +73,16 @@
     %style=rgk-numeric,
     %style=rgk-verbose,
     %style=rgzm-inline,
-    style=rgzm-numeric,
+    %style=rgzm-numeric,
     %style=rgzm-verbose,
     %style=ufg-muenster-inline,
     %style=ufg-muenster-numeric,
     %style=ufg-muenster-verbose,
     %style=volkskunde,
-    %style=zaak,
+    style=zaak,
     %style=zaes,
     bibencoding=utf8, % necessary if *.tex file is in other encoding
+	usesourceeditor = false,
 ]{biblatex}
 \providetoggle{archbool:shortseries}
 \providetoggle{archbool:shortjournal}
@@ -125,7 +126,7 @@
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
-
+\renewbibmacro*{bytranslator+others}{}
 %%% END EXPERIMENTAL CODE HERE:
 \makeatother
 
