@@ -692,7 +692,7 @@
 %       \tcblower%
 %       P. C. Tacitus 1981: Germania. \Stark{Ed. by A. Editor}. Stuttgart.
 % \end{Beispiel}
-% This option is alsosettable on a per-entry basis.
+% This option is also settable on a per-entry basis.
 %
 % \item[]\DescribeOption{volumeafterseries}=\meta{bool}\\
 % Typically \Feld{volume} numbers of self-contained works are printed immediatly after the title. If this option is \meta{true}, it is
@@ -1389,7 +1389,7 @@
 % they are needed to discriminate ambigous titles. \Datei{biblatex-archaeology-strings-full-subtitle.bib} contains full titles plus subtitles. If you followed the
 % installation instructions from \ref{kap:install}, you can call these databases without path. Appendix \ref{kap:strings} provides a list of availabe strings ordered
 % by string, and \ref{kap:journals} ordered by journal. The strings are namespaced in order to allow the use of other lists alongside, especially those from
-% \Stil{archaeologie}. The strings were automatically generated from an MS Excel data sheet provided by the \Deutsch{Deutsche Gesellschaft f\"ur Ur- und Fr\"uhgeschichte}.\footnote{\url{http://www.dguf.de/fileadmin/user_upload/Arbeitskreise/AK_DGUF-Zotero/RGK_Zeitschriften.xls}}
+% \Stil{archaeologie}. The strings were automatically generated from a MS Excel data sheet provided by the \Deutsch{Deutsche Gesellschaft f\"ur Ur- und Fr\"uhgeschichte}.\footnote{\url{http://www.dguf.de/fileadmin/user_upload/Arbeitskreise/AK_DGUF-Zotero/RGK_Zeitschriften.xls}}
 % If they are ambigous due to modified (sub-)titles there are counted by adding colon and number from the the second onwards.
 %
 % \subsection{Electronic identifiers}
@@ -1932,6 +1932,7 @@
   SUBTITLE = {Lappländska resan 1732},
   LANGUAGE = {swedish},
   GENDER = {pp},
+  OPTIONS = {usesourceeditor},
 }
 @BOOK{mette:1990,
   AUTHOR = {Mette, Otto},
@@ -7500,7 +7501,7 @@
 % \end{macro}
 %
 % \begin{macro}{\blxarch@warnmsg}
-% \begin{macro}{\blxarch@usesourceeditor}
+% \begin{macro}{\blxarch@errmsg}
 % \begin{macro}{\blxarch@interror}
 % Error handling:
 %    \begin{macrocode}
@@ -9422,8 +9423,16 @@
 %
 % \subsubsubsection{Secondary editors}
 %
+% \begin{bibmacro}{bytranslator+others}
+% Never needed. \Feld{translator}s are occassionally printed as source authors.
+%    \begin{macrocode}
+\renewbibmacro*{bytranslator+others}{}
+%    \end{macrocode}
+% \end{bibmacro}
+%
 % \begin{option}{usesourceeditor}
 % =\meta{bool}\\
+% \changes{2.0}{2018/05/23}{\Option{usesourceeditor} also settable on a per-entry basis}
 % If editions of historical sources are printed with print secondary editors.
 %    \begin{macrocode}
 \newtoggle{archbool:usesourceeditor}
