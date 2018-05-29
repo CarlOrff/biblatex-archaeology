@@ -3,7 +3,7 @@
 ########################################################
 #
 # This script is part of the biblatex-archaeology
-# package by Ingram Braun. It sole purpose is to
+# package [v2.0] by Ingram Braun. It sole purpose is to
 # build a zip file for CTAN out of the development
 # sources.
 #

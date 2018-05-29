@@ -1,4 +1,4 @@
-REM install the biblatex-archaeology package
+REM install the biblatex-archaeology package [v2.0]
 REM UTF-8
 chcp 65001
 
