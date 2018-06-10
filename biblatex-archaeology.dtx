@@ -146,7 +146,7 @@
     pdfaconformance=B,
     pdfmetalang=en,
     pdfcaptionwriter={Ingram Braun},
-    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7},
+    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=ctan&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7},
     pdflicenseurl = {http://www.latex-project.org/lppl.txt},
     pdfsource={\jobname.dtx},
     pdftype=Software,
@@ -202,6 +202,8 @@
 % \changes{2.0}{2018/05/21}{Suppress warnings of missing files \Kbd{\textless{}language\textgreater-archaeology-\textless{}style\textgreater.lbx} (\href{https://github.com/plk/biblatex/issues/745}{\blx issue 745})}
 % \changes{2.0}{2018/05/21}{New style \Stil{mpkoeaw}}
 % \changes{2.0}{2018/05/30}{Added script \Datei{version.pl} to development repository}
+% \changes{2.0}{2018/06/06}{New generic style \Stil{verbose-archaeology}}
+% \changes{2.0}{2018/10/06}{Fixed style \Stil{maja}}
 %
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -215,7 +217,7 @@
 % \GlossaryPrologue{\section*{Changelog}\addcontentsline{toc}{section}{Changelog}}
 %
 % \title{\LARGE\color{\headingscolor}The \archbib styles [v2.0]}
-% \author{\Large Ingram Braun \\ \href{https://ingram-braun.net/\#ib_campaign=biblatex-archaeology-2.0\&ib_medium=manual\&ib_source=github\&ib_content=titlepage}{\Kbd{https://ingram-braun.net/}}}
+% \author{\Large Ingram Braun \\ \href{https://ingram-braun.net/\#ib_campaign=biblatex-archaeology-2.0\&ib_medium=manual\&ib_source=ctan\&ib_content=titlepage}{\Kbd{https://ingram-braun.net/}}}
 %
 % \maketitle
 %
@@ -312,11 +314,11 @@
 % \subsection{Help}\label{kap:help}
 % \par If there are any concerns you can reach me directly via the
 % \href{https://github.com/CarlOrff/biblatex-archaeology/issues}{GitHub tracker} or comment section on
-% a \href{https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github\&ib_content=helpsection}
+% a \href{https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=ctan\&ib_content=helpsection}
 %{small project page on my personal website}.
-% Alternatively you can e-mail me through the \href{https://ingram-braun.net/public/about/legal-notice/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github\&ib_content=helpsection}{contact form} there.
+% Alternatively you can e-mail me through the \href{https://ingram-braun.net/public/about/legal-notice/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=ctan\&ib_content=helpsection}{contact form} there.
 % Of course, \href{http://tex.stackexchange.com}{TeX Stack Exchange} is always worth a try.
-% \par The \href{https://ingram-braun.net/public/programming/tex/bibtex-database-latex-bibliography-form/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github\&ib_content=helpsection}{Online \blx Editor}
+% \par The \href{https://ingram-braun.net/public/programming/tex/bibtex-database-latex-bibliography-form/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=ctan\&ib_content=helpsection}{Online \blx Editor}
 % on my website provides the additional \archbib fields.
 % 
 % \section{Reference}
@@ -343,6 +345,9 @@
 %
 % \item[]\DescribeStyle{numeric-comp-archaeology}
 % Imports \Kbd{numeric-comp} into \archbib.
+%
+% \item[]\DescribeStyle{verbose-archaeology}
+% Imports \Kbd{verbose} into \archbib.
 %
 % \item[]\DescribeStyle{verbose-ibid-archaeology}
 % Imports \Kbd{verbose-ibid} into \archbib.
@@ -465,6 +470,13 @@
 % \subsubsection{Package options}\label{kap:pkgopt}
 %
 % \begin{itemize}
+%
+% \item[]\DescribeOption{citeshortin}=\meta{bool}\\
+% If \meta{true}, then short citations for \Typ{inreference} and \Typ{article} are not build with \Feld{labelname}, but with \Kbd{in: \textellipsis}:
+%
+% \begin{Beispiel}
+%    Bergmann, \Stark{in: LÄ \RN{3}} (2015)
+% \end{Beispiel}
 %
 % \item[]\DescribeOption{editionsuperscript}=\meta{key}\\
 % This option controls where to print the edition number. The following keys are available:
@@ -8274,7 +8286,7 @@
 % \subsubsubsection{Short forms}
 %
 % \begin{macro}{\ifshortform}
-% \meta{string}\meta{true}\meta{false}
+% \meta{string}\meta{true}\meta{false}\\
 % \Kbd{string} must be one of the valid values from option \Option{shortform}.
 %    \begin{macrocode}
 \newcommand{\ifshortform}[3]{%
@@ -8288,11 +8300,11 @@
 %
 % \begin{option}{shortform}
 % =\meta{string}\\
-% Where to print the label date. The following expressions are allowed:
+% Wether to print short forms like \Deutsch{RGA} or \Latein{CIL} in bibliographies. The following keys are available:
 % \begin{optkeys}{3em}
-%     \item[\Kbd{both}] date after label name and location;
-%     \item[\Kbd{label}] date after label name;
-%     \item[\Kbd{location}] date after location;
+%   \item[\Kbd{false}] no short forms in  the bibliography.
+%   \item[\Kbd{title}] replace \Feld{title} by \Feld{shortform} field.
+%   \item[\Kbd{true}] use full short forms.
 % \end{optkeys}
 %    \begin{macrocode}
 \DeclareBibliographyOption[string]{shortform}[true]{%
@@ -8438,7 +8450,7 @@
 % \begin{option}{repeatlabel}
 % =\meta{string}
 % \changes{2.0}{2018/05/09}{Option \Option{repeatlabel} has a third value: \Kbd{dashed}}
-% \begin{optkeys}{3em}
+% \begin{optkeys}{4em}
 %     \item[\Kbd{dashed}] cite label shall be repeated and repeated names dashed;
 %     \item[\Kbd{false}] don't;
 %     \item[\Kbd{true}] cite label shall be repeated, always with full names;
@@ -11235,6 +11247,32 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{option}{citeshortin}
+% \changes{2.0}{2018/10/06}{Added option \Option{citeshortin}}
+% short citations in verbose styles with \Kbd{]
+%    \begin{macrocode}
+\newtoggle{archbool:citeshortin}
+\DeclareBibliographyOption[boolean]{citeshortin}[true]{%
+    \settoggle{archbool:citeshortin}{#1}%
+    \ifboolexpr{
+        togl {archbool:citeshortin}
+        and
+        not test {\ifcsdef{blxarch@fork@verbose}}
+    }
+		{\blxarch@errmsg{option 'citeshortin=true' only in verbose styles!}}
+		{}%
+}
+\ExecuteBibliographyOptions{citeshortin}
+%    \end{macrocode}
+% \end{option}
+%
+% \begin{option}{citetitle}
+% Title labels in verbose styles:
+%    \begin{macrocode}
+\DeclareFieldFormat*{citetitle}{#1}
+%    \end{macrocode}
+% \end{option}
+%
 % \subsubsubsection{Label generation}
 %
 % \begin{format}{labeldate}
@@ -11509,15 +11547,6 @@
 %    \end{macrocode}
 % \end{format}
 %
-% \subsubsubsection{Citation formattings}
-%
-% \begin{format}{citetitle}
-% Title labels in verbose styles:
-%    \begin{macrocode}
-\DeclareFieldFormat*{citetitle}{#1}
-%    \end{macrocode}
-% \end{format}
-%
 % \subsubsubsection{Debugging helper macros}
 %
 % \begin{macro}{\printgiveninitligatureslist}
@@ -11537,11 +11566,11 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\blxarch@style@amit}
 % \begin{macro}{\blxarch@style@ayc}
 % \begin{macro}{\blxarch@style@ayi}
 % \begin{macro}{\blxarch@style@ayic}
 % \begin{macro}{\blxarch@style@numc}
+% \begin{macro}{\blxarch@style@v}
 % \begin{macro}{\blxarch@style@vi}
 % \begin{macro}{\blxarch@style@vttwo}
 % Style titles for the example file.
@@ -11551,6 +11580,7 @@
 \edef\blxarch@style@ayi{authoryear-ibid-archaeology (generic)}
 \edef\blxarch@style@ayic{authoryear-icomp-archaeology (generic)}
 \edef\blxarch@style@numc{numeric-comp-archaeology (generic)}
+\edef\blxarch@style@v{verbose-archaeology (generic)}
 \edef\blxarch@style@vi{verbose-ibid-archaeology (generic)}
 \edef\blxarch@style@vttwo{verbose-trad2note-archaeology (generic)}
 %    \end{macrocode}
@@ -11789,14 +11819,19 @@
 \RequirePackage{biblatex-archaeology}
 %    \end{macrocode}
 %
+% \begin{option}{mergedate}
+% \begin{option}{labeldate}
 % \begin{option}{sorting}
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
+	citeshortin=false,
     mergedate=false,
     labeldate=true,
     sorting=nyvt,
 }
 %    \end{macrocode}
+% \end{option}
+% \end{option}
 % \end{option}
 %
 % \begin{bibliographydriver}{article}
@@ -11927,6 +11962,27 @@
 %    \end{macrocode}
 %
 %</numericcompBBX>
+%<*verboseBBX>
+%
+% \subsubsection{File \Datei{verbose-archaeology.bbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{verbose-archaeology.bbx}
+[2018/05/29 v2.0 biblatex-archaeology bibliography style (IB)] 
+%    \end{macrocode}
+%
+% Load \Paket{biblatex-archaeology} after a style.
+%    \begin{macrocode}
+\RequireBibliographyStyle{verbose}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeobibstyletitle}
+%    \begin{macrocode}
+\def\archaeobibstyletitle{\blxarch@style@v}
+%    \end{macrocode}
+% \end{macro}
+%
+%</verboseBBX>
 %<*verboseibidBBX>
 %
 % \subsubsection{File \Datei{verbose-ibid-archaeology.bbx}}
@@ -11973,7 +12029,7 @@
 %
 % \subsubsection{Shared code for generic verbose styles}
 %
-% \begin{macro}{\blxarch@fork@footnote}
+% \begin{macro}{\blxarch@fork@verbose}
 % I am a footnote style.
 %    \begin{macrocode}
 \def\blxarch@fork@verbose{}
@@ -11993,7 +12049,10 @@
 % \begin{bibmacro}{repeatlabel }
 % \Option{repeatlabel} doesn't work in verbose and numeric styles.
 %    \begin{macrocode}
-\ExecuteBibliographyOptions{repeatlabel=false}
+\ExecuteBibliographyOptions{
+	citeshortin=false,
+	repeatlabel=false
+}
 \renewbibmacro*{repeatlabel}{%
     \blxarch@errmsg{Option 'repeatlabel' must be 'false' in verbose and numeric styles}}   
 %    \end{macrocode}
@@ -14932,7 +14991,7 @@
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\RequireBibliographyStyle{verbose-ibid-archaeology}
+\RequireBibliographyStyle{verbose-archaeology}
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeobibstyletitle}
@@ -14966,7 +15025,7 @@
 %    \begin{macrocode}
     editionsuperscript=predate,
     giveninitligatures={},
-    idemincitation=true,
+    idemincitation=false,
     injournal=true,
     journallocation=false,
     maxbooknames=500,
@@ -14980,8 +15039,8 @@
     preservelastauthor=false,
     repeatlabel=false,
     shortform=title,
-    shortjournal=false,
-    shortseries=false,
+    shortjournal=true,
+    shortseries=true,
     subseries=false,
     summarytitle=false,
     tabbedlabeldate=false,
@@ -15007,9 +15066,12 @@
 % \end{macro}
 %
 % \begin{format}{sortname}
+% \begin{format}{labelnames}
 %    \begin{macrocode}
 \DeclareNameAlias{sortname}{family-given}
+\DeclareNameAlias{labelnames}{sortname}
 %    \end{macrocode}
+% \end{format}
 % \end{format}
 %
 % \begin{macro}{\booklabelnamepunct}
@@ -15035,7 +15097,29 @@
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
 \DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat[inreference]{volume}{\addspace\RN{#1}}
 %    \end{macrocode}
+% \end{format}
+% \end{format}
+%
+% \begin{format}{edition}
+% \begin{format}{usere}
+%    \begin{macrocode}
+\DeclareFieldFormat*{edition}{}
+\DeclareFieldFormat*{usere}{}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+%
+% \begin{format}{titleaddon}
+% \begin{format}{booktitleaddon}
+% \begin{format}{maintitleaddon}
+%    \begin{macrocode}
+\DeclareFieldFormat*{titleaddon}{}
+\DeclareFieldFormat*{booktitleaddon}{}
+\DeclareFieldFormat*{maintitleaddon}{}
+%    \end{macrocode}
+% \end{format}
 % \end{format}
 % \end{format}
 %
@@ -15047,6 +15131,12 @@
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
+%
+% \begin{format}{location}
+%    \begin{macrocode}
+\DeclareListFormat[inreference]{location}{}
+%    \end{macrocode}
+% \end{format}
 %
 % \begin{format}{locationdateparens}
 %    \begin{macrocode}
@@ -15074,7 +15164,7 @@
 %
 % \begin{format}{title}
 %    \begin{macrocode}
-\DeclareFieldFormat[inreference]{title}{#1}
+\DeclareFieldFormat[inreference]{dictionary}{#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -15083,8 +15173,6 @@
 %    \begin{macrocode}
 \xpatchbibdriver{inreference}{location+date}{bibliographydate}
   {}{Patching driver 'inreference' failed (2)}
-\xpatchbibdriver{inreference}{titlepunct}{nopunct}
-  {}{Patching driver 'inreference' failed (3)}
 %    \end{macrocode}
 % \end{bibliographydriver}
 %
@@ -17684,7 +17772,7 @@
 %</authoryearicompCBX>
 %<*numericcompCBX>
 %
-% \subsubsection{File \Datei{authoryear-archaeology.cbx}}
+% \subsubsection{File \Datei{numeric-archaeology.cbx}}
 %
 %    \begin{macrocode}
 \ProvidesFile{numeric-comp-archaeology.cbx}
@@ -17712,7 +17800,29 @@
 % \end{format}
 %
 %</numericcompCBX>
+%<*verboseCBX>
+%
+% \subsubsection{File \Datei{verbose-archaeology.cbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{verbose-archaeology.cbx}
+[2018/05/29 v2.0 biblatex-archaeology citation style (IB)]
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeocitestyletitle}
+%    \begin{macrocode}
+\def\archaeocitestyletitle{\blxarch@style@v}
+%    \end{macrocode}
+% \end{macro} 
+%
+%    \begin{macrocode}
+\RequireCitationStyle{verbose}
+%    \end{macrocode}
+%
+%</verboseCBX>
 %<*verboseibidCBX>
+%
+% \subsubsection{File \Datei{verbose-ibid-archaeology.cbx}}
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-ibid-archaeology.cbx}
@@ -17750,13 +17860,8 @@
 %    \end{macrocode}
 %
 % The following code is copied from \Kbd{verbose-note.cbx}. Only \Befehl{iffootnote} is replaced
-% by \Befehl{ifseenote}, \Befehl{seenotedelim}, Option{uselabeltitle} option and format \Format{seenote} added.
+% by \Befehl{ifseenote}, \Befehl{seenotedelim}, \Option{uselabeltitle} option and format \Format{seenote} added.
 % \begin{macrocode}
-\newbibmacro*{cite:short}{%
-  \printnames{labelname}%
-  \setunit*{\printdelim{labelnamepunct}}%
-  \printtext[bibhyperlink]{%
-    \printfield[citetitle]{labeltitle}}}
 
 \newbibmacro*{footcite}{%
   \usebibmacro{cite:citepages}%
@@ -17902,6 +18007,58 @@
 % \end{format}
 %
 %</verbosetrad2noteCBX>
+%<*verbosesharedCBX>
+%
+% \subsubsection{Shared code for verbose styles}
+%
+% \begin{bibmacro}{cite:short}
+%    \begin{macrocode}
+\providebibmacro*{cite:short}{}
+\renewbibmacro*{cite:short}{%
+    \printnames{labelname}%
+    \setunit*{\printdelim{nametitledelim}}%
+    \printtext[bibhyperlink]{%
+    \iftoggle{archbool:citeshortin}
+        {\ifboolexpr{
+            not test {\iffieldundef{journaltitle}}
+			or
+			( not test {\ifshortform{false}}
+			  and
+			  not test {\iffieldundef{shortform}}
+			)
+		 }
+		 {\usebibmacro{cite:short:in}}
+		 {\printfield[citetitle]{labeltitle}}%
+        }
+        {\printfield[citetitle]{labeltitle}}}%
+}
+%    \end{macrocode}
+% \end{bibmacro}
+%
+% \begin{bibmacro}{cite:short:in}
+% It should be certain here that not a usual \Format{cite:short} applies here.
+%    \begin{macrocode}
+\newbibmacro*{cite:short:in}{%
+	\savebibmacro{extendeddate}%
+	\renewbibmacro*{extendeddate}[2]{}%
+	\iffieldundef{journaltitle}
+		{\iffieldundef{shortform}
+			{\printfield[citetitle]{labeltitle}}
+			{\usebibmacro{in:}%
+			 \printfield{shortform}%
+             \setunit{\addspace}%
+             \printfield[shortformvolume]{volume}%
+			 \setunit{\addspace}%
+			 \usebibmacro{bibliographydate}%
+			}
+		}
+		{\usebibmacro{journal+issuetitle}}%
+	\restorebibmacro{extendeddate}%
+}
+%    \end{macrocode}
+% \end{bibmacro}
+%
+%</verbosesharedCBX>
 %<*aefkwCBX>
 %
 % \subsubsection{File \Datei{aefkw.cbx}}
@@ -18076,7 +18233,7 @@
     }
         {\printnames[][-\value{listtotal}]{labelname}}
         {\printnames{labelname}}%
-}{}{Patching bibmacro 'cite' failed}}
+}{}{Patching bibmacro 'cite' failed}
 \xpatchbibmacro{textcite}{\printnames{labelname}}{%
     \ifboolexpr{
         not test {\ifciteseen}
@@ -18085,7 +18242,7 @@
     }
         {\printnames[][-\value{listtotal}]{labelname}}
         {\printnames{labelname}}%
-}{}{Patching bibmacro 'textcite' failed}}
+}{}{Patching bibmacro 'textcite' failed}
 %    \end{macrocode}
 % \end{bibmacro}
 % \end{bibmacro} 
@@ -18246,7 +18403,7 @@
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\RequireCitationStyle{verbose-ibid-archaeology}
+\RequireCitationStyle{verbose-archaeology}
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
@@ -18254,6 +18411,12 @@
 \def\archaeocitestyletitle{\blxarch@style@maja}
 %    \end{macrocode}
 % \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+	citeshortin=true,
+}
+%    \end{macrocode}
 %
 %</majaCBX>
 %<*mpkCBX>
@@ -21769,6 +21932,13 @@
 %    \end{macrocode}
 %
 %</numericcompDBX>
+%<*verboseDBX>
+%
+%    \begin{macrocode}
+\ProvidesFile{verbose-archaeology.dbx}
+%    \end{macrocode}
+%
+%</verboseDBX>
 %<*verboseibidDBX>
 %
 %    \begin{macrocode}

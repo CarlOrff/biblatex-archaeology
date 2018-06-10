@@ -112,7 +112,7 @@ add_zip( $expltex, $expldir );
 
 # We add a README.htm for optimized backlinks from CTAN mirrors
 my $html = 'README.htm';
-my $readmehtml = FileHandle->new($html, O_RDWR|O_TRUNC_|O_CREAT);
+my $readmehtml = FileHandle->new($html, O_RDWR|O_TRUNC|O_CREAT);
 if ( defined $readmehtml ) {
 	$markdown =~ s/\bib_medium=readme\.md\b/'ib_medium='.lc($html)/egs;
 	$markdown = markdown( $markdown, {
@@ -122,10 +122,10 @@ if ( defined $readmehtml ) {
 	
 	finish( "Could not populate markdown file $html!" ) if length $markdown < 100;
 	print $readmehtml '<!doctype html><html><meta charset="utf-8"></html><body>' . $markdown . '</body>';
+	undef $readmehtml;      # automatically closes the file
 	add_zip( $html, $package );
 }
 else { finish( "Could not open $html: $!" ) }
-undef $readmehtml;      # automatically closes the file
 
 # generate example PDF for every style
 opendir ( my $dh, "." ) or die $!;
