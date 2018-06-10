@@ -245,6 +245,9 @@ sub add_zip {
         $zip->addFile( $filename, "/$dir/$filename", COMPRESSION_LEVEL_BEST_COMPRESSION );
         add_log("PDF file $filename successfully added to ZIP archive.\n");
 		
+		# set UNIX file attributes on read-only
+		my $member->unixFileAttributes( 0644 ); # -rw-r--r--
+		
 		return "";
     }
 }
