@@ -225,7 +225,7 @@ sub add_zip {
                     or finish("FATAL ERROR: Could not decode string $line: $@\n") if length $line > 0;
             }
             
-            my $member = $zip->addString( $text, "/$dir/$filename", COMPRESSION_LEVEL_BEST_COMPRESSION );
+            my $member = $zip->addString( $text, "$dir/$filename", COMPRESSION_LEVEL_BEST_COMPRESSION );
 			
 			# set UNIX file attributes on read-only
 			$member->unixFileAttributes( 0644 ); # -rw-r--r--
@@ -238,15 +238,14 @@ sub add_zip {
             finish("FATAL ERROR: Could not open $filename: $!");
         }
 		
-		
 	}
     else {
 
-        $zip->addFile( $filename, "/$dir/$filename", COMPRESSION_LEVEL_BEST_COMPRESSION );
+        my $member = $zip->addFile( $filename, "$dir/$filename", COMPRESSION_LEVEL_BEST_COMPRESSION );
         add_log("PDF file $filename successfully added to ZIP archive.\n");
 		
 		# set UNIX file attributes on read-only
-		my $member->unixFileAttributes( 0644 ); # -rw-r--r--
+		$member->unixFileAttributes( 0644 ); # -rw-r--r--
 		
 		return "";
     }
