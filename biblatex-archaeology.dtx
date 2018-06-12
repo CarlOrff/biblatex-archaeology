@@ -146,7 +146,7 @@
     pdfaconformance=B,
     pdfmetalang=en,
     pdfcaptionwriter={Ingram Braun},
-    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=facebook&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7},
+    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7},
     pdflicenseurl = {http://www.latex-project.org/lppl.txt},
     pdfsource={\jobname.dtx},
     pdftype=Software,
@@ -217,7 +217,7 @@
 % \GlossaryPrologue{\section*{Changelog}\addcontentsline{toc}{section}{Changelog}}
 %
 % \title{\LARGE\color{\headingscolor}The \archbib styles [v2.0]}
-% \author{\Large Ingram Braun \\ \href{https://ingram-braun.net/\#ib_campaign=biblatex-archaeology-2.0\&ib_medium=manual\&ib_source=facebook\&ib_content=titlepage}{\Kbd{https://ingram-braun.net/}}}
+% \author{\Large Ingram Braun \\ \href{https://ingram-braun.net/\#ib_campaign=biblatex-archaeology-2.0\&ib_medium=manual\&ib_source=github\&ib_content=titlepage}{\Kbd{https://ingram-braun.net/}}}
 %
 % \maketitle
 %
@@ -314,11 +314,11 @@
 % \subsection{Help}\label{kap:help}
 % \par If there are any concerns you can reach me directly via the
 % \href{https://github.com/CarlOrff/biblatex-archaeology/issues}{GitHub tracker} or comment section on
-% a \href{https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=facebook\&ib_content=helpsection}
+% a \href{https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github\&ib_content=helpsection}
 %{small project page on my personal website}.
-% Alternatively you can e-mail me through the \href{https://ingram-braun.net/public/about/legal-notice/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=facebook\&ib_content=helpsection}{contact form} there.
+% Alternatively you can e-mail me through the \href{https://ingram-braun.net/public/about/legal-notice/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github\&ib_content=helpsection}{contact form} there.
 % Of course, \href{http://tex.stackexchange.com}{TeX Stack Exchange} is always worth a try.
-% \par The \href{https://ingram-braun.net/public/programming/tex/bibtex-database-latex-bibliography-form/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=facebook\&ib_content=helpsection}{Online \blx Editor}
+% \par The \href{https://ingram-braun.net/public/programming/tex/bibtex-database-latex-bibliography-form/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github\&ib_content=helpsection}{Online \blx Editor}
 % on my website provides the additional \archbib fields.
 % 
 % \section{Reference}
@@ -484,7 +484,7 @@
 %   \item[\Kbd{none}] use the \blx standard.
 %   \item[\Kbd{predate}] superscript ahead of \Feld{date}.
 %   \item[\Kbd{postdate}] superscript after \Feld{date}.
-%   \item[\Kbd{prelabel}] superscript ahaed of \Feld{labelyear}.
+%   \item[\Kbd{prelabel}] superscript ahead of \Feld{labelyear}.
 %   \item[\Kbd{postlabel}] superscript after \Feld{labelyear}.
 %   \item[\Kbd{preloc}] superscript ahead of \Feld{location}.
 %   \item[\Kbd{postloc}] superscript after \Feld{location}.
@@ -1081,7 +1081,7 @@
 % The punctuation after the eventtype.
 %
 % \item[]\DescribeMacro{\finalnameellipsis}\\
-% The ellipsis ahaed of the last \Feld{author} if option \Option{preservelastauthor } (see \ref{kap:pkgopt}) is enabled.
+% The ellipsis ahead of the last \Feld{author} if option \Option{preservelastauthor } (see \ref{kap:pkgopt}) is enabled.
 %
 % \item[]\DescribeMacro{\finalsourceeditordelim}\\
 % The delimiter between the next to last and the last secondary \Feld{editor}.
@@ -7816,7 +7816,7 @@
             overwrite=true,
             foreach={titleaddon,booktitleaddon,maintitleaddon},
         ]{
-			\pernottype{article}
+            \pernottype{article}
             \pernottype{review}
             \pernottype{reference}
             \pernottype{inreference}
@@ -9117,7 +9117,7 @@
 %
 % \begin{option}{nothesistitlepunct}
 % =\meta{bool}\\
-% If \Kbd{true}, then there is no period ahaed of thesis type.
+% If \Kbd{true}, then there is no period ahead of thesis type.
 %    \begin{macrocode}
 \newtoggle{archbool:nothesistitlepunct}
 \DeclareBibliographyOption{nothesistitlepunct}[false]{%
@@ -11259,8 +11259,8 @@
         and
         not test {\ifcsdef{blxarch@fork@verbose}}
     }
-		{\blxarch@errmsg{option 'citeshortin=true' only in verbose styles}}
-		{}%
+        {\blxarch@errmsg{option 'citeshortin=true' only in verbose styles}}
+        {}%
 }
 \ExecuteBibliographyOptions{citeshortin=false}
 %    \end{macrocode}
@@ -11501,10 +11501,10 @@
 %    \begin{macrocode}
 \xpatchbibdriver{book}{usebibmacro {series+number}\newunit}
     {usebibmacro{series+number}}
-	{}{Patching driver 'book' failed (5)}
+    {}{Patching driver 'book' failed (5)}
 \xpatchbibdriver{inbook}{usebibmacro {series+number}\newunit}
     {usebibmacro{series+number}}
-	{}{Patching driver 'inbook' failed (4)}
+    {}{Patching driver 'inbook' failed (4)}
 %    \end{macrocode}
 % \end{bibliographydriver}
 % \end{bibliographydriver}
@@ -11848,9 +11848,9 @@
     \xpatchbibdriver{#1}{\setunit{\printdelim{nametitledelim}}\newblock}
         {\setunit{\printdelim{nametitledelim}}%
             \iftabbedlabeldate{&}{\newblock}}
-			{}{Patching driver '#1' failed (a)}
+            {}{Patching driver '#1' failed (a)}
     \xapptobibdriver{#1}{\end{tabbedlabeldate}}
-	{}{Patching driver '#1' failed (b)}
+    {}{Patching driver '#1' failed (b)}
 }
 \blxarch@settabbedlabeldate{article}
 \blxarch@settabbedlabeldate{book}
@@ -11906,7 +11906,7 @@
         {\printtext{%
             \bibstring{idem\thefield{gender}}}}
         {\usebibmacro{sortnamelist}{author}}}
-		{}{Patching bibmacro 'author' failed (1)}
+        {}{Patching bibmacro 'author' failed (1)}
 \xpatchbibmacro{author}{\usebibmacro{date+extradate}}{\usebibmacro{labeldate+edition}}
   {}{Patching bibmacro 'author' failed (2)}
 \xpatchbibmacro{bbx:editor}{\printnames{editor}}{%
@@ -11914,13 +11914,13 @@
         {\printtext{%
             \bibstring{idem\thefield{gender}}}}
         {\usebibmacro{sortnamelist}{editor}}}
-		{}{Patching bibmacro 'bbx:editor' failed (1)}
+        {}{Patching bibmacro 'bbx:editor' failed (1)}
 \xpatchbibmacro{bbx:translator}{\printnames{translator}}{%
     \ifidemincitation
         {\printtext{%
             \bibstring{idem\thefield{gender}}}}
         {\usebibmacro{sortnamelist}{translator}}}
-		{}{Patching bibmacro 'bbx:translator' failed}
+        {}{Patching bibmacro 'bbx:translator' failed}
 \xpatchbibmacro{bbx:editor}{\usebibmacro{date+extradate}}{\usebibmacro{labeldate+edition}}
   {}{Patching bibmacro 'bbx:editor' failed (2)}
 \xpatchbibmacro{bbx:translator}{\usebibmacro{date+extradate}}{\usebibmacro{labeldate+edition}}
@@ -12049,7 +12049,7 @@
 % \Option{repeatlabel} doesn't work in verbose and numeric styles.
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	repeatlabel=false
+    repeatlabel=false
 }
 \renewbibmacro*{repeatlabel}{%
     \blxarch@errmsg{Option 'repeatlabel' must be 'false' in verbose and numeric styles}}   
@@ -18019,14 +18019,14 @@
     \iftoggle{archbool:citeshortin}
         {\ifboolexpr{
             not test {\iffieldundef{journaltitle}}
-			or
-			( not test {\ifshortform{false}}
-			  and
-			  not test {\iffieldundef{shortform}}
-			)
-		 }
-		 {\usebibmacro{cite:short:in}}
-		 {\printfield[citetitle]{labeltitle}}%
+            or
+            ( not test {\ifshortform{false}}
+              and
+              not test {\iffieldundef{shortform}}
+            )
+         }
+         {\usebibmacro{cite:short:in}}
+         {\printfield[citetitle]{labeltitle}}%
         }
         {\printfield[citetitle]{labeltitle}}}%
 }
@@ -18037,21 +18037,21 @@
 % It should be certain here that not a usual \Format{cite:short} applies here.
 %    \begin{macrocode}
 \newbibmacro*{cite:short:in}{%
-	\savebibmacro{extendeddate}%
-	\renewbibmacro*{extendeddate}[2]{}%
-	\iffieldundef{journaltitle}
-		{\iffieldundef{shortform}
-			{\printfield[citetitle]{labeltitle}}
-			{\usebibmacro{in:}%
-			 \printfield{shortform}%
+    \savebibmacro{extendeddate}%
+    \renewbibmacro*{extendeddate}[2]{}%
+    \iffieldundef{journaltitle}
+        {\iffieldundef{shortform}
+            {\printfield[citetitle]{labeltitle}}
+            {\usebibmacro{in:}%
+             \printfield{shortform}%
              \setunit{\addspace}%
              \printfield[shortformvolume]{volume}%
-			 \setunit{\addspace}%
-			 \usebibmacro{bibliographydate}%
-			}
-		}
-		{\usebibmacro{journal+issuetitle}}%
-	\restorebibmacro{extendeddate}%
+             \setunit{\addspace}%
+             \usebibmacro{bibliographydate}%
+            }
+        }
+        {\usebibmacro{journal+issuetitle}}%
+    \restorebibmacro{extendeddate}%
 }
 %    \end{macrocode}
 % \end{bibmacro}
@@ -18412,7 +18412,7 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	citeshortin=true,
+    citeshortin=true,
 }
 %    \end{macrocode}
 %
