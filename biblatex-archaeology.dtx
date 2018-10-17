@@ -1361,7 +1361,7 @@
 %    Meier, Thomas 2013: \textellipsis\\
 %    Meier, Trude 2017: \textellipsis
 %    \tcblower
-%    Meier,~T. 2013: \textellipsis\\
+%    Meier,~T. 2005: \textellipsis\\
 %    Meier,~Th. 2013: \textellipsis\\
 %    Meier,~T. 2017: \textellipsis
 % \end{Beispiel}
@@ -7711,13 +7711,14 @@
 %    \begin{macrocode}
 \ProvidesPackage{biblatex-archaeology}
 [2018/06/10 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
-\RequirePackage{xpatch}
+\RequirePackage{xpatch,xstring}
 %    \end{macrocode}
+% \changes{2.0}{2018/10/17}{Load \Paket{xstring} package because \blx 3.12 doesn't anymore} (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/27}{issue 27})}
 %
 % Restrictions: \Biber only and minimum \Paket{biblatex} version
 %    \begin{macrocode}
 \RequireBiber[3]
-\@ifpackagelater{biblatex}{2018/03/04}
+\@ifpackagelater{biblatex}{2018/10/13}
     {}
     {\blxarch@errmsg{too old\MessageBreak biblatex version - update required}}
 %    \end{macrocode}
@@ -8007,6 +8008,7 @@
 % \end{format}
 % \end{format}
 % \end{format}
+%
 % \subsubsubsection{Labels on left margin}
 %
 % \begin{macro}{\labelnamedatewidth}
