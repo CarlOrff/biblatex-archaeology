@@ -188,7 +188,7 @@
 % \changes{1.3}{2017/11/15}{Renamed style-specific \Kbd{.lbx} files in order to fit to \blx' new \Befehl{DeclareLanguageMappingSuffix} macro}
 % \changes{1.3}{2017/11/15}{\blx version check added}
 % \changes{1.3}{2017/11/16}{Added \Kbd{.lbx} pointer files for language variants}
-% \changes{1.3}{2017/11/16}{\Stark{Incompatible:} \Befehl{nametypedelim} removed}
+% \changes{1.3}{2017/11/16}{\Stark{(incompatible)} \Befehl{nametypedelim} removed}
 % \changes{2.0}{2018/11/19}{Fixed some formatting in style \Stil{karl}}
 % \changes{2.0}{2018/03/20}{CTAN files in read-only mode (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/11}{issue \#11})}
 % \changes{2.0}{2018/03/20}{Some German expressions not translated into English (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/12}{issue \#12})}
@@ -203,7 +203,8 @@
 % \changes{2.0}{2018/05/21}{New style \Stil{mpkoeaw}}
 % \changes{2.0}{2018/05/30}{Added script \Datei{version.pl} to development repository}
 % \changes{2.0}{2018/06/06}{New generic style \Stil{verbose-archaeology}}
-% \changes{2.0}{2018/10/06}{Fixed style \Stil{maja}}
+% \changes{2.1}{2018/10/06}{Fixed style \Stil{maja}}
+% \changes{2.1}{2018/10/18}{Added \Feld{anonstring} in order to enhance handling of anonymous works in authior date styles (see \ref{kap:anonymous})}
 %
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -759,6 +760,10 @@
 % \subsubsection{New fields}\label{kap:fields}
 %
 % \begin{itemize}
+
+% \item[]\DescribeFormat{anonstring} field (name)\\
+% This field is special since it should not occur in the \Kbd{*.bib} files. It holds a string that marks an anonymous author and should be
+% populated by a source map. See \ref{kap:anonymous} for details.
 %
 % \item[]\DescribeFormat{booktitlenote} field (literal)\\
 % Similar to \Feld{titlenote} but intended for the \Feld{booktitle}.
@@ -1367,6 +1372,35 @@
 % \end{Beispiel}
 % Except for employing the \Feld{sortname} field, I would recommend to set \Option{repeatlabel}\Kbd{=true$\|$dashed} here.
 %
+% \subsubsection{Anonymous works}\label{kap:anonymous}
+%
+% The most usual way to cite anonymous works in author date styles is to employ the \Feld{title} or \Feld{shorttitle} field respectively in place of a name. This is
+% the default handling by \blx, too. Another possibility is to substitute the label name by an expression like \enquote{Anonymous}, \enquote{Unknown} or
+% \enquote{N.\,N.}. This poses the problem that the fully expanded expression must be known to \Kbd{Biber} for sorting. Thus, the common \Befehl{bibstring}
+% method similiar to \enquote{no date} is wiped out. \archbib provides an \Feld{anonstring} field that can hold such a string. Because it is always considered last
+% when generating label names it can safely be added to every entry in your data sources. Thus, you should not write it to your \Kbd{*.bib} files but autmatically add
+% it by a source map:
+% \begin{Beispiel}
+% \iffalse
+%<*verbanonsort>
+% \fi
+% \begin{verbatim}
+\DeclareSourcemap{
+    \maps[datatype=bibtex]{
+        \map{
+            \step[fieldset=anonstring,fieldvalue={{N.{\,}N.}}]
+        }
+    }
+}\end{verbatim}
+% \iffalse
+%</verbanonsort>
+% \fi
+% \end{Beispiel}
+% Remark that the \Feld{anonstring} field is a usual name field and its content will be parsed as a name!
+% \begin{Beispiel}
+%    \Stark{N.\,N. 1812:} A title. \textellipsis\\
+% \end{Beispiel}
+%
 % \subsection{Sequentes in postnotes}
 %
 % Some styles compress page ranges. This can happen in the postnotes of citation commands and in the bibliography as well:
@@ -1434,7 +1468,7 @@
 % the original file, copy it to a new one and call \Biber with option \Kbd{--}\Option{configfile}\Kbd{ /path/to/custom/biber.conf}.
 %
 % \PrintChanges
-% \nocite{guidelines:ethno:ffm,guidelines:ethno:goe:2014,guidelines:aaa:2009,guidelines:rlm:trier,guidelines:kunstgeschichte:goettingen,guidelines:kunstgeschichte:freiburg,guidelines:aja,guidelines:schlagworte:dai,guidelines:egypt:goe,grando:bernhard:2003}
+% \nocite{guidelines:ethno:ffm,guidelines:ethno:goe:2014,guidelines:aaa:2009,guidelines:rlm:trier,guidelines:kunstgeschichte:goettingen,guidelines:kunstgeschichte:freiburg,guidelines:aja,guidelines:schlagworte:dai,guidelines:egypt:goe,grando:bernhard:2003,schopf:oJ,schwarz:2004,spycher:2017,guidelines:mediaevistik:oldenburg}
 % \printbibliography[heading=bibintoc,title=References]
 %
 % \StopEventually{}
@@ -7713,7 +7747,7 @@
 [2018/06/10 v2.0 biblatex-archaeology (Ingram Braun) based on biblatex]
 \RequirePackage{xpatch,xstring}
 %    \end{macrocode}
-% \changes{2.0}{2018/10/17}{Load \Paket{xstring} package because \blx 3.12 doesn't anymore} (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/27}{issue 27})}
+% \changes{2.0}{2018/10/17}{Load \Paket{xstring} package because \blx 3.12 doesn't anymore (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/27}{issue 27})}
 %
 % Restrictions: \Biber only and minimum \Paket{biblatex} version
 %    \begin{macrocode}
@@ -8072,6 +8106,7 @@
     \field{author}
     \field{editor}
     \field{translator}
+	\field{anonstring}
     \field{shorttitle}
     \field{sorttitle}
     \field{title}
@@ -8079,6 +8114,76 @@
   \sort{
     \field{sortyear}
     \field{year}
+  }
+  \sort{
+    \field{volume}
+    \literal{0}
+  }
+}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{nyvt}
+% Need to add \Feld{anonstring} field.
+%    \begin{macrocode}
+\DeclareSortingTemplate{nyvt}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+    \field{translator}
+	\field{anonstring}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort{
+    \field{sortyear}
+    \field{year}
+  }
+  \sort{
+    \field{volume}
+    \literal{0}
+  }
+  \sort{
+    \field{sorttitle}
+    \field{title}
+  }
+}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{nyt}
+% Need to add \Feld{anonstring} field.
+%    \begin{macrocode}
+\DeclareSortingTemplate{nyt}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+    \field{translator}
+	\field{anonstring}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort{
+    \field{sortyear}
+    \field{year}
+  }
+  \sort{
+    \field{sorttitle}
+    \field{title}
   }
   \sort{
     \field{volume}
@@ -8475,7 +8580,7 @@
 % \end{macro}
 %
 % \begin{format}{repeatlabel}
-% \changes{2.0}{2018/05/09}{\Stark{Incompatible:} removed \Befehl{repeatlabelwrap}} 
+% \changes{2.0}{2018/05/09}{\Stark{(incompatible)} removed \Befehl{repeatlabelwrap}} 
 % Format the repeated label.
 %    \begin{macrocode}
 \DeclareFieldFormat*{repeatlabel}{#1}
@@ -11296,6 +11401,7 @@
     \field{author}
     \field{editor}
     \field{translator}
+	\field{anonstring}
 }
 %    \end{macrocode}
 % \end{format}
@@ -11888,6 +11994,15 @@
 %    \begin{macrocode}
 \xpretobibmacro{begentry}{%
     \csuse{blxarch@issuedate}%
+	\iffieldequalstr{labelnamesource}{anonstring}
+		{\ifrepeatlabel{false}
+			{\ifbibliography
+				{\savename*{anonstring}{\blxarch@field@anonstring}%
+				 \restorename{author}{\blxarch@field@anonstring}%
+				}
+				{}}
+			{}}
+		{}%
 }{}{Patching bibmacro 'begentry' failed (1)}
 \xpretobibmacro{finentry}{%
     \restorebibmacro{issue+date}%
@@ -22272,15 +22387,24 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
 %
 % \subsubsubsection{annotation fields}
 %
-% Field annotation consist of csv list with a leading equation mark in \Kbd{<field>+an} fields. It
-% appears that they cannot reached via source map steps and are only available, if \Biber
-% was called with \Option{--output-annotation-marker}. There we define those we want to evaluate
-% in source maps as lateral fields. No need to show them up in the \Kbd{*.bbl} file.
+% Field annotation consists of csv list with a leading equation mark in \Kbd{<field>+an} fields. It
+% appears that they cannot be reached via source map steps and are only available if \Biber
+% was called with \Option{--output-annotation-marker}. Thus we define those we need to evaluate
+% in source maps as literal fields. No need to show them up in the \Kbd{*.bbl} file (\Option{skipout}).
 %
 % \begin{format}{date+an}
 %    \begin{macrocode}
 \DeclareDatamodelFields[type=field,datatype=literal,skipout]{date+an}
 \DeclareDatamodelFields[type=field,datatype=literal,skipout]{origdate+an}
+%    \end{macrocode}
+% \end{format}
+%
+% \subsubsubsection{Anonymous works}
+%
+% \begin{format}{location}
+% Allow \Feld{location} in journals.
+%    \begin{macrocode}
+\DeclareDatamodelFields[type=list,datatype=name]{anonstring}
 %    \end{macrocode}
 % \end{format}
 %
@@ -22351,7 +22475,7 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
       <entrytype skip_output="true">xdata</entrytype>
     </entrytypes>
     <fields>
-      <field datatype="integer" fieldtype="field">number</field>
+      <field datatype="integer" fieldtype="field">sortyear</field>
       <field datatype="integer" fieldtype="field">volume</field>
       <field datatype="integer" fieldtype="field">volumes</field>
       <field datatype="literal" fieldtype="field">abstract</field>
@@ -22392,6 +22516,7 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
       <field datatype="literal" fieldtype="field">maintitleaddon</field>
       <field datatype="literal" fieldtype="field">nameaddon</field>
       <field datatype="literal" fieldtype="field">note</field>
+      <field datatype="literal" fieldtype="field">number</field>
       <field datatype="literal" fieldtype="field">origtitle</field>
       <field datatype="literal" fieldtype="field">pagetotal</field>
       <field datatype="literal" fieldtype="field">part</field>
@@ -22415,7 +22540,6 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
       <field datatype="literal" fieldtype="field" label="true">shortjournal</field>
       <field datatype="literal" fieldtype="field" label="true">shortseries</field>
       <field datatype="literal" fieldtype="field" label="true">shorttitle</field>
-      <field datatype="literal" fieldtype="field" skip_output="true">sortyear</field>
       <field datatype="literal" fieldtype="field" skip_output="true">sorttitle</field>
       <field datatype="literal" fieldtype="field" skip_output="true">sortshorthand</field>
       <field datatype="literal" fieldtype="field" skip_output="true">sortkey</field>
@@ -22669,6 +22793,7 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
       <field datatype="datepart" fieldtype="field">origrealendseason</field>
       <field datatype="literal" fieldtype="field" skip_output="true">date+an</field>
       <field datatype="literal" fieldtype="field" skip_output="true">origdate+an</field>
+      <field datatype="name" fieldtype="list">anonstring</field>
     </fields>
     <entryfields>
       <field>abstract</field>
@@ -23172,8 +23297,12 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
       <entrytype>online</entrytype>
       <field>addendum</field>
       <field>author</field>
+      <field>doi</field>
       <field>editor</field>
       <field>editortype</field>
+      <field>eprint</field>
+      <field>eprintclass</field>
+      <field>eprinttype</field>
       <field>language</field>
       <field>note</field>
       <field>organization</field>
