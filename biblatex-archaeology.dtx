@@ -16151,6 +16151,13 @@
 }
 %    \end{macrocode}
 %
+%    \begin{macrocode}
+% Remove all prefixes from sort names. Alas, lookaheads don't work.
+\DeclareNosort{
+	\nosort{setnames}{\regexp{^[^\p{Lu}]+}}
+}
+%    \end{macrocode}
+%
 % \begin{format}{bookauthor}
 % \begin{format}{sortname}
 %    \begin{macrocode}
@@ -18640,6 +18647,13 @@
 \def\archaeocitestyletitle{\blxarch@style@offa}
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{format}{\archaeocitestyletitle}
+% \changes{2.1}{2018/10/19}{Space in front of \Feld{extradate} letter in \Stil{offa} style}
+%    \begin{macrocode}
+\DeclareFieldFormat*{extradate}{\addnbthinspace\mknumalph{#1}}
+%    \end{macrocode}
+% \end{format}
 %
 %</offaCBX>
 %<*rgkinlineCBX>
