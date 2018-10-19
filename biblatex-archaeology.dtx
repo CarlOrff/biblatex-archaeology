@@ -472,9 +472,14 @@
 %
 % \begin{itemize}
 %
+% \item[]\DescribeOption{capitalizeprefixinbiblist}=\meta{bool}\\
+% Wether prefixes at the beginning of an entry in a biblist should be capitalized or not.
+% \begin{Beispiel}
+%    \Stark{von} Hessen, O. 1985: \textellipsis
+% \end{Beispiel}
+%
 % \item[]\DescribeOption{citeshortin}=\meta{bool}\\
 % If \meta{true}, then short citations for \Typ{inreference} and \Typ{article} are not build with \Feld{labelname}, but with \Kbd{in: \textellipsis}:
-%
 % \begin{Beispiel}
 %    Bergmann, \Stark{in: LÄ \RN{3}} (2015)
 % \end{Beispiel}
@@ -8617,6 +8622,7 @@
         {\let\bibhyperref\@empty}
         {}%
     \printtext[repeatlabel]{%
+		\togglefalse{archbool:capitalizeprefixinbiblist}{\midsentence}%
         \iffieldundef{shorthand}
             {\ifboolexpr{
                 test {\ifrepeatlabel{dashed}}
@@ -8649,6 +8655,18 @@
 % \end{bibmacro} 
 %
 % \subsubsubsection{Start entry}
+%
+% \begin{option}{capitalizeprefixinbiblist}
+% =\meta{bool}\\
+% Wether to capitalize prefixes at the beginning ogf a bibliography list or not.
+% \changes{2.1}{2018/10/19}{New option \Option{capitalizeprefixinbiblist} since usually prefixes at the beginning of a biblist should not be capitalized}
+%    \begin{macrocode}
+\newtoggle{archbool:capitalizeprefixinbiblist}
+\DeclareBibliographyOption{capitalizeprefixinbiblist}[false]{%
+    \settoggle{archbool:capitalizeprefixinbiblist}{#1}}
+\ExecuteBibliographyOptions{capitalizeprefixinbiblist}
+%    \end{macrocode}
+% \end{option}
 %
 % \begin{bibmacro}{begentry}
 % Code at the beginning of an entry.
@@ -8802,7 +8820,11 @@
             \restorefield{subseries}{\blxarch@field@shortsubseries}}%
         }
         {}%
-%    \end{macrocode}   
+%    \end{macrocode}
+% Suppress capitalization at the beginning of a biblist.
+%    \begin{macrocode}
+    \togglefalse{archbool:capitalizeprefixinbiblist}{\ifbibliography{\midsentence}{}}%
+%    \end{macrocode}      
 % Do name formatting for repeated labels.
 %    \begin{macrocode}
     \ifrepeatlabel{false}
@@ -16152,7 +16174,7 @@
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-% Remove all prefixes from sort names. Alas, lookaheads don't work.
+% Remove all prefixes from sort names. Alas, lookaheads don't work here.
 \DeclareNosort{
 	\nosort{setnames}{\regexp{^[^\p{Lu}]+}}
 }
@@ -18648,7 +18670,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}{\archaeocitestyletitle}
+% \begin{format}{extradate}
 % \changes{2.1}{2018/10/19}{Space in front of \Feld{extradate} letter in \Stil{offa} style}
 %    \begin{macrocode}
 \DeclareFieldFormat*{extradate}{\addnbthinspace\mknumalph{#1}}
