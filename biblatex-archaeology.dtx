@@ -206,6 +206,7 @@
 % \changes{2.1}{2018/10/06}{Fixed style \Stil{maja}}
 % \changes{2.1}{2018/10/18}{Added \Feld{anonstring} in order to enhance handling of anonymous works in author date styles (see \cref{kap:anonymous} and \href{https://github.com/CarlOrff/biblatex-archaeology/issues/8}{issue \#8})}
 % \changes{2.1}{2018/10/22}{Fixed non-sorting prefixes with \Befehl{DeclareNosort} (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/26}{issue \#26})}
+% \changes{2.1}{2018/10/23}{German collation now default notwithstanding the document language}
 %
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -1407,6 +1408,11 @@
 % \begin{Beispiel}
 %    \Stark{N.\,N. 1812:} A title. \textellipsis\\
 % \end{Beispiel}
+%
+% \subsubsection{Localisation}
+%
+% \archbib employs German collation by default (primarily \Option{sortlocale}\Kbd{=de_DE} and \Option{sortlocale}\Kbd{=de_AT} in some cases). Use
+% \blx' default \Option{sortlocale}\Kbd{=auto} for setting it back to the main document language.
 %
 % \subsection{Sequentes in postnotes}
 %
@@ -7818,6 +7824,7 @@
     singletitle=false,
     sortcites=false,
     sorting=nyvc,
+	sortlocale=de_DE,
     terseinits=false,
     uniquelist=minyear,
     uniquename=false,
@@ -13028,6 +13035,7 @@
     notetype=foot+end,
     sortcites=true,
     sorting=lnyvc,
+	sortlocale=de_AT,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -14499,6 +14507,7 @@
     minitems=1,
     notetype=foot+end,
     sorting=lnyvc,
+	sortlocale=de_AT,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -15621,6 +15630,7 @@
     notetype=foot+end,
     sortcites=true,
     sorting=lnyvc,
+	sortlocale=de_AT,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -15852,6 +15862,7 @@
     notetype=foot+end,
     sortcites=true,
     sorting=lnyvc,
+	sortlocale=de_AT,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
