@@ -61,7 +61,7 @@ sub version_file {
 	$text =~ s/(biblatex-archaeology(`|\spackage|\sstyles)?\s\[)v\d\.\d{1,3}[a-z]?(\])/$1$version$3/gs;
 	$text =~ s/\[\d{4}\/\d{2}\/\d{2}\sv\d\.\d{1,3}[a-z]?\sbiblatex-archaeology/'[' . $date . ' ' . $version . ' biblatex-archaeology'/egs;
 	$text =~ s/(archbib\sstyles\s\[)v\d\.\d{1,3}[a-z]?(\])/$1$version$2/gs;
-	$text =~ s/(biblatex-archaeology-)\d\.\d{1,3}[a-z]?/$1$version/g;
+	$text =~ s/(biblatex-archaeology-)v\d\.\d{1,3}[a-z]?/$1$version/g;
 	
 	
 	if ($text ne $bak) {
