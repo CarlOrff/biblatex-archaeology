@@ -145,7 +145,7 @@
     pdfapart=1,
     pdfaconformance=B,
     pdfmetalang=en,
-    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.0&ib_medium=manual&ib_source=github&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7 https://independent.academia.edu/IngramBraun},
+    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-2.1\&ib_medium=manual\&ib_source=github\&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7, https://independent.academia.edu/IngramBraun},
     pdflicenseurl = {http://www.latex-project.org/lppl.txt},
     pdfsource={\jobname.dtx},
     pdftype=Software,
@@ -865,10 +865,32 @@
 %
 % \begin{itemize}
 %
+% \item[]\DescribeFormat{lnyc}
+% Enables the sorting order names/labels -- year -- cite order. This sorting scheme is intended for the
+% use in conjunction with option \Option{repeatlabel}\Kbd{=true$\|$dashed}. It evaluates the \Feld{label},
+% \Feld{shortauthor} and \Feld{shorttitle} fields in order to sort the exact labels.
+%
+% \item[]\DescribeFormat{lnyvc}
+% Enables the sorting order names/labels -- year -- volume -- cite order. This sorting scheme is intended for the
+% use in conjunction with option \Option{repeatlabel}\Kbd{=true$\|$dashed}. It evaluates the \Feld{label},
+% \Feld{shortauthor} and \Feld{shorttitle} fields in order to sort the exact labels.
+%
 % \item[]\DescribeFormat{lnyvt}
-% This sorting scheme is intended for the use in conjunction with option \Option{repeatlabel}\Kbd{=true$\|$dashed}.
-% It evaluates the \Feld{label}, \Feld{shortauthor} and \Feld{shorttitle} fields
-% in order to sort the exact labels.
+% Enables the sorting order names/labels -- year -- title. This sorting scheme is intended for the
+% use in conjunction with option \Option{repeatlabel}\Kbd{=true$\|$dashed}. It evaluates the \Feld{label},
+% \Feld{shortauthor} and \Feld{shorttitle} fields in order to sort the exact labels.
+%
+% \item[]\DescribeFormat{nyc}
+% Enables the sorting order names -- year -- cite order.
+%
+% \item[]\DescribeFormat{lnyvc}
+% Enables the sorting order names/labels -- year -- volume -- cite order
+%
+% \item[]\DescribeFormat{lnyt}
+% The same as in \blx, but considers the \Feld{anonstring} field.
+%
+% \item[]\DescribeFormat{lnyvt}
+% The same as in \blx, but considers the \Feld{anonstring} field.
 %
 % \end{itemize}
 % 
@@ -1463,6 +1485,7 @@
 % \begin{appendices}
 %
 % \section{Example \Kbd{bib} entries}\label{kap:bib}
+% \iffalse
 %<*exampleBIB>
 %    \begin{macrocode}
 @INCOLLECTION{auler:hiller:2011,
@@ -2144,6 +2167,7 @@
 }
 %    \end{macrocode}
 %</exampleBIB>
+% \fi
 %
 % \section{List of strings of journals and serieses}
 %
@@ -7334,7 +7358,9 @@
 %
 % This section presents the commented \LaTeX{} source code for \archbib. Read this section only if you want to learn how \archbib is implemented.
 %
+% \iffalse
 %<*sty>
+% \fi
 % \subsection{File \Datei{\filename}}
 %
 % \subsubsection{Early loaded macros}
@@ -7791,7 +7817,7 @@
     parentracker=true,
     singletitle=false,
     sortcites=false,
-    sorting=nyvt,
+    sorting=nyvc,
     terseinits=false,
     uniquelist=minyear,
     uniquename=false,
@@ -8075,11 +8101,82 @@
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-% Remove all prefixes from sort names. Alas, lookaheads don't work here.
+% Remove all prefixes from sort names. Alas, lookaheads don't work here. The canonical way to do this would% be to
+% employ \Befehl{DeclareSortingNamekeyTemplate} but we want to override \blx' default which strips Arab articles
 \DeclareNosort{
 	\nosort{setnames}{\regexp{^[^\p{Lu}]+}}
 }
 %    \end{macrocode}
+%
+% \begin{format}{lnyc}
+% Sorting with \Option{repeatlabel}\Kbd{=true} needs an extended sorting scheme.
+%    \begin{macrocode}
+\DeclareSortingTemplate{lnyc}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \field{sortname}
+    \field{label}
+	\field{shorthand}
+    \field{shortauthor}
+    \field{author}
+    \field{editor}
+    \field{translator}
+	\field{anonstring}
+    \field{shorttitle}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort{
+    \field{sortyear}
+    \field{year}
+  }
+    \sort{
+    \citeorder
+  }
+}
+%
+% \begin{format}{lnyvc}
+% Sorting with \Option{repeatlabel}\Kbd{=true} needs an extended sorting scheme.
+%    \begin{macrocode}
+\DeclareSortingTemplate{lnyvc}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \field{sortname}
+    \field{label}
+	\field{shorthand}
+    \field{shortauthor}
+    \field{author}
+    \field{editor}
+    \field{translator}
+	\field{anonstring}
+    \field{shorttitle}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort{
+    \field{sortyear}
+    \field{year}
+  }
+  \sort{
+    \field{volume}
+    \literal{0}
+  }
+    \sort{
+    \citeorder
+  }
+}
+%    \end{macrocode}
+% \end{format}
 %
 % \begin{format}{lnyvt}
 % Sorting with \Option{repeatlabel}\Kbd{=true} needs an extended sorting scheme.
@@ -8111,6 +8208,77 @@
   \sort{
     \field{volume}
     \literal{0}
+  }
+  \sort{
+    \field{sorttitle}
+    \field{title}
+  }
+    \sort{
+    \citeorder
+  }
+}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{nyvc}
+% Need to add \Feld{anonstring} field.
+%    \begin{macrocode}
+\DeclareSortingTemplate{nyvc}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+    \field{translator}
+	\field{anonstring}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort{
+    \field{sortyear}
+    \field{year}
+  }
+  \sort{
+    \field{volume}
+    \literal{0}
+  }
+  \sort{
+    \citeorder
+  }
+}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{nyc}
+% Need to add \Feld{anonstring} field.
+%    \begin{macrocode}
+\DeclareSortingTemplate{nyc}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+    \field{editor}
+    \field{translator}
+	\field{anonstring}
+    \field{sorttitle}
+    \field{title}
+  }
+  \sort{
+    \field{sortyear}
+    \field{year}
+  }
+  \sort{
+    \citeorder
   }
 }
 %    \end{macrocode}
@@ -11835,11 +12003,15 @@
 % \end{macro}
 % \end{macro}
 % \end{macro}
+% \iffalse
 %</sty>
+% \fi
 %
 % \subsection{Bibliography style files}
 %
+% \iffalse
 %<*authoryearBBX>
+% \fi
 %
 % \subsubsection{File \Datei{authoryear-archaeology.bbx}}
 %
@@ -11858,8 +12030,10 @@
 \RequireBibliographyStyle{authoryear}
 %    \end{macrocode}
 %
+% \iffalse
 %</authoryearBBX>
 %<*authoryearcompBBX>
+% \fi
 %
 % \subsubsection{File \Datei{authoryear-comp-archaeology.bbx}}
 %
@@ -11878,8 +12052,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</authoryearcompBBX>
 %<*authoryearibidBBX>
+% \fi
 %
 % \subsubsection{File \Datei{authoryear-ibid-archaeology.bbx}}
 %
@@ -11899,8 +12075,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</authoryearibidBBX>
 %<*authoryearicompBBX>
+% \fi
 %
 % \subsubsection{File \Datei{authoryear-icomp-archaeology.bbx}}
 %
@@ -11920,11 +12098,15 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</authoryearicompBBX>
+% \fi
 %
 % \subsubsection{Shared code for all generic author date styles}
 %
+% \iffalse
 %<*authoryearsharedBBX>
+% \fi
 %
 % \begin{macro}{\blxarch@fork@authordate}
 % I am an author date style.
@@ -11944,7 +12126,7 @@
 \ExecuteBibliographyOptions{
     mergedate=false,
     labeldate=true,
-    sorting=nyvt,
+    sorting=nyvc,
 }
 %    \end{macrocode}
 % \end{option}
@@ -12059,9 +12241,13 @@
 % \end{bibmacro}
 % \end{bibmacro}
 %
+% \iffalse
 %</authoryearsharedBBX>
+% \fi
 %
+% \iffalse
 %<*numericcompBBX>
+% \fi
 %
 % \subsubsection{File \Datei{numeric-comp-archaeology.bbx}}
 %
@@ -12087,8 +12273,10 @@
 \RequireBibliographyStyle{numeric-comp}
 %    \end{macrocode}
 %
+% \iffalse
 %</numericcompBBX>
 %<*verboseBBX>
+% \fi
 %
 % \subsubsection{File \Datei{verbose-archaeology.bbx}}
 %
@@ -12108,8 +12296,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</verboseBBX>
 %<*verboseibidBBX>
+% \fi
 %
 % \subsubsection{File \Datei{verbose-ibid-archaeology.bbx}}
 %
@@ -12128,9 +12318,11 @@
 \def\archaeobibstyletitle{\blxarch@style@vi}
 %    \end{macrocode}
 % \end{macro}
-%
+
+% \iffalse
 %</verboseibidBBX>
 %<*verbosetrad2noteBBX>
+% \fi
 %
 % \subsubsection{File \Datei{verbose-trad2note-archaeology.bbx}}
 %
@@ -12150,8 +12342,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</verbosetrad2noteBBX>
 %<*verbosesharedBBX>
+% \fi
 %
 % \subsubsection{Shared code for generic verbose styles}
 %
@@ -12162,8 +12356,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</verbosesharedBBX>
 %<*nonauthoryearsharedBBX>
+% \fi
 %
 % \subsubsection{Shared code for generic verbose and numeric styles}
 %
@@ -12198,8 +12394,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</nonauthoryearsharedBBX>
 %<*aefkwBBX>
+% \fi
 %
 % \subsubsection{File \Datei{aefkw.bbx}}
 %
@@ -12377,8 +12575,10 @@
 %    \end{macrocode}
 % \end{format}
 %
+% \iffalse
 %</aefkwBBX>
 %<*afwlBBX>
+% \fi
 %
 % \subsubsection{File \Datei{afwl.bbx}}
 %
@@ -12416,7 +12616,7 @@
     mincitenames=1,                  
     minitems=1,
     notetype=foot+end,
-    sorting=lnyvt,
+    sorting=lnyvc,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -12595,8 +12795,10 @@
 % \end{macro}
 % \end{format}
 %
+% \iffalse
 %</afwlBBX>
 %<*amitBBX>
+% \fi
 %
 % \subsubsection{File \Datei{amit.bbx}}
 %
@@ -12634,7 +12836,7 @@
     mincitenames=1,                  
     minitems=1,
     notetype=foot+end,
-    sorting=lnyvt,
+    sorting=lnyvc,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -12779,8 +12981,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</amitBBX>
 %<*archaBBX>
+% \fi
 %
 % \subsubsection{File \Datei{archa.bbx}}
 %
@@ -12823,7 +13027,7 @@
     minitems=1,
     notetype=foot+end,
     sortcites=true,
-    sorting=lnyvt,
+    sorting=lnyvc,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -13008,8 +13212,10 @@
 %    \end{macrocode}
 % \end{bibmacro}
 %
+% \iffalse
 %</archaBBX>
 %<*dgufBBX>
+% \fi
 %
 % \subsubsection{File \Datei{dguf.bbx}}
 %
@@ -13208,8 +13414,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</dgufBBX>
 %<*dgufaltBBX>
+% \fi
 %
 % \subsubsection{File \Datei{dguf-alt.bbx}}
 %
@@ -13421,8 +13629,10 @@
 %    \end{macrocode}
 % \end{format}
 %
+% \iffalse
 %</dgufaltBBX>
 %<*dgufapaBBX>
+% \fi
 %
 % \subsubsection{File \Datei{dguf-apa.bbx}}
 %
@@ -13483,6 +13693,7 @@
     mincitenames=1,                  
     minitems=1,
     notetype=foot+end,
+	sorting=nyc,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -13795,8 +14006,10 @@
 % \end{bibmacro}
 %
 %
+% \iffalse
 %</dgufapaBBX>
 %<*eazBBX>
+% \fi
 %
 % \subsubsection{File \Datei{eaz.bbx}}
 %
@@ -13838,7 +14051,7 @@
     mincitenames=1,                  
     minitems=1,
     notetype=foot+end,
-    sorting=lnyvt,
+    sorting=lnyvc,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -13974,8 +14187,10 @@
 %    \end{macrocode}
 % \end{format}
 %
+% \iffalse
 %</eazBBX>
 %<*eazaltBBX>
+% \fi
 %
 % \subsubsection{File \Datei{eaz-alt.bbx}}
 %
@@ -14238,8 +14453,10 @@
 % \end{format}
 % \end{format}
 %
+% \iffalse
 %</eazaltBBX>
 %<*foeBBX>
+% \fi
 %
 % \subsubsection{File \Datei{foe.bbx}}
 %
@@ -14281,7 +14498,7 @@
     mincitenames=1,                  
     minitems=1,
     notetype=foot+end,
-    sorting=lnyvt,
+    sorting=lnyvc,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -14491,8 +14708,10 @@
 %    \end{macrocode}
 % \end{format}
 %
+% \iffalse
 %</foeBBX>
 %<*jbhalleBBX>
+% \fi
 %
 % \subsubsection{File \Datei{jb-halle.bbx}}
 %
@@ -14530,7 +14749,7 @@
     mincitenames=1,                  
     minitems=1,
     notetype=foot+end,
-    sorting=lnyvt,
+    sorting=lnyvc,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -14731,8 +14950,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</jbhalleBBX>
 %<*jbkreisneussBBX>
+% \fi
 %
 % \subsubsection{File \Datei{jb-kreis-neuss.bbx}}
 %
@@ -14957,8 +15178,10 @@
 %    \end{macrocode}
 % \end{format}
 %
+% \iffalse
 %</jbkreisneussBBX>
 %<*karlBBX>
+% \fi
 %
 % \subsubsection{File \Datei{karl.bbx}}
 %
@@ -15119,8 +15342,10 @@
 % \end{format}
 % \end{format}
 %
+% \iffalse
 %</karlBBX>
 %<*majaBBX>
+% \fi
 %
 % \subsubsection{File \Datei{maja.bbx}}
 %
@@ -15348,8 +15573,10 @@
 %    \end{macrocode}
 % \end{format}
 %
+% \iffalse
 %</majaBBX>
 %<*mpkBBX>
+% \fi
 %
 % \subsubsection{File \Datei{mpk.bbx}}
 %
@@ -15393,7 +15620,7 @@
     minitems=1,
     notetype=foot+end,
     sortcites=true,
-    sorting=lnyvt,
+    sorting=lnyvc,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -15577,8 +15804,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</mpkBBX>
 %<*mpkoeawBBX>
+% \fi
 %
 % \subsubsection{File \Datei{mpkoeaw.bbx}}
 %
@@ -15622,7 +15851,7 @@
     minitems=3,
     notetype=foot+end,
     sortcites=true,
-    sorting=lnyvt,
+    sorting=lnyvc,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -15861,8 +16090,10 @@
 %    \end{macrocode}
 % \end{format}
 %
+% \iffalse
 %</mpkoeawBBX>
 %<*nnuBBX>
+% \fi
 %
 % \subsubsection{File \Datei{nnu.bbx}}
 %
@@ -15900,7 +16131,7 @@
     mincitenames=1,                  
     minitems=1,
     notetype=foot+end,
-    sorting=lnyvt,
+    sorting=lnyvc,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -16093,8 +16324,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</nnuBBX>
 %<*offaBBX>
+% \fi
 %
 % \subsubsection{File \Datei{offa.bbx}}
 %
@@ -16135,7 +16368,7 @@
     mincitenames=1,                  
     minitems=1,
     notetype=foot+end,
-    sorting=lnyvt,
+    sorting=lnyvc,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -16280,8 +16513,10 @@
 % \end{format}
 % \end{format}
 %
+% \iffalse
 %</offaBBX>
 %<*rgkverboseBBX>
+% \fi
 %
 % \subsubsection{File \Datei{rgk-verbose.bbx}}
 %
@@ -16311,8 +16546,10 @@
 }
 %    \end{macrocode}
 %
+% \iffalse
 %</rgkverboseBBX>
 %<*rgknumericBBX>
+% \fi
 %
 % \subsubsection{File \Datei{rgk-numeric.bbx}}
 %
@@ -16341,8 +16578,10 @@
 }
 %    \end{macrocode}
 %
+% \iffalse
 %</rgknumericBBX>
 %<*rgkinlineBBX>
+% \fi
 %
 % \subsubsection{File \Datei{rgk-inline.bbx}}
 %
@@ -16372,7 +16611,7 @@
     maxbibnames=500,
     maxcitenames=2,
     mincitenames=1,
-    sorting=lnyvt,    
+    sorting=lnyvc,    
 }
 %    \end{macrocode}
 %
@@ -16397,8 +16636,10 @@
 % \end{macro}
 % \end{macro}
 %
+% \iffalse
 %</rgkinlineBBX>
 %<*rgksharedBBX>
+% \fi
 %
 % \subsubsection{Shared by \Datei{rgk-*.bbx}}
 %
@@ -16585,8 +16826,10 @@
 % \end{macro}
 % \end{format}
 %
+% \iffalse
 %</rgksharedBBX>
 %<*rgzmverboseBBX>
+% \fi
 %
 % \subsubsection{File \Datei{rgzm-verbose.bbx}}
 %
@@ -16616,8 +16859,10 @@
 }
 %    \end{macrocode}
 %
+% \iffalse
 %</rgzmverboseBBX>
 %<*rgzmnumericBBX>
+% \fi
 %
 % \subsubsection{File \Datei{rgzm-numeric.bbx}}
 %
@@ -16645,8 +16890,10 @@
 }
 %    \end{macrocode}
 %
+% \iffalse
 %</rgzmnumericBBX>
 %<*rgzminlineBBX>
+% \fi
 %
 % \subsubsection{File \Datei{rgzm-inline.bbx}}
 %
@@ -16676,7 +16923,7 @@
     maxbibnames=500,
     maxcitenames=2,
     mincitenames=1,
-    sorting=lnyvt,
+    sorting=lnyvc,
 }
 %    \end{macrocode}
 %
@@ -16708,8 +16955,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</rgzminlineBBX>
 %<*rgzmsharedBBX>
+% \fi
 %
 % \subsubsection{Shared by \Datei{rgzm-inline.bbx} and \Datei{rgzm-verbose.bbx}}
 %
@@ -16901,8 +17150,10 @@
 % \end{format}
 % \end{format}
 %
+% \iffalse
 %</rgzmsharedBBX>
 %<*ufgmuensterverboseBBX>
+% \fi
 %
 % \subsubsection{File \Datei{ufg-muenster-verbose.bbx}}
 %
@@ -16931,8 +17182,10 @@
 }
 %    \end{macrocode}
 %
+% \iffalse
 %</ufgmuensterverboseBBX>
 %<*ufgmuensternumericBBX>
+% \fi
 %
 % \subsubsection{File \Datei{ufg-muenster-numeric.bbx}}
 %
@@ -16960,8 +17213,10 @@
 }
 %    \end{macrocode}
 %
+% \iffalse
 %</ufgmuensternumericBBX>
 %<*ufgmuensterinlineBBX>
+% \fi
 %
 % \subsubsection{File \Datei{ufg-muenster-inline.bbx}}
 %
@@ -16991,7 +17246,7 @@
     maxbibnames=500,
     maxcitenames=2,
     mincitenames=1,
-    sorting=lnyvt,    
+    sorting=lnyvc,    
 }
 %    \end{macrocode}
 %
@@ -17004,8 +17259,10 @@
 % \end{macro}
 % \end{macro}
 %
+% \iffalse
 %</ufgmuensterinlineBBX>
 %<*ufgmuenstersharedBBX>
+% \fi
 %
 % \subsubsection{Shared by \Datei{ufg-muenster-inline.bbx} and \Datei{ufg-muenster-verbose.bbx}}
 %
@@ -17200,8 +17457,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</ufgmuenstersharedBBX>
 %<*volkskundeBBX>
+% \fi
 %
 % \subsubsection{File \Datei{volkskunde.bbx}}
 %
@@ -17370,8 +17629,10 @@
 % \end{format}
 % \end{format}
 %
+% \iffalse
 %</volkskundeBBX>
 %<*zaakBBX>
+% \fi
 %
 % \subsubsection{File \Datei{zaak.bbx}}
 %
@@ -17609,8 +17870,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</zaakBBX>
 %<*zaesBBX>
+% \fi
 %
 % \subsubsection{File \Datei{zaes.bbx}}
 %
@@ -17832,11 +18095,15 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</zaesBBX>
+% \fi
 %
 % \subsection{Citation style files}
 %
+% \iffalse
 %<*authoryearCBX>
+% \fi
 %
 % \subsubsection{File \Datei{authoryear-archaeology.cbx}}
 %
@@ -17855,8 +18122,10 @@
 \RequireCitationStyle{authoryear}
 %    \end{macrocode}
 %
+% \iffalse
 %</authoryearCBX>
 %<*authoryearcompCBX>
+% \fi
 %
 % \subsubsection{File \Datei{authoryear-comp-archaeology.cbx}}
 %
@@ -17875,8 +18144,10 @@
 \RequireCitationStyle{authoryear-comp}
 %    \end{macrocode}
 %
+% \iffalse
 %</authoryearcompCBX>
 %<*authoryearibidCBX>
+% \fi
 %
 % \subsubsection{File \Datei{authoryearibid-archaeology.cbx}}
 %
@@ -17895,8 +18166,10 @@
 \RequireCitationStyle{authoryear-ibid}
 %    \end{macrocode}
 %
+% \iffalse
 %</authoryearibidCBX>
 %<*authoryearicompCBX>
+% \fi
 %
 % \subsubsection{File \Datei{authoryear-icomp-archaeology.cbx}}
 %
@@ -17915,8 +18188,10 @@
 \RequireCitationStyle{authoryear-icomp}
 %    \end{macrocode}
 %
+% \iffalse
 %</authoryearicompCBX>
 %<*numericcompCBX>
+% \fi
 %
 % \subsubsection{File \Datei{numeric-archaeology.cbx}}
 %
@@ -17945,8 +18220,10 @@
 % \end{format}
 % \end{format}
 %
+% \iffalse
 %</numericcompCBX>
 %<*verboseCBX>
+% \fi
 %
 % \subsubsection{File \Datei{verbose-archaeology.cbx}}
 %
@@ -17965,8 +18242,10 @@
 \RequireCitationStyle{verbose}
 %    \end{macrocode}
 %
+% \iffalse
 %</verboseCBX>
 %<*verboseibidCBX>
+% \fi
 %
 % \subsubsection{File \Datei{verbose-ibid-archaeology.cbx}}
 %
@@ -17985,8 +18264,10 @@
 \RequireCitationStyle{verbose-ibid}
 %    \end{macrocode}
 %
+% \iffalse
 %</verboseibidCBX>
 %<*verbosetrad2noteCBX>
+% \fi
 %
 % \subsubsection{File \Datei{verbose-trad2note-archaeology.cbx}}
 %
@@ -18152,8 +18433,10 @@
 %    \end{macrocode}
 % \end{format}
 %
+% \iffalse
 %</verbosetrad2noteCBX>
 %<*verbosesharedCBX>
+% \fi
 %
 % \subsubsection{Shared code for verbose styles}
 %
@@ -18204,8 +18487,10 @@
 %    \end{macrocode}
 % \end{bibmacro}
 %
+% \iffalse
 %</verbosesharedCBX>
 %<*aefkwCBX>
+% \fi
 %
 % \subsubsection{File \Datei{aefkw.cbx}}
 %
@@ -18224,8 +18509,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</aefkwCBX>
 %<*afwlCBX>
+% \fi
 %
 % \subsubsection{File \Datei{afwl.cbx}}
 %
@@ -18248,8 +18535,10 @@
 \ExecuteBibliographyOptions{autocite=footnote}
 %    \end{macrocode}
 %
+% \iffalse
 %</afwlCBX>
 %<*amitCBX>
+% \fi
 %
 % \subsubsection{File \Datei{amit.cbx}}
 %
@@ -18278,8 +18567,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</amitCBX>
 %<*archaCBX>
+% \fi
 %
 % \subsubsection{File \Datei{archa.cbx}}
 %
@@ -18308,8 +18599,10 @@
 \ExecuteBibliographyOptions{autocite=footnote}
 %    \end{macrocode}
 %
+% \iffalse
 %</archaCBX>
 %<*dgufCBX>
+% \fi
 %
 % \subsubsection{File \Datei{dguf.cbx}}
 %
@@ -18328,8 +18621,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</dgufCBX>
 %<*dgufaltCBX>
+% \fi
 %
 % \subsubsection{File \Datei{dguf-alt.cbx}}
 %
@@ -18347,8 +18642,11 @@
 \def\archaeocitestyletitle{\blxarch@style@dgufalt}
 %    \end{macrocode}
 % \end{macro}
+%
+% \iffalse
 %</dgufaltCBX>
 %<*dgufapaCBX>
+% \fi
 %
 % \subsubsection{File \Datei{dguf-apa.cbx}}
 %
@@ -18393,8 +18691,10 @@
 % \end{bibmacro}
 % \end{bibmacro} 
 %
+% \iffalse
 %</dgufapaCBX>
 %<*eazCBX>
+% \fi
 %
 % \subsubsection{File \Datei{eaz.cbx}}
 %
@@ -18419,8 +18719,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</eazCBX>
 %<*eazaltCBX>
+% \fi
 %
 % \subsubsection{File \Datei{eaz-alt.cbx}}
 %
@@ -18439,8 +18741,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</eazaltCBX>
 %<*foeCBX>
+% \fi
 %
 % \subsubsection{File \Datei{foe.cbx}}
 %
@@ -18463,8 +18767,10 @@
 \ExecuteBibliographyOptions{autocite=footnote}
 %    \end{macrocode}
 %
+% \iffalse
 %</foeCBX>
 %<*jbhalleCBX>
+% \fi
 %
 % \subsubsection{File \Datei{jb-halle.cbx}}
 %
@@ -18483,8 +18789,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</jbhalleCBX>
 %<*jbkreisneussCBX>
+% \fi
 %
 % \subsubsection{File \Datei{jb-kreis-neuss.cbx}}
 %
@@ -18514,8 +18822,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</jbkreisneussCBX>
 %<*karlCBX>
+% \fi
 %
 % \subsubsection{File \Datei{karl.cbx}}
 %
@@ -18538,8 +18848,10 @@
 \renewcommand*{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 %
+% \iffalse
 %</karlCBX>
 %<*majaCBX>
+% \fi
 %
 % \subsubsection{File \Datei{maja.cbx}}
 %
@@ -18564,8 +18876,10 @@
 }
 %    \end{macrocode}
 %
+% \iffalse
 %</majaCBX>
 %<*mpkCBX>
+% \fi
 %
 % \subsubsection{File \Datei{mpk.cbx}}
 %
@@ -18602,8 +18916,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</mpkCBX>
 %<*mpkoeawCBX>
+% \fi
 %
 % \subsubsection{File \Datei{mpkoeaw.cbx}}
 %
@@ -18632,8 +18948,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</mpkoeawCBX>
 %<*nnuCBX>
+% \fi
 %
 % \subsubsection{File \Datei{nnu.cbx}}
 %
@@ -18652,8 +18970,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</nnuCBX>
 %<*offaCBX>
+% \fi
 %
 % \subsubsection{File \Datei{offa.cbx}}
 %
@@ -18679,8 +18999,10 @@
 %    \end{macrocode}
 % \end{format}
 %
+% \iffalse
 %</offaCBX>
 %<*rgkinlineCBX>
+% \fi
 %
 % \subsubsection{File \Datei{rgk-inline.cbx}}
 %
@@ -18699,8 +19021,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</rgkinlineCBX>
 %<*rgknumericCBX>
+% \fi
 %
 % \subsubsection{File \Datei{rgk-numeric.cbx}}
 %
@@ -18719,8 +19043,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</rgknumericCBX>
 %<*rgkverboseCBX>
+% \fi
 %
 % \subsubsection{File \Datei{rgk-verbose.cbx}}
 %
@@ -18772,8 +19098,10 @@
         %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</rgkverboseCBX>
 %<*rgzmnumericCBX>
+% \fi
 %
 % \subsubsection{File \Datei{rgzm-numeric.cbx}}
 %
@@ -18792,8 +19120,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</rgzmnumericCBX>
 %<*rgzminlineCBX>
+% \fi
 %
 % \subsubsection{File \Datei{rgzm-inline.cbx}}
 %
@@ -18812,8 +19142,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</rgzminlineCBX>
 %<*rgzmverboseCBX>
+% \fi
 %
 % \subsubsection{File \Datei{rgzm-verbose.cbx}}
 %
@@ -18838,8 +19170,10 @@
 }
 %    \end{macrocode}
 %
+% \iffalse
 %</rgzmverboseCBX>
 %<*ufgmuensterverboseCBX>
+% \fi
 %
 % \subsubsection{File \Datei{ufg-muenster-verbose.cbx}}
 %
@@ -18864,8 +19198,10 @@
 }
 %    \end{macrocode}
 %
+% \iffalse
 %</ufgmuensterverboseCBX>
 %<*ufgmuensternumericCBX>
+% \fi
 %
 % \subsubsection{File \Datei{ufg-muenster-numeric.cbx}}
 %
@@ -18884,8 +19220,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</ufgmuensternumericCBX>
 %<*ufgmuensterinlineCBX>
+% \fi
 %
 % \subsubsection{File \Datei{ufg-muenster-inline.cbx}}
 %
@@ -18904,8 +19242,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</ufgmuensterinlineCBX>
 %<*volkskundeCBX>
+% \fi
 %
 % \subsubsection{File \Datei{volkskunde.cbx}}
 %
@@ -18937,8 +19277,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</volkskundeCBX>
 %<*zaakCBX>
+% \fi
 %
 % \subsubsection{File \Datei{zaak.cbx}}
 %
@@ -18957,8 +19299,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</zaakCBX>
 %<*zaesCBX>
+% \fi
 %
 % \subsubsection{File \Datei{zaes.cbx}}
 %
@@ -18981,11 +19325,15 @@
 \ExecuteBibliographyOptions{autocite=footnote}
 %    \end{macrocode}
 %
+% \iffalse
 %</zaesCBX>
+% \fi
 %
 % \subsection{Shared code for frequent formattings}
 %
+% \iffalse
 %<*noshortform>
+% \fi
 %
 % \begin{macro}{\shortformcite}
 % \begin{macro}{\shortformcites}
@@ -18999,8 +19347,10 @@
 % \end{macro}
 % \end{macro}
 %
+% \iffalse
 %</noshortform>
 %<*barecitations>
+% \fi
 %
 % \begin{format}{postnote}
 % \begin{format}{multipostnote}
@@ -19018,8 +19368,10 @@
 % \end{format}
 % \end{format}
 %
+% \iffalse
 %</barecitations>
 %<*nosmallcaps>
+% \fi
 %
 % \begin{macro}{\mkbibnamefamily}
 % no small caps in label family names
@@ -19049,8 +19401,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</nosmallcaps>
 %<*noplacedateparens>
+% \fi
 %
 % \begin{format}{locationdateparens}
 % \Feld{location} block not wrapped into anything.
@@ -19059,8 +19413,10 @@
 %    \end{macrocode}
 % \end{format}
 %
+% \iffalse
 %</noplacedateparens>
 %<*noarticlesubtitlepunct>
+% \iffalse
 %
 % \begin{macro}{\articlesubtitlepunct}
 % No special \Befehl{subtitlepunct} in \Typ{article} etc.
@@ -19069,8 +19425,10 @@
 %    \end{macrocode}
 % \end{macro} 
 %
+% \iffalse
 %</noarticlesubtitlepunct>
 %<*sequentes>
+% \fi
 %
 % \begin{format}{pages}
 % \changes{1.3}{2017/08/15}{\Befehl{rangelen} error fixed}
@@ -19089,977 +19447,1754 @@
 %    \end{macrocode}
 % \end{format}
 %
+% \iffalse
 %</sequentes>
+% \fi
 %
 % \subsection{Localization files}
 %
+% \iffalse
 %<*FaustrianLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-archaeology.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustrianLBX>
 %<*FnaustrianLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-archaeology.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustrianLBX>
 %<*FngermanLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-archaeology.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermanLBX>
 %<*FnswissgermanLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-archaeology.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermanLBX>
 %<*FswissgermanLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-archaeology.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermanLBX>
 %<*FamericanLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-archaeology.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FamericanLBX>
 %<*FaustralianLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{australian-archaeology.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustralianLBX>
 %<*FbritishLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{british-archaeology.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritishLBX>
 %<*FcanadianLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{canadian-archaeology.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadianLBX>
 %<*FnewzealandLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-archaeology.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealandLBX>
 %<*FUKenglishLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-archaeology.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglishLBX>
 %<*FUSenglishLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-archaeology.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUSenglishLBX>
 %<*FaustrianaefkwLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-aefkw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustrianaefkwLBX>
 %<*FnaustrianaefkwLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-aefkw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustrianaefkwLBX>
 %<*FngermanaefkwLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-aefkw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermanaefkwLBX>
 %<*FnswissgermanaefkwLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-aefkw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermanaefkwLBX>
 %<*FswissgermanaefkwLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-aefkw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermanaefkwLBX>
 %<*FamericanaefkwLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-aefkw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FamericanaefkwLBX>
 %<*FaustralianaefkwLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{australian-aefkw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustralianaefkwLBX>
 %<*FbritishaefkwLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{british-aefkw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritishaefkwLBX>
 %<*FcanadianaefkwLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{canadian-aefkw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadianaefkwLBX>
 %<*FnewzealandaefkwLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-aefkw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealandaefkwLBX>
 %<*FUKenglishaefkwLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-aefkw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglishaefkwLBX>
 %<*FUSenglishaefkwLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-aefkw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUSenglishaefkwLBX>
 %<*FaustrianarchaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-archa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustrianarchaLBX>
 %<*FnaustrianarchaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-archa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustrianarchaLBX>
 %<*FngermanarchaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-archa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermanarchaLBX>
 %<*FnswissgermanarchaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-archa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermanarchaLBX>
 %<*FswissgermanarchaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-archa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermanarchaLBX>
 %<*FamericanarchaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-archa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FamericanarchaLBX>
 %<*FaustralianarchaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{australian-archa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustralianarchaLBX>
 %<*FbritisharchaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{british-archa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritisharchaLBX>
 %<*FcanadianarchaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{canadian-archa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadianarchaLBX>
 %<*FnewzealandarchaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-archa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealandarchaLBX>
 %<*FUKenglisharchaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-archa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglisharchaLBX>
 %<*FUSenglisharchaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-archa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUSenglisharchaLBX>
 %<*FaustriandgufaltLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-dguf-alt.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustriandgufaltLBX>
 %<*FnaustriandgufaltLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-dguf-alt.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustriandgufaltLBX>
 %<*FngermandgufaltLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-dguf-alt.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermandgufaltLBX>
 %<*FnswissgermandgufaltLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-dguf-alt.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermandgufaltLBX>
 %<*FswissgermandgufaltLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-dguf-alt.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermandgufaltLBX>
 %<*FamericandgufaltLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-dguf-alt.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FamericandgufaltLBX>
 %<*FaustraliandgufaltLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{australian-dguf-alt.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustraliandgufaltLBX>
 %<*FbritishdgufaltLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{british-dguf-alt.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritishdgufaltLBX>
 %<*FcanadiandgufaltLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{canadian-dguf-alt.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadiandgufaltLBX>
 %<*FnewzealanddgufaltLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-dguf-alt.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealanddgufaltLBX>
 %<*FUKenglishdgufaltLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-dguf-alt.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglishdgufaltLBX>
 %<*FUSenglishdgufaltLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-dguf-alt.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUSenglishdgufaltLBX>
 %<*FaustriandgufapaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-dguf-apa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustriandgufapaLBX>
 %<*FnaustriandgufapaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-dguf-apa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustriandgufapaLBX>
 %<*FngermandgufapaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-dguf-apa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermandgufapaLBX>
 %<*FnswissgermandgufapaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-dguf-apa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermandgufapaLBX>
 %<*FswissgermandgufapaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-dguf-apa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermandgufapaLBX>
 %<*FamericandgufapaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-dguf-apa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FamericandgufapaLBX>
 %<*FaustraliandgufapaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{australian-dguf-apa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustraliandgufapaLBX>
 %<*FbritishdgufapaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{british-dguf-apa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritishdgufapaLBX>
 %<*FcanadiandgufapaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{canadian-dguf-apa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadiandgufapaLBX>
 %<*FnewzealanddgufapaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-dguf-apa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealanddgufapaLBX>
 %<*FUKenglishdgufapaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-dguf-apa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglishdgufapaLBX>
 %<*FUSenglishdgufapaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-dguf-apa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUSenglishdgufapaLBX>
 %<*FaustrianeazLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-eaz.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustrianeazLBX>
 %<*FnaustrianeazLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-eaz.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustrianeazLBX>
 %<*FngermaneazLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-eaz.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermaneazLBX>
 %<*FnswissgermaneazLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-eaz.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermaneazLBX>
 %<*FswissgermaneazLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-eaz.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermaneazLBX>
 %<*FamericaneazLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-eaz.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FamericaneazLBX>
 %<*FaustralianeazLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{australian-eaz.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustralianeazLBX>
 %<*FbritisheazLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{british-eaz.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritisheazLBX>
 %<*FcanadianeazLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{canadian-eaz.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadianeazLBX>
 %<*FnewzealandeazLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-eaz.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealandeazLBX>
 %<*FUKenglisheazLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-eaz.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglisheazLBX>
 %<*FUSenglisheazLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-eaz.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUSenglisheazLBX>
 %<*FaustrianfoeLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-foe.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustrianfoeLBX>
 %<*FnaustrianfoeLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-foe.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustrianfoeLBX>
 %<*FngermanfoeLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-foe.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermanfoeLBX>
 %<*FnswissgermanfoeLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-foe.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermanfoeLBX>
 %<*FswissgermanfoeLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-foe.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermanfoeLBX>
 %<*FamericanfoeLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-foe.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FamericanfoeLBX>
 %<*FaustralianfoeLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{australian-foe.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustralianfoeLBX>
 %<*FbritishfoeLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{british-foe.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritishfoeLBX>
 %<*FcanadianfoeLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{canadian-foe.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadianfoeLBX>
 %<*FnewzealandfoeLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-foe.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealandfoeLBX>
 %<*FUKenglishfoeLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-foe.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglishfoeLBX>
 %<*FUSenglishfoeLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-foe.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUSenglishfoeLBX>
 %<*FaustrianjbkreisneussLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-jb-kreis-neuss.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustrianjbkreisneussLBX>
 %<*FnaustrianjbkreisneussLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-jb-kreis-neuss.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustrianjbkreisneussLBX>
 %<*FngermanjbkreisneussLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-jb-kreis-neuss.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermanjbkreisneussLBX>
 %<*FnswissgermanjbkreisneussLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-jb-kreis-neuss.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermanjbkreisneussLBX>
 %<*FswissgermanjbkreisneussLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-jb-kreis-neuss.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermanjbkreisneussLBX>
 %<*FamericanjbkreisneussLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-jb-kreis-neuss.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FamericanjbkreisneussLBX>
 %<*FaustralianjbkreisneussLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{australian-jb-kreis-neuss.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustralianjbkreisneussLBX>
 %<*FbritishjbkreisneussLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{british-jb-kreis-neuss.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritishjbkreisneussLBX>
 %<*FcanadianjbkreisneussLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{canadian-jb-kreis-neuss.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadianjbkreisneussLBX>
 %<*FnewzealandjbkreisneussLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-jb-kreis-neuss.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealandjbkreisneussLBX>
 %<*FUKenglishjbkreisneussLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-jb-kreis-neuss.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglishjbkreisneussLBX>
 %<*FUSenglishjbkreisneussLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-jb-kreis-neuss.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUSenglishjbkreisneussLBX>
 %<*FaustriankarlLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-karl.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustriankarlLBX>
 %<*FnaustriankarlLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-karl.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustriankarlLBX>
 %<*FngermankarlLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-karl.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermankarlLBX>
 %<*FnswissgermankarlLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-karl.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermankarlLBX>
 %<*FswissgermankarlLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-karl.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermankarlLBX>
 %<*FamericankarlLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-karl.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FamericankarlLBX>
 %<*FaustraliankarlLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{australian-karl.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustraliankarlLBX>
 %<*FbritishkarlLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{british-karl.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritishkarlLBX>
 %<*FcanadiankarlLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{canadian-karl.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadiankarlLBX>
 %<*FnewzealandkarlLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-karl.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealandkarlLBX>
 %<*FUKenglishkarlLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-karl.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglishkarlLBX>
 %<*FUSenglishkarlLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-karl.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUSenglishkarlLBX>
 %<*FaustrianmajaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-maja.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustrianmajaLBX>
 %<*FnaustrianmajaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-maja.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustrianmajaLBX>
 %<*FngermanmajaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-maja.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermanmajaLBX>
 %<*FnswissgermanmajaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-maja.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermanmajaLBX>
 %<*FswissgermanmajaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-maja.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermanmajaLBX>
 %<*FamericanmajaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-maja.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FamericanmajaLBX>
 %<*FaustralianmajaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{australian-maja.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustralianmajaLBX>
 %<*FbritishmajaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{british-maja.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritishmajaLBX>
 %<*FcanadianmajaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{canadian-maja.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadianmajaLBX>
 %<*FnewzealandmajaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-maja.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealandmajaLBX>
 %<*FUKenglishmajaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-maja.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglishmajaLBX>
 %<*FUSenglishmajaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-maja.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUSenglishmajaLBX>
 %<*FaustrianmpkLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-mpk.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustrianmpkLBX>
 %<*FnaustrianmpkLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-mpk.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustrianmpkLBX>
 %<*FngermanmpkLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-mpk.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermanmpkLBX>
 %<*FnswissgermanmpkLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-mpk.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermanmpkLBX>
 %<*FswissgermanmpkLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-mpk.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermanmpkLBX>
 %<*FamericanmpkLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-mpk.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FamericanmpkLBX>
 %<*FaustralianmpkLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{australian-mpk.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustralianmpkLBX>
 %<*FbritishmpkLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{british-mpk.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritishmpkLBX>
 %<*FcanadianmpkLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{canadian-mpk.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadianmpkLBX>
 %<*FnewzealandmpkLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-mpk.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealandmpkLBX>
 %<*FUKenglishmpkLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-mpk.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglishmpkLBX>
 %<*FUSenglishmpkLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-mpk.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUSenglishmpkLBX>
 %<*FaustrianmpkoeawLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-mpkoeaw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustrianmpkoeawLBX>
 %<*FnaustrianmpkoeawLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-mpkoeaw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustrianmpkoeawLBX>
 %<*FngermanmpkoeawLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-mpkoeaw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermanmpkoeawLBX>
 %<*FnswissgermanmpkoeawLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-mpkoeaw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermanmpkoeawLBX>
 %<*FswissgermanmpkoeawLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-mpkoeaw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermanmpkoeawLBX>
 %<*FamericanmpkoeawLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-mpkoeaw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FamericanmpkoeawLBX>
 %<*FaustralianmpkoeawLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{australian-mpkoeaw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustralianmpkoeawLBX>
 %<*FbritishmpkoeawLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{british-mpkoeaw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritishmpkoeawLBX>
 %<*FcanadianmpkoeawLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{canadian-mpkoeaw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadianmpkoeawLBX>
 %<*FnewzealandmpkoeawLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-mpkoeaw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealandmpkoeawLBX>
 %<*FUKenglishmpkoeawLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-mpkoeaw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglishmpkoeawLBX>
 %<*FUSenglishmpkoeawLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-mpkoeaw.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUSenglishmpkoeawLBX>
 %<*FaustrianoffaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-offa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustrianoffaLBX>
 %<*FnaustrianoffaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-offa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustrianoffaLBX>
 %<*FngermanoffaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-offa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermanoffaLBX>
 %<*FnswissgermanoffaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-offa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermanoffaLBX>
 %<*FswissgermanoffaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-offa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermanoffaLBX>
 %<*FamericanoffaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-offa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FamericanoffaLBX>
 %<*FaustralianoffaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{australian-offa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustralianoffaLBX>
 %<*FbritishoffaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{british-offa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritishoffaLBX>
 %<*FcanadianoffaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{canadian-offa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadianoffaLBX>
 %<*FnewzealandoffaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-offa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealandoffaLBX>
 %<*FUKenglishoffaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-offa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglishoffaLBX>
 %<*FUSenglishoffaLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-offa.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUSenglishoffaLBX>
 %<*FaustrianrgzmLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-rgzm.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustrianrgzmLBX>
 %<*FnaustrianrgzmLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-rgzm.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustrianrgzmLBX>
 %<*FngermanrgzmLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-rgzm.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermanrgzmLBX>
 %<*FnswissgermanrgzmLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-rgzm.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermanrgzmLBX>
 %<*FswissgermanrgzmLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-rgzm.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermanrgzmLBX>
 %<*FamericanrgzmLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-rgzm.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FamericanrgzmLBX>
 %<*FaustralianrgzmLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{australian-rgzm.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustralianrgzmLBX>
 %<*FbritishrgzmLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{british-rgzm.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritishrgzmLBX>
 %<*FcanadianrgzmLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{canadian-rgzm.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadianrgzmLBX>
 %<*FenglishrgzmLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{english-rgzm.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FenglishrgzmLBX>
 %<*FnewzealandrgzmLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-rgzm.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealandrgzmLBX>
 %<*FUKenglishrgzmLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-rgzm.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglishrgzmLBX>
 %<*FUSenglishrgzmLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-rgzm.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUSenglishrgzmLBX>
 %<*FaustrianzaakLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-zaak.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustrianzaakLBX>
 %<*FnaustrianzaakLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-zaak.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustrianzaakLBX>
 %<*FngermanzaakLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-zaak.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermanzaakLBX>
 %<*FnswissgermanzaakLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-zaak.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermanzaakLBX>
 %<*FswissgermanzaakLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-zaak.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermanzaakLBX>
 %<*FamericanzaakLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-zaak.lbx}
 %    \end{macrocode}
+% \iffalse
 %</FamericanzaakLBX>
 %<*FaustralianzaakLBX>
+%
+% \fi
 %    \begin{macrocode}
 \ProvidesFile{australian-zaak.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustralianzaakLBX>
 %<*FbritishzaakLBX>
+%
+% \fi
 %    \begin{macrocode}
 \ProvidesFile{british-zaak.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritishzaakLBX>
 %<*FcanadianzaakLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{canadian-zaak.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadianzaakLBX>
 %<*FnewzealandzaakLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-zaak.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealandzaakLBX>
 %<*FUKenglishzaakLBX>
+%
+% \fi
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-zaak.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglishzaakLBX>
 %<*FUSenglishzaakLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-zaak.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUSenglishzaakLBX>
 %<*FaustrianzaesLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{austrian-zaes.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustrianzaesLBX>
 %<*FnaustrianzaesLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{naustrian-zaes.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnaustrianzaesLBX>
 %<*FngermanzaesLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{ngerman-zaes.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FngermanzaesLBX>
 %<*FnswissgermanzaesLBX>
+%
+% \fi
 %    \begin{macrocode}
 \ProvidesFile{nswissgerman-zaes.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnswissgermanzaesLBX>
 %<*FswissgermanzaesLBX>
+%
+% \fi
 %    \begin{macrocode}
 \ProvidesFile{swissgerman-zaes.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FswissgermanzaesLBX>
 %<*FamericanzaesLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{american-zaes.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FamericanzaesLBX>
 %<*FaustralianzaesLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{australian-zaes.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FaustralianzaesLBX>
 %<*FbritishzaesLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{british-zaes.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FbritishzaesLBX>
 %<*FcanadianzaesLBX>
+%
+% \fi
 %    \begin{macrocode}
 \ProvidesFile{canadian-zaes.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FcanadianzaesLBX>
 %<*FnewzealandzaesLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{newzealand-zaes.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FnewzealandzaesLBX>
 %<*FUKenglishzaesLBX>
+% \fi
+%
 %    \begin{macrocode}
 \ProvidesFile{UKenglish-zaes.lbx}
 %    \end{macrocode}
+%
+% \iffalse
 %</FUKenglishzaesLBX>
 %<*FUSenglishzaesLBX>
+% \fi
+&
 %    \begin{macrocode}
 \ProvidesFile{USenglish-zaes.lbx}
 %    \end{macrocode}
-%</FUSenglishzaesLBX>
 %
+% \iffalse
+%</FUSenglishzaesLBX>
+% \fi
+%
+% \iffalse
 %<*newbibstrings>
+% \fi
 %
 % \subsubsection{New localizazion strings}
 % \begin{localization}{articledated}
@@ -20221,9 +21356,10 @@
 %    \end{macrocode}
 % \end{localization}
 %
+% \iffalse
 %</newbibstrings>
-%
 %<*englishLBX>
+% \fi
 %
 % \subsubsection{File \Datei{english-archaeology.lbx}}
 %
@@ -20496,8 +21632,10 @@
 \DeclareGenitiveApostropheChars{}
 %    \end{macrocode}
 %
+% \iffalse
 %</englishLBX>
 %<*PenglishLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{english-archaeology.lbx}}
 %
@@ -20653,8 +21791,10 @@
 \DeclareGenitiveApostropheChars{ce,s,x,z,ß,\ss}
 %    \end{macrocode}
 %
+% \iffalse
 %</germanLBX>
 %<*PgermanLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{german-archaeology.lbx}}
 %
@@ -20665,8 +21805,10 @@
 \InheritBibliographyStrings{german-archaeology}
 %    \end{macrocode}
 %
+% \iffalse
 %</PgermanLBX>
 %<*aefkwenglishLBX>
+% \fi
 %
 % \subsubsection{File \Datei{english-aefkw.lbx}}
 %
@@ -20686,8 +21828,10 @@
 %    \end{macrocode}
 % \end{localization}
 %
+% \iffalse
 %</aefkwenglishLBX>
 %<*aefkwgermanLBX>
+% \fi
 %
 % \subsubsection{File \Datei{german-aefkw.lbx}}
 %
@@ -20811,8 +21955,10 @@
 % \end{localization}
 % \end{localization}
 %
+% \iffalse
 %</aefkwgermanLBX>
 %<*PenglishaefkwLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{english-aefkw.lbx}}
 %
@@ -20823,8 +21969,10 @@
 \InheritBibliographyStrings{english-aefkw}
 %    \end{macrocode}
 %
+% \iffalse
 %</PenglishaefkwLBX>
 %<*PgermanaefkwLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{german-aefkw.lbx}}
 %
@@ -20835,8 +21983,10 @@
 \InheritBibliographyStrings{german-aefkw}
 %    \end{macrocode}
 %
+% \iffalse
 %</PgermanaefkwLBX>
 %<*archaenglishLBX>
+% \fi
 %
 % \subsubsection{File \Datei{english-archa.lbx}}
 %
@@ -20856,8 +22006,10 @@
 %    \end{macrocode}
 % \end{localization}
 %
+% \iffalse
 %</archaenglishLBX>
 %<*archagermanLBX>
+% \fi
 %
 % \subsubsection{File \Datei{german-archa.lbx}}
 %
@@ -20882,8 +22034,10 @@
 % \end{localization}
 % \end{localization}
 %
+% \iffalse
 %</archagermanLBX>
 %<*PenglisharchaLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{english-archa.lbx}}
 %
@@ -20894,8 +22048,10 @@
 \InheritBibliographyStrings{english-archa}
 %    \end{macrocode}
 %
+% \iffalse
 %</PenglisharchaLBX>
 %<*PgermanarchaLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{german-archa.lbx}}
 %
@@ -20948,8 +22104,10 @@
 % \end{localization}
 % \end{localization}
 %
+% \iffalse
 %</dgufaltgermanLBX>
 %<*PgermandgufaltLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{german-dguf-alt.lbx}}
 %
@@ -20960,8 +22118,10 @@
 \InheritBibliographyStrings{german-dguf-alt}
 %    \end{macrocode}
 %
+% \iffalse
 %</PgermandgufaltLBX>
 %<*dgufapaenglishLBX>
+% \fi
 %
 % \subsubsection{File \Datei{english-dguf-apa.lbx}}
 %
@@ -20995,8 +22155,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</dgufapaenglishLBX>
 %<*PenglishdgufapaLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{english-dguf-apa.lbx}}
 %
@@ -21007,8 +22169,10 @@
 \InheritBibliographyStrings{english-dguf-apa}
 %    \end{macrocode}
 %
+% \iffalse
 %</PenglishdgufapaLBX>
 %<*eazenglishLBX>
+% \fi
 %
 % \subsubsection{File \Datei{english-eaz.lbx}}
 %
@@ -21028,8 +22192,10 @@
 %    \end{macrocode}
 % \end{localization}
 %
+% \iffalse
 %</eazenglishLBX>
 %<*eazgermanLBX>
+% \fi
 %
 % \subsubsection{File \Datei{german-eaz.lbx}}
 %
@@ -21049,8 +22215,10 @@
 %    \end{macrocode}
 % \end{localization}
 %
+% \iffalse
 %</eazgermanLBX>
 %<*PenglisheazLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{english-eaz.lbx}}
 %
@@ -21061,8 +22229,10 @@
 \InheritBibliographyStrings{english-eaz}
 %    \end{macrocode}
 %
+% \iffalse
 %</PenglisheazLBX>
 %<*PgermaneazLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{german-eaz.lbx}}
 %
@@ -21073,8 +22243,10 @@
 \InheritBibliographyStrings{german-eaz}
 %    \end{macrocode}
 %
+% \iffalse
 %</PgermaneazLBX>
 %<*foeenglishLBX>
+% \fi
 %
 % \subsubsection{File \Datei{english-foe.lbx}}
 %
@@ -21101,8 +22273,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</foeenglishLBX>
 %<*foegermanLBX>
+% \fi
 %
 % \subsubsection{File \Datei{german-foe.lbx}}
 %
@@ -21130,8 +22304,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \iffalse
 %</foegermanLBX>
 %<*PenglishfoeLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{english-foe.lbx}}
 %
@@ -21142,8 +22318,10 @@
 \InheritBibliographyStrings{english-foe}
 %    \end{macrocode}
 %
+% \iffalse
 %</PenglishfoeLBX>
 %<*PgermanfoeLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{german-foe.lbx}}
 %
@@ -21154,8 +22332,10 @@
 \InheritBibliographyStrings{german-foe}
 %    \end{macrocode}
 %
+% \iffalse
 %</PgermanfoeLBX>
 %<*jbkreisneussenglishLBX>
+% \fi
 %
 % \subsubsection{File \Datei{english-jb-kreis-neuss.lbx}}
 %
@@ -21178,8 +22358,10 @@
 % \end{localization}
 % \end{localization}
 %
+% \iffalse
 %</jbkreisneussenglishLBX>
 %<*jbkreisneussgermanLBX>
+% \fi
 %
 % \subsubsection{File \Datei{german-jb-kreis-neuss.lbx}}
 %
@@ -21202,8 +22384,10 @@
 % \end{localization}
 % \end{localization}
 %
+% \iffalse
 %</jbkreisneussgermanLBX>
 %<*PenglishjbkreisneussLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{english-jb-kreis-neuss.lbx}}
 %
@@ -21214,8 +22398,10 @@
 \InheritBibliographyStrings{english-jb-kreis-neuss}
 %    \end{macrocode}
 %
+% \iffalse
 %</PenglishjbkreisneussLBX>
 %<*PgermanjbkreisneussLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{german-jb-kreis-neuss.lbx}}
 %
@@ -21226,8 +22412,10 @@
 \InheritBibliographyStrings{german-jb-kreis-neuss}
 %    \end{macrocode}
 %
+% \iffalse
 %</PgermanjbkreisneussLBX>
 %<*karlgermanLBX>
+% \fi
 %
 % \subsubsection{File \Datei{german-karl.lbx}}
 %
@@ -21250,8 +22438,10 @@
 % \end{localization}
 % \end{localization}
 %
+% \iffalse
 %</karlgermanLBX>
 %<*PgermankarlLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{german-karl.lbx}}
 %
@@ -21262,8 +22452,10 @@
 \InheritBibliographyStrings{german-karl}
 %    \end{macrocode}
 %
+% \iffalse
 %</PgermankarlLBX>
 %<*majagermanLBX>
+% \fi
 %
 % \subsubsection{File \Datei{german-maja.lbx}}
 %
@@ -21385,8 +22577,10 @@
 % \end{localization}
 % \end{localization}
 %
+% \iffalse
 %</majagermanLBX>
 %<*PgermanmajaLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{german-maja.lbx}}
 %
@@ -21397,8 +22591,10 @@
 \InheritBibliographyStrings{german-maja}
 %    \end{macrocode}
 %
+% \iffalse
 %</PgermanmajaLBX>
 %<*mpkenglishLBX>
+% \fi
 %
 % \subsubsection{File \Datei{english-mpk.lbx}}
 %
@@ -21418,8 +22614,10 @@
 %    \end{macrocode}
 % \end{localization}
 %
+% \iffalse
 %</mpkenglishLBX>
 %<*mpkgermanLBX>
+% \fi
 %
 % \subsubsection{File \Datei{german-mpk.lbx}}
 %
@@ -21447,8 +22645,10 @@
 % \end{localization}
 % \end{localization}
 %
+% \iffalse
 %</mpkgermanLBX>
 %<*PenglishmpkLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{english-mpk.lbx}}
 %
@@ -21492,8 +22692,10 @@
 % \end{localization}
 % \end{localization}
 %
+% \iffalse
 %</PenglishmpkLBX>
 %<*PgermanmpkLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{german-mpk.lbx}}
 %
@@ -21567,8 +22769,10 @@
 % \end{localization}
 % \end{localization}
 %
+% \iffalse
 %</mpkoeawenglishLBX>
 %<*mpkoeawgermanLBX>
+% \fi
 %
 % \subsubsection{File \Datei{german-mpkoeaw.lbx}}
 %
@@ -21648,8 +22852,10 @@
 % \end{localization}
 % \end{localization}
 %
+% \iffalse
 %</mpkoeawgermanLBX>
 %<*PenglishmpkoeawLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{english-mpkoeaw.lbx}}
 %
@@ -21660,8 +22866,10 @@
 \InheritBibliographyStrings{english-mpkoeaw}
 %    \end{macrocode}
 %
+% \iffalse
 %</PenglishmpkoeawLBX>
 %<*PgermanmpkoeawLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{german-mpkoeaw.lbx}}
 %
@@ -21671,9 +22879,10 @@
 \InheritBibliographyExtras{german-mpkoeaw}
 %    \end{macrocode}
 %
-
+% \iffalse
 %</PgermanmpkoeawLBX>
 %<*offaenglishLBX>
+% \fi
 %
 % \subsubsection{File \Datei{english-offa.lbx}}
 %
@@ -21695,8 +22904,10 @@
 %    \end{macrocode}
 % \end{localization}
 %
+% \iffalse
 %</offaenglishLBX>
 %<*offagermanLBX>
+% \fi
 %
 % \subsubsection{File \Datei{german-offa.lbx}}
 %
@@ -21722,8 +22933,10 @@
 % \end{localization}
 % \end{localization}
 %
+% \iffalse
 %</offagermanLBX>
 %<*PenglishoffaLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{english-offa.lbx}}
 %
@@ -21734,8 +22947,10 @@
 \InheritBibliographyStrings{english-offa}
 %    \end{macrocode}
 %
+% \iffalse
 %</PenglishoffaLBX>
 %<*PgermanoffaLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{german-offa.lbx}}
 %
@@ -21746,8 +22961,10 @@
 \InheritBibliographyStrings{german-offa}
 %    \end{macrocode}
 %
+% \iffalse
 %</PgermanoffaLBX>
 %<*rgzmgermanLBX>
+% \fi
 %
 % \subsubsection{File \Datei{german-rgzm.lbx}}
 %
@@ -21788,8 +23005,10 @@
 % \end{localization}
 % \end{localization}
 %
+% \iffalse
 %</rgzmgermanLBX>
 %<*PgermanrgzmLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{german-rgzm.lbx}}
 %
@@ -21800,8 +23019,10 @@
 \InheritBibliographyStrings{german-rgzm}
 %    \end{macrocode}
 %
+% \iffalse
 %</PgermanrgzmLBX>
 %<*zaakenglishLBX>
+% \fi
 %
 % \subsubsection{File \Datei{english-zaak.lbx}}
 %
@@ -21821,8 +23042,10 @@
 %    \end{macrocode}
 % \end{localization}
 %
+% \iffalse
 %</zaakenglishLBX>
 %<*zaakgermanLBX>
+% \fi
 %
 % \subsubsection{File \Datei{german-zaak.lbx}}
 %
@@ -21848,8 +23071,10 @@
 % \end{localization}
 % \end{localization}
 %
+% \iffalse
 %</zaakgermanLBX>
 %<*PenglishzaakLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{english-zaak.lbx}}
 %
@@ -21860,8 +23085,10 @@
 \InheritBibliographyStrings{english-zaak}
 %    \end{macrocode}
 %
+% \iffalse
 %</PenglishzaakLBX>
 %<*PgermanzaakLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{german-zaak.lbx}}
 %
@@ -21872,8 +23099,10 @@
 \InheritBibliographyStrings{german-zaak}
 %    \end{macrocode}
 %
+% \iffalse
 %</PgermanzaakLBX>
 %<*zaesenglishLBX>
+% \fi
 %
 % \subsubsection{File \Datei{english-zaes.lbx}}
 %
@@ -21893,8 +23122,10 @@
 %    \end{macrocode}
 % \end{localization}
 %
+% \iffalse
 %</zaesenglishLBX>
 %<*zaesgermanLBX>
+% \fi
 %
 % \subsubsection{File \Datei{german-zaes.lbx}}
 %
@@ -22019,8 +23250,10 @@
 % \end{localization}
 % \end{localization}
 %
+% \iffalse
 %</zaesgermanLBX>
 %<*PenglishzaesLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{english-zaes.lbx}}
 %
@@ -22031,8 +23264,10 @@
 \InheritBibliographyStrings{english-zaes}
 %    \end{macrocode}
 %
+% \iffalse
 %</PenglishzaesLBX>
 %<*PgermanzaesLBX>
+% \fi
 %
 % \subsubsection{Pointer to \Datei{german-zaes.lbx}}
 %
@@ -22043,272 +23278,350 @@
 \InheritBibliographyStrings{german-zaes}
 %    \end{macrocode}
 %
+% \iffalse
 %</PgermanzaesLBX>
+% \fi
 %
 % \subsection{Data model files}
 %
 % \subsubsection{File names}
 %
+% \iffalse
 %<*authoryearDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-archaeology.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</authoryearDBX>
 %<*authoryearcompDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-comp-archaeology.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</authoryearcompDBX>
 %<*authoryearibidDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-ibid-archaeology.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</authoryearibidDBX>
 %<*authoryearicompDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{authoryear-icomp-archaeology.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</authoryearicompDBX>
 %<*numericcompDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{numeric-comp-archaeology.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</numericcompDBX>
 %<*verboseDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-archaeology.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</verboseDBX>
 %<*verboseibidDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-ibid-archaeology.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</verboseibidDBX>
 %<*verbosetrad2noteDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{verbose-trad2note-archaeology.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</verbosetrad2noteDBX>
 %<*aefkwDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{aefkw.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</aefkwDBX>
 %<*afwlDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{afwl.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</afwlDBX>
 %<*amitDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{amit.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</amitDBX>
 %<*archaDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{archa.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</archaDBX>
 %<*dgufDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</dgufDBX>
 %<*dgufaltDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-alt.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</dgufaltDBX>
 %<*dgufapaDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{dguf-apa.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</dgufapaDBX>
 %<*eazDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</eazDBX>
 %<*eazaltDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{eaz-alt.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</eazaltDBX>
 %<*foeDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{foe.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</foeDBX>
 %<*jbhalleDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-halle.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</jbhalleDBX>
 %<*jbkreisneussDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{jb-kreis-neuss.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</jbkreisneussDBX>
 %<*karlDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{karl.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</karlDBX>
 %<*majaDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{maja.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</majaDBX>
 %<*mpkDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{mpk.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</mpkDBX>
 %<*mpkoeawDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{mpkoeaw.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</mpkoeawDBX>
 %<*nnuDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{nnu.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</nnuDBX>
 %<*offaDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{offa.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</offaDBX>
 %<*rgkinlineDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{rgkinlineDBX}
 %    \end{macrocode}
 %
+% \iffalse
 %</rgkinlineDBX>
 %<*rgknumericDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-numeric.dbx}
 %    \end{macrocode}
 %
+% \fi
 %</rgknumericDBX>
 %<*rgkverboseDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{rgk-verbose.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</rgkverboseDBX>
 %<*rgzminlineDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-inline.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</rgzminlineDBX>
 %<*rgzmnumericDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-numeric.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</rgzmnumericDBX>
 %<*rgzmverboseDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{rgzm-verbose.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</rgzmverboseDBX>
 %<*ufgmuensterinlineDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-inline.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</ufgmuensterinlineDBX>
 %<*ufgmuensternumericDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-numeric.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</ufgmuensternumericDBX>
 %<*ufgmuensterverboseDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{ufg-muenster-verbose.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</ufgmuensterverboseDBX>
 %<*volkskundeDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{volkskunde.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</volkskundeDBX>
 %<*zaakDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{zaak.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</zaakDBX>
 %<*zaesDBX>
+% \fi
 %
 %    \begin{macrocode}
 \ProvidesFile{zaes.dbx}
@@ -22318,7 +23631,9 @@
 %
 % \subsubsection{Shared declarations}
 %
+% \iffalse
 %<*DBX>
+% \fi
 %
 %    \begin{macrocode}
 [2018/10/22 v2.1 biblatex-archaeology data model (IB)]
@@ -22446,11 +23761,14 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
 %    \end{macrocode}
 % \end{format}
 %
+% \iffalse
 %</DBX>
+% \fi
 %
 % \subsubsection{Data model for \Biber's tool mode}\label{kap:biberconf}
 %
 % See explanation in \cref{kap:bibertool}.
+% \iffalse
 %<*BiberCONF>
 %    \begin{macrocode}
 <!-- REPLACE THE <DATAMODEL> GROUP IN THE BIBER *.CONF FILE WITH THE GROUP BELOW -->
@@ -23911,6 +25229,7 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
   </datamodel>
 %    \end{macrocode}
 %</BiberCONF>
+% \fi
 %
 % \end{appendices}
 % \Finale
