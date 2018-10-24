@@ -8,21 +8,24 @@
 
 Get the sources from [CTAN](http://www.ctan.org/pkg/biblatex-archaeology) or clone them from GitHub:
 
-	git clone https://github.com/CarlOrff/biblatex-archaeology.git
+	 $ git clone https://github.com/CarlOrff/biblatex-archaeology.git
 
 Create the directories `{TEXMF}/bibtex/bib/biblatex-archaeology` and `{TEXMF}/tex/latex/biblatex-archaeology` and run
 
-	pdftex -8bit biblatex-archaeology.ins
-	texhash
+	 $ pdftex -8bit biblatex-archaeology.ins
+	 $ texhash
 	
 Create a directory `{TEXMF}/doc/latex/biblatex-archaeology` and move `biblatex-archaeology.pdf` and the example folder there. In case you want to compile the manual yourself, do 
 
-	lualatex biblatex-archaeology
-	Biber biblatex-archaeology
-	makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
-	makeindex -s gind.ist biblatex-archaeology.idx
-	lualatex biblatex-archaeology
-	lualatex biblatex-archaeology
+	 $ lualatex biblatex-archaeology
+	 $ Biber biblatex-archaeology
+	 $ lualatex biblatex-archaeology
+	 $ makeindex -s gind.ist biblatex-archaeology.idx
+	 $ lualatex biblatex-archaeology
+	 $ makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
+	 $ lualatex biblatex-archaeology
+	 $ lualatex biblatex-archaeology
+ \end{verbatim}
 
 Remark that you MUST employ Biber. BibTeX won't work.
 

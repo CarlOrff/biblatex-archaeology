@@ -15,6 +15,7 @@ lualatex -file-line-error biblatex-archaeology.dtx
 ::Biber biblatex-archaeology
 lualatex -file-line-error biblatex-archaeology.dtx
 makeindex -s gind.ist biblatex-archaeology.idx
+lualatex -file-line-error biblatex-archaeology.dtx
 makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
 lualatex -file-line-error biblatex-archaeology.dtx
 lualatex -file-line-error biblatex-archaeology.dtx

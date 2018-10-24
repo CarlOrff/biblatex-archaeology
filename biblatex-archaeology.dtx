@@ -207,6 +207,7 @@
 % \changes{2.1}{2018/10/18}{Added \Feld{anonstring} in order to enhance handling of anonymous works in author date styles (see \cref{kap:anonymous} and \href{https://github.com/CarlOrff/biblatex-archaeology/issues/8}{issue \#8})}
 % \changes{2.1}{2018/10/22}{Fixed non-sorting prefixes with \Befehl{DeclareNosort} (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/26}{issue \#26})}
 % \changes{2.1}{2018/10/23}{German collation now default notwithstanding the document language}
+% \changes{2.1}{2018/10/24}{Page numbers ins change log fixed}
 %
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -250,8 +251,8 @@
 %<*verbins>
 % \fi
 % \begin{verbatim}
-   pdftex -8bit biblatex-archaeology.ins
-   texhash
+   $ pdftex -8bit biblatex-archaeology.ins
+   $ texhash
  \end{verbatim}
 % \iffalse
 %</verbins>
@@ -262,12 +263,14 @@
 %<*verbman>
 % \fi
 % \begin{verbatim}
-   lualatex biblatex-archaeology
-   Biber biblatex-archaeology
-   makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
-   makeindex -s gind.ist biblatex-archaeology.idx
-   lualatex biblatex-archaeology
-   lualatex biblatex-archaeology
+   $ lualatex biblatex-archaeology
+   $ Biber biblatex-archaeology
+   $ lualatex biblatex-archaeology
+   $ makeindex -s gind.ist biblatex-archaeology.idx
+   $ lualatex biblatex-archaeology
+   $ makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
+   $ lualatex biblatex-archaeology
+   $ lualatex biblatex-archaeology
  \end{verbatim}
 % \iffalse
 %</verbman>
@@ -278,7 +281,7 @@
 %<*verbgit>
 % \fi
 % \begin{verbatim}
-   git clone https://github.com/CarlOrff/biblatex-archaeology.git
+   $ git clone https://github.com/CarlOrff/biblatex-archaeology.git
  \end{verbatim}
 % \iffalse
 %</verbgit>
@@ -1481,7 +1484,7 @@
 % the original file, copy it to a new one and call \Biber with option \Kbd{--}\Option{configfile}\Kbd{ /path/to/custom/biber.conf}.
 %
 % \PrintChanges
-% \nocite{guidelines:ethno:ffm,guidelines:ethno:goe:2014,guidelines:aaa:2009,guidelines:rlm:trier,guidelines:kunstgeschichte:goettingen,guidelines:kunstgeschichte:freiburg,guidelines:aja,guidelines:schlagworte:dai,guidelines:egypt:goe,grando:bernhard:2003,schopf:oJ,schwarz:2004,spycher:2017,guidelines:mediaevistik:oldenburg,rak-wb:2007}
+% %\nocite{guidelines:ethno:ffm,guidelines:ethno:goe:2014,guidelines:aaa:2009,guidelines:rlm:trier,guidelines:kunstgeschichte:goettingen,guidelines:kunstgeschichte:freiburg,guidelines:aja,guidelines:schlagworte:dai,guidelines:egypt:goe,grando:bernhard:2003,schopf:oJ,schwarz:2004,spycher:2017,guidelines:mediaevistik:oldenburg,rak-wb:2007}
 % \printbibliography[heading=bibintoc,title=References]
 %
 % \StopEventually{}
@@ -24160,6 +24163,7 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
       <field datatype="datepart" fieldtype="field">origrealendseason</field>
       <field datatype="literal" fieldtype="field" skip_output="true">date+an</field>
       <field datatype="literal" fieldtype="field" skip_output="true">origdate+an</field>
+      <field datatype="name" fieldtype="list">anonstring</field>
     </fields>
     <entryfields>
       <field>abstract</field>
