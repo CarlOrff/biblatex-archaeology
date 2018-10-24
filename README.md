@@ -1,4 +1,4 @@
-# The `biblatex-archaeology` styles [v2.0]
+# The `biblatex-archaeology` styles [v2.1]
 
 ## Objective
 
