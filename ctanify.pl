@@ -28,6 +28,7 @@ use File::Path qw(make_path remove_tree);
 use File::Remove 'remove';
 use Text::Markdown 'markdown';
 
+
 ####################
 # GLOBAL VARIABLES #
 ####################
@@ -77,7 +78,7 @@ my $expldir = "$package/example";
 $zip->addDirectory( $expldir );
 
 #generate databases
-system_call( "lualatex -file-line-error $package.dtx" );
+system_call( "lualatex -file-line-error $package.dtx" ); 
 system_call( "lualatex -file-line-error $package" . "_example" );
 system_call( "perl bibextract.pl $package $package-nodoc.dtx manualBIB " . join( " ", @bib ) );
 system_call( "perl bibextract.pl biblatex-archaeology_example $package.dtx exampleBIB " . join( " ", @bib ) );
@@ -308,9 +309,9 @@ sub finish {
 # call arg1 on command line and log result
 sub system_call {
 
-    add_log("EXEC: ".$_[0]);
-    system($_[0]);
-    
+	add_log("EXEC: ".$_[0]);
+	system($_[0]);
+	
 	if ($? == -1) {
 		add_log("FATAL ERROR: failed to execute: $!\n");
 	}

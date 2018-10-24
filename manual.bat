@@ -14,8 +14,8 @@ lualatex -file-line-error biblatex-archaeology.dtx
 %USERPROFILE%\Documents\ingram\texmf\bin\biber.exe --trace biblatex-archaeology
 ::Biber biblatex-archaeology
 lualatex -file-line-error biblatex-archaeology.dtx
-makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
 makeindex -s gind.ist biblatex-archaeology.idx
+makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
 lualatex -file-line-error biblatex-archaeology.dtx
 lualatex -file-line-error biblatex-archaeology.dtx
 texworks biblatex-archaeology.pdf
