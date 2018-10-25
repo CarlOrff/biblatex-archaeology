@@ -733,7 +733,18 @@
 % Like global option \Option{titlenote} (\cref{kap:pkgopt}) but on a per-entry basis.
 %
 % \item[]\DescribeOption{uselabeltitle}=\meta{bool}\\
-% If \meta{true}, back references in \Stil{verbose-trad2note} have a \Feld{shorttitle} (see \cref{kap:trad2note}).
+% Prior to version 2.1 \archbib lacked a disambiguition check in \Stil{verbose-trad2note-archaeology} for multiple
+% works by same author(s) like in the following example:
+% \begin{Beispiel}
+%   \begin{minipage}{\textwidth}
+%      \textellipsis\textsuperscript{1}\\
+%      \textellipsis\textsuperscript{2}\vspace{0.5\baselineskip}\footnoterule%
+%      \footnotesize\textsuperscript{1}G. Miller, A title (London 2013).-- Idem, Another title (Cambridge 2013).\\
+%      \textsuperscript{2}Miller (see note 1) 25 ff.
+%   \end{minipage}
+% \end{Beispiel}
+% By setting entry option \Option{uselabeltitle}\Kbd{=true} it was possible to enforce disambiguition by adding
+% a \Feld{shorttitle} to the label. This is done automatically now but you can still enforce it (though not suppress).
 %
 % \item[]\DescribeOption{usesourceeditor}=\meta{bool}\\
 % Like global option \Option{titlenote} (\cref{kap:pkgopt}) but on a per-entry basis.
@@ -1348,21 +1359,6 @@
 % 
 % \section{Bugs, hints and caveats}
 %
-% \subsection{Disambiguition in \Stil{verbose-trad2note}}\label{kap:trad2note}
-%
-% Verbose styles that use backreferences to footnotes are vulnerable to disambiguition problems. Conceive the following case:
-% \begin{Beispiel}
-%   \begin{minipage}{\textwidth}
-%      \textellipsis\textsuperscript{1}\\
-%      \textellipsis\textsuperscript{2}\vspace{0.5\baselineskip}\footnoterule%
-%      \footnotesize\textsuperscript{1}G. Miller, A title (London 2013).-- Idem, Another title (Cambridge 2013).\\
-%      \textsuperscript{2}Miller (see note 1) 25 ff.
-%   \end{minipage}
-% \end{Beispiel}
-% \blx does not provide a disambiguition check for this. It always prints the \Feld{shorttitle} field and falls back to the \Feld{title} field
-% if there is none. \Stil{verbose-trad2note} behaves in a different manner. It only prints a \Feld{shorttitle} or \Feld{title} if the entry
-% option \Option{uselabeltitle} is \Kbd{true}. But this has to be controlled manually by the author.
-%
 % \subsection{Sorting in author date styles}
 %
 % Sorting in author date styles is pretty delicate. It is carried out by \Biber ahead of any \LaTeX{} macro expansion. Fi. it is not possible to define a \Befehl{bibstring} for \enquote{Anonymous}
@@ -1504,7 +1500,6 @@
   CROSSREF = {radmacher:kronsbein:2011},
   PAGES = {65--73},
   GENDER = {pp},
-  OPTIONS = {uselabeltitle=true},
   SHORTTITLE = {Kinderschuh},
   GENDER = {pp},
 }
@@ -1530,7 +1525,6 @@
   PAGES = {37--57},
   SHORTTITLE = {Buchweizen},
   GENDER = {pp},
-  OPTIONS = {uselabeltitle=true},
   SHORTTITLE = {Ziegenmilch},
 }
 @ARTICLE{auler:hiller:2016,
@@ -1543,7 +1537,6 @@
   JOURNALTITLE = ufg-JbNeuss,
   LOCATION = {Neuss},
   GENDER = {pp},
-  OPTIONS = {uselabeltitle=true},
   SHORTTITLE = {Maifischfilet},
   LANGUAGE = {german},
   REALDATE = {2015},
@@ -1927,6 +1920,7 @@
   SHORTFORM = {RGA},
   LANGUAGE = {german},
 }
+
 @ONLINE{kenmore,
   URL = {http://www.kenmore.org/kenmore/kp_arch.html},
   URLDATE = {2015-12-23},
@@ -18301,7 +18295,7 @@
 %    \end{macrocode}
 %
 % The following code is copied from \Kbd{verbose-note.cbx}. Only \Befehl{iffootnote} is replaced
-% by \Befehl{ifseenote}, \Befehl{seenotedelim}, \Option{uselabeltitle} option and format \Format{seenote} added.
+% by \Befehl{ifseenote}, \Befehl{seenotedelim}, \Befehl{ifuselabeltitle} option and format \Format{seenote} added.
 % \begin{macrocode}
 
 \newbibmacro*{footcite}{%
@@ -18327,14 +18321,14 @@
     {\printnames{labelname}}%
   \ifsingletitle
     {}
-    {\iftoggle{archbool:uselabeltitle}{%
+    {\ifuselabeltitle{%
         \setunit*{\printdelim{labelnamepunct}}%
         \printfield[title]{labeltitle}}%
         {}}%
   \setunit*{\seenotedelim}%
   \printtext[seenote]{%
     \bibstring{seenote}\addnbspace
-    \cref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
+    \ref{cbx@\csuse{cbx@f@\thefield{entrykey}}}%
     \iftoggle{cbx:pageref}
       {\ifsamepage{\the\value{instcount}}
                   {\csuse{cbx@f@\thefield{entrykey}}}
@@ -18391,7 +18385,9 @@
 %    \end{macrocode}
 %
 % \begin{bibmacro}{footcite:save}
+% \changes{2.1}{2018/10/25}{Added disambiguition check for multiple works by same author(s) in single footnote}
 % Save the footnote counter value of the first occurrence for every entry.
+% \Befehl{ifciteseen} has to be checked when calling.
 %    \begin{macrocode}
 \newbibmacro*{footcite:save}{%
     \ifltxcounter{blxarch:\thefield{entrykey}}
@@ -18399,12 +18395,29 @@
             {\setcounter{blxarch:\thefield{entrykey}}{\value{footnote}}}
             {}}
         {\newcounter{blxarch:\thefield{entrykey}}%
-        \setcounter{blxarch:\thefield{entrykey}}{\value{footnote}}}%
+         \setcounter{blxarch:\thefield{entrykey}}{\value{footnote}}}%
 %    \end{macrocode}
 % Set a label at the first occurrence.
 %    \begin{macrocode}
     \csxdef{cbx@f@\thefield{entrykey}}{\the\value{instcount}}%
-    \label{cbx@\the\value{instcount}}}
+    \label{cbx@\the\value{instcount}}
+%    \end{macrocode}
+% Count \Feld{namehash}es per footnote.
+%    \begin{macrocode}
+   \edef\blxarch@ult@key@count{blxarch:ult:\therefsection:\thefield{namehash}:\the\value{footnote}}%
+   \ifltxcounter{\blxarch@ult@key@count}%
+		{\stepcounter{\blxarch@ult@key@count}}
+		{\newcounter{\blxarch@ult@key@count}%
+		 \setcounter{\blxarch@ult@key@count}{1}}%
+%    \end{macrocode}
+% Count \Feld{entrykey}s per footnote.
+%    \begin{macrocode}
+   \edef\blxarch@ult@hash@count{blxarch:ult:\thefield{entrykey}:\the\value{footnote}:\therefsection}%
+   \ifltxcounter{\blxarch@ult@hash@count}%
+		{\stepcounter{\blxarch@ult@hash@count}}
+		{\newcounter{\blxarch@ult@hash@count}%
+		 \setcounter{\blxarch@ult@hash@count}{1}}%
+}
 %    \end{macrocode}
 % \end{bibmacro}
 %    
@@ -18436,16 +18449,23 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}{options}
-% Entry option \Option{uselabeltitle} should not be inherited.
+% \begin{macro}{\ifuselabeltitle}
+% \changes{2.1}{2018/10/25}{New command \Befehl{ifuselabeltitle} in \Stil{verbose-trad2note-archaeology}}
+% Checks wether there are multiple works by same author(s) in backreferenced footnotes which have to be
+% disambiguitated by a \Feld{labeltitle}.
 %    \begin{macrocode}
-\DeclareDataInheritance
-{mvbook,book,collection,mvcollection,proceedings,mvproceedings,reference,mvreference}
-{inbook,bookinbook,suppbook,incollection,suppcollection,inproceedings,inreference}{%
-  \noinherit{options}
+\newcommand{\ifuselabeltitle}[2]{%
+	\edef\blxarch@ult@key@if{blxarch:ult:\thefield{entrykey}:\the\value{blxarch:\thefield{entrykey}}:\therefsection}%
+	\edef\blxarch@ult@hash@if{blxarch:ult:\therefsection:\thefield{namehash}:\the\value{blxarch:\thefield{entrykey}}}%
+	\ifltxcounter{\blxarch@ult@key@if}
+		{\ifnumgreater{\value{\blxarch@ult@hash@if}}{\value{\blxarch@ult@key@if}}
+			{#1}
+			{\iftoggle{archbool:uselabeltitle}{#1}{#2}}%
+		}
+		{\iftoggle{archbool:uselabeltitle}{#1}{#2}}%
 }
 %    \end{macrocode}
-% \end{format}
+% \end{macro}
 %
 % \iffalse
 %</verbosetrad2noteCBX>
@@ -19109,7 +19129,7 @@
             {\addcomma\space}
             {\addspace}}
         {\addspace}}
-        %    \end{macrocode}
+%    \end{macrocode}
 % \end{macro}
 %
 % \iffalse
