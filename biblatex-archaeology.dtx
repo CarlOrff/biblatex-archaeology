@@ -8108,7 +8108,7 @@
 % Remove all prefixes from sort names. Alas, lookaheads don't work here. The canonical way to do this would% be to
 % employ \Befehl{DeclareSortingNamekeyTemplate} but we want to override \blx' default which strips Arab articles
 \DeclareNosort{
-	\nosort{setnames}{\regexp{^[^\p{Lu}]+}}
+	\nosort{setnames}{\regexp{^[^\p{Lu}]+[[^\p{L}]]}}
 }
 %    \end{macrocode}
 %
@@ -16619,7 +16619,7 @@
     maxbibnames=500,
     maxcitenames=2,
     mincitenames=1,
-    sorting=lnyvc,    
+    sorting=lnyvc,  
 }
 %    \end{macrocode}
 %
@@ -17031,7 +17031,7 @@
 %    \begin{macrocode}
 % Remove 'von' and 'van' prefixes from sort names, but leave the others.
 \DeclareNosort{
-	\nosort{setnames}{\regexp{^v[ao]n[^\p{Lu}]*}}
+	\nosort{setnames}{\regexp{^v[ao]n[^\p{Lu}]*[^\p{L}]}}
 }
 %    \end{macrocode}
 %
@@ -17254,7 +17254,7 @@
     maxbibnames=500,
     maxcitenames=2,
     mincitenames=1,
-    sorting=lnyvc,    
+    sorting=lnyvc,  
 }
 %    \end{macrocode}
 %
