@@ -7824,7 +7824,7 @@
 	sortlocale=de_DE,
     terseinits=false,
     uniquelist=minyear,
-    uniquename=false,
+    uniquename=init,
     url=false,
     urldate=terse,      
     useauthor=true,
@@ -8096,19 +8096,11 @@
 %
 % \subsubsubsection{Sorting}
 %
-% No disambiguition by initials.
-%    \begin{macrocode}
-\DeclareUniquenameTemplate{
-    \namepart[use=true, base=true]{prefix}
-    \namepart[base=true]{family}
-}
-%    \end{macrocode}
-%
 %    \begin{macrocode}
 % Remove all prefixes from sort names. Alas, lookaheads don't work here. The canonical way to do this would% be to
 % employ \Befehl{DeclareSortingNamekeyTemplate} but we want to override \blx' default which strips Arab articles
 \DeclareNosort{
-	\nosort{setnames}{\regexp{^[^\p{Lu}]+[[^\p{L}]]}}
+	\nosort{setnames}{\regexp{^[^\p{Lu}]+}}
 }
 %    \end{macrocode}
 %
@@ -11452,7 +11444,8 @@
 %
 % \begin{format}{labelname:poss}
 %    \begin{macrocode}
-\DeclareNameFormat{labelname:poss}{% Based on labelname from biblatex.def
+% Based on labelname from biblatex.def
+\DeclareNameFormat{labelname:poss}{
     \let\blxarch@namepartfamily\namepartfamily%
     \ifcase\value{uniquename}%
         \usebibmacro{name:family}{\namepartfamily}{\namepartgiven}{\namepartprefix}{\namepartsuffix}%
@@ -11964,6 +11957,7 @@
 % \begin{macro}{\blxarch@style@jbhalle}
 % \begin{macro}{\blxarch@style@jbkreisneuss}
 % \begin{macro}{\blxarch@style@karl}
+% \begin{macro}{\blxarch@style@kunde}
 % \begin{macro}{\blxarch@style@maja}
 % \begin{macro}{\blxarch@style@nnu}
 % \begin{macro}{\blxarch@style@offa}
@@ -11982,6 +11976,7 @@
 \edef\blxarch@style@jbhalle{Jahresschrift f\"ur mitteldeutsche Vorgeschichte}
 \edef\blxarch@style@jbkrneuss{Jahrbuch f\"ur den Rhein-Kreis Neuss}
 \edef\blxarch@style@karl{Karl. Das kulturelle Schachmagazin}
+\edef\blxarch@style@kunde{Die Kunde. Zeitschrift f\"ur nieders\"asische Arch\"aologie}
 \edef\blxarch@style@maja{M\"unchner Arbeitskreis Junge Aegyptologie (MAJA)}
 \edef\blxarch@style@nnu{Nachrichten aus Niedersachsens Urgeschichte}
 \edef\blxarch@style@offa{Offa}
@@ -11990,6 +11985,7 @@
 \edef\blxarch@style@zaak{Zeitschrift f\"ur Arch\"aologie au\ss ereurop\"aischer Kulturen (ZAAK)}
 \edef\blxarch@style@zaes{Zeitschrift f\"ur \"Agyptische Sprache und Altertumskunde (Z\"AS)}
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
@@ -12131,6 +12127,8 @@
     mergedate=false,
     labeldate=true,
     sorting=nyvc,
+	uniquename=init,
+	uniquelist=false,
 }
 %    \end{macrocode}
 % \end{option}
@@ -16619,7 +16617,7 @@
     maxbibnames=500,
     maxcitenames=2,
     mincitenames=1,
-    sorting=lnyvc,  
+    sorting=lnyvc,
 }
 %    \end{macrocode}
 %
@@ -17031,7 +17029,7 @@
 %    \begin{macrocode}
 % Remove 'von' and 'van' prefixes from sort names, but leave the others.
 \DeclareNosort{
-	\nosort{setnames}{\regexp{^v[ao]n[^\p{Lu}]*[^\p{L}]}}
+	\nosort{setnames}{\regexp{^v[ao]n[^\p{Lu}]*}}
 }
 %    \end{macrocode}
 %
@@ -17254,7 +17252,7 @@
     maxbibnames=500,
     maxcitenames=2,
     mincitenames=1,
-    sorting=lnyvc,  
+    sorting=lnyvc,
 }
 %    \end{macrocode}
 %
@@ -18566,7 +18564,11 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\ExecuteBibliographyOptions{autocite=footnote}
+\ExecuteBibliographyOptions{
+	autocite=footnote,
+	uniquename=false,
+	uniquelist=false,
+}
 %    \end{macrocode}
 %
 % \iffalse
@@ -18592,7 +18594,11 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\ExecuteBibliographyOptions{autocite=footnote}
+\ExecuteBibliographyOptions{
+	autocite=footnote,
+	uniquename=false,
+	uniquelist=false,
+}
 %    \end{macrocode}
 %
 % \begin{macro}{\multicitedelim}
@@ -18630,7 +18636,11 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\ExecuteBibliographyOptions{autocite=footnote}
+\ExecuteBibliographyOptions{
+	autocite=footnote,
+	uniquename=false,
+	uniquelist=false,
+}
 %    \end{macrocode}
 %
 % \iffalse
@@ -18753,6 +18763,13 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+	uniquename=false,
+	uniquelist=false,
+}
+%    \end{macrocode}
+%
 % \iffalse
 %</eazCBX>
 %<*eazaltCBX>
@@ -18774,6 +18791,13 @@
 \def\archaeocitestyletitle{\blxarch@style@eazalt}
 %    \end{macrocode}
 % \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+	uniquename=false,
+	uniquelist=false,
+}
+%    \end{macrocode}
 %
 % \iffalse
 %</eazaltCBX>
@@ -18798,7 +18822,11 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\ExecuteBibliographyOptions{autocite=footnote}
+\ExecuteBibliographyOptions{
+	autocite=footnote,
+	uniquename=false,
+	uniquelist=false,
+}
 %    \end{macrocode}
 %
 % \iffalse
@@ -18933,7 +18961,11 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\ExecuteBibliographyOptions{autocite=footnote}
+\ExecuteBibliographyOptions{
+	autocite=footnote,
+	uniquename=false,
+	uniquelist=false,
+}
 %    \end{macrocode}
 %
 % \begin{macro}{\multicitedelim}
@@ -18973,7 +19005,11 @@
 % \end{macro}
 %
 %    \begin{macrocode}
-\ExecuteBibliographyOptions{autocite=footnote}
+\ExecuteBibliographyOptions{
+	autocite=footnote,
+	uniquename=false,
+	uniquelist=false,
+}
 %    \end{macrocode}
 %
 % \begin{macro}{\multicitedelim}
@@ -19004,6 +19040,12 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+	uniquename=false,
+	uniquelist=false,
+}
+%
 % \iffalse
 %</nnuCBX>
 %<*offaCBX>
@@ -19025,6 +19067,12 @@
 \def\archaeocitestyletitle{\blxarch@style@offa}
 %    \end{macrocode}
 % \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+	uniquename=false,
+	uniquelist=false,
+}
 %
 % \begin{format}{extradate}
 % \changes{2.1}{2018/10/19}{Space in front of \Feld{extradate} letter in \Stil{offa} style}
@@ -19054,6 +19102,12 @@
 \def\archaeocitestyletitle{\blxarch@style@rgkinline}
 %    \end{macrocode}
 % \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+	uniquename=false,
+	uniquelist=false,
+}
 %
 % \iffalse
 %</rgkinlineCBX>
@@ -19176,6 +19230,12 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+	uniquename=false,
+	uniquelist=false,
+}
+%
 % \iffalse
 %</rgzminlineCBX>
 %<*rgzmverboseCBX>
@@ -19275,6 +19335,12 @@
 \def\archaeocitestyletitle{\blxarch@style@muensterinline}
 %    \end{macrocode}
 % \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+	uniquename=false,
+	uniquelist=false,
+}
 %
 % \iffalse
 %</ufgmuensterinlineCBX>
