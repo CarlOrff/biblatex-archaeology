@@ -41,7 +41,7 @@ if (defined $out) {
 
    while ( <$out> ) { $source .= $_ }
    
-   $source =~ s/(<\*BiberCONF>).*?(<\/BiberCONF>)/\1\n$datamodel%\2/s;
+   $source =~ s/(<\*BiberCONF>\n%\s?\\fi\n).*?(\n%\s?\iffalse\n<\/BiberCONF>)/\1\n$datamodel%\2/s;
    undef $out;       # automatically closes the file
 }
 $out = FileHandle->new($dtx, O_WRONLY|O_TRUNC);

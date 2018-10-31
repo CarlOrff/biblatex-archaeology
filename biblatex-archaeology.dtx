@@ -160,7 +160,7 @@
     \DocInput{biblatex-archaeology.dtx}
 \end{document}
 %</driver>
-% \fi
+\fi
 % \CheckSum{0}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -1473,7 +1473,8 @@
 % \subsection{The \Feld{gender} field}
 %
 % In German documents the \Feld{gender} field is needed if the style replaces repeated names by \Deutsch{ders[elbe]},
-% \Deutsch{dies[elbe(n)]} or \Deutsch{dass[elbe]}.%
+% \Deutsch{dies[elbe(n)]} or \Deutsch{dass[elbe]}.
+%
 % \subsection{Additional fields in \Biber's tool mode}\label{kap:bibertool}
 %
 % \Biber does not see any data model file (\Kbd{*.dbx}) when in tool mode (with option \Kbd{--}\Option{tool} instead of job name)
@@ -1496,6 +1497,7 @@
 % \section{Example \Kbd{bib} entries}\label{kap:bib}
 % \iffalse
 %<*exampleBIB>
+% \fi
 %    \begin{macrocode}
 @INCOLLECTION{auler:hiller:2011,
   AUTHOR = {Auler, Jost AND Hiller, Petra},
@@ -2173,13 +2175,15 @@
   INSTITUTION = {Univ. Freiburg/Br.},
 }
 %    \end{macrocode}
+% \iffalse
 %</exampleBIB>
 % \fi
 %
 % \section{List of strings of journals and serieses}
 %
 % \subsection{Sorted by string}\label{kap:strings}
-% % \StringBox{\Stark{\texttt{ufg-AalenerJahrb}}}{Aalener Jahrbuch}\\[1.3ex]
+%
+% \StringBox{\Stark{\texttt{ufg-AalenerJahrb}}}{Aalener Jahrbuch}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-AanteekeningenVerhandSectieVergaderUtrecht}}}{Aanteekeningen van het Verhandelde in de Sectie-Vergaderingen van het Provinciaal Utrechtsch Genootschap van Künsten en Wetenschappen}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-AarbNordiskOldkdeogHist}}}{Aarbøger for Nordisk Oldkyndighed og Historie}\\[1.3ex]
 % \StringBox{\Stark{\texttt{ufg-Aarp}}}{Aarp. Art and Archaeology Research Papers}\\[1.3ex]
@@ -19357,6 +19361,7 @@
 	uniquename=false,
 	uniquelist=false,
 }
+%    \end{macrocode}
 %
 % \begin{format}{extradate}
 % \changes{2.1}{2018/10/19}{Space in front of \Feld{extradate} letter in \Stil{offa} style}
@@ -24309,8 +24314,11 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
 % \subsubsection{Data model for \Biber's tool mode}\label{kap:biberconf}
 %
 % See explanation in \cref{kap:bibertool}.
+%
 % \iffalse
 %<*BiberCONF>
+% \fi
+%
 %    \begin{macrocode}
 <!-- REPLACE THE <DATAMODEL> GROUP IN THE BIBER *.CONF FILE WITH THE GROUP BELOW -->
   <datamodel>
@@ -25769,6 +25777,7 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
     </constraints>
   </datamodel>
 %    \end{macrocode}
+% \iffalse
 %</BiberCONF>
 % \fi
 %
