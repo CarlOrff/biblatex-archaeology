@@ -52,6 +52,7 @@ Remark that `biblatex-archaeology` makes heavy use of Biber-only features. It wo
 - jb-halle
 - jb-kreis-neuss
 - karl
+- kunde
 - maja
 - mpk
 - mpkoeaw
