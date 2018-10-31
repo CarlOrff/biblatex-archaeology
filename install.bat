@@ -7,7 +7,7 @@ call cleanup.bat
 del *.bbx *.cbx *.dbx *.lbx *.sty *.bib
 
 REM install from .dtx
-pdftex -8bit biblatex-archaeology.ins
+pdftex -8bit -halt-on-error biblatex-archaeology.ins
 
 REM update package database
 texhash

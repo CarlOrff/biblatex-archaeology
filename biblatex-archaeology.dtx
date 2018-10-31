@@ -208,6 +208,7 @@
 % \changes{2.1}{2018/10/22}{Fixed non-sorting prefixes with \Befehl{DeclareNosort} (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/26}{issue \#26})}
 % \changes{2.1}{2018/10/23}{German collation now default notwithstanding the document language}
 % \changes{2.1}{2018/10/24}{Page numbers ins change log fixed}
+% \changes{2.1}{2018/10/31}{New style \Stil{kunde}}
 %
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -408,6 +409,9 @@
 %
 % \item[]\DescribeStyle{karl}
 % \Deutsch{Karl. Das kulturelle Schachmagazin} lacks an uniform style. This is a an author date style that was used in several articles.
+%
+% \item[]\DescribeStyle{kunde}
+% The author date style of \Deutsch{Die Kunde N.\,F.}
 %
 % \item[]\DescribeStyle{maja}
 % The verbose style of the \Deutsch{M\"unchner Arbeitskreis Junge Aegyptologie}.\autocite{guidelines:maja:2015}
@@ -13245,7 +13249,7 @@
 %    \begin{macrocode}
     dashed=false,
     doi=false,       
-    giveninits=true,    
+    giveninits=false,    
     ibidtracker=false,
     idemtracker=false,
     loccittracker=false,
@@ -13313,14 +13317,14 @@
 %
 % \begin{macro}{\multilistdelim}
 %    \begin{macrocode}
-\renewcommand*{\multilistdelim}{\addspace-\space}
+\renewcommand*{\multilistdelim}{\slash}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\labelnamepunct}
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\labelnamepunct}{\addcolon\space}
 \renewcommand*{\booklabelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
@@ -13344,7 +13348,7 @@
 % \begin{format}{bookauthor}
 % \begin{format}{sortname}
 %    \begin{macrocode}
-\DeclareNameAlias{bookauthor}{given-family}
+\DeclareNameAlias{bookauthor}{g-family}
 \DeclareNameAlias{sortname}{family-given}
 %    \end{macrocode}
 % \end{format}
@@ -13408,14 +13412,6 @@
 % \end{format}
 % \end{format}
 %
-% \begin{macro}{\bibpagespunct}
-%    \begin{macrocode}
-\renewcommand*{\bibpagespunct}{%
-    \iffieldundef{journaltitle}
-        {\addspace}
-        {\unspace\addcomma\space}}
-%    \end{macrocode}
-% \end{macro}
 %
 % \iffalse
 %</dgufBBX>
@@ -15269,7 +15265,7 @@
 % \begin{format}{bookauthor}
 %    \begin{macrocode}
 \DeclareNameAlias{bookauthor}{given-family}
-\DeclareNameAlias{sortname}{given-family}
+\DeclareNameAlias{sortname}{family-given}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -15348,6 +15344,266 @@
 %
 % \iffalse
 %</karlBBX>
+%<*kundeBBX>
+% \fi
+%
+%
+% \subsubsection{File \Datei{kunde.bbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{kunde.bbx}
+[2018/10/24 v2.1 biblatex-archaeology bibliography style (IB)]
+%    \end{macrocode}
+%
+% Load \Paket{biblatex-archaeology} after a style.
+%    \begin{macrocode}
+\RequireBibliographyStyle{authoryear-comp-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeobibstyletitle}
+%    \begin{macrocode}
+\def\archaeobibstyletitle{\blxarch@style@kunde}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\DeclareLanguageMappingSuffix{-kunde}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+%    \end{macrocode}
+% \blx options:
+%    \begin{macrocode}
+    autolang=other*,
+    dashed=false,
+    doi=false,       
+    giveninits=false,    
+    ibidtracker=false,
+    idemtracker=false,
+    loccittracker=false,
+    maxbibnames=500,
+    maxcitenames=3,
+    maxitems=3,
+    mergedate=true,
+    mincitenames=1,                  
+    minitems=1,
+    notetype=foot+end,
+%    \end{macrocode}
+% \archbib options:
+%    \begin{macrocode}
+    editionsuperscript=none,
+    giveninitligatures={},
+    idemincitation=false,
+    injournal=true,
+    journallocation=false,
+    maxbooknames=500,
+    minbooknames=3,
+    minrealdatediff=\blxarch@maxnumber,
+    nothesistitlepunct=false,
+    notitlepunct=false,
+    origfields=true,
+    pagesfirst=false,
+    positionlabeldate=label,
+    preservelastauthor=false,
+    repeatlabel=false,
+    shortform=false,
+    shortjournal=false,
+    shortseries=false,
+    subseries=true,
+    summarytitle=false,
+    tabbedlabeldate=false,
+    titlebrackets=false,
+    titlenote=false,
+    useeventdate=false,
+    useeventnumber=true,
+    usefestschriftaddon=false,
+    useinstitution=pluslocation,
+    uselocation=true,
+    usemultivenue=false,
+    usepublisher=false,
+    usesourceeditor=true,
+    useunpublishedthesis=false,
+    volumeafterseries=false,
+}
+%    \end{macrocode}
+%
+% \begin{macro}{\bibhang}
+%    \begin{macrocode}
+\setlength{\bibhang}{2.1em}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{bookauthor}
+%    \begin{macrocode}
+\DeclareNameAlias{bookauthor}{g-family}
+\DeclareNameAlias{sortname}{family-given}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\mkbibnamegiven}
+% \begin{macro}{\mkbibnamefamily}
+% \begin{macro}{\mkbibnameprefix}
+% \begin{macro}{\mkbibnamesuffix}
+%    \begin{macrocode}
+\renewcommand*{\mkbibbooknamegiven}[1]{#1}
+\renewcommand*{\mkbibbooknamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknamesuffix}[1]{#1}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\mkbibbooknamegiven}
+% \begin{macro}{\mkbibbooknamefamily}
+% \begin{macro}{\mkbibbooknameprefix}
+% \begin{macro}{\mkbibbooknamesuffix}
+%    \begin{macrocode}
+\renewcommand*{\mkbibbooknamegiven}[1]{#1}
+\renewcommand*{\mkbibbooknamefamily}[1]{#1}
+\renewcommand*{\mkbibbooknameprefix}[1]{#1}
+\renewcommand*{\mkbibbooknamesuffix}[1]{#1}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\mkbibsourcenamegiven}
+% \begin{macro}{\mkbibsourcenamefamily}
+% \begin{macro}{\mkbibsourcenameprefix}
+% \begin{macro}{\mkbibsourcenamesuffix}
+%    \begin{macrocode}
+\renewcommand*{\mkbibsourcenamegiven}[1]{#1}
+\renewcommand*{\mkbibsourcenamefamily}[1]{#1}
+\renewcommand*{\mkbibsourcenameprefix}[1]{#1}
+\renewcommand*{\mkbibsourcenamesuffix}[1]{#1}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\mkbiblistnamegiven}
+% \begin{macro}{\mkbiblistnamefamily}
+% \begin{macro}{\mkbiblistnameprefix}
+% \begin{macro}{\mkbiblistnamesuffix}
+%    \begin{macrocode}
+\renewcommand*{\mkbiblistnamegiven}[1]{#1}
+\renewcommand*{\mkbiblistnamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamesuffix}[1]{#1}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\labelnamepunct}
+% \begin{macro}{\booklabelpunct}
+%    \begin{macrocode}
+\renewcommand*{\labelnamepunct}{\addcolon\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{format}{parens}
+% The parentheses around the label date.
+%    \begin{macrocode}
+\DeclareFieldFormat*{parens}{#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\multinamedelim}
+% \begin{macro}{\finalnamedelim}
+%    \begin{macrocode}
+\renewcommand*{\multinamedelim}{\addslash}
+\renewcommand*{\finalnamedelim}{\addslash}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\multilistdelim}
+% \begin{macro}{\finallistdelim}
+%    \begin{macrocode}
+\renewcommand*{\multilistdelim}{\addslash}
+\renewcommand*{\finallistdelim}{\addslash}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{format}{dictionary}
+%    \begin{macrocode}
+\DeclareFieldFormat[inreference]{dictionary}{#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{volume}
+%    \begin{macrocode}
+\DeclareFieldFormat*{volume}{\addspace#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{seriesparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{seriesparens}{#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\seriespunct}
+%    \begin{macrocode}
+\renewcommand*{\seriespunct}{\addperiod\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\noseriespunct}
+%    \begin{macrocode}
+\renewcommand*{\noseriespunct}{\addperiod\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{locationdateparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{locationdateparens}{#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{journaldateparens}
+% \begin{format}{pages}
+%    \begin{macrocode}
+\DeclareFieldFormat*{journaldateparens}{#1}
+\DeclareFieldFormat*{pages}{#1}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+%
+% \begin{format}{typeinstitution}
+%    \begin{macrocode}
+\DeclareFieldFormat*{typeinstitution}{\mkbibparens{#1\addperiod}}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\institutionlocationdelim}
+%    \begin{macrocode}
+\renewcommand*{\institutionlocationdelim}{\addspace}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{url}
+% \begin{format}{urldate}
+% URL should be underlind but this breaks linebreaking.
+%    \begin{macrocode}
+\DeclareFieldFormat*{url}{\url{#1}}
+\DeclareFieldFormat*{urldate}{}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+%
+% \iffalse
+%</kundeBBX>
 %<*majaBBX>
 % \fi
 %
@@ -18912,6 +19168,28 @@
 %
 % \iffalse
 %</karlCBX>
+%<*kundeCBX>
+% \fi
+%
+% \subsubsection{File \Datei{kunde.cbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{kunde.cbx}
+[2018/10/24 v2.1 biblatex-archaeology citation style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireCitationStyle{authoryear-comp-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeocitestyletitle}
+%    \begin{macrocode}
+\def\archaeocitestyletitle{\blxarch@style@kunde}
+%    \end{macrocode}
+% \end{macro}
+%
+% \iffalse
+%</kundeCBX>
 %<*majaCBX>
 % \fi
 %
@@ -20526,6 +20804,114 @@
 %
 % \iffalse
 %</FUSenglishkarlLBX>
+%<*FaustriankundeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{austrian-kunde.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FaustriankundeLBX>
+%<*FnaustriankundeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{naustrian-kunde.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FnaustriankundeLBX>
+%<*FngermankundeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{ngerman-kunde.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FngermankundeLBX>
+%<*FnswissgermankundeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{nswissgerman-kunde.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FnswissgermankundeLBX>
+%<*FswissgermankundeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{swissgerman-kunde.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FswissgermankundeLBX>
+%<*FamericankundeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{american-kunde.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FamericankundeLBX>
+%<*FaustraliankundeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{australian-kunde.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FaustraliankundeLBX>
+%<*FbritishkundeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{british-kunde.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FbritishkundeLBX>
+%<*FcanadiankundeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{canadian-kunde.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FcanadiankundeLBX>
+%<*FnewzealandkundeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{newzealand-kunde.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FnewzealandkundeLBX>
+%<*FUKenglishkundeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{UKenglish-kunde.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FUKenglishkundeLBX>
+%<*FUSenglishkundeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{USenglish-kunde.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FUSenglishkundeLBX>
 %<*FaustrianmajaLBX>
 % \fi
 %
@@ -22554,6 +22940,46 @@
 %
 % \iffalse
 %</PgermankarlLBX>
+%<*kundegermanLBX>
+% \fi
+%
+% \subsubsection{File \Datei{german-kunde.lbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{german-kunde.lbx}
+[2018/10/24 v2.1 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
+%    \end{macrocode}
+%
+% \begin{localization}{reprint}
+% \begin{localization}{urlfrom}
+%    \begin{macrocode}
+\InheritBibliographyExtras{german-archaeology}
+\DeclareBibliographyStrings{%
+    inherit  = {german-archaeology},
+    seenote  = {{wie Fu\ss{}note}{wie Fn.}},
+    subverbum  = {{Lemma}{Lemma}},
+}
+%    \end{macrocode}
+% \end{localization}
+% \end{localization}
+%
+% \iffalse
+%</kundegermanLBX>
+%<*PgermankundeLBX>
+% \fi
+%
+% \subsubsection{Pointer to \Datei{german-kunde.lbx}}
+%
+%    \begin{macrocode}
+[2018/10/24 v2.1 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
+\InheritBibliographyExtras{german-kunde}
+\InheritBibliographyStrings{german-kunde}
+%    \end{macrocode}
+%
+% \iffalse
+%</PgermankundeLBX>
 %<*majagermanLBX>
 % \fi
 %
@@ -23576,6 +24002,15 @@
 %
 % \iffalse
 %</karlDBX>
+%<*kundeDBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{kunde.dbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</kundeDBX>
 %<*majaDBX>
 % \fi
 %
