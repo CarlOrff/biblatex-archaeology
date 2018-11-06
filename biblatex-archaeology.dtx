@@ -160,7 +160,7 @@
     \DocInput{biblatex-archaeology.dtx}
 \end{document}
 %</driver>
-\fi
+% \fi
 % \CheckSum{0}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -7851,8 +7851,46 @@
 %
 % \begin{format}{bibtex}
 % \changes{2.0}{2018/04/01}{Added support for attributed dates in \blx 3.11 style (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/14}{issue \#14})}
+% \changes{2.1}{2018/11/06}{Month as number (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/23}{issue \#23})}
 %    \begin{macrocode}
     \DeclareDriverSourcemap[datatype=bibtex]{
+%    \end{macrocode}
+% Month as number in journals. Aliases are yet substituted when source maps apply.
+%    \begin{macrocode}
+        \map[overwrite=true]{
+			\step[
+				fieldsource=journaltitle,
+				notfield=number,
+				final,
+			]
+            \step[
+				fieldsource=month,
+				match=\regexp{\A(\d|1[0-2])\Z},
+				fieldset=number,
+				origfieldval=true,
+			]
+			\step[
+				fieldset=month,
+				null,
+			]
+		}
+		\map[overwrite=true]{
+			\step[
+				fieldsource=journaltitle,
+				notfield=number,
+				final,
+			]
+			\step[
+				fieldsource=issue,
+				match=\regexp{\A\d+\Z},
+				fieldset=number,
+				origfieldval=true,
+			]
+			\step[
+				fieldset=issue,
+				null,
+			]
+        }
 %    \end{macrocode}
 % Replace literal thesis types like \enquote{Diss. phil} with \Befehl{bibstring}.
 %    \begin{macrocode}
@@ -8103,6 +8141,40 @@
 % \end{environment}
 %
 % \subsubsubsection{Sorting}
+%
+% \begin{format}{global}
+% \changes{2.1}{2018/11/01}{adapt \Format{global} to option \Option{uniquename}}
+%    \begin{macrocode}
+\ifnumequal\blx@uniquename\blx@opt@uniquename@false
+	{\DeclareSortingNamekeyTemplate{
+		\keypart{
+			\namepart[use=true]{prefix}
+		}
+		\keypart{
+			\namepart{family}
+		}
+	}}
+	{\ifnumequal\blx@uniquename\blx@opt@uniquename@init
+		{\DeclareSortingNamekeyTemplate{
+			\keypart{
+				\namepart[use=true]{prefix}
+			}
+			\keypart{
+				\namepart{family}
+			}
+			\keypart{
+				\namepart[inits=true]{given}
+			}
+		}
+		\DeclareUniquenameTemplate{
+			\namepart[use=true, base=true]{prefix}
+			\namepart[base=true]{family}
+			\namepart[disambiguation=init]{given}
+		}}
+		{}%
+	}%
+%    \end{macrocode}
+% \end{format}
 %
 %    \begin{macrocode}
 % Remove all prefixes from sort names. Alas, lookaheads don't work here. The canonical way to do this would% be to
@@ -19054,8 +19126,7 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	uniquename=false,
-	uniquelist=false,
+	uniquename=init,
 }
 %    \end{macrocode}
 %
