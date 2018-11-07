@@ -210,6 +210,7 @@
 % \changes{2.1}{2018/10/24}{Page numbers ins change log fixed}
 % \changes{2.1}{2018/10/31}{New style \Stil{kunde}}
 % \changes{2.1}{2018/11/06}{New document types mentioned in abstract (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/24}{issue \#24})}
+% \changes{2.1}{2018/11/07}{New style \Stil{nnu-alt}}
 %
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -427,9 +428,13 @@
 % \Deutsch{Mitteilungen der Pr\"ahistorischen Kommission der \"Osterreichischen Akademie der Wissenschaften}.\autocite{guidelines:mpk:2016:de,guidelines:mpk:2016:en}
 % It is structurally different from a \blx point of view, therefore it was forked.
 %
+% \item[]\DescribeStyle{niedersachsen}
+% The author date style of \Deutsch{Archäologische Kommission für Niedersachsen e.\,V.}\autocite{guidelines:nnu:1996}
+%
 % \item[]\DescribeStyle{nnu}\label{kap:nnu}
 % The current author date style of the department of archaeology of the
 % \Deutsch{Nieders\"achsisches Landesamt f\"ur Denkmalpflege}.\autocite{guidelines:nnu:2015}
+% For the old style see style \Stil{niedersachsen}.
 %
 % \item[]\DescribeStyle{offa}
 % The author date style of the
@@ -9374,7 +9379,6 @@
 % \begin{bibliographydriver}{article}
 % \begin{bibliographydriver}{book}
 % \begin{bibliographydriver}{inbook}
-% \begin{bibliographydriver}{thesis}
 % We are going to reimplement \Feld{volume} formatting.
 %    \begin{macrocode}
 \xpatchbibdriver{book}{\printfield {volume}}{}
@@ -9391,11 +9395,7 @@
   {}{Patching driver 'inbook' failed (3)}}
 \xpatchbibdriver{article}{\usebibmacro{byeditor+others}}{}
   {}{Patching driver 'book' failed (4)}
- \xpatchbibdriver{thesis}{\newunit \printfield {pagetotal}}
-  {\setunit{\bibpagespunct}\printfield{pagetotal}}
-  {}{Patching driver 'thesis' failed (1)}
 %    \end{macrocode}
-% \end{bibliographydriver}
 % \end{bibliographydriver}
 % \end{bibliographydriver}
 % \end{bibliographydriver}
@@ -11891,6 +11891,14 @@
 %    \end{macrocode}
 % \end{format}
 %
+% \begin{bibliographydriver}{thesis}
+%    \begin{macrocode}
+ \xpatchbibdriver{thesis}{\newunit \printfield {pagetotal}}
+  {\setunit{\bibpagespunct}\printfield{pagetotal}}
+  {}{Patching driver 'thesis' failed (1)}
+%    \end{macrocode}
+% \end{bibliographydriver}
+%
 % \begin{macro}{\labelnamepunct}
 %    \begin{macrocode}
 \renewcommand*{\labelnamepunct}{\adddot\space}
@@ -12037,6 +12045,18 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\blxarch@style@kunde}
+% \begin{macro}{\blxarch@style@niedersachsen}
+% \begin{macro}{\blxarch@style@nnu}
+%    \begin{macrocode}
+\edef\blxarch@style@kunde{Die Kunde. Zeitschrift f\"ur nieders\"asische Arch\"aologie}
+\edef\blxarch@style@niedersachsen{Archäologische Kommission für Niedersachsen e.\,V.}
+\edef\blxarch@style@nnu{Nachrichten aus Niedersachsens Urgeschichte}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \begin{macro}{\blxarch@style@aefkw}
 % \begin{macro}{\blxarch@style@afwl}
 % \begin{macro}{\blxarch@style@amit}
@@ -12047,9 +12067,7 @@
 % \begin{macro}{\blxarch@style@jbhalle}
 % \begin{macro}{\blxarch@style@jbkreisneuss}
 % \begin{macro}{\blxarch@style@karl}
-% \begin{macro}{\blxarch@style@kunde}
 % \begin{macro}{\blxarch@style@maja}
-% \begin{macro}{\blxarch@style@nnu}
 % \begin{macro}{\blxarch@style@offa}
 % \begin{macro}{\blxarch@style@sak}
 % \begin{macro}{\blxarch@style@volkskunde}
@@ -12066,17 +12084,13 @@
 \edef\blxarch@style@jbhalle{Jahresschrift f\"ur mitteldeutsche Vorgeschichte}
 \edef\blxarch@style@jbkrneuss{Jahrbuch f\"ur den Rhein-Kreis Neuss}
 \edef\blxarch@style@karl{Karl. Das kulturelle Schachmagazin}
-\edef\blxarch@style@kunde{Die Kunde. Zeitschrift f\"ur nieders\"asische Arch\"aologie}
 \edef\blxarch@style@maja{M\"unchner Arbeitskreis Junge Aegyptologie (MAJA)}
-\edef\blxarch@style@nnu{Nachrichten aus Niedersachsens Urgeschichte}
 \edef\blxarch@style@offa{Offa}
 \edef\blxarch@style@sak{Studien zur Alt\"agyptischen Kultur}
 \edef\blxarch@style@volkskunde{Zeitschrift f\"ur Volkskunde}
 \edef\blxarch@style@zaak{Zeitschrift f\"ur Arch\"aologie au\ss ereurop\"aischer Kulturen (ZAAK)}
 \edef\blxarch@style@zaes{Zeitschrift f\"ur \"Agyptische Sprache und Altertumskunde (Z\"AS)}
 %    \end{macrocode}
-% \end{macro}
-% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
@@ -15623,7 +15637,7 @@
 %
 % \begin{format}{dictionary}
 %    \begin{macrocode}
-\DeclareFieldFormat[inreference]{dictionary}{#1}
+\DeclareFieldFormat[inreference]{dictionary}{\bibstring{subverbum}\space#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -16457,6 +16471,277 @@
 %
 % \iffalse
 %</mpkoeawBBX>
+%<*niedersachsenBBX>
+% \fi
+%
+%
+% \subsubsection{File \Datei{niedersachsen.bbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{niedersachsen.bbx}
+[2018/10/24 v2.1 biblatex-archaeology bibliography style (IB)]
+%    \end{macrocode}
+%
+% Load \Paket{biblatex-archaeology} after a style.
+%    \begin{macrocode}
+\RequireBibliographyStyle{authoryear-comp-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeobibstyletitle}
+%    \begin{macrocode}
+\def\archaeobibstyletitle{\blxarch@style@niedersachsen}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\DeclareLanguageMappingSuffix{-niedersachsen}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+%    \end{macrocode}
+% \blx options:
+%    \begin{macrocode}
+    autolang=other*,
+    dashed=false,
+    doi=false,       
+    giveninits=true,    
+    ibidtracker=false,
+    idemtracker=false,
+    loccittracker=false,
+    maxbibnames=500,
+    maxcitenames=3,
+    maxitems=3,
+    mergedate=true,
+    mincitenames=1,                  
+    minitems=1,
+    notetype=foot+end,
+%    \end{macrocode}
+% \archbib options:
+%    \begin{macrocode}
+    editionsuperscript=none,
+    giveninitligatures={},
+    idemincitation=false,
+    injournal=false,
+    journallocation=false,
+    maxbooknames=500,
+    minbooknames=3,
+    minrealdatediff=\blxarch@maxnumber,
+    nothesistitlepunct=false,
+    notitlepunct=false,
+    origfields=true,
+    pagesfirst=false,
+    positionlabeldate=both,
+    preservelastauthor=false,
+    repeatlabel=false,
+    shortform=false,
+    shortjournal=false,
+    shortseries=false,
+    subseries=true,
+    summarytitle=false,
+    tabbedlabeldate=false,
+    titlebrackets=false,
+    titlenote=false,
+    useeventdate=false,
+    useeventnumber=true,
+    usefestschriftaddon=false,
+    useinstitution=pluslocation,
+    uselocation=true,
+    usemultivenue=false,
+    usepublisher=false,
+    usesourceeditor=true,
+    useunpublishedthesis=true,
+    volumeafterseries=false,
+}
+%    \end{macrocode}
+%
+% \begin{macro}{\bibhang}
+% \begin{macro}{\bibitemsep}
+%    \begin{macrocode}
+\setlength{\bibhang}{0em}
+\setlength{\bibitemsep}{\baselineskip}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{format}{bookauthor}
+%    \begin{macrocode}
+\DeclareNameAlias{bookauthor}{g-family}
+\DeclareNameAlias{sortname}{family-given}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\mkbibnamegiven}
+% \begin{macro}{\mkbibnamefamily}
+% \begin{macro}{\mkbibnameprefix}
+% \begin{macro}{\mkbibnamesuffix}
+%    \begin{macrocode}
+\renewcommand*{\mkbibbooknamegiven}[1]{#1}
+\renewcommand*{\mkbibbooknamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbibbooknamesuffix}[1]{#1}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\mkbibbooknamegiven}
+% \begin{macro}{\mkbibbooknamefamily}
+% \begin{macro}{\mkbibbooknameprefix}
+% \begin{macro}{\mkbibbooknamesuffix}
+%    \begin{macrocode}
+\renewcommand*{\mkbibbooknamegiven}[1]{#1}
+\renewcommand*{\mkbibbooknamefamily}[1]{#1}
+\renewcommand*{\mkbibbooknameprefix}[1]{#1}
+\renewcommand*{\mkbibbooknamesuffix}[1]{#1}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\mkbibsourcenamegiven}
+% \begin{macro}{\mkbibsourcenamefamily}
+% \begin{macro}{\mkbibsourcenameprefix}
+% \begin{macro}{\mkbibsourcenamesuffix}
+%    \begin{macrocode}
+\renewcommand*{\mkbibsourcenamegiven}[1]{#1}
+\renewcommand*{\mkbibsourcenamefamily}[1]{#1}
+\renewcommand*{\mkbibsourcenameprefix}[1]{#1}
+\renewcommand*{\mkbibsourcenamesuffix}[1]{#1}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\mkbiblistnamegiven}
+% \begin{macro}{\mkbiblistnamefamily}
+% \begin{macro}{\mkbiblistnameprefix}
+% \begin{macro}{\mkbiblistnamesuffix}
+%    \begin{macrocode}
+\renewcommand*{\mkbiblistnamegiven}[1]{#1}
+\renewcommand*{\mkbiblistnamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnamesuffix}[1]{#1}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\labelnamepunct}
+% \begin{macro}{\booklabelpunct}
+%    \begin{macrocode}
+\renewcommand*{\labelnamepunct}{\addcolon\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{format}{parens}
+% The parentheses around the label date.
+%    \begin{macrocode}
+\DeclareFieldFormat*{parens}{#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\multinamedelim}
+% \begin{macro}{\finalnamedelim}
+%    \begin{macrocode}
+\renewcommand*{\multinamedelim}{\addcomma\space}
+\renewcommand*{\finalnamedelim}{\addcomma\space}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\multilistdelim}
+% \begin{macro}{\finallistdelim}
+%    \begin{macrocode}
+\renewcommand*{\multilistdelim}{\addcomma\space}
+\renewcommand*{\finallistdelim}{\addcomma\space}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{format}{dictionary}
+%    \begin{macrocode}
+\DeclareFieldFormat[inreference]{dictionary}{\bibstring{subverbum}\space#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{volume}
+%    \begin{macrocode}
+\DeclareFieldFormat*{volume}{\addspace#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{seriesparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{seriesparens}{#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\seriespunct}
+%    \begin{macrocode}
+\renewcommand*{\seriespunct}{\addperiod\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\noseriespunct}
+%    \begin{macrocode}
+\renewcommand*{\noseriespunct}{\addperiod\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{locationdateparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{locationdateparens}{#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{journaldateparens}
+% \begin{format}{pages}
+%    \begin{macrocode}
+\DeclareFieldFormat*{journaldateparens}{#1}
+\DeclareFieldFormat*{pages}{#1}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+%
+% \begin{format}{typeinstitution}
+%    \begin{macrocode}
+\DeclareFieldFormat*{typeinstitution}{#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\typeinstitutiondelim}
+%    \begin{macrocode}
+\renewcommand*{\typeinstitutiondelim}{\addcomma\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\institutionlocationdelim}
+%    \begin{macrocode}
+\renewcommand*{\institutionlocationdelim}{\addperiod\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{url}
+%    \begin{macrocode}
+\DeclareFieldFormat*{url}{\url{#1}}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{reprintparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{reprintparens}{\mkbibparens{#1}}
+%    \end{macrocode}
+% \end{format}
+%
+% \iffalse
+%</niedersachsenBBX>
 %<*nnuBBX>
 % \fi
 %
@@ -19417,6 +19702,45 @@
 %
 % \iffalse
 %</mpkoeawCBX>
+%<*niedersachsenCBX>
+% \fi
+%
+% \subsubsection{File \Datei{niedersachsen.cbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{niedersachsen.cbx}
+[2018/10/24 v2.1 biblatex-archaeology citation style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireCitationStyle{authoryear-comp-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeocitestyletitle}
+%    \begin{macrocode}
+\def\archaeocitestyletitle{\blxarch@style@niedersachsen}
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+	uniquename=full,
+	uniquelist=true,
+}
+%    \end{macrocode}
+%
+% \begin{macro}{\multicitedelim}
+% \begin{macro}{\strongcitedelim}
+% Delimiter beween multiple citations. Some styles have a strong delimiter, mainly
+% to avoid paragraphs in footnotes.
+%    \begin{macrocode}
+\renewcommand*{\multicitedelim}{\addperiod\space\midsentence}
+\renewcommand*\strongcitedelim{\addperiod\space\midsentence}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \iffalse
+%</niedersachsenCBX>
 %<*nnuCBX>
 % \fi
 %
@@ -21356,6 +21680,114 @@
 %
 % \iffalse
 %</FUSenglishmpkoeawLBX>
+%<*FaustrianniedersachsenLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{austrian-niedersachsen.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FaustrianniedersachsenLBX>
+%<*FnaustrianniedersachsenLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{naustrian-niedersachsen.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FnaustrianniedersachsenLBX>
+%<*FngermanniedersachsenLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{ngerman-niedersachsen.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FngermanniedersachsenLBX>
+%<*FnswissgermanniedersachsenLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{nswissgerman-niedersachsen.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FnswissgermanniedersachsenLBX>
+%<*FswissgermanniedersachsenLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{swissgerman-niedersachsen.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FswissgermanniedersachsenLBX>
+%<*FamericanniedersachsenLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{american-niedersachsen.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FamericanniedersachsenLBX>
+%<*FaustralianniedersachsenLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{australian-niedersachsen.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FaustralianniedersachsenLBX>
+%<*FbritishniedersachsenLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{british-niedersachsen.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FbritishniedersachsenLBX>
+%<*FcanadianniedersachsenLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{canadian-niedersachsen.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FcanadianniedersachsenLBX>
+%<*FnewzealandniedersachsenLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{newzealand-niedersachsen.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FnewzealandniedersachsenLBX>
+%<*FUKenglishniedersachsenLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{UKenglish-niedersachsen.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FUKenglishniedersachsenLBX>
+%<*FUSenglishniedersachsenLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{USenglish-niedersachsen.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FUSenglishniedersachsenLBX>
 %<*FaustrianoffaLBX>
 % \fi
 %
@@ -23627,6 +24059,151 @@
 %
 % \iffalse
 %</PgermanmpkoeawLBX>
+%<*niedersachsenenglishLBX>
+% \fi
+%
+% \subsubsection{File \Datei{english-niedersachsen.lbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{english-niedersachsen.lbx}
+[2018/10/24 v2.1 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
+\InheritBibliographyExtras{english-archaeology}
+%    \end{macrocode}
+%
+% \begin{localization}{bathesis}
+% \begin{localization}{diplomathesis}
+% \begin{localization}{magisterthesis}
+% \begin{localization}{mathesis}
+% \begin{localization}{postdocthesis}
+% \begin{localization}{phdthesis}
+% \begin{localization}{unpublishedbathesis}
+% \begin{localization}{unpublisheddiplomathesis}
+% \begin{localization}{unpublishedmagisterthesis}
+% \begin{localization}{unpublishedmathesis}
+% \begin{localization}{unpublishedpostdocthesis}
+% \begin{localization}{unpublishedphdthesis}
+% \begin{localization}{edition}
+%    \begin{macrocode}
+\DeclareBibliographyStrings{%
+	inherit                   = {english-archaeology},
+	bathesis       = {{Bachelor thesist}{Bachelor thesis}},
+	diplomathesis  = {{Dmaster's thesis}{master's thesis}},
+	magisterthesis = {{master's thesis}{master's thesis}},
+	mathesis       = {{master's thesist}{master's thesis}},
+	phdthesis      = {{PhD\addabbrvspace thesis}{PhD\addabbrvspace thesis}},
+	postdocthesis  = {{Habilitationsschrift}{Habilitationsschrift}},
+	unpublishedbathesis       = {{unpublished Bachelor thesis}
+								{unpublished Bachelor thesis}},
+	unpublisheddiplomathesis  = {{unpublished master's thesis}
+								{unpublished master's thesis}},
+	unpublishedmagisterthesis = {{unpublished master's thesis}
+								{unpublished master's thesis}},
+	unpublishedmathesis       = {{unpublished master's thesis}
+								{unpublished master's thesis}},
+	unpublishedpostdocthesis  = {{unpublished Habilitationsschrift}
+								{unpublished Habilitationsschrift}},
+	unpublishedphdthesis      = {{unpublished PhD\addabbrvspace thesis}
+								{unpublished PhD\addabbrvspace thesis}},
+	edition       = {{edition}{edition}},					
+}
+%    \end{macrocode}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+%
+% \iffalse
+%</niedersachsenenglishLBX>
+%<*niedersachsengermanLBX>
+% \fi
+%
+% \subsubsection{File \Datei{german-niedersachsen.lbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{german-niedersachsen.lbx}
+[2018/10/24 v2.1 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
+\InheritBibliographyExtras{german-archaeology}
+%    \end{macrocode}
+%
+% \begin{localization}{bathesis}
+% \begin{localization}{diplomathesis}
+% \begin{localization}{magisterthesis}
+% \begin{localization}{mathesis}
+% \begin{localization}{postdocthesis}
+% \begin{localization}{phdthesis}
+% \begin{localization}{unpublishedbathesis}
+% \begin{localization}{unpublisheddiplomathesis}
+% \begin{localization}{unpublishedmagisterthesis}
+% \begin{localization}{unpublishedmathesis}
+% \begin{localization}{unpublishedpostdocthesis}
+% \begin{localization}{unpublishedphdthesis}
+% \begin{localization}{edition}
+% \begin{localization}{urlseen}
+%    \begin{macrocode}
+\DeclareBibliographyStrings{%
+	inherit                   = {german-archaeology},
+	diplomathesis  = {{Diplomarbeit}{Diplomarbeit}},
+	magisterthesis = {{Magisterarbeit}{Magisterarbeit}},
+	mathesis       = {{Masterarbeit}{Masterarbeit}},
+	phdthesis      = {{Dissertation}{Dissertation}},
+	postdocthesis  = {{Habilitationsschrift}{Habilitationsschrift}},
+	unpublishedbathesis       = {{unver\"offentlichte Bachelorarbeit}
+								{unver\"offentlichte Bachelorarbeit}},
+	unpublisheddiplomathesis  = {{unver\"offentlichte Diplomarbeit}
+								{unver\"offentlichte Diplomarbeit}},
+	unpublishedmagisterthesis = {{unver\"offentlichte Magisterarbeit}
+								{unver\"offentlichte Magisterarbeit}},
+	unpublishedmathesis       = {{unver\"offentlichte Masterarbeit}
+								{unver\"offentlichte Masterarbeit}},
+	unpublishedphdthesis      = {{unver\"offentlichte Dissertation}
+								{unver\"offentlichte Dissertation}},
+	unpublishedpostdocthesis  = {{unver\"offentlichte Habilitationsschrift}
+								{unver\"offentlichte Habilitationsschrift}},
+	edition       = {{Auflage}{Auflage}},
+	urlseen       = {{Stand}{Stand}},
+}
+%    \end{macrocode}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+%
+% \iffalse
+%</niedersachsengermanLBX>
+%<*PgermanniedersachsenLBX>
+% \fi
+%
+% \subsubsection{Pointer to \Datei{german-niedersachsen.lbx}}
+%
+%    \begin{macrocode}
+[2018/10/24 v2.1 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
+\InheritBibliographyExtras{german-niedersachsen}
+\InheritBibliographyStrings{german-niedersachsen}
+%    \end{macrocode}
+%
+% \iffalse
+%</PgermanniedersachsenLBX>
 %<*offaenglishLBX>
 % \fi
 %
@@ -24258,6 +24835,15 @@
 %
 % \iffalse
 %</mpkoeawDBX>
+%<*niedersachsenDBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{niedersachsen.dbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</niedersachsenDBX>
 %<*nnuDBX>
 % \fi
 %
