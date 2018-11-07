@@ -413,7 +413,7 @@
 % \Deutsch{Karl. Das kulturelle Schachmagazin} lacks an uniform style. This is a an author date style that was used in several articles.
 %
 % \item[]\DescribeStyle{kunde}
-% The author date style of \Deutsch{Die Kunde N.\,F.}
+% The author date style of \Deutsch{Die Kunde N.\,F.}\autocite{guidelines:kunde:2013}
 %
 % \item[]\DescribeStyle{maja}
 % The verbose style of the \Deutsch{M\"unchner Arbeitskreis Junge Aegyptologie}.\autocite{guidelines:maja:2015}
@@ -7771,7 +7771,7 @@
 [2018/10/24 v2.1 biblatex-archaeology (Ingram Braun) based on biblatex]
 \RequirePackage{xpatch,xstring}
 %    \end{macrocode}
-% \changes{2.0}{2018/10/17}{Load \Paket{xstring} package because \blx 3.12 doesn't anymore (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/27}{issue 27})}
+% \changes{2.1}{2018/10/17}{Load \Paket{xstring} package because \blx 3.12 doesn't anymore (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/27}{issue 27})}
 %
 % Restrictions: \Biber only and minimum \Paket{biblatex} version
 %    \begin{macrocode}
@@ -8077,7 +8077,6 @@
 % \begin{format}{journalsubtitle}
 % \begin{format}{language}
 % \begin{format}{origlanguage}
-% \begin{format}{pagetotal}
 % \begin{format}{volumes}
 %    \begin{macrocode}
 \DeclareFieldInputHandler{chapter}{\def\NewValue{}}
@@ -8090,10 +8089,8 @@
 \DeclareFieldInputHandler{journalsubtitle}{\def\NewValue{}}
 \DeclareListInputHandler{language}{\def\NewValue{}}
 \DeclareListInputHandler{origlanguage}{\def\NewValue{}}
-\DeclareFieldInputHandler{pagetotal}{\def\NewValue{}}
 \DeclareFieldInputHandler{volumes}{\def\NewValue{}}
 %    \end{macrocode}
-% \end{format}
 % \end{format}
 % \end{format}
 % \end{format}
@@ -9377,6 +9374,7 @@
 % \begin{bibliographydriver}{article}
 % \begin{bibliographydriver}{book}
 % \begin{bibliographydriver}{inbook}
+% \begin{bibliographydriver}{thesis}
 % We are going to reimplement \Feld{volume} formatting.
 %    \begin{macrocode}
 \xpatchbibdriver{book}{\printfield {volume}}{}
@@ -9393,7 +9391,11 @@
   {}{Patching driver 'inbook' failed (3)}}
 \xpatchbibdriver{article}{\usebibmacro{byeditor+others}}{}
   {}{Patching driver 'book' failed (4)}
+ \xpatchbibdriver{thesis}{\newunit \printfield {pagetotal}}
+  {\setunit{\bibpagespunct}\printfield{pagetotal}}
+  {}{Patching driver 'thesis' failed (1)}
 %    \end{macrocode}
+% \end{bibliographydriver}
 % \end{bibliographydriver}
 % \end{bibliographydriver}
 % \end{bibliographydriver}
@@ -11880,6 +11882,12 @@
 % No bibstring ahead of \Feld{volume}.
 %    \begin{macrocode}
 \DeclareFieldFormat[book,inbook]{volume}{\addspace#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{pagetotal}
+%    \begin{macrocode}
+\DeclareFieldFormat*{pagetotal}{}
 %    \end{macrocode}
 % \end{format}
 %
@@ -15473,7 +15481,7 @@
     editionsuperscript=none,
     giveninitligatures={},
     idemincitation=false,
-    injournal=true,
+    injournal=false,
     journallocation=false,
     maxbooknames=500,
     minbooknames=3,
@@ -15482,7 +15490,7 @@
     notitlepunct=false,
     origfields=true,
     pagesfirst=false,
-    positionlabeldate=label,
+    positionlabeldate=both,
     preservelastauthor=false,
     repeatlabel=false,
     shortform=false,
@@ -15501,7 +15509,7 @@
     usemultivenue=false,
     usepublisher=false,
     usesourceeditor=true,
-    useunpublishedthesis=false,
+    useunpublishedthesis=true,
     volumeafterseries=false,
 }
 %    \end{macrocode}
@@ -15660,24 +15668,41 @@
 %
 % \begin{format}{typeinstitution}
 %    \begin{macrocode}
-\DeclareFieldFormat*{typeinstitution}{\mkbibparens{#1\addperiod}}
+\DeclareFieldFormat*{typeinstitution}{#1}
 %    \end{macrocode}
 % \end{format}
 %
-% \begin{macro}{\institutionlocationdelim}
+% \begin{macro}{\typeinstitutiondelim}
 %    \begin{macrocode}
-\renewcommand*{\institutionlocationdelim}{\addspace}
+\renewcommand*{\typeinstitutiondelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\institutionlocationdelim}
+%    \begin{macrocode}
+\renewcommand*{\institutionlocationdelim}{\addperiod\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{pagetotal}
+%    \begin{macrocode}
+\DeclareFieldFormat[thesis]{pagetotal}{1\bibrangedash#1}
+%    \end{macrocode}
+% \end{format}
+%
 % \begin{format}{url}
 % \begin{format}{urldate}
-% URL should be underlind but this breaks linebreaking.
 %    \begin{macrocode}
 \DeclareFieldFormat*{url}{\url{#1}}
 \DeclareFieldFormat*{urldate}{}
 %    \end{macrocode}
 % \end{format}
+% \end{format}
+%
+% \begin{format}{reprintparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{reprintparens}{\mkbibparens{#1}}
+%    \end{macrocode}
 % \end{format}
 %
 % \iffalse
@@ -19267,9 +19292,20 @@
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
 	uniquename=full,
-	uniquelist=full,
+	uniquelist=true,
 }
 %    \end{macrocode}
+%
+% \begin{macro}{\multicitedelim}
+% \begin{macro}{\strongcitedelim}
+% Delimiter beween multiple citations. Some styles have a strong delimiter, mainly
+% to avoid paragraphs in footnotes.
+%    \begin{macrocode}
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
+\renewcommand*\strongcitedelim{\addsemicolon\space}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
 %
 % \iffalse
 %</kundeCBX>
@@ -22015,7 +22051,7 @@
     unpublishedmagisterthesis = {{unpublished master's thesis}{unpubl. MA\addabbrvspace thesis}},
     unpublishedmathesis       = {{unpublished master's thesis}{unpubl. MA\addabbrvspace thesis}},
     unpublishedpostdocthesis  = {{unpublished Habilitationsschrift}{unpubl. Habil.-Schr\adddot}},
-    unpublishedphdthesis      = {{unpublished PhD\addabbrvspace thesis}{unpubl. PhD\addabbrvspace thesis}},,
+    unpublishedphdthesis      = {{unpublished PhD\addabbrvspace thesis}{unpubl. PhD\addabbrvspace thesis}},
 %    \end{macrocode}
 % \end{localization}
 % \end{localization}
@@ -23024,6 +23060,69 @@
 %
 % \iffalse
 %</PgermankarlLBX>
+%<*kundeenglishLBX>
+% \fi
+%
+% \subsubsection{File \Datei{english-kunde.lbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{english-kunde.lbx}
+[2018/10/24 v2.1 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
+\InheritBibliographyExtras{english-archaeology}
+%    \end{macrocode}
+%
+% \begin{localization}{bathesis}
+% \begin{localization}{diplomathesis}
+% \begin{localization}{magisterthesis}
+% \begin{localization}{mathesis}
+% \begin{localization}{postdocthesis}
+% \begin{localization}{phdthesis}
+% \begin{localization}{unpublishedbathesis}
+% \begin{localization}{unpublisheddiplomathesis}
+% \begin{localization}{unpublishedmagisterthesis}
+% \begin{localization}{unpublishedmathesis}
+% \begin{localization}{unpublishedpostdocthesis}
+% \begin{localization}{unpublishedphdthesis}
+% \begin{localization}{urlseen}
+%    \begin{macrocode}
+\DeclareBibliographyStrings{%
+	inherit                   = {english-archaeology},
+	bathesis       = {{Bachelor thesist}{Bachelor thesis}},
+	diplomathesis  = {{Dmaster's thesis}{master's thesis}},
+	magisterthesis = {{master's thesis}{master's thesis}},
+	mathesis       = {{master's thesist}{master's thesis}},
+	phdthesis      = {{PhD\addabbrvspace thesis}{PhD\addabbrvspace thesis}},
+	postdocthesis  = {{Habilitationsschrift}{Habilitationsschrift}},
+	unpublishedbathesis       = {{unpublished Bachelor thesis}
+								{unpublished Bachelor thesis}},
+	unpublisheddiplomathesis  = {{unpublished master's thesis}
+								{unpublished master's thesis}},
+	unpublishedmagisterthesis = {{unpublished master's thesis}
+								{unpublished master's thesis}},
+	unpublishedmathesis       = {{unpublished master's thesis}
+								{unpublished master's thesis}},
+	unpublishedpostdocthesis  = {{unpublished Habilitationsschrift}
+								{unpublished Habilitationsschrift}},
+	unpublishedphdthesis      = {{unpublished PhD\addabbrvspace thesis}
+								{unpublished PhD\addabbrvspace thesis}},
+}
+%    \end{macrocode}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+%
+% \iffalse
+%</kundeenglishLBX>
 %<*kundegermanLBX>
 % \fi
 %
@@ -23033,18 +23132,55 @@
 \ProvidesFile{german-kunde.lbx}
 [2018/10/24 v2.1 biblatex-archaeology localization (IB)]
 \SuppressAdditiveLbxSuffixes
+\InheritBibliographyExtras{german-archaeology}
 %    \end{macrocode}
 %
-% \begin{localization}{reprint}
-% \begin{localization}{urlfrom}
+% \begin{localization}{bathesis}
+% \begin{localization}{diplomathesis}
+% \begin{localization}{magisterthesis}
+% \begin{localization}{mathesis}
+% \begin{localization}{postdocthesis}
+% \begin{localization}{phdthesis}
+% \begin{localization}{unpublishedbathesis}
+% \begin{localization}{unpublisheddiplomathesis}
+% \begin{localization}{unpublishedmagisterthesis}
+% \begin{localization}{unpublishedmathesis}
+% \begin{localization}{unpublishedpostdocthesis}
+% \begin{localization}{unpublishedphdthesis}
+% \begin{localization}{urlseen}
 %    \begin{macrocode}
-\InheritBibliographyExtras{german-archaeology}
 \DeclareBibliographyStrings{%
-    inherit  = {german-archaeology},
-    seenote  = {{wie Fu\ss{}note}{wie Fn.}},
-    subverbum  = {{Lemma}{Lemma}},
+	inherit                   = {german-archaeology},
+	bathesis       = {{Bachelorarbeit}{Bachelorarbeit}},
+	diplomathesis  = {{Diplomarbeit}{Diplomarbeit}},
+	magisterthesis = {{Magisterarbeit}{Magisterarbeit}},
+	mathesis       = {{Masterarbeit}{Masterarbeit}},
+	phdthesis      = {{Dissertation}{Dissertation}},
+	postdocthesis  = {{Habilitationsschrift}{Habilitationsschrift}},
+	unpublishedbathesis       = {{unver\"offentlichte Bachelorarbeit}
+								{unver\"offentlichte Bachelorarbeit}},
+	unpublisheddiplomathesis  = {{unver\"offentlichte Diplomarbeit}
+								{unver\"offentlichte Diplomarbeit}},
+	unpublishedmagisterthesis = {{unver\"offentlichte Magisterarbeit}
+								{unver\"offentlichte Magisterarbeit}},
+	unpublishedmathesis       = {{unver\"offentlichte Masterarbeit}
+								{unver\"offentlichte Masterarbeit}},
+	unpublishedphdthesis      = {{unver\"offentlichte Dissertation}
+								{unver\"offentlichte Dissertation}},
+	unpublishedpostdocthesis  = {{unver\"offentlichte Habilitationsschrift}
+								{unver\"offentlichte Habilitationsschrift}},
 }
 %    \end{macrocode}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
 % \end{localization}
 % \end{localization}
 %
