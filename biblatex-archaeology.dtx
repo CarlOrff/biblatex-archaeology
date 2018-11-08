@@ -59,7 +59,7 @@
      \addbibresource{\IBbibmain}}
     {\addbibresource{biblatex-archaeology-manual.bib}}
 \pagestyle{fancy}% muss vor \renewcommand{\sectionmark} stehen
-\fancyhf{}
+\fancyhf{} % clear all header and footer fields
 \fancyhead[L]{\thepage}% gerade Seiten, links
 \fancyhead[R]{\leftmark}% gerade Seiten, rechts
 \setlength{\headheight}{14pt}
@@ -220,8 +220,10 @@
 % \DoNotIndex{\newcommand,\renewcommand,\let,\@empty}
 % \DoNotIndex{\A,\Z,\d,\s}
 %
-% \IndexPrologue{\section*{Index}\addcontentsline{toc}{section}{Index}}
-% \GlossaryPrologue{\section*{Changelog}\addcontentsline{toc}{section}{Changelog}}
+% \newcommand{\indexsectiontitle}{Index}
+% \IndexPrologue{\section*{\indexsectiontitle}\addcontentsline{toc}{section}{\indexsectiontitle}\fancypagestyle{index}{\fancyhead[RO,LE]{\indexsectiontitle}}\pagestyle{index}}
+% \newcommand{\changessectiontitle}{Changelog}
+% \GlossaryPrologue{\section*{\changessectiontitle}\addcontentsline{toc}{section}{\changessectiontitle}\fancypagestyle{changes}{\fancyhead[RO,LE]{\changessectiontitle}}\pagestyle{changes}}
 %
 % \title{\LARGE\color{\headingscolor}The \archbib styles [v2.1]}
 % \author{\Large Ingram Braun \\ \href{https://ingram-braun.net/\#ib_campaign=biblatex-archaeology-v2.1\&ib_medium=manual\&ib_source=github\&ib_content=titlepage}{\Kbd{https://ingram-braun.net/}}}
@@ -271,6 +273,8 @@
    $ Biber biblatex-archaeology
    $ lualatex biblatex-archaeology
    $ makeindex -s gind.ist biblatex-archaeology.idx
+   $ lualatex biblatex-archaeology
+   $ makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
    $ lualatex biblatex-archaeology
    $ makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
    $ lualatex biblatex-archaeology
@@ -1491,13 +1495,13 @@
 % can retrieve the path by calling \Biber with the single option \Kbd{--}\Option{tool-config}. If you do not want to manipulate 
 % the original file, copy it to a new one and call \Biber with option \Kbd{--}\Option{configfile}\Kbd{ /path/to/custom/biber.conf}.
 %
-% \PrintChanges
+% \PrintChanges\pagestyle{fancy}
 % %\nocite{guidelines:ethno:ffm,guidelines:ethno:goe:2014,guidelines:aaa:2009,guidelines:rlm:trier,guidelines:kunstgeschichte:goettingen,guidelines:kunstgeschichte:freiburg,guidelines:aja,guidelines:schlagworte:dai,guidelines:egypt:goe,grando:bernhard:2003,schopf:oJ,schwarz:2004,spycher:2017,guidelines:mediaevistik:oldenburg,rak-wb:2007}
 % \printbibliography[heading=bibintoc,title=References]
 %
 % \StopEventually{}
 %
-% %\setcounter{IndexColumns}{2}\PrintIndex
+% \setcounter{IndexColumns}{2}\PrintIndex\pagestyle{fancy}
 %
 % \begin{appendices}
 %
@@ -7836,7 +7840,7 @@
     singletitle=false,
     sortcites=false,
     sorting=nyvc,
-	sortlocale=de_DE,
+    sortlocale=de_DE,
     terseinits=false,
     uniquelist=minyear,
     uniquename=init,
@@ -7865,38 +7869,38 @@
 % Month as number in journals. Aliases are yet substituted when source maps apply.
 %    \begin{macrocode}
         \map[overwrite=true]{
-			\step[
-				fieldsource=journaltitle,
-				notfield=number,
-				final,
-			]
             \step[
-				fieldsource=month,
-				match=\regexp{\A(\d|1[0-2])\Z},
-				fieldset=number,
-				origfieldval=true,
-			]
-			\step[
-				fieldset=month,
-				null,
-			]
-		}
-		\map[overwrite=true]{
-			\step[
-				fieldsource=journaltitle,
-				notfield=number,
-				final,
-			]
-			\step[
-				fieldsource=issue,
-				match=\regexp{\A\d+\Z},
-				fieldset=number,
-				origfieldval=true,
-			]
-			\step[
-				fieldset=issue,
-				null,
-			]
+                fieldsource=journaltitle,
+                notfield=number,
+                final,
+            ]
+            \step[
+                fieldsource=month,
+                match=\regexp{\A(\d|1[0-2])\Z},
+                fieldset=number,
+                origfieldval=true,
+            ]
+            \step[
+                fieldset=month,
+                null,
+            ]
+        }
+        \map[overwrite=true]{
+            \step[
+                fieldsource=journaltitle,
+                notfield=number,
+                final,
+            ]
+            \step[
+                fieldsource=issue,
+                match=\regexp{\A\d+\Z},
+                fieldset=number,
+                origfieldval=true,
+            ]
+            \step[
+                fieldset=issue,
+                null,
+            ]
         }
 %    \end{macrocode}
 % Replace literal thesis types like \enquote{Diss. phil} with \Befehl{bibstring}.
@@ -8150,33 +8154,33 @@
 % \changes{2.1}{2018/11/01}{adapt \Format{global} to option \Option{uniquename}}
 %    \begin{macrocode}
 \ifnumequal\blx@uniquename\blx@opt@uniquename@false
-	{\DeclareSortingNamekeyTemplate{
-		\keypart{
-			\namepart[use=true]{prefix}
-		}
-		\keypart{
-			\namepart{family}
-		}
-	}}
-	{\ifnumequal\blx@uniquename\blx@opt@uniquename@init
-		{\DeclareSortingNamekeyTemplate{
-			\keypart{
-				\namepart[use=true]{prefix}
-			}
-			\keypart{
-				\namepart{family}
-			}
-			\keypart{
-				\namepart[inits=true]{given}
-			}
-		}
-		\DeclareUniquenameTemplate{
-			\namepart[use=true, base=true]{prefix}
-			\namepart[base=true]{family}
-			\namepart[disambiguation=init]{given}
-		}}
-		{}%
-	}%
+    {\DeclareSortingNamekeyTemplate{
+        \keypart{
+            \namepart[use=true]{prefix}
+        }
+        \keypart{
+            \namepart{family}
+        }
+    }}
+    {\ifnumequal\blx@uniquename\blx@opt@uniquename@init
+        {\DeclareSortingNamekeyTemplate{
+            \keypart{
+                \namepart[use=true]{prefix}
+            }
+            \keypart{
+                \namepart{family}
+            }
+            \keypart{
+                \namepart[inits=true]{given}
+            }
+        }
+        \DeclareUniquenameTemplate{
+            \namepart[use=true, base=true]{prefix}
+            \namepart[base=true]{family}
+            \namepart[disambiguation=init]{given}
+        }}
+        {}%
+    }%
 %    \end{macrocode}
 % \end{format}
 %
@@ -8184,7 +8188,7 @@
 % Remove all prefixes from sort names. Alas, lookaheads don't work here. The canonical way to do this would% be to
 % employ \Befehl{DeclareSortingNamekeyTemplate} but we want to override \blx' default which strips Arab articles
 \DeclareNosort{
-	\nosort{setnames}{\regexp{^[^\p{Lu}]+}}
+    \nosort{setnames}{\regexp{^[^\p{Lu}]+}}
 }
 %    \end{macrocode}
 %
@@ -8201,12 +8205,12 @@
   \sort{
     \field{sortname}
     \field{label}
-	\field{shorthand}
+    \field{shorthand}
     \field{shortauthor}
     \field{author}
     \field{editor}
     \field{translator}
-	\field{anonstring}
+    \field{anonstring}
     \field{shorttitle}
     \field{sorttitle}
     \field{title}
@@ -8233,12 +8237,12 @@
   \sort{
     \field{sortname}
     \field{label}
-	\field{shorthand}
+    \field{shorthand}
     \field{shortauthor}
     \field{author}
     \field{editor}
     \field{translator}
-	\field{anonstring}
+    \field{anonstring}
     \field{shorttitle}
     \field{sorttitle}
     \field{title}
@@ -8271,12 +8275,12 @@
   \sort{
     \field{sortname}
     \field{label}
-	\field{shorthand}
+    \field{shorthand}
     \field{shortauthor}
     \field{author}
     \field{editor}
     \field{translator}
-	\field{anonstring}
+    \field{anonstring}
     \field{shorttitle}
     \field{sorttitle}
     \field{title}
@@ -8315,7 +8319,7 @@
     \field{author}
     \field{editor}
     \field{translator}
-	\field{anonstring}
+    \field{anonstring}
     \field{sorttitle}
     \field{title}
   }
@@ -8349,7 +8353,7 @@
     \field{author}
     \field{editor}
     \field{translator}
-	\field{anonstring}
+    \field{anonstring}
     \field{sorttitle}
     \field{title}
   }
@@ -8379,7 +8383,7 @@
     \field{author}
     \field{editor}
     \field{translator}
-	\field{anonstring}
+    \field{anonstring}
     \field{sorttitle}
     \field{title}
   }
@@ -8414,7 +8418,7 @@
     \field{author}
     \field{editor}
     \field{translator}
-	\field{anonstring}
+    \field{anonstring}
     \field{sorttitle}
     \field{title}
   }
@@ -8858,7 +8862,7 @@
         {\let\bibhyperref\@empty}
         {}%
     \printtext[repeatlabel]{%
-		\togglefalse{archbool:capitalizeprefixinbiblist}{\midsentence}%
+        \togglefalse{archbool:capitalizeprefixinbiblist}{\midsentence}%
         \iffieldundef{shorthand}
             {\ifboolexpr{
                 test {\ifrepeatlabel{dashed}}
@@ -11660,7 +11664,7 @@
     \field{author}
     \field{editor}
     \field{translator}
-	\field{anonstring}
+    \field{anonstring}
 }
 %    \end{macrocode}
 % \end{format}
@@ -12231,8 +12235,8 @@
     mergedate=false,
     labeldate=true,
     sorting=nyvc,
-	uniquename=init,
-	uniquelist=false,
+    uniquename=init,
+    uniquelist=false,
 }
 %    \end{macrocode}
 % \end{option}
@@ -12292,15 +12296,15 @@
 %    \begin{macrocode}
 \xpretobibmacro{begentry}{%
     \csuse{blxarch@issuedate}%
-	\iffieldequalstr{labelnamesource}{anonstring}
-		{\ifrepeatlabel{false}
-			{\ifbibliography
-				{\savename*{anonstring}{\blxarch@field@anonstring}%
-				 \restorename{author}{\blxarch@field@anonstring}%
-				}
-				{}}
-			{}}
-		{}%
+    \iffieldequalstr{labelnamesource}{anonstring}
+        {\ifrepeatlabel{false}
+            {\ifbibliography
+                {\savename*{anonstring}{\blxarch@field@anonstring}%
+                 \restorename{author}{\blxarch@field@anonstring}%
+                }
+                {}}
+            {}}
+        {}%
 }{}{Patching bibmacro 'begentry' failed (1)}
 \xpretobibmacro{finentry}{%
     \restorebibmacro{issue+date}%
@@ -13134,7 +13138,7 @@
     notetype=foot+end,
     sortcites=true,
     sorting=lnyvc,
-	sortlocale=de_AT,
+    sortlocale=de_AT,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -13402,7 +13406,7 @@
 % Remove non-letters only from search name;
 %    \begin{macrocode}
 \DeclareNosort{
-	\nosort{setnames}{\regexp{^[^\p{L}]}}
+    \nosort{setnames}{\regexp{^[^\p{L}]}}
 }
 %    \end{macrocode}
 %
@@ -13600,7 +13604,7 @@
 % Remove non-letters only from search name;
 %    \begin{macrocode}
 \DeclareNosort{
-	\nosort{setnames}{\regexp{^[^\p{L}]}}
+    \nosort{setnames}{\regexp{^[^\p{L}]}}
 }
 %    \end{macrocode}
 %
@@ -13792,7 +13796,7 @@
     mincitenames=1,                  
     minitems=1,
     notetype=foot+end,
-	sorting=nyc,
+    sorting=nyc,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -14598,7 +14602,7 @@
     minitems=1,
     notetype=foot+end,
     sorting=lnyvc,
-	sortlocale=de_AT,
+    sortlocale=de_AT,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -15998,7 +16002,7 @@
     notetype=foot+end,
     sortcites=true,
     sorting=lnyvc,
-	sortlocale=de_AT,
+    sortlocale=de_AT,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -16230,7 +16234,7 @@
     notetype=foot+end,
     sortcites=true,
     sorting=lnyvc,
-	sortlocale=de_AT,
+    sortlocale=de_AT,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -17673,7 +17677,7 @@
 %    \begin{macrocode}
 % Remove 'von' and 'van' prefixes from sort names, but leave the others.
 \DeclareNosort{
-	\nosort{setnames}{\regexp{^v[ao]n[^\p{Lu}]*}}
+    \nosort{setnames}{\regexp{^v[ao]n[^\p{Lu}]*}}
 }
 %    \end{macrocode}
 %
@@ -19048,17 +19052,17 @@
 %    \begin{macrocode}
    \edef\blxarch@ult@key@count{blxarch:ult:\therefsection:\thefield{namehash}:\the\value{footnote}}%
    \ifltxcounter{\blxarch@ult@key@count}%
-		{\stepcounter{\blxarch@ult@key@count}}
-		{\newcounter{\blxarch@ult@key@count}%
-		 \setcounter{\blxarch@ult@key@count}{1}}%
+        {\stepcounter{\blxarch@ult@key@count}}
+        {\newcounter{\blxarch@ult@key@count}%
+         \setcounter{\blxarch@ult@key@count}{1}}%
 %    \end{macrocode}
 % Count \Feld{entrykey}s per footnote.
 %    \begin{macrocode}
    \edef\blxarch@ult@hash@count{blxarch:ult:\thefield{entrykey}:\the\value{footnote}:\therefsection}%
    \ifltxcounter{\blxarch@ult@hash@count}%
-		{\stepcounter{\blxarch@ult@hash@count}}
-		{\newcounter{\blxarch@ult@hash@count}%
-		 \setcounter{\blxarch@ult@hash@count}{1}}%
+        {\stepcounter{\blxarch@ult@hash@count}}
+        {\newcounter{\blxarch@ult@hash@count}%
+         \setcounter{\blxarch@ult@hash@count}{1}}%
 }
 %    \end{macrocode}
 % \end{bibmacro}
@@ -19097,14 +19101,14 @@
 % disambiguitated by a \Feld{labeltitle}.
 %    \begin{macrocode}
 \newcommand{\ifuselabeltitle}[2]{%
-	\edef\blxarch@ult@key@if{blxarch:ult:\thefield{entrykey}:\the\value{blxarch:\thefield{entrykey}}:\therefsection}%
-	\edef\blxarch@ult@hash@if{blxarch:ult:\therefsection:\thefield{namehash}:\the\value{blxarch:\thefield{entrykey}}}%
-	\ifltxcounter{\blxarch@ult@key@if}
-		{\ifnumgreater{\value{\blxarch@ult@hash@if}}{\value{\blxarch@ult@key@if}}
-			{#1}
-			{\iftoggle{archbool:uselabeltitle}{#1}{#2}}%
-		}
-		{\iftoggle{archbool:uselabeltitle}{#1}{#2}}%
+    \edef\blxarch@ult@key@if{blxarch:ult:\thefield{entrykey}:\the\value{blxarch:\thefield{entrykey}}:\therefsection}%
+    \edef\blxarch@ult@hash@if{blxarch:ult:\therefsection:\thefield{namehash}:\the\value{blxarch:\thefield{entrykey}}}%
+    \ifltxcounter{\blxarch@ult@key@if}
+        {\ifnumgreater{\value{\blxarch@ult@hash@if}}{\value{\blxarch@ult@key@if}}
+            {#1}
+            {\iftoggle{archbool:uselabeltitle}{#1}{#2}}%
+        }
+        {\iftoggle{archbool:uselabeltitle}{#1}{#2}}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -19209,9 +19213,9 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	autocite=footnote,
-	uniquename=false,
-	uniquelist=false,
+    autocite=footnote,
+    uniquename=false,
+    uniquelist=false,
 }
 %    \end{macrocode}
 %
@@ -19239,9 +19243,9 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	autocite=footnote,
-	uniquename=false,
-	uniquelist=false,
+    autocite=footnote,
+    uniquename=false,
+    uniquelist=false,
 }
 %    \end{macrocode}
 %
@@ -19281,9 +19285,9 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	autocite=footnote,
-	uniquename=false,
-	uniquelist=false,
+    autocite=footnote,
+    uniquename=false,
+    uniquelist=false,
 }
 %    \end{macrocode}
 %
@@ -19409,8 +19413,8 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	uniquename=false,
-	uniquelist=false,
+    uniquename=false,
+    uniquelist=false,
 }
 %    \end{macrocode}
 %
@@ -19438,7 +19442,7 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	uniquename=init,
+    uniquename=init,
 }
 %    \end{macrocode}
 %
@@ -19466,9 +19470,9 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	autocite=footnote,
-	uniquename=false,
-	uniquelist=false,
+    autocite=footnote,
+    uniquename=false,
+    uniquelist=false,
 }
 %    \end{macrocode}
 %
@@ -19576,8 +19580,8 @@
 % \end{macro}
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	uniquename=full,
-	uniquelist=true,
+    uniquename=full,
+    uniquelist=true,
 }
 %    \end{macrocode}
 %
@@ -19644,9 +19648,9 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	autocite=footnote,
-	uniquename=false,
-	uniquelist=false,
+    autocite=footnote,
+    uniquename=false,
+    uniquelist=false,
 }
 %    \end{macrocode}
 %
@@ -19688,9 +19692,9 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	autocite=footnote,
-	uniquename=false,
-	uniquelist=false,
+    autocite=footnote,
+    uniquename=false,
+    uniquelist=false,
 }
 %    \end{macrocode}
 %
@@ -19723,8 +19727,8 @@
 % \end{macro}
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	uniquename=full,
-	uniquelist=true,
+    uniquename=full,
+    uniquelist=true,
 }
 %    \end{macrocode}
 %
@@ -19763,9 +19767,10 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	uniquename=false,
-	uniquelist=false,
+    uniquename=false,
+    uniquelist=false,
 }
+%    \end{macrocode}
 %
 % \iffalse
 %</nnuCBX>
@@ -19791,8 +19796,8 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	uniquename=false,
-	uniquelist=false,
+    uniquename=false,
+    uniquelist=false,
 }
 %    \end{macrocode}
 %
@@ -19827,8 +19832,8 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	uniquename=false,
-	uniquelist=false,
+    uniquename=false,
+    uniquelist=false,
 }
 %
 % \iffalse
@@ -19954,8 +19959,8 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	uniquename=false,
-	uniquelist=false,
+    uniquename=false,
+    uniquelist=false,
 }
 %
 % \iffalse
@@ -20060,8 +20065,8 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	uniquename=false,
-	uniquelist=false,
+    uniquename=false,
+    uniquelist=false,
 }
 %
 % \iffalse
@@ -20238,7 +20243,7 @@
 % \iffalse
 %</noplacedateparens>
 %<*noarticlesubtitlepunct>
-% \iffalse
+% \fi
 %
 % \begin{macro}{\articlesubtitlepunct}
 % No special \Befehl{subtitlepunct} in \Typ{article} etc.
@@ -22221,7 +22226,7 @@
 %</FUKenglishzaesLBX>
 %<*FUSenglishzaesLBX>
 % \fi
-&
+%
 %    \begin{macrocode}
 \ProvidesFile{USenglish-zaes.lbx}
 %    \end{macrocode}
@@ -23516,28 +23521,27 @@
 % \begin{localization}{unpublishedmathesis}
 % \begin{localization}{unpublishedpostdocthesis}
 % \begin{localization}{unpublishedphdthesis}
-% \begin{localization}{urlseen}
 %    \begin{macrocode}
 \DeclareBibliographyStrings{%
-	inherit                   = {english-archaeology},
-	bathesis       = {{Bachelor thesist}{Bachelor thesis}},
-	diplomathesis  = {{Dmaster's thesis}{master's thesis}},
-	magisterthesis = {{master's thesis}{master's thesis}},
-	mathesis       = {{master's thesist}{master's thesis}},
-	phdthesis      = {{PhD\addabbrvspace thesis}{PhD\addabbrvspace thesis}},
-	postdocthesis  = {{Habilitationsschrift}{Habilitationsschrift}},
-	unpublishedbathesis       = {{unpublished Bachelor thesis}
-								{unpublished Bachelor thesis}},
-	unpublisheddiplomathesis  = {{unpublished master's thesis}
-								{unpublished master's thesis}},
-	unpublishedmagisterthesis = {{unpublished master's thesis}
-								{unpublished master's thesis}},
-	unpublishedmathesis       = {{unpublished master's thesis}
-								{unpublished master's thesis}},
-	unpublishedpostdocthesis  = {{unpublished Habilitationsschrift}
-								{unpublished Habilitationsschrift}},
-	unpublishedphdthesis      = {{unpublished PhD\addabbrvspace thesis}
-								{unpublished PhD\addabbrvspace thesis}},
+    inherit                   = {english-archaeology},
+    bathesis       = {{Bachelor thesist}{Bachelor thesis}},
+    diplomathesis  = {{Dmaster's thesis}{master's thesis}},
+    magisterthesis = {{master's thesis}{master's thesis}},
+    mathesis       = {{master's thesist}{master's thesis}},
+    phdthesis      = {{PhD\addabbrvspace thesis}{PhD\addabbrvspace thesis}},
+    postdocthesis  = {{Habilitationsschrift}{Habilitationsschrift}},
+    unpublishedbathesis       = {{unpublished Bachelor thesis}
+                                {unpublished Bachelor thesis}},
+    unpublisheddiplomathesis  = {{unpublished master's thesis}
+                                {unpublished master's thesis}},
+    unpublishedmagisterthesis = {{unpublished master's thesis}
+                                {unpublished master's thesis}},
+    unpublishedmathesis       = {{unpublished master's thesis}
+                                {unpublished master's thesis}},
+    unpublishedpostdocthesis  = {{unpublished Habilitationsschrift}
+                                {unpublished Habilitationsschrift}},
+    unpublishedphdthesis      = {{unpublished PhD\addabbrvspace thesis}
+                                {unpublished PhD\addabbrvspace thesis}},
 }
 %    \end{macrocode}
 % \end{localization}
@@ -23579,28 +23583,27 @@
 % \begin{localization}{unpublishedmathesis}
 % \begin{localization}{unpublishedpostdocthesis}
 % \begin{localization}{unpublishedphdthesis}
-% \begin{localization}{urlseen}
 %    \begin{macrocode}
 \DeclareBibliographyStrings{%
-	inherit                   = {german-archaeology},
-	bathesis       = {{Bachelorarbeit}{Bachelorarbeit}},
-	diplomathesis  = {{Diplomarbeit}{Diplomarbeit}},
-	magisterthesis = {{Magisterarbeit}{Magisterarbeit}},
-	mathesis       = {{Masterarbeit}{Masterarbeit}},
-	phdthesis      = {{Dissertation}{Dissertation}},
-	postdocthesis  = {{Habilitationsschrift}{Habilitationsschrift}},
-	unpublishedbathesis       = {{unver\"offentlichte Bachelorarbeit}
-								{unver\"offentlichte Bachelorarbeit}},
-	unpublisheddiplomathesis  = {{unver\"offentlichte Diplomarbeit}
-								{unver\"offentlichte Diplomarbeit}},
-	unpublishedmagisterthesis = {{unver\"offentlichte Magisterarbeit}
-								{unver\"offentlichte Magisterarbeit}},
-	unpublishedmathesis       = {{unver\"offentlichte Masterarbeit}
-								{unver\"offentlichte Masterarbeit}},
-	unpublishedphdthesis      = {{unver\"offentlichte Dissertation}
-								{unver\"offentlichte Dissertation}},
-	unpublishedpostdocthesis  = {{unver\"offentlichte Habilitationsschrift}
-								{unver\"offentlichte Habilitationsschrift}},
+    inherit                   = {german-archaeology},
+    bathesis       = {{Bachelorarbeit}{Bachelorarbeit}},
+    diplomathesis  = {{Diplomarbeit}{Diplomarbeit}},
+    magisterthesis = {{Magisterarbeit}{Magisterarbeit}},
+    mathesis       = {{Masterarbeit}{Masterarbeit}},
+    phdthesis      = {{Dissertation}{Dissertation}},
+    postdocthesis  = {{Habilitationsschrift}{Habilitationsschrift}},
+    unpublishedbathesis       = {{unver\"offentlichte Bachelorarbeit}
+                                {unver\"offentlichte Bachelorarbeit}},
+    unpublisheddiplomathesis  = {{unver\"offentlichte Diplomarbeit}
+                                {unver\"offentlichte Diplomarbeit}},
+    unpublishedmagisterthesis = {{unver\"offentlichte Magisterarbeit}
+                                {unver\"offentlichte Magisterarbeit}},
+    unpublishedmathesis       = {{unver\"offentlichte Masterarbeit}
+                                {unver\"offentlichte Masterarbeit}},
+    unpublishedphdthesis      = {{unver\"offentlichte Dissertation}
+                                {unver\"offentlichte Dissertation}},
+    unpublishedpostdocthesis  = {{unver\"offentlichte Habilitationsschrift}
+                                {unver\"offentlichte Habilitationsschrift}},
 }
 %    \end{macrocode}
 % \end{localization}
@@ -24086,28 +24089,29 @@
 % \begin{localization}{edition}
 %    \begin{macrocode}
 \DeclareBibliographyStrings{%
-	inherit                   = {english-archaeology},
-	bathesis       = {{Bachelor thesist}{Bachelor thesis}},
-	diplomathesis  = {{Dmaster's thesis}{master's thesis}},
-	magisterthesis = {{master's thesis}{master's thesis}},
-	mathesis       = {{master's thesist}{master's thesis}},
-	phdthesis      = {{PhD\addabbrvspace thesis}{PhD\addabbrvspace thesis}},
-	postdocthesis  = {{Habilitationsschrift}{Habilitationsschrift}},
-	unpublishedbathesis       = {{unpublished Bachelor thesis}
-								{unpublished Bachelor thesis}},
-	unpublisheddiplomathesis  = {{unpublished master's thesis}
-								{unpublished master's thesis}},
-	unpublishedmagisterthesis = {{unpublished master's thesis}
-								{unpublished master's thesis}},
-	unpublishedmathesis       = {{unpublished master's thesis}
-								{unpublished master's thesis}},
-	unpublishedpostdocthesis  = {{unpublished Habilitationsschrift}
-								{unpublished Habilitationsschrift}},
-	unpublishedphdthesis      = {{unpublished PhD\addabbrvspace thesis}
-								{unpublished PhD\addabbrvspace thesis}},
-	edition       = {{edition}{edition}},					
+    inherit                   = {english-archaeology},
+    bathesis       = {{Bachelor thesist}{Bachelor thesis}},
+    diplomathesis  = {{Dmaster's thesis}{master's thesis}},
+    magisterthesis = {{master's thesis}{master's thesis}},
+    mathesis       = {{master's thesist}{master's thesis}},
+    phdthesis      = {{PhD\addabbrvspace thesis}{PhD\addabbrvspace thesis}},
+    postdocthesis  = {{Habilitationsschrift}{Habilitationsschrift}},
+    unpublishedbathesis       = {{unpublished Bachelor thesis}
+                                {unpublished Bachelor thesis}},
+    unpublisheddiplomathesis  = {{unpublished master's thesis}
+                                {unpublished master's thesis}},
+    unpublishedmagisterthesis = {{unpublished master's thesis}
+                                {unpublished master's thesis}},
+    unpublishedmathesis       = {{unpublished master's thesis}
+                                {unpublished master's thesis}},
+    unpublishedpostdocthesis  = {{unpublished Habilitationsschrift}
+                                {unpublished Habilitationsschrift}},
+    unpublishedphdthesis      = {{unpublished PhD\addabbrvspace thesis}
+                                {unpublished PhD\addabbrvspace thesis}},
+    edition       = {{edition}{edition}},                    
 }
 %    \end{macrocode}
+% \end{localization}
 % \end{localization}
 % \end{localization}
 % \end{localization}
@@ -24151,26 +24155,26 @@
 % \begin{localization}{urlseen}
 %    \begin{macrocode}
 \DeclareBibliographyStrings{%
-	inherit                   = {german-archaeology},
-	diplomathesis  = {{Diplomarbeit}{Diplomarbeit}},
-	magisterthesis = {{Magisterarbeit}{Magisterarbeit}},
-	mathesis       = {{Masterarbeit}{Masterarbeit}},
-	phdthesis      = {{Dissertation}{Dissertation}},
-	postdocthesis  = {{Habilitationsschrift}{Habilitationsschrift}},
-	unpublishedbathesis       = {{unver\"offentlichte Bachelorarbeit}
-								{unver\"offentlichte Bachelorarbeit}},
-	unpublisheddiplomathesis  = {{unver\"offentlichte Diplomarbeit}
-								{unver\"offentlichte Diplomarbeit}},
-	unpublishedmagisterthesis = {{unver\"offentlichte Magisterarbeit}
-								{unver\"offentlichte Magisterarbeit}},
-	unpublishedmathesis       = {{unver\"offentlichte Masterarbeit}
-								{unver\"offentlichte Masterarbeit}},
-	unpublishedphdthesis      = {{unver\"offentlichte Dissertation}
-								{unver\"offentlichte Dissertation}},
-	unpublishedpostdocthesis  = {{unver\"offentlichte Habilitationsschrift}
-								{unver\"offentlichte Habilitationsschrift}},
-	edition       = {{Auflage}{Auflage}},
-	urlseen       = {{Stand}{Stand}},
+    inherit                   = {german-archaeology},
+    diplomathesis  = {{Diplomarbeit}{Diplomarbeit}},
+    magisterthesis = {{Magisterarbeit}{Magisterarbeit}},
+    mathesis       = {{Masterarbeit}{Masterarbeit}},
+    phdthesis      = {{Dissertation}{Dissertation}},
+    postdocthesis  = {{Habilitationsschrift}{Habilitationsschrift}},
+    unpublishedbathesis       = {{unver\"offentlichte Bachelorarbeit}
+                                {unver\"offentlichte Bachelorarbeit}},
+    unpublisheddiplomathesis  = {{unver\"offentlichte Diplomarbeit}
+                                {unver\"offentlichte Diplomarbeit}},
+    unpublishedmagisterthesis = {{unver\"offentlichte Magisterarbeit}
+                                {unver\"offentlichte Magisterarbeit}},
+    unpublishedmathesis       = {{unver\"offentlichte Masterarbeit}
+                                {unver\"offentlichte Masterarbeit}},
+    unpublishedphdthesis      = {{unver\"offentlichte Dissertation}
+                                {unver\"offentlichte Dissertation}},
+    unpublishedpostdocthesis  = {{unver\"offentlichte Habilitationsschrift}
+                                {unver\"offentlichte Habilitationsschrift}},
+    edition       = {{Auflage}{Auflage}},
+    urlseen       = {{Stand}{Stand}},
 }
 %    \end{macrocode}
 % \end{localization}
@@ -24878,7 +24882,7 @@
 \ProvidesFile{rgk-numeric.dbx}
 %    \end{macrocode}
 %
-% \fi
+% \iffalse
 %</rgknumericDBX>
 %<*rgkverboseDBX>
 % \fi
@@ -24968,7 +24972,9 @@
 \ProvidesFile{zaes.dbx}
 %    \end{macrocode}
 %
+% \iffalse
 %</zaesDBX>
+% \fi
 %
 % \subsubsection{Shared declarations}
 %
