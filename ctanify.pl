@@ -97,8 +97,12 @@ system_call("texhash");
 system_call( "lualatex -file-line-error $package.dtx" );
 system_call( "biber $package" );
 system_call( "perl datamodel.pl" );
-system_call( "makeindex -s gglo.ist -o $package.gls $package.glo" );
+system_call( "lualatex -file-line-error $package.dtx" );
 system_call( "makeindex -s gind.ist $package.idx" );
+system_call( "lualatex -file-line-error $package.dtx" );
+system_call( "makeindex -s gglo.ist -o $package.gls $package.glo" );
+system_call( "lualatex -file-line-error $package.dtx" );
+system_call( "makeindex -s gglo.ist -o $package.gls $package.glo" );
 system_call( "lualatex -file-line-error $package.dtx" );
 system_call( "lualatex -file-line-error $package.dtx" );
 

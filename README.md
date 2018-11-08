@@ -24,6 +24,8 @@ Create a directory `{TEXMF}/doc/latex/biblatex-archaeology` and move `biblatex-a
 	 $ lualatex biblatex-archaeology
 	 $ makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
 	 $ lualatex biblatex-archaeology
+	 $ makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
+	 $ lualatex biblatex-archaeology
 	 $ lualatex biblatex-archaeology
  \end{verbatim}
 

@@ -129,8 +129,9 @@ if (defined $out) {
 
    while ( <$out> ) { $source .= $_ }
    
-   $source =~ s/(<\*\Q$driver\E>\n%\s?\\fi\n).*?(<\/\n%\s\\iffalse\n\Q$driver\E>)/\1$bib%\2/s;
+   $source =~ s/(<\*\Q$driver\E>\n%\s?\\fi\n).*?(\n%\s\\iffalse\n%<\/\Q$driver\E>)/\1$bib%\2/s;
    undef $out;       # automatically closes the file
+   print "\nPATTERN: ", $&. "\n\n";
 }
 $out = FileHandle->new($dtx, O_WRONLY|O_TRUNC);
 if (defined $out) {
