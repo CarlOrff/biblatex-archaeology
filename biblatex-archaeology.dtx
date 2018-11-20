@@ -211,6 +211,7 @@
 % \changes{2.1}{2018/10/31}{New style \Stil{kunde}}
 % \changes{2.1}{2018/11/06}{New document types mentioned in abstract (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/24}{issue \#24})}
 % \changes{2.1}{2018/11/07}{New style \Stil{nnu-alt}}
+% \changes{2.2}{2018/11/20}{Renamed \Datei{biblatex-archaeology.conf}, now \Datei{biblatex-archaeology.xml}}
 %
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -1530,7 +1531,7 @@
 %
 % \Biber does not see any data model file (\Kbd{*.dbx}) when in tool mode (with option \Kbd{--}\Option{tool} instead of job name)
 % and therefore omits all fields unknown to the standard styles. In order to avoid this we must provide our extended data model
-% in \Biber's \Kbd{*.conf} file. Find it in the file \Datei{biblatex-archaeology.conf} (or \cref{kap:biberconf}) and replace the 
+% in \Biber's \Kbd{*.conf} file. Find it in the file \Datei{biblatex-archaeology.xml} (or \cref{kap:biberconf}) and replace the 
 % \Kbd{<datamodel>\textellipsis</datamodel>} group in \Biber's \Kbd{*.conf} file by it. If you do not know where it is located, you
 % can retrieve the path by calling \Biber with the single option \Kbd{--}\Option{tool-config}. If you do not want to manipulate 
 % the original file, copy it to a new one and call \Biber with option \Kbd{--}\Option{configfile}\Kbd{ /path/to/custom/biber.conf}.
