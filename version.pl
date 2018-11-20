@@ -26,7 +26,7 @@ $mon++;
 $mon = '0' . $mon if $mon <= 9; # trailing zero
 my $date = $year . '/' . $mon . '/' . $mday;
 
-my $version = 'v2.1';
+my $version = 'v2.2';
 assert( $version =~ /v\d\.\d{1,3}[a-z]?/ );
 
 my @files = qw/
