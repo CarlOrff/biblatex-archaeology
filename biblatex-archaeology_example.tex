@@ -53,14 +53,14 @@
     %style=aefkw,
     %style=afwl,
     %style=amit,
-	style=niedersachsen,
+	%style=niedersachsen,
     %style=archa,
     %style=dguf,
     %style=dguf-alt,
     %style=dguf-apa,
     %style=eaz,
     %style=eaz-alt,
-    %style=foe,
+    style=foe,
     %style=jb-halle,
     %style=jb-kreis-neuss,
     %style=karl,
@@ -125,7 +125,56 @@
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
-
+\renewbibmacro*{titlenote}[1]{%
+    \iftoggle{archbool:titlenote}
+%    \end{macrocode}
+% Festschrifts:
+%    \begin{macrocode}
+        {\ifnameundef{festschrift}
+            {}
+            {\usebibmacro{festschrift}{#1}}%
+%    \end{macrocode}
+% Auction catalogues (with \Feld{fulleventdate} field):
+%    \begin{macrocode}
+         \ifboolexpr{
+            not test {\iffieldundef{eventtype}}
+            and
+            not test {\iffieldundef{fulleventyear}}
+         }
+            {\usebibmacro{auction}{#1}}
+            {}%
+%    \end{macrocode}
+% Conferences and exhibitions:
+%    \begin{macrocode}
+        \ifboolexpr{
+            not test {\iffieldundef{eventtype}}
+            and
+            test {\iffieldundef{fulleventyear}}
+        }
+            {\printfield[titlenote]{eventtype}}
+            {}%
+        \ifboolexpr{
+            test {\iffieldundef{eventtype}}
+            and
+            test {\ifnameundef{festschrift}}
+        }
+            {\iffieldundef{#1note}
+                {\printfield[#1note]{#1addon}}
+                {\printfield{#1note}}}
+            {}
+        }
+        {\printfield{#1addon}}%
+        \clearfield{#1addon}%
+        \clearfield{#1note}%
+        \clearfield{eventtype}%
+        \clearname{festschrift}%
+        \clearfield{venue}%
+        \clearfield{eventnumber}%
+        \clearlist{multivenue}%
+        \clearlist{multieventdate}%
+}
+%    \end{macrocode}
+% \end{bibmacro}
 	
 %%% END EXPERIMENTAL CODE HERE:
 \makeatother

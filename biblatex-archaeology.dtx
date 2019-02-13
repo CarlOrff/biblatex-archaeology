@@ -7,7 +7,7 @@
 % conditions of the LaTeX Project Public License, either
 % version 1.3c of this license or (at your option) any later
 % version.The latest version of this license is in:
-% \
+% 
 % http://www.latex-project.org/lppl.txt
 %
 % and version 1.3c or later is part of all distributions of
@@ -382,7 +382,8 @@
 % The author date style of the \Deutsch{Ausgrabungen und Forschungen in Westfalen-Lippe}.\autocite{guidelines:lwl:2013}
 %
 % \item[]\DescribeStyle{amit}
-% The author date style of the \Deutsch{Eurasien-Abteilung des Deutschen Arch\"aologischen Instituts}.\autocite{guidelines:amit:2002}
+% The author date style of the \Deutsch{Eurasien-Abteilung des Deutschen Arch\"aologischen Instituts}.\autocites{guidelines:amit:2003,guidelines:amit:2003}
+% \Latein{Bulgarica} (formerly \Deutsch{Bulgarien-Jahrbuch}) uses a similar style.\autocite{guidelines:bulgarica}
 %
 % \item[]\DescribeStyle{archa}
 % The now obsolete author date style of the Austrian journal \Deutsch{Archaeologia Austriaca}
@@ -9157,13 +9158,13 @@
 %    \end{macrocode}   
 % Delete \Feld{subseries} and \Feld{shortsubseries} fields if not needed.
 %    \begin{macrocode}
-    \iftoggle{archbool:subseries}
-        {}
+    \togglefalse{archbool:subseries}
         {\clearfield{subseries}%
          \clearfield{subnumber}%
          \clearfield{shortsubseries}}%
 %    \end{macrocode}   
 % Restore \Feld{series} and \Feld{subseries} by \Feld{shortseries} and \Feld{shortsubseries} if \Feld{shortseries} option enabled.
+% \changes{2.2}{2018/02/11}{New style \Stil{nnu-alt}}
 %    \begin{macrocode}
     \ifboolexpr{
         togl {archbool:shortseries}
@@ -9172,10 +9173,10 @@
     }
         {\savefield*{shortseries}{\blxarch@field@shortseries}%
          \savefield*{shortsubseries}{\blxarch@field@shortsubseries}%
+		 \restorefield{series}{\blxarch@field@shortseries}%
          \iffieldundef{shortsubseries}
             {}
-            {\restorefield{series}{\blxarch@field@shortseries}%
-            \restorefield{subseries}{\blxarch@field@shortsubseries}}%
+            {\restorefield{subseries}{\blxarch@field@shortsubseries}}%
         }
         {}%
 %    \end{macrocode}
@@ -9932,7 +9933,7 @@
 % \begin{option}{usesourceeditor}
 % =\meta{bool}\\
 % \changes{2.0}{2018/05/23}{\Option{usesourceeditor} also settable on a per-entry basis}
-% If editions of historical sources are printed with print secondary editors.
+% If editions of historical sources are printed with secondary editors.
 %    \begin{macrocode}
 \newtoggle{archbool:usesourceeditor}
 \DeclareBibliographyOption{usesourceeditor}[true]{%
