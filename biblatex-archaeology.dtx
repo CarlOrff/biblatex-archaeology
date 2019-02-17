@@ -764,7 +764,7 @@
 % a \Feld{shorttitle} to the label. This is done automatically now but you can still enforce it (though not suppress).
 %
 % \item[]\DescribeOption{usesourceeditor}=\meta{bool}\\
-% Like global option \Option{titlenote} (\cref{kap:pkgopt}) but on a per-entry basis.
+% Like global option \Option{usesourceeditor} (\cref{kap:pkgopt}) but on a per-entry basis.
 %
 % \end{itemize}
 % 
@@ -9418,7 +9418,7 @@
 % \marg{string}\\
 % Prints a title note. The \Befehl{printtext} command must be inside
 % the conditions, otherwise a lot of empty brackets gets printed.
-% \Format{issue+date} was overwritten in author date styles. \meta{string} should be \Feld{title},
+% \meta{string} should be \Feld{title},
 % \Feld{maintitle} or \Feld{booktitle}.
 %    \begin{macrocode}
 \newbibmacro*{titlenote}[1]{%
@@ -10237,6 +10237,63 @@
 \ExecuteBibliographyOptions{injournal}
 %    \end{macrocode}
 % \end{option}
+%
+% \subsubsubsection{Periodicals}
+%
+% \begin{bibmacro}{title+issuetitle}
+%    \begin{macrocode}
+\renewbibmacro*{title+issuetitle}{%
+    \printtext{%
+		\ifboolexpr{
+			test {\ifcitation}
+			and
+			not test {\iffieldundef{shorttitle}}
+		}
+			{\printfield[title]{shorttitle}}
+			{\printtext[title]{%
+				\printfield{title}
+				\setunit*{\titlesubtitledelim}%
+				\printfield{subtitle}}}%
+        \iffieldundef{series}
+			{} 
+			{\setunit{\addspace}%
+			 \printfield{series}}%
+		\setunit*{\journalvolumedelim}%
+        \usebibmacro{volume+number+eid}%
+        \iffieldundef{volume}
+            {\setunit{\addspace}}
+            {\setunit{\volumedatedelim}}%
+        \usebibmacro{issue+date}%
+    }%
+    \newunit}%
+%    \end{macrocode}
+% \end{bibmacro}
+%
+% Cite periodical with volume and number.
+% \changes{2.2}{\Befehl{citeissue and friends added}}
+% \begin{macro}{\citeissue}
+% \begin{macro}{\fciteissue}
+% \begin{macro}{\pciteissue}
+%    \begin{macrocode}
+\DeclareCiteCommand{citeissue}[]
+	{\usebibmacro{prenote}}
+	{\csuse{blxarch@issuedate}\usebibmacro{title+issuetitle}\restorebibmacro{issue+date}}
+	{\multicitedelim}
+	{\usebibmacro{postnote}}
+\DeclareCiteCommand{fciteissue}[\mkbibfootnote]
+	{\usebibmacro{prenote}}
+	{\csuse{blxarch@issuedate}\usebibmacro{title+issuetitle}\restorebibmacro{issue+date}}
+	{\multicitedelim}
+	{\usebibmacro{postnote}}
+\DeclareCiteCommand{pciteissue}[\mkbibparens]
+	{\usebibmacro{prenote}}
+	{\csuse{blxarch@issuedate}\usebibmacro{title+issuetitle}\restorebibmacro{issue+date}}
+	{\multicitedelim}
+	{\usebibmacro{postnote}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
 %
 % \subsubsubsection{Editions}
 %
@@ -11557,8 +11614,9 @@
 % \end{bibmacro}
 %
 % \begin{format}{labeldateparens}
+% \changes{2.2}{fixed \Format{labeldate} format}
 %    \begin{macrocode}
-\DeclareListFormat*{labeldateparens}{#1}
+\DeclareFieldFormat*{labeldateparens}{#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -12409,6 +12467,7 @@
 % \end{format}
 %
 % \begin{bibmacro}{begentry}
+% \changes{2.2}{clear \Feld{shorttitle} if \Option{repeatlabel}\Kbd{=!false} to avoid repetition}}
 % \begin{bibmacro}{finentry}
 % \Format{issue+date} cannot be changed in author date label generation, but it must be available
 % in \Befehl{fullcite}-like commands.
@@ -12424,6 +12483,10 @@
                 {}}
             {}}
         {}%
+%    \end{macrocode}
+% \Feld {shorttitle} field would be repeated otherwise:
+%    \begin{macrocode}
+	\clearfield{shorttitle}%
 }{}{Patching bibmacro 'begentry' failed (1)}
 \xpretobibmacro{finentry}{%
     \restorebibmacro{issue+date}%

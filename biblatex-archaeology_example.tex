@@ -60,7 +60,7 @@
     %style=dguf-apa,
     %style=eaz,
     %style=eaz-alt,
-    style=foe,
+    %style=foe,
     %style=jb-halle,
     %style=jb-kreis-neuss,
     %style=karl,
@@ -70,7 +70,7 @@
     %style=mpkoeaw,
     %style=nnu,
     %style=offa,
-    %style=rgk-inline,
+    style=rgk-inline,
     %style=rgk-numeric,
     %style=rgk-verbose,
     %style=rgzm-inline,
@@ -126,7 +126,7 @@
 %%% PASTE EXPERIMENTAL CODE HERE:
 
 
-%%% END EXPERIMENTAL CODE HERE:
+%%% END EXPERIMENTAL CODE
 \makeatother
 
 
@@ -219,6 +219,15 @@
         {\item[\footnotesize\Befehl{Posscites}] \Posscites[48]{auler:hiller:2015a}[19]{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
         {\textbf{undefined!}}%
     \item[\footnotesize\Befehl{footcite}] \footcites{auler:hiller:2015}{harsdoerffer:1656}
+	\ifcsdef{citeissue}
+        {\item[\footnotesize\Befehl{citeissue}] \citeissue[48]{bericht:rgk:1988}}
+        {\textbf{undefined!}}%
+	\ifcsdef{fciteissue}
+        {\item[\footnotesize\Befehl{fciteissue}] \fciteissue[48]{bericht:rgk:1988}}
+        {\textbf{undefined!}}%
+	\ifcsdef{pciteissue}
+        {\item[\footnotesize\Befehl{pciteissue}] \pciteissue[48]{bericht:rgk:1988}}
+        {\textbf{undefined!}}%
 \end{enumerate}
 
 
@@ -398,6 +407,14 @@
 \begin{itemize}
     \item[$\Delta 1$ y.]\fullcite{ib:domino:dormagen}%
     \item[$\Delta 3$ y.]\fullcite{michaelsen:1978}%
+\end{itemize}
+
+\subsection{\Typ{Periodical}}
+\begin{itemize}
+	\item\fullcite{bericht:rgk:1988}%
+    \item\citeissue{bericht:rgk:1988}%
+	\item\pciteissue{bericht:rgk:1988}%
+	\item\fciteissue{bericht:rgk:1988}%
 \end{itemize}
 
 %\printshorthands
