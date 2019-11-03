@@ -302,7 +302,7 @@
 % \blx from which it inherits the majority of its code. \blx including
 % all its prerequesits is necessary to get \archbib run. Needless
 % to say that it requires a good working knowledge of \blx. In
-% addition \archbib uses the \Paket{array}, \Paket{calc}, \Paket{tabulary} and \Paket{textcomp} packages.
+% addition \archbib uses the \Paket{array}, \Paket{calc} and \Paket{tabulary} packages.
 % Since it makes heavy use of \blx' Biber-only components it is absolutely pointless to
 % employ \bibtex. Doing so will issue an error.
 % 
@@ -12456,7 +12456,7 @@
             {}}
         {}%
 %    \end{macrocode}
-% \changes{2.2}{2018/02/18}{clear \Feld{shorttitle} if \Option{repeatlabel}\Kbd{=!false} to avoid repetition}
+% \changes{2.2}{2018/02/18}{clear \Feld{shorttitle} if option \Option{repeatlabel}\Kbd{$\neq$false} to avoid repetition}
 % \Feld{shorttitle} field would be repeated in \bibmacro{title+issuetitle} otherwise:
 %    \begin{macrocode}
 	\ifentrytype{periodical}
