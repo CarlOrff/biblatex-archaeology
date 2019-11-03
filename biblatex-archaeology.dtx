@@ -104,7 +104,7 @@
 \newrobustcmd*{\Stil}[1]{\texttt{#1}}
 \newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
 \newcommand{\subsubsubsubsection}[1]{\subparagraph{#1}\mbox{}\\}
-\newcommand*{\Deutsch}[1]{\emph{\begin{hyphenrules}{ngerman}#1\end{hyphenrules}}}
+\newcommand*{\Deutsch}[1]{\emph{\begin{hyphenrules}{german}#1\end{hyphenrules}}}
 \newcommand*{\Latein}[1]{\emph{\begin{hyphenrules}{latin}#1\end{hyphenrules}}}
 \setcounter{tocdepth}{5}
 \setcounter{secnumdepth}{5}
@@ -145,7 +145,7 @@
     pdfapart=1,
     pdfaconformance=B,
     pdfmetalang=en,
-    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-v2.2\&ib_medium=manual\&ib_source=github\&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7, https://independent.academia.edu/IngramBraun},
+    pdfcontacturl={https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-v2.2\&ib_medium=manual\&ib_source=academia\&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7, https://independent.academia.edu/IngramBraun},
     pdflicenseurl = {http://www.latex-project.org/lppl.txt},
     pdfsource={\jobname.dtx},
     pdftype=Software,
@@ -227,7 +227,7 @@
 % \GlossaryPrologue{\section*{\changessectiontitle}\addcontentsline{toc}{section}{\changessectiontitle}\fancypagestyle{changes}{\fancyhead[RO,LE]{\changessectiontitle}}\pagestyle{changes}}
 %
 % \title{\LARGE\color{\headingscolor}The \archbib styles [v2.2]}
-% \author{\Large Ingram Braun \\ \href{https://ingram-braun.net/\#ib_campaign=biblatex-archaeology-v2.2\&ib_medium=manual\&ib_source=github\&ib_content=titlepage}{\Kbd{https://ingram-braun.net/}}}
+% \author{\Large Ingram Braun \\ \href{https://ingram-braun.net/\#ib_campaign=biblatex-archaeology-v2.2\&ib_medium=manual\&ib_source=academia\&ib_content=titlepage}{\Kbd{https://ingram-braun.net/}}}
 %
 % \maketitle
 %
@@ -329,11 +329,11 @@
 % \subsection{Help}\label{kap:help}
 % \par If there are any concerns you can reach me directly via the
 % \href{https://github.com/CarlOrff/biblatex-archaeology/issues}{GitHub tracker} or comment section on
-% a \href{https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-v2.2&ib_medium=manual&ib_source=github\&ib_content=helpsection}
+% a \href{https://ingram-braun.net/public/programming/tex/latex-typography-prehistory-egyptology-anthropology-rgk-rgzm-dguf/\#ib_campaign=biblatex-archaeology-v2.2&ib_medium=manual&ib_source=academia\&ib_content=helpsection}
 %{small project page on my personal website}.
-% Alternatively you can e-mail me through the \href{https://ingram-braun.net/public/about/legal-notice/\#ib_campaign=biblatex-archaeology-v2.2&ib_medium=manual&ib_source=github\&ib_content=helpsection}{contact form} there.
+% Alternatively you can e-mail me through the \href{https://ingram-braun.net/public/about/legal-notice/\#ib_campaign=biblatex-archaeology-v2.2&ib_medium=manual&ib_source=academia\&ib_content=helpsection}{contact form} there.
 % Of course, \href{http://tex.stackexchange.com}{TeX Stack Exchange} is always worth a try.
-% \par The \href{https://ingram-braun.net/public/programming/tex/bibtex-database-latex-bibliography-form/\#ib_campaign=biblatex-archaeology-v2.2&ib_medium=manual&ib_source=github\&ib_content=helpsection}{Online \blx Editor}
+% \par The \href{https://ingram-braun.net/public/programming/tex/bibtex-database-latex-bibliography-form/\#ib_campaign=biblatex-archaeology-v2.2&ib_medium=manual&ib_source=academia\&ib_content=helpsection}{Online \blx Editor}
 % on my website provides the additional \archbib fields.
 % 
 % \section{Reference}
@@ -931,6 +931,31 @@
 % \subsubsection{Citation commands}\label{kap:citecmd}
 %
 % \begin{itemize}
+%
+% \item[]\DescribeMacro{\citeissue}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Prints the volume of a journal. Note that this is only useful if the entry type is a \Typ{periodical}.
+% It will issue a warning otherwise.
+%
+% \item[]\DescribeMacro{\fciteissue}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{citeissue} but as footnote.
+% 
+% \item[]\DescribeMacro{\pciteissue}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{citeissue} but in parentheses.
+%
+% \item[]\DescribeMacro{\sciteissue}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{pciteissue} in a footnote and \Befehl{fciteissue} otherwise.
+% 
+% \item[]\DescribeMacro{\citeissues}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% The multicite variant of \Befehl{citeissue}.
+% 
+% \item[]\DescribeMacro{\fciteissues}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% The multicite variant of \Befehl{fciteissue}.
+% 
+% \item[]\DescribeMacro{\pciteissues}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% The multicite variant of \Befehl{pciteissue}.
+% 
+% \item[]\DescribeMacro{\sciteussues}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% The multicite variant of \Befehl{sciteissue}.
 %
 % \item[]\DescribeMacro{\posscite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
 % The same as \Befehl{textcite} but as genitive form. The cite label is handled as an entity in that way that only the last \Feld{labelname} (or the \enquote{et.\,al.}
@@ -1752,42 +1777,6 @@
   KEYWORDS = {Kleinenkneten, Megalithik, Neolithikum, Niedersachsen},
   REALDATE = {1978},
 }
-@INCOLLECTION{mueller:a:1991,
-  AUTHOR = {von Müller, Adriaan},
-  TITLE = {Spandau im Mittelalter},
-  PAGES = {105--117},
-  CROSSREF = {kerndl:1991},
-  KEYWORDS = {Berlin, Spandau, Mittelalter, Stadt},
-  XREF = {kerndl:1991}
-}
-@INCOLLECTION{mueller:f:1991,
-  AUTHOR = {Müller, Felix},
-  TITLE = {Latènezeit},
-  SUBTITLE = {Die Welt gerät in Bewegung},
-  PAGES = {71--83},
-  CROSSREF = {furger:mueller:1991},
-  KEYWORDS = {latène, Kelten, Schweiz},
-  XREF = {furger:mueller:1991}
-}
-@INCOLLECTION{mueller:h:1900,
-  AUTHOR = {Müller, Hermann},
-  TITLE = {Kaiser Friedrich und das Kunstgewerbe-Museum},
-  PAGES = {62--70},
-  CROSSREF = {brandenburg:1900},
-  KEYWORDS = {Museologie, Forschungsgeschichte, Friedrich III. (dt. Kaiser), 19.
-    Jahrhundert, Hohenzollern, Berlin, Kunstgewerbe-Museum},
-  XREF = {brandenburg:1900}
-}
-@INCOLLECTION{mueller:har:1988,
-  AUTHOR = {Müller, Hartmut},
-  TITLE = {Wodurch die Unterweser, soweit die Fluth reicht, der überseeischen
-    Segel- und Dampfschiffahrt zugänglich gemacht werde},
-  SUBTITLE = {Die Weser-Korrektion},
-  PAGES = {61--63},
-  CROSSREF = {plagemann:1988},
-  KEYWORDS = {Bremen, Weser, 19. Jahrhundert, Schiffahrt, Wasserstraße},
-  XREF = {plagemann:1988}
-}
 @ARTICLE{nass:1938,
   AUTHOR = {Naß, Karl},
   TITLE = {Karolingische Reihengräberfelder aus Hessen},
@@ -1861,15 +1850,12 @@
   GENDER = {sf},
   LANGUAGE = {german},
 }
-@COLLECTION{brandenburg:1900,
-  EDITOR = {{Pestalozzi-Verein der Provinz Brandenburg}},
-  TITLE = {Die Provinz Brandenburg in Wort und Bild},
-  DATE = {1998},
-  ORIGPUBLISHER = {Julius Klinkhardt},
-  ORIGLOCATION = {Berlin},
-  ORIGDATE = {1900},
-  PUBLISHER = {Weltbild},
-  LOCATION = {Augsburg},
+@PERIODICAL{bericht:rgk:1988,
+  TITLE = {Bericht der Römisch-Germanischen Kommission},
+  DATE = {1988},
+  VOLUME = 69,
+  GENDER = {sf},
+  SHORTTITLE = {Ber. RGK},
 }
 @COLLECTION{bratt:lundstroem:1997,
   EDITOR = {Bratt, Peter AND Lundström, Åsa},
@@ -1981,16 +1967,6 @@
   LANGUAGE = {german},
   GENDER = {sm},
 }
-@COLLECTION{furger:mueller:1991,
-  EDITOR = {Furger, Andres AND Müller, Felix},
-  TITLE = {Gold der Helvetier},
-  DATE = {1991},
-  SUBTITLE = {Keltische Kostbarkeiten aus der Schweiz},
-  PUBLISHER = {Eidolon},
-  LOCATION = {Einsiedeln},
-  BOOKSUBTITLE = {Keltische Kostbarkeiten aus der Schweiz},
-  BOOKTITLE = {Gold der Helvetier}
-}
 @BOOK{harsdoerffer:1656,
   AUTHOR = {Harsdörffer, Georg Philipp},
   TITLE = {Das astronomische Kartenspiel},
@@ -2036,6 +2012,7 @@
   SHORTFORM = {RGA},
   LANGUAGE = {german},
 }
+
 @ONLINE{kenmore,
   URL = {http://www.kenmore.org/kenmore/kp_arch.html},
   URLDATE = {2015-12-23},
@@ -2043,16 +2020,6 @@
   AUTHOR = {{The George Washington Foundation}},
   SHORTAUTHOR = {{George Wahington Found.}},
   LANGUAGE = {english},
-}
-@COLLECTION{kerndl:1991,
-  EDITOR = {Kernd'l, Alfred},
-  TITLE = {Berlin und Umgebung},
-  DATE = {1991},
-  SERIES = {Führer zu archäologischen Denkmälern in Deutschland},
-  NUMBER = {23},
-  PUBLISHER = {Konrad Theiss},
-  LOCATION = {Stuttgart},
-  BOOKTITLE = {Berlin und Umgebung}
 }
 @BOOK{kossack:et:al:1980,
   AUTHOR = {Kossack, Georg AND Harck, Ole AND Newig, Jürgen AND Hoffmann, Dietrich AND Willkomm, Horst AND Averdieck, Fritz-Rudolf AND Reichstein, Joachim},
@@ -2163,16 +2130,6 @@
   ORGANIZATION = {Schloß Kleßheim AND Casino Linz AND Casino Baden},
   LANGUAGE = {german},
   GENDER = {sm},
-}
-@COLLECTION{plagemann:1988,
-  EDITOR = {Plagemann, Volker},
-  TITLE = {Übersee},
-  DATE = {1988},
-  SUBTITLE = {Seefahrt und Seemacht im Deutschen Kaiserreich},
-  PUBLISHER = {C.H. Beck},
-  LOCATION = {München},
-  BOOKSUBTITLE = {Seefahrt und Seemacht im Deutschen Kaiserreich},
-  BOOKTITLE = {Übersee}
 }
 @COLLECTION{radmacher:kronsbein:2011,
   EDITOR = {Radmacher, Franz-Josef AND Kronsbein, Stefan},
@@ -8271,8 +8228,9 @@
 %
 % \begin{format}{global}
 % \changes{2.1}{2018/11/01}{adapt \Format{global} to option \Option{uniquename}}
+% \changes{2.2}{2019/11/03}{\blx 3.13 uses strings instead of numbers here (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/29}{issue \#29})}
 %    \begin{macrocode}
-\ifnumequal\blx@uniquename\blx@opt@uniquename@false
+\ifstrequal\blx@uniquename\blx@opt@uniquename@false
     {\DeclareSortingNamekeyTemplate{
         \keypart{
             \namepart[use=true]{prefix}
@@ -8281,7 +8239,7 @@
             \namepart{family}
         }
     }}
-    {\ifnumequal\blx@uniquename\blx@opt@uniquename@init
+    {\ifstrequal\blx@uniquename\blx@opt@uniquename@init
         {\DeclareSortingNamekeyTemplate{
             \keypart{
                 \namepart[use=true]{prefix}
@@ -8304,7 +8262,7 @@
 % \end{format}
 %
 %    \begin{macrocode}
-% Remove all prefixes from sort names. Alas, lookaheads don't work here. The canonical way to do this would% be to
+% Remove all prefixes from sort names. Alas, lookaheads don't work here. The canonical way to do this would be to
 % employ \Befehl{DeclareSortingNamekeyTemplate} but we want to override \blx' default which strips Arab articles
 \DeclareNosort{
     \nosort{setnames}{\regexp{^[^\p{Lu}]+}}
@@ -10270,7 +10228,7 @@
 % \end{bibmacro}
 %
 % Cite periodical with volume and number.
-% \changes{2.2}{\Befehl{citeissue and friends added}}
+% \changes{2.2}{2018/021/17}{\Befehl{citeissue and friends added}}
 % \begin{macro}{\citeissue}
 % \begin{macro}{\fciteissue}
 % \begin{macro}{\pciteissue}
@@ -10290,6 +10248,20 @@
 	{\csuse{blxarch@issuedate}\usebibmacro{title+issuetitle}\restorebibmacro{issue+date}}
 	{\multicitedelim}
 	{\usebibmacro{postnote}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% The multicite versions of \Befehl{citeissue} and friends.
+% \changes{2.2}{2018/02/17}{\Befehl{citeissues} and friends added}
+% \begin{macro}{\citeissues}
+% \begin{macro}{\fciteissues}
+% \begin{macro}{\pciteissues}
+%    \begin{macrocode}
+\DeclareMultiCiteCommand{\citeissues}{\citeissue}{\multicitedelim}
+\DeclareMultiCiteCommand{\fciteissues}[\mkbibfootnote]{\fciteissue}{\multicitedelim}
+\DeclareMultiCiteCommand{\pciteissues}[\mkbibparens]{\pciteissue}{\multicitedelim}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -11614,7 +11586,7 @@
 % \end{bibmacro}
 %
 % \begin{format}{labeldateparens}
-% \changes{2.2}{fixed \Format{labeldate} format}
+% \changes{2.2}{2018/02/15}{fixed \Format{labeldate} format}
 %    \begin{macrocode}
 \DeclareFieldFormat*{labeldateparens}{#1}
 %    \end{macrocode}
@@ -12467,7 +12439,6 @@
 % \end{format}
 %
 % \begin{bibmacro}{begentry}
-% \changes{2.2}{clear \Feld{shorttitle} if \Option{repeatlabel}\Kbd{=!false} to avoid repetition}}
 % \begin{bibmacro}{finentry}
 % \Format{issue+date} cannot be changed in author date label generation, but it must be available
 % in \Befehl{fullcite}-like commands.
@@ -12484,9 +12455,18 @@
             {}}
         {}%
 %    \end{macrocode}
-% \Feld {shorttitle} field would be repeated otherwise:
+% \changes{2.2}{2018/02/18}{clear \Feld{shorttitle} if \Option{repeatlabel}\Kbd{=!false} to avoid repetition}
+% \Feld{shorttitle} field would be repeated in \bibmacro{title+issuetitle} otherwise:
 %    \begin{macrocode}
-	\clearfield{shorttitle}%
+	\ifentrytype{periodical}
+		{\ifboolexpr{
+			test {\ifcitation}
+			or
+			not test {\ifrepeatlabel{false}}
+		 }
+			{\clearfield{shorttitle}}
+			{}}
+		{}%
 }{}{Patching bibmacro 'begentry' failed (1)}
 \xpretobibmacro{finentry}{%
     \restorebibmacro{issue+date}%

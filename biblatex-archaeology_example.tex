@@ -16,7 +16,7 @@
     \raggedright
 \else 
     \usepackage{fontspec,polyglossia,noto}
-    \setmonofont{NotoMono}[HyphenChar=None]
+    \setmonofont{NotoSansMono}[HyphenChar=None]
     %\setdefaultlanguage{english}\setotherlanguage{german}
     \setdefaultlanguage{german}\setotherlanguage{english}
 % command is missing in some fonts:
@@ -50,7 +50,7 @@
     %style=verbose-trad2note-archaeology,
     %style=verbose-ibid-archaeology,
     %style=verbose-archaeology,
-    %style=aefkw,
+    style=aefkw,
     %style=afwl,
     %style=amit,
 	%style=niedersachsen,
@@ -70,7 +70,7 @@
     %style=mpkoeaw,
     %style=nnu,
     %style=offa,
-    style=rgk-inline,
+    %style=rgk-inline,
     %style=rgk-numeric,
     %style=rgk-verbose,
     %style=rgzm-inline,
@@ -227,6 +227,15 @@
         {\textbf{undefined!}}%
 	\ifcsdef{pciteissue}
         {\item[\footnotesize\Befehl{pciteissue}] \pciteissue[48]{bericht:rgk:1988}}
+        {\textbf{undefined!}}%
+	\ifcsdef{citeissues}
+        {\item[\footnotesize\Befehl{citeissues}] \citeissues[48]{bericht:rgk:1988}}
+        {\textbf{undefined!}}%
+	\ifcsdef{fciteissues}
+        {\item[\footnotesize\Befehl{fciteissues}] \fciteissues[48]{bericht:rgk:1988}}
+        {\textbf{undefined!}}%
+	\ifcsdef{pciteissues}
+        {\item[\footnotesize\Befehl{pciteissues}] \pciteissues[48]{bericht:rgk:1988}}
         {\textbf{undefined!}}%
 \end{enumerate}
 
