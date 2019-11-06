@@ -8109,7 +8109,7 @@
             \pernottype{thesis}
              \step[
                 fieldsource=\regexp{$MAPLOOP},
-                match=\regexp{[Ee]xhibi[ct]|[Aa]usstellung|[Uu][dt]st[iä]ll[n]ing|[Tt]entoonstelling|[Ee][xs]posi[cçtz]},
+                matchi=\regexp{exhibi[ct]|ausstellung|u[dt]st[iä]ll[n]ing|tentoonstelling|e[xs]posi[cçtz]},
                 fieldset=eventtype,
                 fieldvalue=exhibition,
                 append=true,
@@ -8120,7 +8120,7 @@
 %    \begin{macrocode}
              \step[
                 fieldsource=\regexp{$MAPLOOP},
-                match=\regexp{[KkCc]onf[eé]ren[cstz]|[Ss]ymposi|[KkCc]ol{1,2}[oó]qu|[KkCc]onvent|[Mm]eeting},
+                matchi=\regexp{[kc]onf[eé]ren[cstz]|symposi|[kc]ol{1,2}[oó]qu|[kc]onvent|meeting},
                 fieldset=eventtype,
                 fieldvalue=conference,
                 append=true,
@@ -8131,7 +8131,7 @@
 %    \begin{macrocode}
              \step[
                 fieldsource=\regexp{$MAPLOOP},
-                match=\regexp{[Aa]u[ck]tion|Versteigerung|\b[Ee]nchère|[Vv]eiling|[Ss]ubasta|[Ll]eil(ões|ão)},
+                matchi=\regexp{au[ck]tion|Versteigerung|\benchère|veiling|subasta|leil(ões|ão)},
                 fieldset=eventtype,
                 fieldvalue=auction,
                 append=true,
@@ -8146,7 +8146,7 @@
         ]{
             \step[
                 fieldsource=eventtype,
-                match=\regexp{[Aa]u[ck]tion},
+                matchi=\regexp{au[ck]tion},
                 final=true,
             ]
             \step[
