@@ -448,13 +448,13 @@
 % \Deutsch{Institut f\"ur Ur- und Fr\"uhgeschichte der Christian-Albrechts-Universit\"at zu Kiel}.\autocite{guidelines:offa:2009}
 %
 % \item[]\DescribeStyle{rgk-inline}
-% The author date style of the \Deutsch{R\"omisch-Germanische Kommission des Deutschen Arch\"aologischen Instituts}.\autocite{guidelines:rgk:1991}
+% The author date style of the \Deutsch{R\"omisch-Germanische Kommission des Deutschen Arch\"aologischen Instituts}.\autocites{guidelines:rgk:1991,guidelines:rgk:2018:de,guidelines:rgk:2018:en,guidelines:rgk-review:de}
 %
 % \item[]\DescribeStyle{rgk-numeric}
 % The RGK style with numeric labels. Keep in mind that \Feld{prenote} and \Feld{postnote} fields are senseless in numeric styles.
 %
 % \item[]\DescribeStyle{rgk-verbose}
-% The verbose style of the \Deutsch{R\"omisch-Germanische Kommission des Deutschen Arch\"aologischen Instituts}.\autocite{guidelines:rgk:1991}
+% The verbose style of the \Deutsch{R\"omisch-Germanische Kommission des Deutschen Arch\"aologischen Instituts}.\autocites{guidelines:rgk:1991,guidelines:rgk:2018:de,guidelines:rgk:2018:en,guidelines:rgk-review:de} 
 %
 % \item[]\DescribeStyle{rgzm-inline}
 % The author date style of the \Deutsch{R\"omisch-Germanisches Zentralmuseum}.
@@ -955,7 +955,7 @@
 % \item[]\DescribeMacro{\pciteissues}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
 % The multicite variant of \Befehl{pciteissue}.
 % 
-% \item[]\DescribeMacro{\sciteussues}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% \item[]\DescribeMacro{\sciteissues}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
 % The multicite variant of \Befehl{sciteissue}.
 %
 % \item[]\DescribeMacro{\posscite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
@@ -999,6 +999,43 @@
 %
 % \item[]\DescribeMacro{\sfcites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
 % Similar to \Befehl{shortformcites}, but not wrapped in a footnote and falls back to \Befehl{cites}.
+%
+% \item[]\DescribeMacro{\reviewcite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Some journals require a somewhat compressed \Befehl{fullcite} (lacking serieses and subtitles) without footnotes and bibliography in reviews. This is what
+% \Befehl{reviewcite} and friends do. \Stark{Remark that these should not get mixed up with other cite commands!}
+%
+% \item[]\DescribeMacro{\previewcite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{reviewcite} but in parentheses.
+%
+% \item[]\DescribeMacro{\textreviewcite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{previewcite} but author name outside parentheses.
+%
+% \item[]\DescribeMacro{\Reviewcite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{reviewcite} but enforces capitalization of the first character.
+%
+% \item[]\DescribeMacro{\Previewcite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{previewcite} but enforces capitalization of the first character.
+%
+% \item[]\DescribeMacro{\Textreviewcite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{textreviewcite} but enforces capitalization of the first character.
+% 
+% \item[]\DescribeMacro{\reviewcites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% The multicite variant of \Befehl{reviewcite}.
+% 
+% \item[]\DescribeMacro{\previewcites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% The multicite variant of \Befehl{previewcite}.
+% 
+% \item[]\DescribeMacro{\textreviewcites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% The multicite variant of \Befehl{textpreviewcite}.
+% 
+% \item[]\DescribeMacro{\Reviewcites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{reviewcites} but enforces capitalization of the first character.
+% 
+% \item[]\DescribeMacro{\Previewcites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{previewcites} but enforces capitalization of the first character.
+% 
+% \item[]\DescribeMacro{\Textreviewcites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{textreviewcites} but enforces capitalization of the first character.
 %
 % \end{itemize}
 % 
@@ -2023,16 +2060,6 @@
   LOCATION = {Einsiedeln},
   BOOKSUBTITLE = {Keltische Kostbarkeiten aus der Schweiz},
   BOOKTITLE = {Gold der Helvetier}
-}
-@BOOK{harsdoerffer:1656,
-  AUTHOR = {Harsdörffer, Georg Philipp},
-  TITLE = {Das astronomische Kartenspiel},
-  DATE = {1656},
-  LOCATION = {Nürnberg},
-  PUBLISHER = {Wolgff.},
-  KEYWORDS = {Astronomie, Spiel, Kartenspiel, 17. Jahrhundert},
-  LANGUAGE = {german},
-  GENDER = {sm},
 }
 @BOOKLET{hesse:c:1995,
   AUTHOR = {{Hauswedell \& Nolte}},
@@ -10306,7 +10333,9 @@
 % \end{bibmacro}
 %
 % Cite periodical with volume and number.
-% \changes{2.2}{2018/021/17}{\Befehl{citeissue and friends added}}
+% \changes{2.2}{2019/02/17}{New cite command \Befehl{citeissue}}
+% \changes{2.2}{2019/02/17}{New cite command \Befehl{fciteissue}}
+% \changes{2.2}{2019/02/17}{New cite command \Befehl{pciteissue}}
 % \begin{macro}{\citeissue}
 % \begin{macro}{\fciteissue}
 % \begin{macro}{\pciteissue}
@@ -10332,7 +10361,9 @@
 % \end{macro}
 %
 % The multicite versions of \Befehl{citeissue} and friends.
-% \changes{2.2}{2018/02/17}{\Befehl{citeissues} and friends added}
+% \changes{2.2}{2019/02/17}{New cite command \Befehl{citeissues}}
+% \changes{2.2}{2019/02/17}{New cite command \Befehl{fciteissues}}
+% \changes{2.2}{2019/02/17}{New cite command \Befehl{pciteissues}}
 % \begin{macro}{\citeissues}
 % \begin{macro}{\fciteissues}
 % \begin{macro}{\pciteissues}
@@ -10340,6 +10371,132 @@
 \DeclareMultiCiteCommand{\citeissues}{\citeissue}{\multicitedelim}
 \DeclareMultiCiteCommand{\fciteissues}[\mkbibfootnote]{\fciteissue}{\multicitedelim}
 \DeclareMultiCiteCommand{\pciteissues}[\mkbibparens]{\pciteissue}{\multicitedelim}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \subsubsubsection{Inline \Befehl{fullcite}-like commands in reviews}
+%
+% \begin{macro}{\blxarch@reviewcite@removefields}
+% Clear some fields for \Befehl{reviewcite} and friends.
+%    \begin{macrocode}
+\def\blxarch@reviewcite@removefields{%
+	\clearfield{subtitle}%
+	\clearfield{booksubtitle}%
+	\clearfield{mainsubtitle}%
+	\clearfield{journalsubtitle}%
+	\clearfield{titleaddon}%
+	\clearfield{booktitleaddon}%
+	\clearfield{maintitleaddon}%
+	\clearlist{publisher}{}%
+	\clearlist{origlocation}{}%
+	\clearlist{origpublisher}{}%
+	\clearfield{origdate}{}%
+	\clearfield{origlanguage}{}%
+	\clearfield{realyear}{}%
+	\clearfield{realmonth}{}%
+	\clearfield{realday}{}%
+	\clearfield{addendum}{}%
+	\clearfield{note}{}%
+	\clearfield{language}{}%
+	\clearfield{series}{}%
+	\clearfield{number}{}%
+	\clearfield{subseries}{}%
+	\clearfield{subnumber}{}%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{bibmacro}{chapter+pages}
+% This is necessary to avois spurios punctation in \Befehl{reviewcite} and friends.
+%    \begin{macrocode}
+\xapptobibmacro{chapter+pages}{\iffieldundef{pages}{\printunit{}}{}}{}{Patching bibmacro 'chapter+pages' failed!}%
+%    \end{macrocode}
+% \end{bibmacro}
+%
+% Reduced fullcite within reviews.
+% \changes{2.2}{2019/11/05}{New cite command \Befehl{reviewcite}}
+% \changes{2.2}{2019/11/05}{New cite command \Befehl{previewcite}}
+% \changes{2.2}{2019/11/05}{New cite command \Befehl{textreviewcite}}
+% \begin{macro}{\reviewcite}
+% \begin{macro}{\previewcite}
+% \begin{macro}{\textreviewcite}
+%    \begin{macrocode}
+\DeclareCiteCommand{\reviewcite}[]
+	{\usebibmacro{prenote}}
+	{\blxarch@reviewcite@removefields\usedriver
+      {\DeclareNameAlias{sortname}{default}}
+      {\thefield{entrytype}}}%
+	{\multicitedelim}
+	{\usebibmacro{postnote}}
+\DeclareCiteCommand{\previewcite}[\mkbibparens]
+	{\blxarch@reviewcite@removefields\usebibmacro{prenote}}
+	{\usedriver
+      {\DeclareNameAlias{sortname}{default}}
+      {\thefield{entrytype}}}%}
+	{\multicitedelim}
+	{\usebibmacro{postnote}}
+\DeclareCiteCommand{\textreviewcite}[]
+	{\blxarch@reviewcite@removefields\usebibmacro{prenote}}
+	{\usedriver
+      {\DeclareNameAlias{sortname}{gfull-family}%
+	  \ifciteindex
+		{\indexnames{labelname}}
+		{}%
+	  \printnames{labelname}%
+	  \DeclareNameFormat{\thefield{labelnamefield}}{}%
+	  \DeclareDelimAlias{nametitledelim}{}%
+	  \addspace\bibopenparen}
+      {\thefield{entrytype}}}%}
+	{\multicitedelim}
+	{\usebibmacro{postnote}\bibcloseparen}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Reviewcite}
+% \begin{macro}{\Previewcite}
+% \begin{macro}{\Textreviewcite}
+% \changes{2.2}{2019/11/06}{New cite command \Befehl{Reviewcite}}
+% \changes{2.2}{2019/11/06}{New cite command \Befehl{Previewcite}}
+% \changes{2.2}{2019/11/06}{New cite command \Befehl{Textreviewcite}}
+%    \begin{macrocode}
+\newrobustcmd*{\Reviewcite}{\bibsentence\reviewcite}
+\newrobustcmd*{\Previewcite}{\bibsentence\previewcite}
+\newrobustcmd*{\Textreviewcite}{\bibsentence\textreviewcite}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% The multicite versions of \Befehl{reviewcite} and friends.
+% \changes{2.2}{2019/11/06}{New cite command \Befehl{reviewcites}}
+% \changes{2.2}{2019/11/06}{New cite command \Befehl{previewcites}}
+% \changes{2.2}{2019/11/06}{New cite command \Befehl{textreviewcites}}
+% \begin{macro}{\reviewcites}
+% \begin{macro}{\previewcites}
+% \begin{macro}{\textreviewcites}
+%    \begin{macrocode}
+\DeclareMultiCiteCommand{\reviewcites}{\reviewcite}{\multicitedelim}
+\DeclareMultiCiteCommand{\previewcites}[\mkbibparens]{\previewcite}{\multicitedelim}
+\DeclareMultiCiteCommand{\textreviewcites}{\textreviewcite}{\multicitedelim}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Reviewcites}
+% \begin{macro}{\Previewcites}
+% \begin{macro}{\Textreviewcites}
+% \changes{2.2}{2019/11/06}{New cite command \Befehl{Reviewcites}}
+% \changes{2.2}{2019/11/06}{New cite command \Befehl{Previewcites}}
+% \changes{2.2}{2019/11/06}{New cite command \Befehl{Textreviewcites}}
+%    \begin{macrocode}
+\newrobustcmd*{\Reviewcites}{\bibsentence\reviewcites}
+\newrobustcmd*{\Previewcites}{\bibsentence\previewcites}
+\newrobustcmd*{\Textreviewcites}{\bibsentence\textreviewcites}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
