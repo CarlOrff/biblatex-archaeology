@@ -2176,6 +2176,20 @@
   GENDER = {pp},
   OPTIONS = {usesourceeditor},
 }
+@BOOK{mehling:1998,
+  AUTHOR = {Mehling, Almut},
+  TITLE = {Archaika als Grabbeigaben},
+  DATE = {1998},
+  SUBTITLE = {Studien an merowingerzeitlichen Gräberfeldern},
+  PUBLISHER = {Leidorf},
+  SERIES = {Tübinger Texte. Materialien zur Ur- und Frühgeschichtlichen
+    Archäologie},
+  NUMBER = {1},
+  LOCATION = {Rahden/Westf.},
+  KEYWORDS = {Frühmittelalter, Archaika, Bestattung, Deutschland, Schweiz, Grabbeigabe},
+  GENDER = {sf},
+  LANGUAGE = {german},
+}
 @BOOK{mette:1990,
   AUTHOR = {Mette, Otto},
   TITLE = {Affoldern},
@@ -9227,7 +9241,7 @@
          \clearfield{shortsubseries}}%
 %    \end{macrocode}   
 % Restore \Feld{series} and \Feld{subseries} by \Feld{shortseries} and \Feld{shortsubseries} if \Feld{shortseries} option enabled.
-% \changes{2.2}{2018/02/11}{\Feld{shortseries} copied into \Feld{series} field}
+% \changes{2.2}{2019/02/11}{\Feld{shortseries} copied into \Feld{series} field}
 %    \begin{macrocode}
     \ifboolexpr{
         togl {archbool:shortseries}
@@ -17747,6 +17761,34 @@
 }
 %    \end{macrocode}
 %
+% \begin{format}{bibtex}
+%    \begin{macrocode}
+\DeclareStyleSourcemap{
+	\maps[datatype=bibtex]{
+       \map[
+            overwrite,
+            foreach={location, multivenue}
+        ]{
+            \step[
+                fieldsource=\regexp{$MAPLOOP},
+                matchi={([a-z])\/([a-z])},
+                replace={$1 / $2},
+            ]
+        }
+        \map[
+            overwrite
+        ]{
+            \step[
+                fieldsource=venue,
+                matchi={([a-z])\/([a-z])},
+                replace={$1 / $2},
+            ]
+        }
+	}
+}
+%    \end{macrocode}
+% \end{format}
+%
 % \begin{format}{bookauthor}
 % \begin{format}{sortname}
 %    \begin{macrocode}
@@ -17758,9 +17800,10 @@
 %
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
+% \changes{2.2}{2019/11/06}{In the 2018 RGK guidelines there are spaces around the slash}
 %    \begin{macrocode}
-\renewcommand*{\multinamedelim}{\addslash}
-\renewcommand*{\finalnamedelim}{\addslash}
+\renewcommand*{\multinamedelim}{\addspace\slash\space}
+\renewcommand*{\finalnamedelim}{\addspace\slash\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
