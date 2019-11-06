@@ -1990,24 +1990,7 @@
   GENDER = {sm},
   LANGUAGE = {dutch},
 }
-@BOOK{de:neck:yoder:1978,
-  AUTHOR = {de Neck Yoder, Hilda},
-  TITLE = {Dramatizations of social change},
-  DATE = {1978},
-  SUBTITLE = {Herman Heijermans' plays as compared with selected dramas by Ibsen,
-    Hauptmann and Chekhov},
-  PUBLISHER = {Martinus Nijhoff},
-  ISBN = {90 247 2117 7},
-  PAGETOTAL = {81},
-  SERIES = ufg-BiblNeerlandicaExtraMuros,
-  NUMBER = {5},
-  LOCATION = {The Hague AND Boston AND London},
-  ABSTRACT = {Behandelt \mkbibquote{Ghetto}, \mkbibquote{Op Hoop van Zegen} und \mkbibquote{Ora
-    et Labora}},
-  KEYWORDS = {Niederlande, Literatur, Theater, Naturalismus},
-  GENDER = {sf},
-  LANGUAGE = {english},
-}
+
 @BOOK{domino:1780,
   TITLE = {Règles et principes sur le jeu de domino, avec les décisions des meilleurs joueurs},
   DATE = {1780},
@@ -2208,7 +2191,7 @@
   AUTHOR = {Molleson, Theya AND Cox, Margaret},
   MAINTITLE = {The Spitalfields Project Volume},
   VOLUME = 2,
-  TITLE = {the anthropology},
+  TITLE = {The anthropology},
   DATE = {1993},
   SUBTITLE = {The Middling Sort},
   PUBLISHER = {Council for British Archaeology},
@@ -2217,7 +2200,7 @@
   LOCATION = {Walmgate},
   KEYWORDS = {Anthropologie, Osteologie, Paläodemographie, Paläopathologie,
     Kirchenarchäologie, Bestattung, Frühneuzeit, England, Spitalfields,
-    Hugenotten}
+    Hugenotten},
 }
 @PROCEEDINGS{oberlechner:1999,
   EDITOR = {Oberlechner, Manfred},
@@ -10393,7 +10376,8 @@
 % \subsubsubsection{Inline \Befehl{fullcite}-like commands in reviews}
 %
 % \begin{macro}{\blxarch@reviewcite@removefields}
-% Clear some fields for \Befehl{reviewcite} and friends.
+% Clear some fields for \Befehl{reviewcite} and friends. Not clearing \Feld{pagetotal} leads to
+% spurious punctation
 %    \begin{macrocode}
 \def\blxarch@reviewcite@removefields{%
 	\clearfield{subtitle}%
@@ -10403,9 +10387,12 @@
 	\clearfield{titleaddon}%
 	\clearfield{booktitleaddon}%
 	\clearfield{maintitleaddon}%
+	\clearfield{shorttitle}{}%
 	\clearlist{publisher}{}%
 	\clearlist{origlocation}{}%
 	\clearlist{origpublisher}{}%
+	\clearname{shortauthor}{}%
+	\clearfield{label}{}%
 	\clearfield{origdate}{}%
 	\clearfield{origlanguage}{}%
 	\clearfield{realyear}{}%
@@ -10418,6 +10405,7 @@
 	\clearfield{number}{}%
 	\clearfield{subseries}{}%
 	\clearfield{subnumber}{}%
+	\clearfield{pagetotal}{}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -10425,7 +10413,7 @@
 % \begin{bibmacro}{chapter+pages}
 % This is necessary to avois spurios punctation in \Befehl{reviewcite} and friends.
 %    \begin{macrocode}
-\xapptobibmacro{chapter+pages}{\iffieldundef{pages}{\printunit{}}{}}{}{Patching bibmacro 'chapter+pages' failed!}%
+
 %    \end{macrocode}
 % \end{bibmacro}
 %
@@ -10448,21 +10436,41 @@
 	{\blxarch@reviewcite@removefields\usebibmacro{prenote}}
 	{\usedriver
       {\DeclareNameAlias{sortname}{default}}
-      {\thefield{entrytype}}}%}
+      {\thefield{entrytype}}}%
 	{\multicitedelim}
 	{\usebibmacro{postnote}}
 \DeclareCiteCommand{\textreviewcite}[]
 	{\blxarch@reviewcite@removefields\usebibmacro{prenote}}
 	{\usedriver
-      {\DeclareNameAlias{sortname}{gfull-family}%
-	  \ifciteindex
-		{\indexnames{labelname}}
-		{}%
-	  \printnames{labelname}%
-	  \DeclareNameFormat{\thefield{labelnamefield}}{}%
-	  \DeclareDelimAlias{nametitledelim}{}%
-	  \addspace\bibopenparen}
-      {\thefield{entrytype}}}%}
+      {\ifboolexpr{
+			not test {\ifnameundef{author}}
+			or 
+			not test {\ifnameundef{editor}}
+			or (
+			not test {\ifnameundef{translator}}
+			and
+			test {\ifusetranslator} )
+		}
+		  {\ifciteindex
+			{\indexnames{labelname}}
+			{}%
+		  \DeclareNameAlias{sortname}{gfull-family}%
+		  \printnames{labelname}%
+		  \DeclareNameFormat{\thefield{labelnamefield}}{}%
+		  \ifboolexpr{
+			test {\ifnameundef{author}}
+			or
+			not test {\iffieldundef{authortype}}
+		  }
+			{\DeclareDelimAlias{nametitledelim}{\addspace}}
+			{\DeclareDelimAlias{nametitledelim}{}}%
+		  \DeclareDelimAlias{authortypedelim}{}%
+		  \DeclareDelimAlias{editortypedelim}{}%
+		  \DeclareDelimAlias{translatortypedelim}{}%
+		  \addspace}
+		  {}%
+	  \bibopenparen}
+      {\thefield{entrytype}}}%
 	{\multicitedelim}
 	{\usebibmacro{postnote}\bibcloseparen}
 %    \end{macrocode}
@@ -11841,16 +11849,16 @@
 %    \end{macrocode}
 % \end{format}
 %
-% \begin{macro}{\authortypedelim}
-% \begin{macro}{\editortypedelim}
-% \begin{macro}{\translatortypedelim}
+% \begin{format}{authortypedelim}
+% \begin{format}{editortypedelim}
+% \begin{format}{translatortypedelim}
 % Delimiter between name and its role.
 %    \begin{macrocode}
 \DeclareDelimFormat{authortypedelim,editortypedelim,translatortypedelim}{\addspace}
 %    \end{macrocode}
-% \end{macro}
-% \end{macro}
-% \end{macro}
+% \end{format}
+% \end{format}
+% \end{format}
 %
 % \begin{macro}{\finalnameellipsis}
 % The ellipsis if \option{preservelastauthor} is enabled.
