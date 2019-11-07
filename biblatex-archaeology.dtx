@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 % !TEX program  = pdfLaTeX
 %
-% Copyright (C) 2005-2018 by Ingram Braun
+% Copyright (C) 2005-2019 by Ingram Braun
 %
 % This file may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either
@@ -9365,7 +9365,7 @@
 %
 % \begin{bibmacro}{auction}
 % \marg{string}\\
-% Formatting of an event with {fullevendate}. \meta{string} should be \Feld{title},
+% Formatting of an event with {fulleventdate}. \meta{string} should be \Feld{title},
 % \Feld{maintitle} or \Feld{booktitle}.
 %    \begin{macrocode}
 \newbibmacro*{auction}[1]{%
@@ -9390,10 +9390,13 @@
 %
 % \begin{bibmacro}{exhibition/conference}
 % \marg{string}\\
-% Formatting of an event with {fullevendate}. \meta{string} should be \Feld{title},
+
+% Formatting of an event with {eventdate}. \meta{string} should be \Feld{title},
 % \Feld{maintitle} or \Feld{booktitle}.
+% \changes{2.2}{2019/11/07}{ranges with identical years fixed}
 %    \begin{macrocode}
 \newbibmacro*{exhibition/conference}[1]{%
+	\iffieldsequal{eventyear}{eventendyear}{\clearfield{eventendyear}}{}%
     \printtext[#1note]{%
         \ifbibxstring{\thefield{eventtype}}
             {\printtext{\bibstring{\thefield{eventtype}}}}
@@ -11103,6 +11106,7 @@
 %
 % \begin{bibmacro}{extendeddate}
 % \marg{real$\|$origreal}\marg{datetype}
+% \changes{2.2}{2019/11/07}{\Format{realdateparens}, uncertain dates and ranges with identical years fixed}
 %    \begin{macrocode}
 \newbibmacro*{extendeddate}[2]{%
 %    \end{macrocode}
@@ -11112,6 +11116,7 @@
     \clearfield{#1month}%
     \clearfield{#1endday}%
     \clearfield{#1endmonth}%
+	\iffieldsequal{#1year}{#1endyear}{\clearfield{#1endyear}}{}%
 %    \end{macrocode}
 % If both year arguments are integers, than check if they match or exceed the minimum difference:
 %    \begin{macrocode}
@@ -11123,7 +11128,7 @@
                 {\setcounter{currentrealdatediff}{\thefield{#2endyear}}%
                  \addtocounter{currentrealdatediff}{-\thefield{#1year}}}
              \ifnumcomp{\value{currentrealdatediff}}{>}{\value{minrealdatediff}}
-                 {\printtext[#1dateparen]{\csuse{print#1date}}}
+                 {\printtext[#1dateparens]{\csuse{print#1date}}}
                  {}%
             }
             {\iffieldint{#2year}
@@ -11133,10 +11138,10 @@
                     {\setcounter{currentrealdatediff}{\thefield{#2year}}%
                      \addtocounter{currentrealdatediff}{-\thefield{#1year}}}
                  \ifnumcomp{\value{currentrealdatediff}}{>}{\value{minrealdatediff}}
-                     {\printtext[#1dateparen]{\csuse{print#1date}}}
+                     {\printtext[#1dateparens]{\csuse{print#1date}}}
                      {}%
                 }%
-                {}%
+                {\printtext[#1dateparens]{\csuse{print#1date}}}%
             }%
         }
 %    \end{macrocode}
@@ -11144,7 +11149,7 @@
 %    \begin{macrocode}
         {\iffieldundef{#1year}
             {}
-            {\printtext[#1dateparen]{\csuse{print#1date}}}}%
+            {\printtext[#1dateparens]{\csuse{print#1date}}}}%
 }
 %    \end{macrocode}
 % \end{bibmacro}
