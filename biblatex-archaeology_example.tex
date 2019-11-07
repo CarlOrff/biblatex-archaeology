@@ -127,6 +127,40 @@
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
+\DeclareCiteCommand{\textreviewcite}[]
+	{\blxarch@reviewcite@removefields\usebibmacro{prenote}}
+	{\usedriver
+      {\ifboolexpr{
+			not test {\ifnameundef{author}}
+			or 
+			not test {\ifnameundef{editor}}
+			or (
+			not test {\ifnameundef{translator}}
+			and
+			test {\ifusetranslator} )
+		}
+		  {\ifciteindex
+			{\indexnames{labelname}}
+			{}%
+		  \DeclareNameAlias{sortname}{gfull-family}%
+		  \printnames{labelname}%
+		  \DeclareNameFormat{\thefield{labelnamefield}}{}%
+		  \ifboolexpr{
+			test {\ifnameundef{author}}
+			or
+			not test {\iffieldundef{authortype}}
+		  }
+			{\DeclareDelimAlias{nametitledelim}{\addspace}}
+			{\DeclareDelimAlias{nametitledelim}{}}%
+		  \DeclareDelimAlias{authortypedelim}{}%
+		  \DeclareDelimAlias{editortypedelim}{}%
+		  \DeclareDelimAlias{translatortypedelim}{}%
+		  \addspace}
+		  {\DeclareDelimAlias{nametitledelim}{}}%
+	  \bibopenparen}
+      {\thefield{entrytype}}}%
+	{\multicitedelim}
+	{\usebibmacro{postnote}\bibcloseparen}
 
 %%% END EXPERIMENTAL CODE
 \makeatother
