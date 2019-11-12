@@ -558,6 +558,12 @@
 % only gets printed if its difference from \Feld{date} is greater equal \Option{minrealdatediff}. This is to rule out those cases where the item
 % appeared only one year earlier or later than its given copyright date or journal year.
 %
+% \item[]\DescribeOption{maxreviewnames}=\meta{integer}\\
+% Similar to \Option{maxnames}, but only affects authors/editors in \Typ{review] titles.
+%
+% \item[]\DescribeOption{minreviewnames}=\meta{integer}\\
+% Similar to \Option{minnames}, but only affects, but only affects authors/editors in \Typ{review] titles.
+%
 % \item[]\DescribeOption{nothesistitlepunct}=\meta{bool}\\
 % If \meta{true}, in \Typ{thesis} there is no punctuation between the title and the institution/location block.
 %
@@ -783,7 +789,33 @@
 %
 % \item[]\DescribeBibliographydriver{inreference}
 % The \Typ{inreference} type for lexicon entries is inherited from \blx, but it is only an alias there. In \archbib it is a type of its own, since some styles
-% preceed its titles with a string like \Latein{sub voce}.
+% preceed its title with a string like \Latein{sub voce}.
+%
+% \item[]\DescribeBibliographydriver{review}
+% Like in \blx the same as article but with one additional feature: it autogenerates titles if the \Feld{related} fields holds entry keys to the reviewed
+% works. This even works with omnibus reviews:
+% \begin{Beispiel}
+%    \Kbd{\symbol{64}BOOK\{to-be-reviewed:2015}\\
+%    \Kbd{author = \{Author, Andrew\},}\\
+%    \Kbd{author = \{To be reviewed\},}\\
+%    \Kbd{\textellipsis}\\
+%    \Kbd{\}}
+%    \Kbd{\symbol{64}BOOK\{another-one:2014}\\
+%    \Kbd{editor = \{Editor, Edward\},}\\
+%    \Kbd{author = \{Another one\},}\\
+%    \Kbd{\textellipsis}\\
+%    \Kbd{\}}
+%    \Kbd{\symbol{64}REVIEW\{review:2015}\\
+%    \Kbd{author = \{Reviewer, Robert\},}\\
+%    \Kbd{title = \{My review\},}\\
+%    \Kbd{related = \{to-be-reviewed:2015,another-one:2014\},}\\
+%    \Kbd{\textellipsis}\\
+%    \Kbd{\}}
+%    \tcblower%
+%    R. Reviewer: \Stark{Reviews of A. Author, To be reviewed and E. Editor (ed.), Another one}. In: \textellipsis
+% \end{Beispiel}
+% Though the \Feld{\title} is replaced here, I would recommend to provide it in the database anyway in order to be concordant with common \blx rules where its
+% existance is the minimal requirement for an entry. Remark that review titles do not cause a bibliography entry for the cited work.
 %
 % \item[]\DescribeFormat{news}\\
 % \meta{news} goes to the \Feld{entrysubtype} field of an \Typ{article}, \Typ{review} or \Typ{suppperiodical}. Its purpose is to mark newspaper articles that
@@ -1106,6 +1138,18 @@
 % \item[]\DescribeMacro{\mkbibrepeatsuffix}\marg{text}\\
 % Similar to \Befehl{mkbibrepeatfamily}, but intended for the name suffix.
 %
+% \item[]\DescribeMacro{\mkbibreviewnamefamily}\marg{text}\\
+% Formatting of the family name of reviewed authors/editors.
+%
+% \item[]\DescribeMacro{\mkbibreviewnamegiven}\marg{text}\\
+% Similar to \Befehl{mkbibreviewnamefamily}, but intended for the given name.
+%
+% \item[]\DescribeMacro{\mkbibreviewnameprefix}\marg{text}\\
+% Similar to \Befehl{mkbibreviewnamefamily}, but intended for the name prefix.
+%
+% \item[]\DescribeMacro{\mkbibreviewnamesuffix}\marg{text}\\
+% Similar to \Befehl{mkbibreviewnamefamily}, but intended for the name suffix.
+%
 % \item[]\DescribeMacro{\mkbibsourcenamefamily}\marg{text}\\
 % Formatting of the family name of secondary editors if option \Option{usesourceeditor} is in use  (see \cref{kap:pkgopt}).
 %
@@ -1211,6 +1255,12 @@
 % \item[]\DescribeMacro{\finalnameellipsis}\\
 % The ellipsis ahead of the last \Feld{author} if option \Option{preservelastauthor } (see \cref{kap:pkgopt}) is enabled.
 %
+% \item[]\DescribeMacro{\finalreviewdelim}\\
+% Like \Befehl{multireviewdelim} but ahead of the last reviewed work.
+%
+% \item[]\DescribeMacro{\finalreviewnamedelim}\\
+% Like \Befehl{multireviewnamedelim} but ahead of the last name.
+%
 % \item[]\DescribeMacro{\finalsourceeditordelim}\\
 % The delimiter between the next to last and the last secondary \Feld{editor}.
 %
@@ -1225,6 +1275,12 @@
 %
 % \item[]\DescribeMacro{\locationpublisherdelim}\\
 % The delimiter between \Feld{location} and \Feld{publisher}.
+%
+% \item[]\DescribeMacro{\multireviewdelim}\\
+% The delimiter between works in \Type{review} titles of omnibus reviews.
+%
+% \item[]\DescribeMacro{\multireviewnamedelim}\\
+% The delimiter between names in review titles.
 %
 % \item[]\DescribeMacro{\multisourceeditordelim}\\
 % The delimiter between several secondary \Feld{editor}s.
@@ -1243,6 +1299,12 @@
 %
 % \item[]\DescribeMacro{\repeatlabeldelim}\\
 % The delimiter between a repeated label in the bibliography and its bibliography entry.
+%
+% \item[]\DescribeMacro{\reviewofnamedelim}\\
+% The punctuation in \Type{review} titles after \enquote{review of}.
+%
+% \item[]\DescribeMacro{\finalreviewdelim}\\
+% Like \Befehl{multireviewdelim} but ahead of the last reviewed work.
 %
 % \item[]\DescribeMacro{\seenotedelim}\\
 % The delimiter before bibstring \Kbd{seenote}.
@@ -8229,6 +8291,30 @@
             ]
         }
 %    \end{macrocode}
+% Remove related field if not \Type{review}.
+%    \begin{macrocode}
+        \map[
+            overwrite
+        ]{
+			\step[
+                fieldset=relatedoption,
+				null,
+            ]
+			\step[
+                fieldset=relatedstring,
+				null,
+            ]
+			\step[
+                fieldset=relatedtype,
+				null,
+            ]
+			\pernottype{review}
+            \step[
+                fieldset=related,
+				null,
+            ]
+        }
+%    \end{macrocode}
 % Wrap American-style location addons into a formatting command:
 %    \begin{macrocode}
         \map[
@@ -8814,6 +8900,23 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\mkbibreviewnamefamily}
+% \begin{macro}{\mkbibreviewnamegiven}
+% \begin{macro}{\mkbibreviewnameprefix}
+% \begin{macro}{\mkbibreviewnamesuffix}
+% Different name formatting of \Feld{author}/\Feld{editor} in review titles.
+% \changes{2.2}{2019/11/08}{added \Befehl{\mkbibreviewnamefamily}, \Befehl{\mkbibreviewnamegiven}, \Befehl{\mkbibreviewnameprefix} and \Befehl{\mkbibreviewnameprefix}}
+%    \begin{macrocode}
+\newcommand*{\mkbibreviewnamefamily}[1]{#1}
+\newcommand*{\mkbibreviewnamegiven}[1]{#1}
+\newcommand*{\mkbibreviewnameprefix}[1]{#1}
+\newcommand*{\mkbibreviewnamesuffix}[1]{#1}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \subsubsubsection{Short forms}
 %
 % \begin{macro}{\ifshortform}
@@ -9032,7 +9135,6 @@
     \let\mkbibnameprefix\mkbibrepeatprefix%
     \let\mkbibnamegiven\mkbibrepeatgiven%
     \let\mkbibnamesuffix\mkbibrepeatsuffix%
-    \let\blxarch@buffer@repeatnames\c@minnames%
     \let\blxarch@buffer@maxnames\c@maxnames%
     \let\blxarch@buffer@minnames\c@minnames%
     \let\c@maxnames\blx@maxcitenames%
@@ -9825,6 +9927,15 @@
 % Maintitle and volume in the same block.
 %    \begin{macrocode}
 \renewbibmacro*{title}{%
+	\ifboolexpr{
+        test {\ifentrytype{review}}
+        and
+        not test {\iffieldundef{related}}
+    }
+		{\clearfield{title}%
+		 \clearfield{subtitle}%
+		 \usebibmacro{reviewtitle}}
+		{}%
     \ifboolexpr{
         test {\iffieldundef{title}}
         and
@@ -10294,12 +10405,151 @@
 % =\meta{bool}\\
 % If \Kbd{true}, print \Kbd{in:} ahead of journals.
 %    \begin{macrocode}
-\newtoggle{archbool:injournal}
+\newtoggle{archbool:injournal} 
 \DeclareBibliographyOption{injournal}[true]{%
     \settoggle{archbool:injournal}{#1}}
 \ExecuteBibliographyOptions{injournal}
 %    \end{macrocode}
 % \end{option}
+%
+% \subsubsubsection{Reviews}
+%
+% \begin{option}{minreviewnames}
+% \begin{option}{maxreviewnames}
+% \changes{2.2}{2019/11/12}{added options Option{minreviewnames} and \Option{maxreviewnames}}
+% Counter for \Feld{bookauthor} and \Feld{editor}.
+%    \begin{macrocode}
+\blxarch@minmaxcounters{minreviewnames}{maxreviewnames}{1}{8}
+%    \end{macrocode}
+% \end{option}
+% \end{option}
+%
+% \begin{macro}{\multireviewdelim}
+% \begin{macro}{\finalreviewdelim}
+% The delimiter between multiple reviews.
+% \changes{2.2}{2019/11/08}{added \Befehl{\multireviewdelim} and \Befehl{\finalreviewdelim}}
+%    \begin{macrocode}
+\newcommand*{\multireviewdelim}{\addsemicolon\space}
+\newcommand*{\finalreviewdelim}{\addspace\bibstring{and}\space}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\multireviewnamedelim}
+% \begin{macro}{\finalreviewnamedelim}
+% The delimiter between multiple reviews.
+% \changes{2.2}{2019/11/12}{added \Befehl{\multireviewnamedelim} and \Befehl{\finalreviewnamedelim}}
+%    \begin{macrocode}
+\newcommand*{\multireviewnamedelim}{\addcomma\space}
+\newcommand*{\finalreviewnamedelim}{\addspace\bibsstring{and}\space}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\reviewofnamedelim}
+% The punctuation after \Kbd{reviewof}.
+% \changes{2.2}{2019/11/08}{added \Befehl{\reviewofnamedelim}}
+%    \begin{macrocode}
+\newcommand*{\reviewofnamedelim}{\addspace}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}
+% Name format in review titles.
+%    \begin{macrocode}
+\DeclareNameAlias{reviewname}{g-family}%
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\reviewofnamedelim}
+% The delimiter between multiple reviews.
+% \changes{2.2}{2019/11/12}{\Type{review} can generate its title by linking to \Feld{related} entries}
+%    \begin{macrocode}
+\newbibmacro*{reviewtitle}{%
+	\let\blxarch@buffer@review@multinamedelim\multireviewnamedelim%
+    \let\blxarch@buffer@review@finalnamedelim\finalreviewnamedelim%
+	\let\blxarch@buffer@review@namegiven\mkbibnamegiven%
+    \let\blxarch@buffer@review@namefamily\mkbibnamefamily%
+    \let\blxarch@buffer@review@nameprefix\mkbibnameprefix%
+    \let\blxarch@buffer@review@namesuffix\mkbibnamesuffix%
+    \let\mkbibnamegiven\mkbibreviewnamegiven%
+    \let\mkbibnamefamily\mkbibreviewnamefamily%
+    \let\mkbibnameprefix\mkbibreviewnameprefix%
+    \let\mkbibnamesuffix\mkbibreviewnamesuffix%
+	\let\blxarch@buffer@maxreviewnames\c@maxnames%
+    \let\blxarch@buffer@minreviewnames\c@minnames%
+    \let\c@maxnames\c@maxreviewnames%
+    \let\c@minnames\c@minreviewnames%
+	\setcounter{bbx:relatedtotal}{0}%
+	\setcounter{bbx:relatedcount}{0}%
+	\def\bbx@tempa{}%
+	\printtext[titlecase]{%
+		\renewcommand*{\do}[1]{%
+		\printunit{}%
+		   \entrydata{##1}{%
+			\ifrelatedloop
+			{}
+			{\stepcounter{bbx:relatedtotal}%
+			\gappto{\bbx@tempa}{##1,}}}}%
+		\docsvfield{related}%
+		\ifnumequal{0}{\value{bbx:relatedtotal}}    
+			{\printfield{title}}
+			{\renewcommand*{\do}[1]{%
+				\stepcounter{bbx:relatedcount}%
+				\entrydata{##1}{%
+					\ifnumequal{1}{\value{bbx:relatedcount}}
+						{\ifnumequal{1}{\value{bbx:relatedtotal}}
+							{\bibstring{reviewof}}
+							{\bibstring{reviewsof}}%
+						 \printunit{\reviewofnamedelim}%
+						}
+						{\ifnumequal{\value{bbx:relatedtotal}}{\value{bbx:relatedcount}}
+							{\setunit{\finalreviewdelim}}
+							{\setunit{\multireviewdelim}}%
+						}%
+					\ifboolexpr{
+						not test {\ifnameundef{author}}
+						or 
+						not test {\ifnameundef{editor}}
+						or (
+						not test {\ifnameundef{translator}}
+						and
+						test {\ifusetranslator} )
+					}
+					  {\DeclareNameAlias{sortname}{gfull-family}%
+					  \ifciteindex
+						{\indexnames{labelname}}
+						{}%
+					   \printnames{labelname}%
+					   \iffieldundef{\strfield{labelnamesource}type}
+						{\ifnameundef{author}
+							{\printunit{\csuse{\strfield{labelnamesource}typedelim}}%
+							 \printtext[\strfield{labelnamesource}type]{\bibstring{\strfield{labelnamesource}}}%
+							 \setunit{\nametitledelim}}
+							{\nametitledelim}%
+						}
+						{\printunit{\csuse{\strfield{labelnamesource}typedelim}}%
+						 \printtext[\strfield{labelnamesource}type]{\bibstring{\strfield{\strfield{labelnamesource}type}}}%
+						 \setunit*{\nametitledelim}}%
+					  }%
+					  {}%
+					\printfield{title}%
+				}%
+			 }%
+			}%
+			\restorefield{related}{\bbx@tempa}%
+			\docsvfield{related}%
+	}%
+	\clearfield{related}%
+	\let\multireviewnamedelim\blxarch@buffer@review@multinamedelim%
+    \let\finalreviewnamedelim\blxarch@buffer@review@finalnamedelim%
+	\let\mkbibnamegiven\blxarch@buffer@review@namegiven%
+    \let\mkbibnamefamily\blxarch@buffer@review@namefamily%
+    \let\mkbibnameprefix\blxarch@buffer@review@nameprefix%
+    \let\mkbibnamesuffix\blxarch@buffer@review@namesuffix%
+	\let\c@maxnames\blxarch@buffer@maxreviewnames%
+    \let\c@minnames\blxarch@buffer@minreviewnames%
+}
 %
 % \subsubsubsection{Periodicals}
 %
@@ -16701,31 +16951,32 @@
 % Set \Option{titlenote to \meta{true}} if exhibition detected;
 % \begin{format}{bibtex}
 %    \begin{macrocode}
-\DeclareStyleSourcemap{
+\DeclareSourcemap{
     \maps[datatype=bibtex]{
         \map[
             overwrite=true,
         ]{
-             \step[
+            \step[
                 fieldsource=eventtype,
-                match=\regexp{exhib},
-                fieldset=options,
-                fieldvalue={titlenote=true,titlebrackets=true},
-                append=true,
+                matchi=\regexp{exhib},
                 notfield=options,
             ]
+			\step[
+				fieldset=options,
+                fieldvalue={titlenote=true,titlebrackets=true},
+			]
         }
         \map[
             overwrite=true,
         ]{
             \step[
-                fieldsource=options,
-                notmatch=\regexp{\btitlenote\b},
+                fieldsource=date,
+                notmatchi=\regexp{\btitlenote\b},
                 final,
             ]
             \step[
                 fieldsource=eventtype,
-                match=\regexp{exhib},
+                matchi=\regexp{exhib},
                 fieldset=options,
                 fieldvalue={,titlenote=true,titlebrackets=true},
                 append=true,
@@ -17760,7 +18011,7 @@
     summarytitle=false,
     tabbedlabeldate=false,
     titlebrackets=false,
-    titlenote=true,
+    titlenote=false,
     useeventdate=false,
     useeventnumber=true,
     usefestschriftaddon=false,
@@ -17797,7 +18048,39 @@
                 replace={$1 / $2},
             ]
         }
-	}
+%    \end{macrocode}
+% Set \Option{titlenote to \meta{true}} if exhibition detected;
+%    \begin{macrocode}
+        \map[
+            overwrite=true,
+        ]{
+            \step[
+                fieldsource=eventtype,
+                matchi=\regexp{exhib},
+                notfield=options,
+            ]
+			\step[
+				fieldset=options,
+                fieldvalue={titlenote=true,titlebrackets=true},
+			]
+        }
+        \map[
+            overwrite=true,
+        ]{
+            \step[
+                fieldsource=date,
+                notmatchi=\regexp{\btitlenote\b},
+                final,
+            ]
+            \step[
+                fieldsource=eventtype,
+                matchi=\regexp{exhib},
+                fieldset=options,
+                fieldvalue={,titlenote=true,titlebrackets=true},
+                append=true,
+            ]
+        }
+    }
 }
 %    \end{macrocode}
 % \end{format}
@@ -22801,6 +23084,17 @@
 \NewBibliographyString{postdocthesis}
 %    \end{macrocode}
 % \end{localization}
+% \begin{localization}{reviewof}
+% \changes{2.2}{2019/11/12}{New bibliography strings \Kbd{reviewof} and \Kbd{reviewsof}}
+%    \begin{macrocode}
+\NewBibliographyString{reviewof}
+%    \end{macrocode}
+% \end{localization}
+% \begin{localization}{reviewsof}
+%    \begin{macrocode}
+\NewBibliographyString{reviewsof}
+%    \end{macrocode}
+% \end{localization}
 % \begin{localization}{specialauction}
 %    \begin{macrocode}
 \NewBibliographyString{specialauction}
@@ -22932,6 +23226,8 @@
     noplacenodate             = {{no\space place no\space date}{n.\addabbrvspace p.\addabbrvspace n.\addabbrvspace d\adddot}},
     plate                     = {{plate}{pl\adddot}},
     postdocthesis             = {{Habilitationsschrift}{Habil.-Schr\adddot}},
+	reviewof                  = {{Review of}{Rev. \adddot}},
+	reviewsof                 = {{Reviews of}{Rev.\adddot}},
     specialauction            = {{special auction}{special auction}},
     specialauctions           = {{special auctions}{special auctions}},
     subverbum                 = {{sub verbum}{\autocap{s}.~v\adddot}},
@@ -23211,6 +23507,8 @@
     noplace                   = {{ohne\space Ort}{o.\,O\adddot}},
     noplacenodate             = {{ohne Ort und Jahr}{o.\addabbrvspace O.\addabbrvspace u.\addabbrvspace J\adddot}},
     plate                     = {{Tafel}{Taf.}},
+	reviewof                  = {{Rezension von}{Rez.\adddot}},
+	reviewsof                 = {{Rezensionen von}{Rez.\adddot}},
     specialauction            = {{Sonderauktion}{Sonderauktion}},
     specialauctions           = {{Sonderauktionen}{Sonderauktionen}},
     subverbum                 = {{sub verbum}{\autocap{s}.\,v\adddot}},
