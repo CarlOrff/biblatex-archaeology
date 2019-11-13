@@ -571,10 +571,10 @@
 % appeared only one year earlier or later than its given copyright date or journal year.
 %
 % \item[]\DescribeOption{maxreviewnames}=\meta{integer}\\
-% Similar to \Option{maxnames}, but only affects authors/editors in \Typ{review] titles.
+% Similar to \Option{maxnames}, but only affects authors/editors in \Typ{review} titles.
 %
 % \item[]\DescribeOption{minreviewnames}=\meta{integer}\\
-% Similar to \Option{minnames}, but only affects, but only affects authors/editors in \Typ{review] titles.
+% Similar to \Option{minnames}, but only affects, but only affects authors/editors in \Typ{review} titles.
 %
 % \item[]\DescribeOption{nothesistitlepunct}=\meta{bool}\\
 % If \meta{true}, in \Typ{thesis} there is no punctuation between the title and the institution/location block.
@@ -1289,7 +1289,7 @@
 % The delimiter between \Feld{location} and \Feld{publisher}.
 %
 % \item[]\DescribeMacro{\multireviewdelim}\\
-% The delimiter between works in \Type{review} titles of omnibus reviews.
+% The delimiter between works in \Typ{review} titles of omnibus reviews.
 %
 % \item[]\DescribeMacro{\multireviewnamedelim}\\
 % The delimiter between names in review titles.
@@ -1313,7 +1313,7 @@
 % The delimiter between a repeated label in the bibliography and its bibliography entry.
 %
 % \item[]\DescribeMacro{\reviewofnamedelim}\\
-% The punctuation in \Type{review} titles after \enquote{review of}.
+% The punctuation in \Typ{review} titles after \enquote{review of}.
 %
 % \item[]\DescribeMacro{\finalreviewdelim}\\
 % Like \Befehl{multireviewdelim} but ahead of the last reviewed work.
@@ -1978,6 +1978,17 @@
   XREF = {fankhauser:bird:1993},
   GENDER = {pm},
 }
+@REVIEW{test::review,
+  AUTHOR = {Reviewer, Robert},
+  TITLE = {Review Title},
+  JOURNALTITLE = {Review Test Magazine},
+  DATE = {2019-11-08},
+  PAGES = {1--11},
+  LANGUAGE = {english},
+  GENDER = {sm},
+  LOCATION = {London},
+  RELATED = {sterk:1777,siegmund:1998,de:laet:o:j,waaren-kunde:1838},
+}
 @INBOOK{test::source,
   CROSSREF = {linnaeus:2003},
   AUTHOR = {Author, Andrew},
@@ -2064,7 +2075,6 @@
   GENDER = {sm},
   LANGUAGE = {dutch},
 }
-
 @BOOK{domino:1780,
   TITLE = {Règles et principes sur le jeu de domino, avec les décisions des meilleurs joueurs},
   DATE = {1780},
@@ -2344,6 +2354,22 @@
   LANGUAGE = {german},
   GENDER = {pp},
 }
+@BOOK{siegmund:1998,
+  AUTHOR = {Siegmund, Frank},
+  TITLE = {Merowingerzeit am Niederrhein},
+  DATE = {1998},
+  SUBTITLE = {Die frühmittelalterlichen Funde aus dem Regierungsbezirk Düsseldorf
+    und dem Kreis Heinsberg},
+  PUBLISHER = {Rheinland-Verlag},
+  SERIES = {Rheinische Ausgrabungen},
+  NUMBER = {34},
+  LOCATION = {Köln},
+  BOOKAUTHOR = {Siegmund, Frank},
+  BOOKSUBTITLE = {Die frühmittelalterlichen Funde aus dem Regierungsbezirk Düsseldorf
+    und dem Kreis Heinsberg},
+  BOOKTITLE = {Merowingerzeit am Niederrhein},
+  KEYWORDS = {Nordrhein-Westfalen, Frühmittelalter, Franken, Merowingerzeit}
+}
 @BOOK{stanzl:1998,
   AUTHOR = {Stanzl, Günther},
   TITLE = {St. Kastor in Koblenz},
@@ -2418,6 +2444,25 @@
   LANGUAGE = {german},
   GENDER = {pp},
 }
+@BOOK{van:neck:yoder:1978,
+  AUTHOR = {van Neck Yoder, Hilda},
+  TITLE = {Dramatizations of social change},
+  DATE = {1978},
+  SUBTITLE = {Herman Heijermans' plays as compared with selected dramas by Ibsen,
+    Hauptmann and Chekhov},
+  PUBLISHER = {Martinus Nijhoff},
+  ISBN = {90 247 2117 7},
+  PAGETOTAL = {81},
+  SERIES = ufg-BiblNeerlandicaExtraMuros,
+  NUMBER = {5},
+  LOCATION = {The Hague AND Boston AND London},
+  ABSTRACT = {Behandelt \mkbibquote{Ghetto}, \mkbibquote{Op Hoop van Zegen} und \mkbibquote{Ora
+    et Labora}},
+  KEYWORDS = {Niederlande, Literatur, Theater, Naturalismus},
+  GENDER = {sf},
+  LANGUAGE = {english},
+  IDS = {de:neck:yoder:1978},
+}
 @THESIS{volk:1972,
   AUTHOR = {Volk, Peter},
   TITLE = {Medizingeschichtliche Überlieferung der römischen Antike
@@ -2433,6 +2478,17 @@
   LANGUAGE = {german},
   GENDER = {sm},
   INSTITUTION = {Univ. Freiburg/Br.},
+}
+@BOOK{waaren-kunde:1838,
+  TITLE = {Nürnberger Waaren-Kunde, oder Preisverzeichniss der vorzüglichsten Nürnberger Manufactur-Waren mit Angabe der Sorten, Grössen und Nummerirungen},
+  DATE = {1838},
+  EDITION = 2,
+  LOCATION = {Nürnberg},
+  PUBLISHER = {C. Leuchs \& Comp.},
+  KEYWORDS = {19. Jahrhundert, Spiel, Deutschland, Nürnberg, Handel},
+  SHORTTITLE = {Waaren-Kunde},
+  GENDER = {sn},
+  LANGUAGE = {german},
 }
 %    \end{macrocode}
 %
@@ -8303,7 +8359,7 @@
             ]
         }
 %    \end{macrocode}
-% Remove related field if not \Type{review}.
+% Remove related field if not \Typ{review}.
 %    \begin{macrocode}
         \map[
             overwrite
@@ -8917,7 +8973,7 @@
 % \begin{macro}{\mkbibreviewnameprefix}
 % \begin{macro}{\mkbibreviewnamesuffix}
 % Different name formatting of \Feld{author}/\Feld{editor} in review titles.
-% \changes{2.2}{2019/11/08}{added \Befehl{\mkbibreviewnamefamily}, \Befehl{\mkbibreviewnamegiven}, \Befehl{\mkbibreviewnameprefix} and \Befehl{\mkbibreviewnameprefix}}
+% \changes{2.2}{2019/11/08}{added \Befehl{mkbibreviewnamefamily}, \Befehl{mkbibreviewnamegiven}, \Befehl{mkbibreviewnameprefix} and \Befehl{mkbibreviewnameprefix}}
 %    \begin{macrocode}
 \newcommand*{\mkbibreviewnamefamily}[1]{#1}
 \newcommand*{\mkbibreviewnamegiven}[1]{#1}
@@ -10439,7 +10495,7 @@
 % \begin{macro}{\multireviewdelim}
 % \begin{macro}{\finalreviewdelim}
 % The delimiter between multiple reviews.
-% \changes{2.2}{2019/11/08}{added \Befehl{\multireviewdelim} and \Befehl{\finalreviewdelim}}
+% \changes{2.2}{2019/11/08}{added \Befehl{multireviewdelim} and \Befehl{finalreviewdelim}}
 %    \begin{macrocode}
 \newcommand*{\multireviewdelim}{\addsemicolon\space}
 \newcommand*{\finalreviewdelim}{\addspace\bibstring{and}\space}
@@ -10450,7 +10506,7 @@
 % \begin{macro}{\multireviewnamedelim}
 % \begin{macro}{\finalreviewnamedelim}
 % The delimiter between multiple reviews.
-% \changes{2.2}{2019/11/12}{added \Befehl{\multireviewnamedelim} and \Befehl{\finalreviewnamedelim}}
+% \changes{2.2}{2019/11/12}{added \Befehl{multireviewnamedelim} and \Befehl{finalreviewnamedelim}}
 %    \begin{macrocode}
 \newcommand*{\multireviewnamedelim}{\addcomma\space}
 \newcommand*{\finalreviewnamedelim}{\addspace\bibsstring{and}\space}
@@ -10460,7 +10516,7 @@
 %
 % \begin{macro}{\reviewofnamedelim}
 % The punctuation after \Kbd{reviewof}.
-% \changes{2.2}{2019/11/08}{added \Befehl{\reviewofnamedelim}}
+% \changes{2.2}{2019/11/08}{added \Befehl{reviewofnamedelim}}
 %    \begin{macrocode}
 \newcommand*{\reviewofnamedelim}{\addspace}
 %    \end{macrocode}
@@ -10473,9 +10529,9 @@
 %    \end{macrocode}
 % \end{format}
 %
-% \begin{macro}{\reviewofnamedelim}
+% \begin{bibmacro}{\reviewofnamedelim}
 % The delimiter between multiple reviews.
-% \changes{2.2}{2019/11/12}{\Type{review} can generate its title by linking to \Feld{related} entries}
+% \changes{2.2}{2019/11/12}{\Typ{review} can generate its title by linking to \Feld{related} entries}
 %    \begin{macrocode}
 \newbibmacro*{reviewtitle}{%
 	\let\blxarch@buffer@review@multinamedelim\multireviewnamedelim%
@@ -10562,6 +10618,8 @@
 	\let\c@maxnames\blxarch@buffer@maxreviewnames%
     \let\c@minnames\blxarch@buffer@minreviewnames%
 }
+%    \end{macrocode}
+% \end{bibmacro}
 %
 % \subsubsubsection{Periodicals}
 %

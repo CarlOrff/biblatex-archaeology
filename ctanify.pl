@@ -24,6 +24,7 @@ use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 use Encode qw< decode >;
 use FileHandle;
 use File::Copy;
+use File::Find;
 use File::Path qw(make_path remove_tree);
 use File::Remove 'remove';
 use Text::Markdown 'markdown';
@@ -39,6 +40,10 @@ my $time = time;
 my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
 $year += 1900;
 
+
+# CTAN demands UNIX line feeds
+my $newline = "\012";
+
 system_call( "chcp 65001" ) if $^O eq 'MSWin32';
 
 # pathes to local bib files
@@ -50,9 +55,6 @@ my $package = 'biblatex-archaeology';
 
 # test file
 my $expltex = "biblatex-archaeology_example.tex";
-
-# CTAN demands UNIX line feeds
-my $newline = "\012";
 
 # log text
 my $log;
@@ -76,6 +78,18 @@ $zip->addDirectory( $package );
 # add an example directory
 my $expldir = "$package/example";
 $zip->addDirectory( $expldir );
+
+#############################
+# CREATE TDS COMPLIANT FILE #
+#############################
+
+my $tds = Archive::Zip->new();
+
+# add a root directories
+my $tds_tex = "tex/latex/$package";
+my $tds_doc = "doc/latex/$package";
+my $tds_expl = "$tds_doc/example";
+my $tds_bib = "bibtex/bib/$package";
 
 #generate databases
 system_call( "lualatex -file-line-error $package.dtx" ); 
@@ -107,13 +121,22 @@ system_call( "lualatex -file-line-error $package.dtx" );
 system_call( "lualatex -file-line-error $package.dtx" );
 
 # add sources
-add_zip( "$package.dtx", $package );
-add_zip( "$package-nodoc.dtx", $package );
-add_zip( "$package.ins", $package );
-add_zip( "$package.conf", $package );
-my $markdown = add_zip( "README.md", $package );
-add_zip( "$package.pdf", $package );
-add_zip( $expltex, $expldir );
+add_zip( 0, "$package.dtx", $package );
+add_zip( 0, "$package-nodoc.dtx", $package );
+add_zip( 0, "$package.ins", $package );
+add_zip( 0, "$package.conf", $package );
+my $markdown = add_zip( 0, "README.md", $package );
+add_zip( 0, "$package.pdf", $package );
+add_zip( 0, $expltex, $expldir );
+
+# add sources to TDS
+add_zip( 1, "$package.dtx", $tds_doc );
+add_zip( 1, "$package-nodoc.dtx", $tds_doc );
+add_zip( 1, "$package.ins", $tds_doc );
+add_zip( 1, "$package.conf", $tds_doc );
+add_zip( 1, "README.md", $tds_doc );
+add_zip( 1, "$package.pdf", $tds_doc );
+add_zip( 1, $expltex, $tds_expl );
 
 # We add a README.htm for optimized backlinks from CTAN mirrors
 my $html = 'README.htm';
@@ -128,7 +151,8 @@ if ( defined $readmehtml ) {
 	finish( "Could not populate markdown file $html!" ) if length $markdown < 100;
 	print $readmehtml '<!doctype html><html><meta charset="utf-8"></html><body>' . $markdown . '</body>';
 	undef $readmehtml;      # automatically closes the file
-	add_zip( $html, $package );
+	add_zip( 0, $html, $package );
+	add_zip( 1, $html, $tds_doc );
 }
 else { finish( "Could not open $html: $!" ) }
 
@@ -144,7 +168,7 @@ undef $eh;       # automatically closes the file
 
 foreach my $style ( @styles ) {
 
-   $example =~ s/ingram-braun-local\.sty/this-file-does-not.exist/; # for test purposes: use package databases
+    #$example =~ s/ingram-braun-local\.sty/this-file-does-not.exist/; # for test purposes: use package databases
     $example =~ s/\\usepackage((?:(?!\\usepackage).)*)\{biblatex\}/\\usepackage[style=$style]{biblatex}/s;
     my $jobname = $style . "-example";
     $eh = FileHandle->new( "$jobname.tex", O_WRONLY|O_CREAT );
@@ -157,19 +181,37 @@ foreach my $style ( @styles ) {
         system_call( "biber $jobname" );
         system_call( "lualatex -file-line-error $jobname" );
         system_call( "lualatex -file-line-error $jobname" );
-        add_zip( "$jobname.pdf", $expldir );
+        add_zip( 0, "$jobname.pdf", $expldir );
+		add_zip( 1, "$jobname.pdf", $tds_expl );
     }
     else {
         finish("FATAL ERROR: Could not open $jobname.tex: $!");
     }
 }
 
+find(\&handle_file);
+my $tds_filename = $package.'.tds.zip';
+
+# Save the TDS file
+my $fh = FileHandle->new( $tds_filename, O_WRONLY|O_TRUNC|O_CREAT );
+if ( defined $fh ) {
+    unless ( $tds->writeToFileHandle( $fh ) == AZ_OK ) {
+       finish("FATAL ERROR: Could not store $tds_filename: $!");
+    }
+	undef $fh;
+}
+else {
+    finish("FATAL ERROR: Could not create $package.zip: $!");
+}
+add_zip( 0, $tds_filename, '' );
+
 # Save the Zip file
-my $fh = FileHandle->new( "$package.zip", O_WRONLY|O_TRUNC|O_CREAT );
+$fh = FileHandle->new( "$package.zip", O_WRONLY|O_TRUNC|O_CREAT );
 if ( defined $fh ) {
     unless ( $zip->writeToFileHandle( $fh ) == AZ_OK ) {
        finish("FATAL ERROR: Could not store $package.zip: $!");
     }
+	undef $fh;
 }
 else {
     finish("FATAL ERROR: Could not create $package.zip: $!");
@@ -177,6 +219,7 @@ else {
 
 remove_intermediary_files();
 remove( '*-example.pdf' ); # deleting PDFs in the above loop destroys the archive!
+remove( $tds_filename );
     
 
 
@@ -200,11 +243,15 @@ sub add_log {
 # adds a file (arg 1) to the archive member (arg 2) and converts CRLF to LF
 sub add_zip {
 	
+	my $mode = shift; # 0 = common, 1 = TDS
     my $filename = shift;
     my $dir = shift;	
+	
+	my $z = $zip;
+	$z = $tds if $mode;
           
 	add_log("Trying to open file ", $filename, "\n");
-    if ($filename !~ /\.pdf$/) {
+    if ($filename !~ /\.(pdf|zip)$/) {
 
         my $handle = FileHandle->new($filename, O_RDONLY);
         
@@ -230,7 +277,7 @@ sub add_zip {
                     or finish("FATAL ERROR: Could not decode string $line: $@\n") if length $line > 0;
             }
             
-            my $member = $zip->addString( $text, "$dir/$filename", COMPRESSION_LEVEL_BEST_COMPRESSION );
+            my $member = $z->addString( $text, "$dir/$filename", COMPRESSION_LEVEL_BEST_COMPRESSION );
 			
 			# set UNIX file attributes on read-only
 			$member->unixFileAttributes( 0644 ); # -rw-r--r--
@@ -246,7 +293,7 @@ sub add_zip {
 	}
     else {
 
-        my $member = $zip->addFile( $filename, "$dir/$filename", COMPRESSION_LEVEL_BEST_COMPRESSION );
+        my $member = $z->addFile( $filename, "$dir/$filename", COMPRESSION_LEVEL_BEST_COMPRESSION );
         add_log("PDF file $filename successfully added to ZIP archive.\n");
 		
 		# set UNIX file attributes on read-only
@@ -325,4 +372,13 @@ sub system_call {
 	else {
 		add_log(sprintf "child exited with value %d\n", $? >> 8);
 	}
+}
+
+sub handle_file {
+   
+   my $file = $_;
+   
+   add_zip( 1, $file, $tds_bib ) if $file =~ /\.bib$/;
+   add_zip( 1, $file, $tds_tex ) if $file =~ /\.[bcdl]bx$/;
+   
 }
