@@ -213,6 +213,9 @@
 % \changes{2.1}{2018/11/07}{New style \Stil{nnu-alt}}
 % \changes{2.2}{2018/11/20}{Renamed \Datei{biblatex-archaeology.conf}, now \Datei{biblatex-archaeology.xml}}
 % \changes{2.2}{2019/11/03}{\Kbd{ingram-braun.net} URLs corrected due to website relaunch}
+% \changes{2.2}{2019/11/13}{Added new style \Stil{rgk-inline-old}}
+% \changes{2.2}{2019/11/13}{Added new style \Stil{rgk-numeric-old}}
+% \changes{2.2}{2019/11/13}{Added new style \Stil{rgk-verbose-old}}
 %
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -454,7 +457,16 @@
 % The RGK style with numeric labels. Keep in mind that \Feld{prenote} and \Feld{postnote} fields are senseless in numeric styles.
 %
 % \item[]\DescribeStyle{rgk-verbose}
-% The verbose style of the \Deutsch{R\"omisch-Germanische Kommission des Deutschen Arch\"aologischen Instituts}.\autocites{guidelines:rgk:1991,guidelines:rgk:2018:de,guidelines:rgk:2018:en,guidelines:rgk-review:de} 
+% The verbose style of the \Deutsch{R\"omisch-Germanische Kommission des Deutschen Arch\"aologischen Instituts}.\autocites{guidelines:rgk:1991}
+%
+% \item[]\DescribeStyle{rgk-inline-old}
+% An outdated version of the  author date style of the \Deutsch{R\"omisch-Germanische Kommission des Deutschen Arch\"aologischen Instituts}.\autocites{guidelines:rgk:1991}
+%
+% \item[]\DescribeStyle{rgk-numeric-old}
+% An outdated version of the RGK style with numeric labels. Keep in mind that \Feld{prenote} and \Feld{postnote} fields are senseless in numeric styles.
+%
+% \item[]\DescribeStyle{rgk-verbose-old}
+% An outdated version of the  verbose style of the \Deutsch{R\"omisch-Germanische Kommission des Deutschen Arch\"aologischen Instituts}.\autocites{guidelines:rgk:1991} 
 %
 % \item[]\DescribeStyle{rgzm-inline}
 % The author date style of the \Deutsch{R\"omisch-Germanisches Zentralmuseum}.
@@ -12669,12 +12681,21 @@
 % \begin{macro}{\blxarch@style@rgkinline}
 % \begin{macro}{\blxarch@style@rgknumeric}
 % \begin{macro}{\blxarch@style@rgkverbose}
+% \begin{macro}{\blxarch@style@rgkinlineold}
+% \begin{macro}{\blxarch@style@rgknumericold}
+% \begin{macro}{\blxarch@style@rgkverboseold}
 %    \begin{macrocode}
 \edef\blxarch@style@rgk{R\"omisch-Germanische Kommission}
 \edef\blxarch@style@rgkverbose{\blxarch@style@rgk\space(geisteswissenschaftlich)}
 \edef\blxarch@style@rgkinline{\blxarch@style@rgk\space(naturwissenschaftlich)}
 \edef\blxarch@style@rgknumeric{\blxarch@style@rgk\space(numerisch)}
+\edef\blxarch@style@rgkverboseold{\blxarch@style@rgkinline\space(obsolete)}
+\edef\blxarch@style@rgkinlineold{\blxarch@style@rgknumeric\space(obsolete)}
+\edef\blxarch@style@rgknumericold{\blxarch@style@rgkverbose\space(obsolete)}
 %    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
@@ -18218,6 +18239,319 @@
 %
 % \iffalse
 %</rgksharedBBX>
+%<*rgkverboseoldBBX>
+% \fi
+%
+% \subsubsection{File \Datei{rgk-verbose-old.bbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{rgk-verbose-old.bbx}
+[2018/11/20 v2.1 biblatex-archaeology bibliography style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireBibliographyStyle{verbose-trad2note-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeobibstyletitle}
+%    \begin{macrocode}
+\def\archaeobibstyletitle{\blxarch@style@rgkverboseold}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+    dashed=true,
+    ibidtracker=true,
+    idemtracker=false,
+    loccittracker=true,
+    maxbibnames=500,
+    maxcitenames=500,
+}
+%    \end{macrocode}
+%
+% \iffalse
+%</rgkverboseoldBBX>
+%<*rgknumericoldBBX>
+% \fi
+%
+% \subsubsection{File \Datei{rgk-numeric-old.bbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{rgk-verbose-old.bbx}
+[2018/11/20 v2.1 biblatex-archaeology bibliography style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireBibliographyStyle{numeric-comp-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeobibstyletitle}
+%    \begin{macrocode}
+\def\archaeobibstyletitle{\blxarch@style@rgknumericold}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+    ibidtracker=false,
+    idemtracker=false,
+    loccittracker=false,
+    maxbibnames=500,
+    maxcitenames=500,
+}
+%    \end{macrocode}
+%
+% \iffalse
+%</rgknumericoldBBX>
+%<*rgkinlineoldBBX>
+% \fi
+%
+% \subsubsection{File \Datei{rgk-inline-old.bbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{rgk-inline.bbx}
+[2018/11/20 v2.1 biblatex-archaeology bibliography style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireBibliographyStyle{authoryear-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeobibstyletitle}
+%    \begin{macrocode}
+\def\archaeobibstyletitle{\blxarch@style@rgkinlineold}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+    dashed=true,
+    ibidtracker=false,
+    idemtracker=false,
+    loccittracker=false,
+    repeatlabel=true,
+    mergedate=false,
+    maxbibnames=500,
+    maxcitenames=2,
+    mincitenames=1,
+    sorting=lnyvc,
+}
+%    \end{macrocode}
+%
+% \begin{macro}{\bibitemsep}
+%    \begin{macrocode}
+\setlength{\bibitemsep}{\baselineskip}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\bibnamedash}
+%    \begin{macrocode}
+\renewcommand*{\bibnamedash}{\printtext{\bibstring[\mkbiblistnamefamily]{idem\thefield{gender}}}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\mkbibrepeatfamily}
+% \begin{macro}{\mkbibrepeatprefix}
+%    \begin{macrocode}
+\renewcommand*{\mkbiblistnamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\textsc{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \iffalse
+%</rgkinlineoldBBX>
+%<*rgksharedoldBBX>
+% \fi
+%
+% \subsubsection{Shared by \Datei{rgk-*-old.bbx}}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+%    \end{macrocode}
+% \blx options:
+%    \begin{macrocode}
+    doi=false,       
+    eprint=false,
+    giveninits=true,    
+    maxbibnames=500,
+    maxcitenames=2,
+    maxitems=2,
+    mincitenames=1,                  
+    minitems=1,
+    notetype=foot+end,
+    url=false,
+%    \end{macrocode}
+% \archbib options:
+%    \begin{macrocode}
+    editionsuperscript=posttitle,
+    giveninitligatures={Ch,Ph,St,Th},
+    idemincitation=false,
+    injournal=false,
+    journallocation=false,
+    maxbooknames=500,
+    minbooknames=3,
+    minrealdatediff=\blxarch@maxnumber,
+    nothesistitlepunct=true,
+    notitlepunct=true,
+    origfields=true,
+    pagesfirst=false,
+    positionlabeldate=location,
+    preservelastauthor=false,
+    shortform=false,
+    shortjournal=true,
+    shortseries=true,
+    subseries=true,
+    summarytitle=false,
+    tabbedlabeldate=false,
+    titlebrackets=false,
+    titlenote=true,
+    useeventdate=false,
+    useeventnumber=true,
+    usefestschriftaddon=false,
+    useinstitution=false,
+    uselocation=true,
+    usemultivenue=false,
+    usesourceeditor=true,
+    usepublisher=false,
+    useunpublishedthesis=true,
+    volumeafterseries=false,
+}
+%    \end{macrocode}
+%
+% \begin{format}{bookauthor}
+% \begin{format}{sortname}
+%    \begin{macrocode}
+\DeclareNameAlias{bookauthor}{given-family}
+\DeclareNameAlias{sortname}{given-family}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+%
+% \begin{macro}{\multinamedelim}
+% \begin{macro}{\finalnamedelim}
+%    \begin{macrocode}
+\renewcommand*{\multinamedelim}{\addslash}
+\renewcommand*{\finalnamedelim}{\addslash}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\mkbiblistnamefamily}
+% \begin{macro}{\mkbiblistnamefamily}
+%    \begin{macrocode}
+\renewcommand*{\mkbiblistnamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbiblistnameprefix}[1]{\textsc{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\labelnamepunct}
+% \begin{macro}{\booklabelnamepunct}
+%    \begin{macrocode}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{format}{dictionary}
+% \marg{text}\\
+% Formatting of dictionary entries
+%    \begin{macrocode}
+\DeclareFieldFormat[inreference]{dictionary}{\midsentence\bibstring{subverbum}\space#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\seriespunct}
+% \begin{format}{seriesparens}
+%    \begin{macrocode}
+\renewcommand*{\seriespunct}{\addspace}
+\DeclareFieldFormat*{seriesparens}{#1}
+%    \end{macrocode}
+% \end{format}
+% \end{macro}
+%
+% \begin{macro}{\booklabelnamepunct}
+%    \begin{macrocode}
+\renewcommand*{\volumenumberdelim}{\addcomma\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{realdateparens}
+% \begin{format}{origrealdateparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{realdateparens}{\mkbibparens{#1}}
+\DeclareFieldFormat*{origrealdateparens}{\mkbibparens{#1}}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+%
+% \begin{format}{pages}
+% \begin{format}{volume}
+%    \begin{macrocode}
+\DeclareFieldFormat*{pages}{#1}
+\DeclareFieldFormat*{volume}{\addspace#1}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+%
+% \begin{format}{journaldateparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{journaldateparens}{#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{locationdateparen}
+% \begin{format}{thesis}
+%    \begin{macrocode}
+\DeclareFieldFormat[thesis]{thesis}{\mkbibparens{#1}}
+\DeclareFieldFormat[thesis]{locationdateparens}{#1}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+%
+% \begin{format}{missingfield}
+% In order to make parentheses around \Kbd{nodate} and \Kbd{noplace}.
+%    \begin{macrocode}
+\DeclareFieldFormat*{missingfield}{\mkbibbrackets{#1}}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\bibpagespunct}
+%    \begin{macrocode}
+\renewcommand*{\bibpagespunct}{%
+    \iffieldundef{journaltitle}
+        {\addspace}
+        {\addcomma\space}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{reprintparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{reprintparens}{\addsemicolon\space#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\multicitedelim}
+%    \begin{macrocode}
+\renewcommand*{\multicitedelim}{\addsemicolon\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{url}
+% \begin{macro}{\url}
+%    \begin{macrocode}
+\DeclareFieldFormat*{url}{\url{#1}}
+\let\blxarch@buffer@url\url
+\renewcommand*{\url}[1]{\textless\blxarch@buffer@url{#1}\textgreater}
+%    \end{macrocode}
+% \end{macro}
+% \end{format}
+%
+% \iffalse
+%</rgksharedoldBBX>
 %<*rgzmverboseBBX>
 % \fi
 %
@@ -20651,6 +20985,111 @@
 %
 % \iffalse
 %</rgkverboseCBX>
+%<*rgkinlineoldCBX>
+% \fi
+%
+% \subsubsection{File \Datei{rgk-inline-old.cbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{rgk-inline-old.cbx}
+[2018/11/20 v2.1 biblatex-archaeology citation style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireCitationStyle{authoryear-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeocitestyletitle}
+%    \begin{macrocode}
+\def\archaeocitestyletitle{\blxarch@style@rgkinlineold}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+    uniquename=false,
+    uniquelist=false,
+}
+%
+% \iffalse
+%</rgkinlineoldCBX>
+%<*rgknumericoldCBX>
+% \fi
+%
+% \subsubsection{File \Datei{rgk-numeric-old.cbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{rgk-numeric.cbx}
+[2018/11/20 v2.1 biblatex-archaeology citation style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireCitationStyle{numeric-comp-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeocitestyletitle}
+%    \begin{macrocode}
+\def\archaeocitestyletitle{\blxarch@style@rgknumericold}
+%    \end{macrocode}
+% \end{macro}
+%
+% \iffalse
+%</rgknumericoldCBX>
+%<*rgkverboseoldCBX>
+% \fi
+%
+% \subsubsection{File \Datei{rgk-verbose-old.cbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{rgk-verbose.cbx}
+[2018/11/20 v2.1 biblatex-archaeology citation style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireCitationStyle{verbose-trad2note-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeocitestyletitle}
+%    \begin{macrocode}
+\def\archaeocitestyletitle{\blxarch@style@rgkverboseold}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+    citepages=omit, % permit|suppress|omit|separate
+}
+%    \end{macrocode}
+%
+% \begin{format}{seenote}
+%    \begin{macrocode}
+\DeclareFieldFormat*{seenote}{\mkbibparens{#1}}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\postnotedelim}
+%    \begin{macrocode}
+\renewcommand*{\postnotedelim}{%
+    \ifboolexpr{
+        test {\ifentrytype{article}}
+        or
+        test {\ifentrytype{review}}
+        or
+        test {\ifentrytype{suppperiodical}}
+    }
+        {\ifboolexpr{
+            not test {\ifloccit}
+            and
+            not test {\ifseenote}
+         }
+            {\addcomma\space}
+            {\addspace}}
+        {\addspace}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \iffalse
+%</rgkverboseoldCBX>
 %<*rgzmnumericCBX>
 % \fi
 %
@@ -25623,7 +26062,7 @@
 % \fi
 %
 %    \begin{macrocode}
-\ProvidesFile{rgkinlineDBX}
+\ProvidesFile{rgk-inline.dbx}
 %    \end{macrocode}
 %
 % \iffalse
@@ -25646,6 +26085,33 @@
 %
 % \iffalse
 %</rgkverboseDBX>
+%<*rgkinlineoldDBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{rgk-inline-old.dbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</rgkinlineoldDBX>
+%<*rgknumericoldDBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{rgk-numeric-old.dbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</rgknumericoldDBX>
+%<*rgkverboseoldDBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{rgk-verbose-old.dbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</rgkverboseoldDBX>
 %<*rgzminlineDBX>
 % \fi
 %
