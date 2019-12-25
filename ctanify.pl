@@ -36,6 +36,9 @@ use Text::Markdown 'markdown';
 
 my $time = time;
 
+
+my $DEBUG = 0; # 0 if production, 1 if debug mode
+
 # local date
 my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
 $year += 1900;
@@ -53,6 +56,9 @@ $bib[0] = $ENV{USERPROFILE}.'/Documents/ingram/Texte/bib/ingram.bib' if exists( 
 # package name
 my $package = 'biblatex-archaeology';
 
+# TDS file name
+my $tds_filename = $package.'.tds.zip';
+
 # test file
 my $expltex = "biblatex-archaeology_example.tex";
 
@@ -69,8 +75,12 @@ add_log("NEW RUN: $year-$mon-$mday $hour:$min:$sec");
 # CREATE ZIP FILE #
 ###################
 
-# delete unzipped file
+# delete old files
 remove_tree( $package );
+remove_tree( "$package.tds" );
+remove_intermediary_files();
+remove( '*-example.pdf' ); # deleting PDFs in the above loop destroys the archive!
+remove( '*.zip' );
 
 # add a root directory and name it $package
 $zip->addDirectory( $package );
@@ -87,9 +97,15 @@ my $tds = Archive::Zip->new();
 
 # add a root directories
 my $tds_tex = "tex/latex/$package";
+$tds->addDirectory( $tds_tex );
 my $tds_doc = "doc/latex/$package";
+$tds->addDirectory( $tds_doc );
 my $tds_expl = "$tds_doc/example";
+$tds->addDirectory( $tds_expl );
 my $tds_bib = "bibtex/bib/$package";
+$tds->addDirectory( $tds_bib );
+my $tds_source = "source/latex/$package";
+$tds->addDirectory( $tds_source );
 
 #generate databases
 system_call( "lualatex -file-line-error $package.dtx" ); 
@@ -108,17 +124,19 @@ system_call("pdftex -8bit $package.ins");
 system_call("texhash");
 
 # generate manual
-system_call( "lualatex -file-line-error $package.dtx" );
-system_call( "biber $package" );
-system_call( "perl datamodel.pl" );
-system_call( "lualatex -file-line-error $package.dtx" );
-system_call( "makeindex -s gind.ist $package.idx" );
-system_call( "lualatex -file-line-error $package.dtx" );
-system_call( "makeindex -s gglo.ist -o $package.gls $package.glo" );
-system_call( "lualatex -file-line-error $package.dtx" );
-system_call( "makeindex -s gglo.ist -o $package.gls $package.glo" );
-system_call( "lualatex -file-line-error $package.dtx" );
-system_call( "lualatex -file-line-error $package.dtx" );
+if ( !$DEBUG ) {
+	system_call( "lualatex -file-line-error $package.dtx" );
+	system_call( "biber $package" );
+	system_call( "perl datamodel.pl" );
+	system_call( "lualatex -file-line-error $package.dtx" );
+	system_call( "makeindex -s gind.ist $package.idx" );
+	system_call( "lualatex -file-line-error $package.dtx" );
+	system_call( "makeindex -s gglo.ist -o $package.gls $package.glo" );
+	system_call( "lualatex -file-line-error $package.dtx" );
+	system_call( "makeindex -s gglo.ist -o $package.gls $package.glo" );
+	system_call( "lualatex -file-line-error $package.dtx" );
+	system_call( "lualatex -file-line-error $package.dtx" );
+}
 
 # add sources
 add_zip( 0, "$package.dtx", $package );
@@ -126,16 +144,16 @@ add_zip( 0, "$package-nodoc.dtx", $package );
 add_zip( 0, "$package.ins", $package );
 add_zip( 0, "$package.conf", $package );
 my $markdown = add_zip( 0, "README.md", $package );
-add_zip( 0, "$package.pdf", $package );
+add_zip( 0, "$package.pdf", $package ) if !$DEBUG;
 add_zip( 0, $expltex, $expldir );
 
 # add sources to TDS
-add_zip( 1, "$package.dtx", $tds_doc );
-add_zip( 1, "$package-nodoc.dtx", $tds_doc );
-add_zip( 1, "$package.ins", $tds_doc );
+add_zip( 1, "$package.dtx", $tds_source );
+add_zip( 1, "$package-nodoc.dtx", $tds_source );
+add_zip( 1, "$package.ins", $tds_source );
 add_zip( 1, "$package.conf", $tds_doc );
 add_zip( 1, "README.md", $tds_doc );
-add_zip( 1, "$package.pdf", $tds_doc );
+add_zip( 1, "$package.pdf", $tds_doc ) if !$DEBUG;
 add_zip( 1, $expltex, $tds_expl );
 
 # We add a README.htm for optimized backlinks from CTAN mirrors
@@ -156,16 +174,26 @@ if ( defined $readmehtml ) {
 }
 else { finish( "Could not open $html: $!" ) }
 
-# generate example PDF for every style
+my ( @codefiles, @bibliographies, @styles);
 opendir ( my $dh, "." ) or die $!;
-my @styles = grep{ $_ = $1 if /(.+?)\.bbx$/ }readdir $dh;
+while (my $codefile = readdir $dh) {
+    
+	push( @styles, $1 ) if $codefile =~ /(.+?)\.bbx$/;
+	push( @bibliographies, $& )  if $codefile =~ /.+?\.bib$/;
+	push( @codefiles, $& )  if $codefile =~ /.+?\.([bcdl]bx|sty)$/;
+}
 closedir $dh;
+
+# add package files to TDS
+grep { add_zip( 1, $_, $tds_bib ) } @bibliographies;
+grep { add_zip( 1, $_, $tds_tex ) } @codefiles;
 
 my $eh = FileHandle->new($expltex, O_RDONLY);
 my $example;
 while( <$eh> ) { $example .= $_ }
 undef $eh;       # automatically closes the file
 
+# generate example PDF for every style
 foreach my $style ( @styles ) {
 
     #$example =~ s/ingram-braun-local\.sty/this-file-does-not.exist/; # for test purposes: use package databases
@@ -187,10 +215,11 @@ foreach my $style ( @styles ) {
     else {
         finish("FATAL ERROR: Could not open $jobname.tex: $!");
     }
+	
+	last if $DEBUG; # shorten execution time in debug mode;
 }
 
 find(\&handle_file);
-my $tds_filename = $package.'.tds.zip';
 
 # Save the TDS file
 my $fh = FileHandle->new( $tds_filename, O_WRONLY|O_TRUNC|O_CREAT );
@@ -219,7 +248,7 @@ else {
 
 remove_intermediary_files();
 remove( '*-example.pdf' ); # deleting PDFs in the above loop destroys the archive!
-remove( $tds_filename );
+remove( $tds_filename ) if !$DEBUG;
     
 
 
@@ -294,7 +323,7 @@ sub add_zip {
     else {
 
         my $member = $z->addFile( $filename, "$dir/$filename", COMPRESSION_LEVEL_BEST_COMPRESSION );
-        add_log("PDF file $filename successfully added to ZIP archive.\n");
+        add_log("File $filename successfully added to ZIP archive.\n");
 		
 		# set UNIX file attributes on read-only
 		$member->unixFileAttributes( 0644 ); # -rw-r--r--
