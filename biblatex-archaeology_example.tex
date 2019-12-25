@@ -15,10 +15,10 @@
     \makeatother
     \raggedright
 \else 
-    \usepackage{fontspec,polyglossia,noto}
-    \setmonofont{NotoSansMono}[HyphenChar=None]
-    %\setdefaultlanguage{english}\setotherlanguage{german}
-    \setdefaultlanguage{german}\setotherlanguage{english}
+	\usepackage{fontspec,noto}\setmonofont{NotoSansMono}[HyphenChar=None]
+	\usepackage[french,dutch,danish,swedish,english,german,ngerman]{babel}
+    %\usepackage{polyglossia}\setdefaultlanguage{english}\setotherlanguage{german}
+    %\usepackage{polyglossia}\setdefaultlanguage{german}\setotherlanguage{english}
 % command is missing in some fonts:
 %    \DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\} 
 \fi
@@ -60,7 +60,7 @@
     %style=dguf-apa,
     %style=eaz,
     %style=eaz-alt,
-    %style=foe,
+    style=foe,
     %style=jb-halle,
     %style=jb-kreis-neuss,
     %style=karl,
@@ -76,7 +76,7 @@
     %style=rgzm-inline,
     %style=rgzm-numeric,
     %style=rgzm-verbose,
-	style=rgk-inline-old,
+	%style=rgk-inline-old,
     %style=rgk-numeric-old,
     %style=rgk-verbose-old,
     %style=ufg-muenster-inline,
@@ -86,6 +86,7 @@
     %style=zaak,
     %style=zaes,
     %bibencoding=utf8, % necessary if *.tex file is in other encoding
+	%autolang=none,
 ]{biblatex}
 \providetoggle{archbool:shortseries}
 \providetoggle{archbool:shortjournal}
@@ -128,6 +129,91 @@
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
+\newbibmacro*{reviewtitle}{%
+	\let\blxarch@buffer@review@multinamedelim\multireviewnamedelim%
+    \let\blxarch@buffer@review@finalnamedelim\finalreviewnamedelim%
+	\let\blxarch@buffer@review@namegiven\mkbibnamegiven%
+    \let\blxarch@buffer@review@namefamily\mkbibnamefamily%
+    \let\blxarch@buffer@review@nameprefix\mkbibnameprefix%
+    \let\blxarch@buffer@review@namesuffix\mkbibnamesuffix%
+    \let\mkbibnamegiven\mkbibreviewnamegiven%
+    \let\mkbibnamefamily\mkbibreviewnamefamily%
+    \let\mkbibnameprefix\mkbibreviewnameprefix%
+    \let\mkbibnamesuffix\mkbibreviewnamesuffix%
+	\let\blxarch@buffer@maxreviewnames\c@maxnames%
+    \let\blxarch@buffer@minreviewnames\c@minnames%
+    \let\c@maxnames\c@maxreviewnames%
+    \let\c@minnames\c@minreviewnames%
+	\setcounter{bbx:relatedtotal}{0}%
+	\setcounter{bbx:relatedcount}{0}%
+	\def\bbx@tempa{}%
+	\printtext[title]{%
+		\renewcommand*{\do}[1]{%
+		\printunit{}%
+		   \entrydata{##1}{%
+			\ifrelatedloop
+			{}
+			{\stepcounter{bbx:relatedtotal}%
+			\gappto{\bbx@tempa}{##1,}}}}%
+		\docsvfield{related}%
+		\ifnumequal{0}{\value{bbx:relatedtotal}}    
+			{\printfield{title}}
+			{\renewcommand*{\do}[1]{%
+				\stepcounter{bbx:relatedcount}%
+				\entrydata{##1}{%
+					\ifnumequal{1}{\value{bbx:relatedcount}}
+						{\ifnumequal{1}{\value{bbx:relatedtotal}}
+							{\biblstring{reviewof}}
+							{\biblstring{reviewsof}}%
+						 \printunit{\reviewofnamedelim}%
+						}
+						{\ifnumequal{\value{bbx:relatedtotal}}{\value{bbx:relatedcount}}
+							{\setunit{\finalreviewdelim}}
+							{\setunit{\multireviewdelim}}%
+						}%
+					\ifboolexpr{
+						not test {\ifnameundef{author}}
+						or 
+						not test {\ifnameundef{editor}}
+						or (
+						not test {\ifnameundef{translator}}
+						and
+						test {\ifusetranslator} )
+					}
+					  {%
+					  \ifciteindex
+						{\indexnames{labelname}}
+						{}%
+					   \printnames[reviewname]{labelname}%
+					   \iffieldundef{\strfield{labelnamesource}type}
+						{\ifnameundef{author}
+							{\printunit{\csuse{\strfield{labelnamesource}typedelim}}%
+							 \printtext[\strfield{labelnamesource}type]{\bibstring{\strfield{labelnamesource}}}%
+							 \setunit{\nametitledelim}}
+							{\nametitledelim}%
+						}
+						{\printunit{\csuse{\strfield{labelnamesource}typedelim}}%
+						 \printtext[\strfield{labelnamesource}type]{\bibstring{\strfield{\strfield{labelnamesource}type}}}%
+						 \setunit*{\nametitledelim}}%
+					  }%
+					  {}%
+					\printfield[reviewedtitle]{title}%
+				}%
+			 }%
+			}%
+			\restorefield{related}{\bbx@tempa}%
+			\docsvfield{related}%
+	}%
+	\clearfield{related}%
+	\let\multireviewnamedelim\blxarch@buffer@review@multinamedelim%
+    \let\finalreviewnamedelim\blxarch@buffer@review@finalnamedelim%
+	\let\mkbibnamegiven\blxarch@buffer@review@namegiven%
+    \let\mkbibnamefamily\blxarch@buffer@review@namefamily%
+    \let\mkbibnameprefix\blxarch@buffer@review@nameprefix%
+    \let\mkbibnamesuffix\blxarch@buffer@review@namesuffix%
+	\let\c@maxnames\blxarch@buffer@maxreviewnames%
+    \let\c@minnames\blxarch@buffer@minreviewnames%
+}
 
 %%% END EXPERIMENTAL CODE
 \makeatother

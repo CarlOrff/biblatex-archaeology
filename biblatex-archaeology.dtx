@@ -827,7 +827,8 @@
 %    R. Reviewer: \Stark{Reviews of A. Author, To be reviewed and E. Editor (ed.), Another one}. In: \textellipsis
 % \end{Beispiel}
 % Though the \Feld{\title} is replaced here, I would recommend to provide it in the database anyway in order to be concordant with common \blx rules where its
-% existance is the minimal requirement for an entry. Remark that review titles do not cause a bibliography entry for the cited work.
+% existence is the minimal requirement for an entry. Remark that review titles do not cause a bibliography entry for the cited work. Also take care of
+% \ref{kap:review} if you want to alter the formatting.
 %
 % \item[]\DescribeFormat{news}\\
 % \meta{news} goes to the \Feld{entrysubtype} field of an \Typ{article}, \Typ{review} or \Typ{suppperiodical}. Its purpose is to mark newspaper articles that
@@ -1617,6 +1618,21 @@
 % The same disambiguition problems with truncated given names arise in verbose styles on two occasions. \Option{idemincitation} is in fact dashing in citations. The same advice applies here: restrict
 % the corresponding database entries to initials. The other case are back references in Stil{verbose-trad2note-archaeology}. Use the \Option{labeltitle} entry option here.
 %
+% \subsection{language issues}
+%
+% \subsubsection{The \Paket{polyglossia} package and option \Option{autolang}}
+%
+% \blx' \Paket{polyglossia} interface is described as buggy. I have observed some spurious spaces in conjunction with \Option{autolang}\Kbd{=other}.
+% Therefore it is preferable to employ the \Paket{babel} package instead, even with Lua\LaTeX. Or try \Option{autolang}\Kbd{=hyphen}, but then
+% all localization keys will be translated to the main document language, not to the language of the entry. The casual rule \enquote{entry localization
+% is English if entry language is non-German} is wiped out then.
+% \subsection{The \Feld{gender} field}
+%
+% \subsubsection{Missing \Kbd{*.lbx} files}
+%
+% \archbib comes along with localization files for German an English. If you load other languages via \Paket{babel} or \Paket{polyglossia}, there
+% will occur warnings of missing \Kbd{*.lbx} files. As far as you do not need bibliographical localization in these languages, you can ignore them.
+%
 % \subsection{Authors in auction catalogues}
 %
 % The Author of an auction catalogue is always the auctioneer as corporative author (e.\,g. Sotheby's). Named redactors, if available, are secondary editors similar to
@@ -1659,13 +1675,15 @@
 % \archbib styles never print languages. But in some cases the \Feld{language} field influences the localization of a particular entry.
 % Therefore it is useful to provide it, especially if it differs from the main document language.
 %
+% \subsection{Formatting of the \Feld{title} field in \Typ{review}}\label{kap:review}
 %
-% \subsection{The \Feld{gender} field}
+% It can happen that text formattings with \Befehl{textit} and friends cause fatal errors if the \Feld{title} field was composed from \Feld{related}
+% entries. The remedy here is to employ formatting environments instead:
+% \begin{Beispiel}
+% \Befehl{DeclareFieldFormat}\Kbd{[review]\{title\}\{\itshape\#1\normalfont\}}
+% \end{Beispiel}
 %
-% In German documents the \Feld{gender} field is needed if the style replaces repeated names by \Deutsch{ders[elbe]},
-% \Deutsch{dies[elbe(n)]} or \Deutsch{dass[elbe]}.
-%
-% \subsection{Additional fields in \Biber's tool mode}\label{kap:bibertool}
+% \subsubsection{Additional fields in \Biber's tool mode}\label{kap:bibertool}
 %
 % \Biber does not see any data model file (\Kbd{*.dbx}) when in tool mode (with option \Kbd{--}\Option{tool} instead of job name)
 % and therefore omits all fields unknown to the standard styles. In order to avoid this we must provide our extended data model
@@ -10522,10 +10540,17 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{format}
+% \begin{format}{reviewname}
 % Name format in review titles.
 %    \begin{macrocode}
-\DeclareNameAlias{reviewname}{g-family}%
+\DeclareNameAlias{reviewname}{g-family}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{reviewedtitle}
+% Titles of rewied works should not be formated anyway.
+%    \begin{macrocode}
+\DeclareFieldFormat*{reviewedtitle}{#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -10551,7 +10576,7 @@
 	\setcounter{bbx:relatedtotal}{0}%
 	\setcounter{bbx:relatedcount}{0}%
 	\def\bbx@tempa{}%
-	\printtext[titlecase]{%
+	\printtext[title]{%
 		\renewcommand*{\do}[1]{%
 		\printunit{}%
 		   \entrydata{##1}{%
@@ -10567,8 +10592,8 @@
 				\entrydata{##1}{%
 					\ifnumequal{1}{\value{bbx:relatedcount}}
 						{\ifnumequal{1}{\value{bbx:relatedtotal}}
-							{\bibstring{reviewof}}
-							{\bibstring{reviewsof}}%
+							{\biblstring{reviewof}}
+							{\biblstring{reviewsof}}%
 						 \printunit{\reviewofnamedelim}%
 						}
 						{\ifnumequal{\value{bbx:relatedtotal}}{\value{bbx:relatedcount}}
@@ -10584,11 +10609,11 @@
 						and
 						test {\ifusetranslator} )
 					}
-					  {\DeclareNameAlias{sortname}{gfull-family}%
+					  {%
 					  \ifciteindex
 						{\indexnames{labelname}}
 						{}%
-					   \printnames{labelname}%
+					   \printnames[reviewname]{labelname}%
 					   \iffieldundef{\strfield{labelnamesource}type}
 						{\ifnameundef{author}
 							{\printunit{\csuse{\strfield{labelnamesource}typedelim}}%
@@ -10601,7 +10626,7 @@
 						 \setunit*{\nametitledelim}}%
 					  }%
 					  {}%
-					\printfield{title}%
+					\printfield[reviewedtitle]{title}%
 				}%
 			 }%
 			}%
@@ -14524,6 +14549,14 @@
             \step[fieldset=langid,fieldvalue=english]
             %\step[fieldset=langidopts,fieldvalue={variant=british}]
         }
+%    \end{macrocode}
+% Remove langid field from reviews because something wrong wit reviewtitle
+%    \begin{macrocode}
+        \map[overwrite=true]{
+			\pertype{review}
+            \step[fieldsource=language,notmatch=\regexp{german|austrian},final]
+            \step[fieldset=langid,fieldvalue={}]
+        }
     }
 }
 %    \end{macrocode}
@@ -14534,7 +14567,7 @@
 %    \end{macrocode}
 % \blx options:
 %    \begin{macrocode}
-    autolang=other*,
+    autolang=other,
     dashed=false,
     doi=true,       
     giveninits=true,    
@@ -15472,6 +15505,7 @@
 % \begin{format}{maintitle}
 %    \begin{macrocode}
 \DeclareFieldFormat*{title}{\mkbibitalic{#1}}
+\DeclareFieldFormat[review]{title}{\itshape#1\normalfont}
 \DeclareFieldFormat[book,collection,manual,proceedings,reference,report,thesis,unpublished]{title}{%
     \iffieldundef{series}
         {#1}
@@ -24004,8 +24038,8 @@
     noplace                   = {{ohne\space Ort}{o.\,O\adddot}},
     noplacenodate             = {{ohne Ort und Jahr}{o.\addabbrvspace O.\addabbrvspace u.\addabbrvspace J\adddot}},
     plate                     = {{Tafel}{Taf.}},
-	reviewof                  = {{Rezension von}{Rez.\adddot}},
-	reviewsof                 = {{Rezensionen von}{Rez.\adddot}},
+	reviewof                  = {{Rezension}{Rez.\adddot}},
+	reviewsof                 = {{Rezensionen}{Rez.\adddot}},
     specialauction            = {{Sonderauktion}{Sonderauktion}},
     specialauctions           = {{Sonderauktionen}{Sonderauktionen}},
     subverbum                 = {{sub verbum}{\autocap{s}.\,v\adddot}},
