@@ -625,6 +625,10 @@
 %       G. Ackermann, R. Bauer, F. Berger: A title. Hamburg 2015.
 % \end{Beispiel}
 %
+% \item[]\DescribeOption{reviewedauthoraftertitle}=\meta{bool}\\
+% If \meta{true}, the author in review titles which are generated via the \Feld{related} field goes behind the title and in front
+% otherwise.
+%
 % \item[]\DescribeOption{shortform}=\meta{key}\\
 % Wether to print short forms like \Deutsch{RGA} or \Latein{CIL} in bibliographies. The following keys are available:
 % \begin{optkeys}{3em}
@@ -1395,6 +1399,12 @@
 % \item[]\DescribeLocalization{dvd}\\
 % The expression \enquote{DVD} (digital video disc or digital versatile disc).
 %
+% \item[]\DescribeLocalization{reviewof}\\
+% The expression \enquote{Review of} at the beginning of review titles.
+%
+% \item[]\DescribeLocalization{reviewsof}\\
+% The expression \enquote{Reviews of} at the beginning of review titles.
+%
 % \end{itemize}
 %
 % \subsubsection{Metadata}
@@ -1498,6 +1508,9 @@
 % \subsubsection{Possessive forms}\label{kap:possform}
 %
 % \begin{itemize}
+%
+% \item[]\DescribeLocalization{by}\\
+% The expression \enquote{by} as in \enquote{by author}.
 %
 % \item[]\DescribeLocalization{genitives}\\
 % The regular genitive suffix like \enquote{'s} in English or \enquote{s} in German.
@@ -8382,22 +8395,22 @@
         \map[
             overwrite
         ]{
-			\step[
+            \step[
                 fieldset=relatedoption,
-				null,
+                null,
             ]
-			\step[
+            \step[
                 fieldset=relatedstring,
-				null,
+                null,
             ]
-			\step[
+            \step[
                 fieldset=relatedtype,
-				null,
+                null,
             ]
-			\pernottype{review}
+            \pernottype{review}
             \step[
                 fieldset=related,
-				null,
+                null,
             ]
         }
 %    \end{macrocode}
@@ -9421,7 +9434,7 @@
     }
         {\savefield*{shortseries}{\blxarch@field@shortseries}%
          \savefield*{shortsubseries}{\blxarch@field@shortsubseries}%
-		 \restorefield{series}{\blxarch@field@shortseries}%
+         \restorefield{series}{\blxarch@field@shortseries}%
          \iffieldundef{shortsubseries}
             {}
             {\restorefield{subseries}{\blxarch@field@shortsubseries}}%
@@ -9584,7 +9597,7 @@
 % \changes{2.2}{2019/11/07}{ranges with identical years fixed}
 %    \begin{macrocode}
 \newbibmacro*{exhibition/conference}[1]{%
-	\iffieldsequal{eventyear}{eventendyear}{\clearfield{eventendyear}}{}%
+    \iffieldsequal{eventyear}{eventendyear}{\clearfield{eventendyear}}{}%
     \printtext[#1note]{%
         \ifbibxstring{\thefield{eventtype}}
             {\printtext{\bibstring{\thefield{eventtype}}}}
@@ -10013,15 +10026,15 @@
 % Maintitle and volume in the same block.
 %    \begin{macrocode}
 \renewbibmacro*{title}{%
-	\ifboolexpr{
+    \ifboolexpr{
         test {\ifentrytype{review}}
         and
         not test {\iffieldundef{related}}
     }
-		{\clearfield{title}%
-		 \clearfield{subtitle}%
-		 \usebibmacro{reviewtitle}}
-		{}%
+        {\clearfield{title}%
+         \clearfield{subtitle}%
+         \usebibmacro{reviewtitle}}
+        {}%
     \ifboolexpr{
         test {\iffieldundef{title}}
         and
@@ -10500,6 +10513,17 @@
 %
 % \subsubsubsection{Reviews}
 %
+% \begin{option}{reviewedauthoraftertitle}
+% \changes{2.2}{2019/12/26}{added options Option{reviewedauthoraftertitle}}
+% Counter for \Feld{bookauthor} and \Feld{editor}.
+%    \begin{macrocode}
+\newtoggle{archbool:reviewedauthoraftertitle}
+\DeclareBibliographyOption{reviewedauthoraftertitle}[false]{%
+    \settoggle{archbool:reviewedauthoraftertitle}{#1}}
+\ExecuteBibliographyOptions{reviewedauthoraftertitle}
+%    \end{macrocode}
+% \end{option}
+%
 % \begin{option}{minreviewnames}
 % \begin{option}{maxreviewnames}
 % \changes{2.2}{2019/11/12}{added options Option{minreviewnames} and \Option{maxreviewnames}}
@@ -10526,8 +10550,8 @@
 % The delimiter between multiple reviews.
 % \changes{2.2}{2019/11/12}{added \Befehl{multireviewnamedelim} and \Befehl{finalreviewnamedelim}}
 %    \begin{macrocode}
-\newcommand*{\multireviewnamedelim}{\addcomma\space}
-\newcommand*{\finalreviewnamedelim}{\addspace\bibsstring{and}\space}
+\newcommand*{\multireviewnamedelim}{\multinamedelim}
+\newcommand*{\finalreviewnamedelim}{\finalnamedelim}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -10536,14 +10560,22 @@
 % The punctuation after \Kbd{reviewof}.
 % \changes{2.2}{2019/11/08}{added \Befehl{reviewofnamedelim}}
 %    \begin{macrocode}
-\newcommand*{\reviewofnamedelim}{\addspace}
+\newcommand*{\reviewofnamedelim}{\addcolon\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\reviewnametitledelim}
+% \changes{2.2}{2019/12/26}{added \Befehl{reviewnametitledelim}}
+% The delimiter between author and title in review titles.
+%    \begin{macrocode}
+\DeclareDelimFormat{reviewnametitledelim}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{format}{reviewname}
 % Name format in review titles.
 %    \begin{macrocode}
-\DeclareNameAlias{reviewname}{g-family}
+\DeclareNameAlias{reviewname}{gfull-family}
 %    \end{macrocode}
 % \end{format}
 %
@@ -10559,9 +10591,9 @@
 % \changes{2.2}{2019/11/12}{\Typ{review} can generate its title by linking to \Feld{related} entries}
 %    \begin{macrocode}
 \newbibmacro*{reviewtitle}{%
-	\let\blxarch@buffer@review@multinamedelim\multireviewnamedelim%
+    \let\blxarch@buffer@review@multinamedelim\multireviewnamedelim%
     \let\blxarch@buffer@review@finalnamedelim\finalreviewnamedelim%
-	\let\blxarch@buffer@review@namegiven\mkbibnamegiven%
+    \let\blxarch@buffer@review@namegiven\mkbibnamegiven%
     \let\blxarch@buffer@review@namefamily\mkbibnamefamily%
     \let\blxarch@buffer@review@nameprefix\mkbibnameprefix%
     \let\blxarch@buffer@review@namesuffix\mkbibnamesuffix%
@@ -10569,78 +10601,111 @@
     \let\mkbibnamefamily\mkbibreviewnamefamily%
     \let\mkbibnameprefix\mkbibreviewnameprefix%
     \let\mkbibnamesuffix\mkbibreviewnamesuffix%
-	\let\blxarch@buffer@maxreviewnames\c@maxnames%
+    \let\blxarch@buffer@maxreviewnames\c@maxnames%
     \let\blxarch@buffer@minreviewnames\c@minnames%
     \let\c@maxnames\c@maxreviewnames%
     \let\c@minnames\c@minreviewnames%
-	\setcounter{bbx:relatedtotal}{0}%
-	\setcounter{bbx:relatedcount}{0}%
-	\def\bbx@tempa{}%
-	\printtext[title]{%
-		\renewcommand*{\do}[1]{%
-		\printunit{}%
-		   \entrydata{##1}{%
-			\ifrelatedloop
-			{}
-			{\stepcounter{bbx:relatedtotal}%
-			\gappto{\bbx@tempa}{##1,}}}}%
-		\docsvfield{related}%
-		\ifnumequal{0}{\value{bbx:relatedtotal}}    
-			{\printfield{title}}
-			{\renewcommand*{\do}[1]{%
-				\stepcounter{bbx:relatedcount}%
-				\entrydata{##1}{%
-					\ifnumequal{1}{\value{bbx:relatedcount}}
-						{\ifnumequal{1}{\value{bbx:relatedtotal}}
-							{\biblstring{reviewof}}
-							{\biblstring{reviewsof}}%
-						 \printunit{\reviewofnamedelim}%
-						}
-						{\ifnumequal{\value{bbx:relatedtotal}}{\value{bbx:relatedcount}}
-							{\setunit{\finalreviewdelim}}
-							{\setunit{\multireviewdelim}}%
-						}%
-					\ifboolexpr{
-						not test {\ifnameundef{author}}
-						or 
-						not test {\ifnameundef{editor}}
-						or (
-						not test {\ifnameundef{translator}}
-						and
-						test {\ifusetranslator} )
-					}
-					  {%
-					  \ifciteindex
-						{\indexnames{labelname}}
-						{}%
-					   \printnames[reviewname]{labelname}%
-					   \iffieldundef{\strfield{labelnamesource}type}
-						{\ifnameundef{author}
-							{\printunit{\csuse{\strfield{labelnamesource}typedelim}}%
-							 \printtext[\strfield{labelnamesource}type]{\bibstring{\strfield{labelnamesource}}}%
-							 \setunit{\nametitledelim}}
-							{\nametitledelim}%
-						}
-						{\printunit{\csuse{\strfield{labelnamesource}typedelim}}%
-						 \printtext[\strfield{labelnamesource}type]{\bibstring{\strfield{\strfield{labelnamesource}type}}}%
-						 \setunit*{\nametitledelim}}%
-					  }%
-					  {}%
-					\printfield[reviewedtitle]{title}%
-				}%
-			 }%
-			}%
-			\restorefield{related}{\bbx@tempa}%
-			\docsvfield{related}%
-	}%
-	\clearfield{related}%
-	\let\multireviewnamedelim\blxarch@buffer@review@multinamedelim%
+    \setcounter{bbx:relatedtotal}{0}%
+    \setcounter{bbx:relatedcount}{0}%
+    \def\bbx@tempa{}%
+    \printtext[title]{%
+        \renewcommand*{\do}[1]{%
+        \printunit{}%
+           \entrydata{##1}{%
+            \ifrelatedloop
+            {}
+            {\stepcounter{bbx:relatedtotal}%
+            \gappto{\bbx@tempa}{##1,}}}}%
+        \docsvfield{related}%
+        \ifnumequal{0}{\value{bbx:relatedtotal}}    
+            {\printfield{title}}
+            {\renewcommand*{\do}[1]{%
+                \stepcounter{bbx:relatedcount}%
+                \entrydata{##1}{%
+                    \ifnumequal{1}{\value{bbx:relatedcount}}
+                        {\ifnumequal{1}{\value{bbx:relatedtotal}}
+                            {\biblstring{reviewof}}
+                            {\biblstring{reviewsof}}%
+                         \printunit{\reviewofnamedelim}%
+                        }
+                        {\ifnumequal{\value{bbx:relatedtotal}}{\value{bbx:relatedcount}}
+                            {\setunit{\finalreviewdelim}}
+                            {\setunit{\multireviewdelim}}%
+                        }%
+                    \iftoggle{archbool:reviewedauthoraftertitle}
+                        {}
+                        {\ifboolexpr{
+                            not test {\ifnameundef{author}}
+                            or 
+                            not test {\ifnameundef{editor}}
+                            or (
+                            not test {\ifnameundef{translator}}
+                            and
+                            test {\ifusetranslator} )
+                         }
+                          {%
+                          \ifciteindex
+                            {\indexnames{labelname}}
+                            {}%
+                           \printnames[reviewname]{labelname}%
+                           \iffieldundef{\strfield{labelnamesource}type}
+                            {\ifnameundef{author}
+                                {\printunit{\csuse{\strfield{labelnamesource}typedelim}}%
+                                 \printtext[\strfield{labelnamesource}type]{\bibstring{\strfield{labelnamesource}}}%
+                                 \setunit{\reviewnametitledelim}}
+                                {\reviewnametitledelim}%
+                            }
+                            {\printunit{\csuse{\strfield{labelnamesource}typedelim}}%
+                             \printtext[\strfield{labelnamesource}type]{\bibstring{\strfield{\strfield{labelnamesource}type}}}%
+                             \setunit*{\nametitledelim}}%
+                          }%
+                          {}%
+                        }%
+                    \printfield[reviewedtitle]{title}%
+                    \iftoggle{archbool:reviewedauthoraftertitle}
+                        {\setunit*{\reviewnametitledelim}%
+                         \ifboolexpr{
+                            not test {\ifnameundef{author}}
+                            or 
+                            not test {\ifnameundef{editor}}
+                            or (
+                            not test {\ifnameundef{translator}}
+                            and
+                            test {\ifusetranslator} )
+                         }
+                          {%
+                          \ifciteindex
+                            {\indexnames{labelname}}
+                            {}%
+                           \printnames[reviewname]{labelname}%
+                           \iffieldundef{\strfield{labelnamesource}type}
+                            {\ifnameundef{author}
+                                {\printunit{\csuse{\strfield{labelnamesource}typedelim}}%
+                                 \printtext[\strfield{labelnamesource}type]{\bibstring{\strfield{labelnamesource}}}%
+                                }
+                                {}%
+                            }
+                            {\printunit{\csuse{\strfield{labelnamesource}typedelim}}%
+                             \printtext[\strfield{labelnamesource}type]{\bibstring{\strfield{\strfield{labelnamesource}type}}}%
+                             \setunit*{\nametitledelim}}%
+                          }%
+                          {}%
+                        }
+                        {}%
+                }%
+             }%
+            }%
+            \restorefield{related}{\bbx@tempa}%
+            \docsvfield{related}%
+    }%
+    \clearfield{related}%
+    \let\multireviewnamedelim\blxarch@buffer@review@multinamedelim%
     \let\finalreviewnamedelim\blxarch@buffer@review@finalnamedelim%
-	\let\mkbibnamegiven\blxarch@buffer@review@namegiven%
+    \let\mkbibnamegiven\blxarch@buffer@review@namegiven%
     \let\mkbibnamefamily\blxarch@buffer@review@namefamily%
     \let\mkbibnameprefix\blxarch@buffer@review@nameprefix%
     \let\mkbibnamesuffix\blxarch@buffer@review@namesuffix%
-	\let\c@maxnames\blxarch@buffer@maxreviewnames%
+    \let\c@maxnames\blxarch@buffer@maxreviewnames%
     \let\c@minnames\blxarch@buffer@minreviewnames%
 }
 %    \end{macrocode}
@@ -10652,21 +10717,21 @@
 %    \begin{macrocode}
 \renewbibmacro*{title+issuetitle}{%
     \printtext{%
-		\ifboolexpr{
-			test {\ifcitation}
-			and
-			not test {\iffieldundef{shorttitle}}
-		}
-			{\printfield[title]{shorttitle}}
-			{\printtext[title]{%
-				\printfield{title}
-				\setunit*{\titlesubtitledelim}%
-				\printfield{subtitle}}}%
+        \ifboolexpr{
+            test {\ifcitation}
+            and
+            not test {\iffieldundef{shorttitle}}
+        }
+            {\printfield[title]{shorttitle}}
+            {\printtext[title]{%
+                \printfield{title}
+                \setunit*{\titlesubtitledelim}%
+                \printfield{subtitle}}}%
         \iffieldundef{series}
-			{} 
-			{\setunit{\addspace}%
-			 \printfield{series}}%
-		\setunit*{\journalvolumedelim}%
+            {} 
+            {\setunit{\addspace}%
+             \printfield{series}}%
+        \setunit*{\journalvolumedelim}%
         \usebibmacro{volume+number+eid}%
         \iffieldundef{volume}
             {\setunit{\addspace}}
@@ -10686,20 +10751,20 @@
 % \begin{macro}{\pciteissue}
 %    \begin{macrocode}
 \DeclareCiteCommand{citeissue}[]
-	{\usebibmacro{prenote}}
-	{\csuse{blxarch@issuedate}\usebibmacro{title+issuetitle}\restorebibmacro{issue+date}}
-	{\multicitedelim}
-	{\usebibmacro{postnote}}
+    {\usebibmacro{prenote}}
+    {\csuse{blxarch@issuedate}\usebibmacro{title+issuetitle}\restorebibmacro{issue+date}}
+    {\multicitedelim}
+    {\usebibmacro{postnote}}
 \DeclareCiteCommand{fciteissue}[\mkbibfootnote]
-	{\usebibmacro{prenote}}
-	{\csuse{blxarch@issuedate}\usebibmacro{title+issuetitle}\restorebibmacro{issue+date}}
-	{\multicitedelim}
-	{\usebibmacro{postnote}}
+    {\usebibmacro{prenote}}
+    {\csuse{blxarch@issuedate}\usebibmacro{title+issuetitle}\restorebibmacro{issue+date}}
+    {\multicitedelim}
+    {\usebibmacro{postnote}}
 \DeclareCiteCommand{pciteissue}[\mkbibparens]
-	{\usebibmacro{prenote}}
-	{\csuse{blxarch@issuedate}\usebibmacro{title+issuetitle}\restorebibmacro{issue+date}}
-	{\multicitedelim}
-	{\usebibmacro{postnote}}
+    {\usebibmacro{prenote}}
+    {\csuse{blxarch@issuedate}\usebibmacro{title+issuetitle}\restorebibmacro{issue+date}}
+    {\multicitedelim}
+    {\usebibmacro{postnote}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -10728,32 +10793,32 @@
 % spurious punctation
 %    \begin{macrocode}
 \def\blxarch@reviewcite@removefields{%
-	\clearfield{subtitle}%
-	\clearfield{booksubtitle}%
-	\clearfield{mainsubtitle}%
-	\clearfield{journalsubtitle}%
-	\clearfield{titleaddon}%
-	\clearfield{booktitleaddon}%
-	\clearfield{maintitleaddon}%
-	\clearfield{shorttitle}{}%
-	\clearlist{publisher}{}%
-	\clearlist{origlocation}{}%
-	\clearlist{origpublisher}{}%
-	\clearname{shortauthor}{}%
-	\clearfield{label}{}%
-	\clearfield{origdate}{}%
-	\clearfield{origlanguage}{}%
-	\clearfield{realyear}{}%
-	\clearfield{realmonth}{}%
-	\clearfield{realday}{}%
-	\clearfield{addendum}{}%
-	\clearfield{note}{}%
-	\clearfield{language}{}%
-	\clearfield{series}{}%
-	\clearfield{number}{}%
-	\clearfield{subseries}{}%
-	\clearfield{subnumber}{}%
-	\clearfield{pagetotal}{}%
+    \clearfield{subtitle}%
+    \clearfield{booksubtitle}%
+    \clearfield{mainsubtitle}%
+    \clearfield{journalsubtitle}%
+    \clearfield{titleaddon}%
+    \clearfield{booktitleaddon}%
+    \clearfield{maintitleaddon}%
+    \clearfield{shorttitle}{}%
+    \clearlist{publisher}{}%
+    \clearlist{origlocation}{}%
+    \clearlist{origpublisher}{}%
+    \clearname{shortauthor}{}%
+    \clearfield{label}{}%
+    \clearfield{origdate}{}%
+    \clearfield{origlanguage}{}%
+    \clearfield{realyear}{}%
+    \clearfield{realmonth}{}%
+    \clearfield{realday}{}%
+    \clearfield{addendum}{}%
+    \clearfield{note}{}%
+    \clearfield{language}{}%
+    \clearfield{series}{}%
+    \clearfield{number}{}%
+    \clearfield{subseries}{}%
+    \clearfield{subnumber}{}%
+    \clearfield{pagetotal}{}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -10774,53 +10839,53 @@
 % \begin{macro}{\textreviewcite}
 %    \begin{macrocode}
 \DeclareCiteCommand{\reviewcite}[]
-	{\usebibmacro{prenote}}
-	{\blxarch@reviewcite@removefields\usedriver
+    {\usebibmacro{prenote}}
+    {\blxarch@reviewcite@removefields\usedriver
       {\DeclareNameAlias{sortname}{default}}
       {\thefield{entrytype}}}%
-	{\multicitedelim}
-	{\usebibmacro{postnote}}
+    {\multicitedelim}
+    {\usebibmacro{postnote}}
 \DeclareCiteCommand{\previewcite}[\mkbibparens]
-	{\blxarch@reviewcite@removefields\usebibmacro{prenote}}
-	{\usedriver
+    {\blxarch@reviewcite@removefields\usebibmacro{prenote}}
+    {\usedriver
       {\DeclareNameAlias{sortname}{default}}
       {\thefield{entrytype}}}%
-	{\multicitedelim}
-	{\usebibmacro{postnote}}
+    {\multicitedelim}
+    {\usebibmacro{postnote}}
 \DeclareCiteCommand{\textreviewcite}[]
-	{\blxarch@reviewcite@removefields\usebibmacro{prenote}}
-	{\usedriver
+    {\blxarch@reviewcite@removefields\usebibmacro{prenote}}
+    {\usedriver
       {\ifboolexpr{
-			not test {\ifnameundef{author}}
-			or 
-			not test {\ifnameundef{editor}}
-			or (
-			not test {\ifnameundef{translator}}
-			and
-			test {\ifusetranslator} )
-		}
-		  {\ifciteindex
-			{\indexnames{labelname}}
-			{}%
-		  \DeclareNameAlias{sortname}{gfull-family}%
-		  \printnames{labelname}%
-		  \DeclareNameFormat{\thefield{labelnamefield}}{}%
-		  \ifboolexpr{
-			test {\ifnameundef{author}}
-			or
-			not test {\iffieldundef{authortype}}
-		  }
-			{\DeclareDelimAlias{nametitledelim}{\addspace}}
-			{\DeclareDelimAlias{nametitledelim}{}}%
-		  \DeclareDelimAlias{authortypedelim}{}%
-		  \DeclareDelimAlias{editortypedelim}{}%
-		  \DeclareDelimAlias{translatortypedelim}{}%
-		  \addspace}
-		  {\DeclareDelimAlias{nametitledelim}{}}%
-	  \bibopenparen}
+            not test {\ifnameundef{author}}
+            or 
+            not test {\ifnameundef{editor}}
+            or (
+            not test {\ifnameundef{translator}}
+            and
+            test {\ifusetranslator} )
+        }
+          {\ifciteindex
+            {\indexnames{labelname}}
+            {}%
+          \DeclareNameAlias{sortname}{gfull-family}%
+          \printnames{labelname}%
+          \DeclareNameFormat{\thefield{labelnamefield}}{}%
+          \ifboolexpr{
+            test {\ifnameundef{author}}
+            or
+            not test {\iffieldundef{authortype}}
+          }
+            {\DeclareDelimAlias{nametitledelim}{\addspace}}
+            {\DeclareDelimAlias{nametitledelim}{}}%
+          \DeclareDelimAlias{authortypedelim}{}%
+          \DeclareDelimAlias{editortypedelim}{}%
+          \DeclareDelimAlias{translatortypedelim}{}%
+          \addspace}
+          {\DeclareDelimAlias{nametitledelim}{}}%
+      \bibopenparen}
       {\thefield{entrytype}}}%
-	{\multicitedelim}
-	{\usebibmacro{postnote}\bibcloseparen}
+    {\multicitedelim}
+    {\usebibmacro{postnote}\bibcloseparen}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -11461,7 +11526,7 @@
     \clearfield{#1month}%
     \clearfield{#1endday}%
     \clearfield{#1endmonth}%
-	\iffieldsequal{#1year}{#1endyear}{\clearfield{#1endyear}}{}%
+    \iffieldsequal{#1year}{#1endyear}{\clearfield{#1endyear}}{}%
 %    \end{macrocode}
 % If both year arguments are integers, than check if they match or exceed the minimum difference:
 %    \begin{macrocode}
@@ -13074,15 +13139,15 @@
 % \changes{2.2}{2018/02/18}{clear \Feld{shorttitle} if option \Option{repeatlabel}\Kbd{$\neq$false} to avoid repetition}
 % \Feld{shorttitle} field would be repeated in \bibmacro{title+issuetitle} otherwise:
 %    \begin{macrocode}
-	\ifentrytype{periodical}
-		{\ifboolexpr{
-			test {\ifcitation}
-			or
-			not test {\ifrepeatlabel{false}}
-		 }
-			{\clearfield{shorttitle}}
-			{}}
-		{}%
+    \ifentrytype{periodical}
+        {\ifboolexpr{
+            test {\ifcitation}
+            or
+            not test {\ifrepeatlabel{false}}
+         }
+            {\clearfield{shorttitle}}
+            {}}
+        {}%
 }{}{Patching bibmacro 'begentry' failed (1)}
 \xpretobibmacro{finentry}{%
     \restorebibmacro{issue+date}%
@@ -14553,7 +14618,7 @@
 % Remove langid field from reviews because something wrong wit reviewtitle
 %    \begin{macrocode}
         \map[overwrite=true]{
-			\pertype{review}
+            \pertype{review}
             \step[fieldsource=language,notmatch=\regexp{german|austrian},final]
             \step[fieldset=langid,fieldvalue={}]
         }
@@ -14601,6 +14666,7 @@
     positionlabeldate=label,
     preservelastauthor=true,
     repeatlabel=false,
+    reviewedauthoraftertitle=true,
     shortform=false,
     shortjournal=false,
     shortseries=false,
@@ -14676,6 +14742,24 @@
 \renewcommand*{\intitlepunct}{\printunit{\addspace}}
 %    \end{macrocode}
 % \end{macro}
+% \begin{format}{reviewname}
+% Name format in review titles.
+%    \begin{macrocode}
+\DeclareNameAlias{reviewname}{given-family}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\reviewnametitledelim}
+%    \begin{macrocode}
+\DeclareDelimFormat{reviewnametitledelim}{\addcomma\space\biblstring{by}\addspace}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\reviewofnamedelim}
+%    \begin{macrocode}
+\renewcommand*{\reviewofnamedelim}{\addspace}
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{\finentrypunct}
 % No period after bare electronic identifiers
@@ -14704,6 +14788,7 @@
 % \begin{format}{title}
 % \begin{format}{booktitle}
 % \begin{format}{maintitle}
+% \begin{format}{reviewedtitle}
 %    \begin{macrocode}
 \DeclareFieldFormat*{title}{\mkbibitalic{#1}}
 \DeclareFieldFormat
@@ -14711,7 +14796,9 @@
 {title}{#1}
 \DeclareFieldFormat*{booktitle}{\mkbibitalic{#1}}
 \DeclareFieldFormat*{maintitle}{\mkbibitalic{#1}}
+\DeclareFieldFormat*{reviewedtitle}{\mkbibitalic{#1}}
 %    \end{macrocode}
+% \end{format}
 % \end{format}
 % \end{format}
 % \end{format}
@@ -17074,10 +17161,10 @@
                 matchi=\regexp{exhib},
                 notfield=options,
             ]
-			\step[
-				fieldset=options,
+            \step[
+                fieldset=options,
                 fieldvalue={titlenote=true,titlebrackets=true},
-			]
+            ]
         }
         \map[
             overwrite=true,
@@ -18141,7 +18228,7 @@
 % \begin{format}{bibtex}
 %    \begin{macrocode}
 \DeclareStyleSourcemap{
-	\maps[datatype=bibtex]{
+    \maps[datatype=bibtex]{
        \map[
             overwrite,
             foreach={location, multivenue}
@@ -18172,10 +18259,10 @@
                 matchi=\regexp{exhib},
                 notfield=options,
             ]
-			\step[
-				fieldset=options,
+            \step[
+                fieldset=options,
                 fieldvalue={titlenote=true,titlebrackets=true},
-			]
+            ]
         }
         \map[
             overwrite=true,
@@ -23527,6 +23614,11 @@
 \NewBibliographyString{bathesis}
 %    \end{macrocode}
 % \end{localization}
+% \begin{localization}{by}
+%    \begin{macrocode}
+\NewBibliographyString{by}
+%    \end{macrocode}
+% \end{localization}
 % \begin{localization}{catalogue}
 %    \begin{macrocode}
 \NewBibliographyString{catalogue}
@@ -23697,6 +23789,7 @@
 %    \end{macrocode}
 %
 % Define new localizazion strings
+% \begin{localization}{by}
 % \begin{localization}{articledated}
 % \begin{localization}{genitiveandothers}
 % \begin{localization}{genitiveapostrophe}
@@ -23728,9 +23821,12 @@
 % \begin{localization}{unpublishedmathesis}
 % \begin{localization}{unpublishedpostdocthesis}
 % \begin{localization}{unpublishedphdthesis}
+% \begin{localization}{reviewof}
+% \begin{localization}{reviewsof}
 %    \begin{macrocode}
 \DeclareBibliographyStrings{%
     inherit                   = {english},
+    by                        = {{by}{by}},
     articledated              = {{article dated}{article dated}},
     genitiveandothers         = {{et\addabbrvspace al\adddot's}{et\addabbrvspace al\adddot's}},
     genitiveapostrophe        = {{'}{'}},
@@ -23757,8 +23853,8 @@
     noplacenodate             = {{no\space place no\space date}{n.\addabbrvspace p.\addabbrvspace n.\addabbrvspace d\adddot}},
     plate                     = {{plate}{pl\adddot}},
     postdocthesis             = {{Habilitationsschrift}{Habil.-Schr\adddot}},
-	reviewof                  = {{Review of}{Rev. \adddot}},
-	reviewsof                 = {{Reviews of}{Rev.\adddot}},
+    reviewof                  = {{Review of}{Rev. \adddot}},
+    reviewsof                 = {{Reviews of}{Rev.\adddot}},
     specialauction            = {{special auction}{special auction}},
     specialauctions           = {{special auctions}{special auctions}},
     subverbum                 = {{sub verbum}{\autocap{s}.~v\adddot}},
@@ -23770,6 +23866,9 @@
     unpublishedpostdocthesis  = {{unpublished Habilitationsschrift}{unpubl. Habil.-Schr\adddot}},
     unpublishedphdthesis      = {{unpublished PhD\addabbrvspace thesis}{unpubl. PhD\addabbrvspace thesis}},
 %    \end{macrocode}
+% \end{localization}
+% \end{localization}
+% \end{localization}
 % \end{localization}
 % \end{localization}
 % \end{localization}
@@ -23987,6 +24086,7 @@
 %    \end{macrocode}
 %
 % Define new localizazion strings:
+% \begin{localization}{by}
 % \begin{localization}{articledated}
 % \begin{localization}{genitiveandothers}
 % \begin{localization}{genitiveapostrophe}
@@ -23995,10 +24095,12 @@
 % \begin{localization}{auctions}
 % \begin{localization}{bathesis}
 % \begin{localization}{catalogue}
-% \begin{localization}{subverbum}
+% \begin{localization}{colloquium}
+% \begin{localization}{conference}
+% \begin{localization}{convention}
 % \begin{localization}{dvd}
-% \begin{localization}{exhibition}
 % \begin{localization}{exhibcat}
+% \begin{localization}{exhibition}
 % \begin{localization}{festschrift}
 % \begin{localization}{postdocthesis}
 % \begin{localization}{magisterthesis}
@@ -24008,16 +24110,20 @@
 % \begin{localization}{plate}
 % \begin{localization}{specialauction}
 % \begin{localization}{specialauctions}
-% \begin{localization}{diplomathesis}
+% \begin{localization}{subverbum}
+% \begin{localization}{symposium}
 % \begin{localization}{unpublishedbathesis}
 % \begin{localization}{unpublisheddiplomathesis}
 % \begin{localization}{unpublishedmagisterthesis}
 % \begin{localization}{unpublishedmathesis}
 % \begin{localization}{unpublishedpostdocthesis}
 % \begin{localization}{unpublishedphdthesis}
+% \begin{localization}{reviewof}
+% \begin{localization}{reviewsof}
 %    \begin{macrocode}
 \DeclareBibliographyStrings{%
     inherit                   = {german},
+    by                        = {{von}{v\adddot}},
     articledated              = {{Artikel vom}{Artikel vom}},
     genitiveandothers         = {{u.\,a\adddot s}{u.\,a\adddot s}},
     genitiveapostrophe        = {{'}{'}},
@@ -24038,8 +24144,8 @@
     noplace                   = {{ohne\space Ort}{o.\,O\adddot}},
     noplacenodate             = {{ohne Ort und Jahr}{o.\addabbrvspace O.\addabbrvspace u.\addabbrvspace J\adddot}},
     plate                     = {{Tafel}{Taf.}},
-	reviewof                  = {{Rezension}{Rez.\adddot}},
-	reviewsof                 = {{Rezensionen}{Rez.\adddot}},
+    reviewof                  = {{Besprechung}{Besprech.\adddot}},
+    reviewsof                 = {{Besprechungen}{Besprech.\adddot}},
     specialauction            = {{Sonderauktion}{Sonderauktion}},
     specialauctions           = {{Sonderauktionen}{Sonderauktionen}},
     subverbum                 = {{sub verbum}{\autocap{s}.\,v\adddot}},
@@ -24051,6 +24157,9 @@
     unpublishedpostdocthesis  = {{ungedruckte Habilitationsschrift}{ungedr. Habil.-Schr\adddot}},
     unpublishedphdthesis      = {{ungedruckte Dissertation}{ungedr. Diss\adddot}},
 %    \end{macrocode}
+% \end{localization}
+% \end{localization}
+% \end{localization}
 % \end{localization}
 % \end{localization}
 % \end{localization}
@@ -24444,6 +24553,37 @@
 \InheritBibliographyStrings{german-dguf-alt}
 %    \end{macrocode}
 %
+% \begin{localization}{andothers}
+% \begin{localization}{bathesis}
+% \begin{localization}{diplomathesis}
+% \begin{localization}{genitiveandothers}
+% \begin{localization}{magisterthesis}
+% \begin{localization}{mathesis}
+% \begin{localization}{phdthesis}
+% \begin{localization}{postdocthesis}
+%    \begin{macrocode}
+\InheritBibliographyExtras{german-archaeology}
+\DeclareBibliographyStrings{%
+    inherit        = {german-archaeology},
+    andothers = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
+    genitiveandothers = {{et\addabbrvspace al\adddot s}{et\addabbrvspace al\adddot s}},
+    bathesis       = {{Bachelorarbeit}{Bachelorarbeit}},
+    diplomathesis  = {{Diplomarbeit}{Diplomarbeit}},
+    magisterthesis = {{Magisterarbeit}{Magisterarbeit}},
+    mathesis       = {{Masterarbeit}{Masterarbeit}},
+    phdthesis      = {{Dissertation}{Dissertation}},
+    postdocthesis  = {{Habilitationsschrift}{Habilitationsschrift}},
+}
+%    \end{macrocode}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+%
 % \iffalse
 %</PgermandgufaltLBX>
 %<*dgufapaenglishLBX>
@@ -24497,6 +24637,50 @@
 %
 % \iffalse
 %</PenglishdgufapaLBX>
+%<*dgufapagermanLBX>
+%
+% \subsubsection{File \Datei{german-dguf-apa.lbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{english-dguf-apa.lbx}
+[2019/12/25 v2.2 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\InheritBibliographyExtras{german-archaeology}
+\InheritBibliographyStrings{german-archaeology}
+%    \end{macrocode}
+%
+% \begin{localization}{reviewof}
+% \begin{localization}{reviewsof}
+%    \begin{macrocode}
+\InheritBibliographyExtras{german-archaeology}
+\DeclareBibliographyStrings{%
+    inherit        = {german-archaeology},
+    reviewof  = {{Besprechung des Buches}{Besprech\adddot}},
+    reviewsof = {{Besprechung der B\"{u}cher}{Besprech\adddot}},
+}
+%    \end{macrocode}
+% \end{localization}
+% \end{localization}
+%
+% \iffalse
+%</dgufapagermanLBX>
+%<*PgermandgufapaLBX>
+% \fi
+%
+% \subsubsection{Pointer to \Datei{german-dguf-apa.lbx}}
+%
+%    \begin{macrocode}
+[2019/12/25 v2.2 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
+\InheritBibliographyExtras{german-dguf-apa}
+\InheritBibliographyStrings{german-dguf-apa}
+%    \end{macrocode}
+%
+% \iffalse
+%</PgermandgufapaLBX>
 %<*eazenglishLBX>
 % \fi
 %
