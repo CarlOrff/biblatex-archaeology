@@ -6,7 +6,8 @@
 
 ## Installing
 
-Get the sources from [CTAN](http://www.ctan.org/pkg/biblatex-archaeology) or clone them from GitHub:
+The usual way is to install automatically through the package manager of your distribution. Another way ist to unzip the 
+`biblatex-archaeology.tds.zip` in your `{TEXMF}` directory. To do everything from scratch, get the sources from [CTAN](http://www.ctan.org/pkg/biblatex-archaeology) or clone them from GitHub:
 
 	 $ git clone https://github.com/CarlOrff/biblatex-archaeology.git
 
