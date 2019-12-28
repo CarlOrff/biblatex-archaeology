@@ -28,7 +28,6 @@ Create a directory `{TEXMF}/doc/latex/biblatex-archaeology` and move `biblatex-a
 	 $ makeindex -s gglo.ist -o biblatex-archaeology.gls biblatex-archaeology.glo
 	 $ lualatex biblatex-archaeology
 	 $ lualatex biblatex-archaeology
- \end{verbatim}
 
 Remark that you MUST employ Biber. BibTeX won't work.
 
@@ -63,8 +62,11 @@ Remark that `biblatex-archaeology` makes heavy use of Biber-only features. It wo
 - nnu
 - offa
 - rgk-inline
+- rgk-inline-old
 - rgk-numeric
+- rgk-numeric-old
 - rgk-verbose
+- rgk-verbose-old
 - rgzm-inline
 - rgzm-numeric
 - rgzm-verbose
