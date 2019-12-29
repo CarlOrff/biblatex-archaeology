@@ -9455,12 +9455,15 @@
 % Suppress capitalization at the beginning of a biblist.
 %    \begin{macrocode}
     \togglefalse{archbool:capitalizeprefixinbiblist}{\ifbibliography{\midsentence}{}}%
-%    \end{macrocode}      
+%    \end{macrocode}  
 % Do name formatting for repeated labels.
 %    \begin{macrocode}
     \ifrepeatlabel{false}
         {}
-        {\usebibmacro{repeatlabel}\repeatlabeldelim}%
+        {\usebibmacro{repeatlabel}\repeatlabeldelim%
+		 \iffieldequalstr{labeltitlesource}{shorttitle}
+			{\clearfield{shorttitle}}
+			{}}%
     \let\blxarch@buffer@list@namegiven\mkbibnamegiven%
     \let\blxarch@buffer@list@namefamily\mkbibnamefamily%
     \let\blxarch@buffer@list@nameprefix\mkbibnameprefix%
