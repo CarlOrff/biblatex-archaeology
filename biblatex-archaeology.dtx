@@ -2117,7 +2117,6 @@
   GENDER = {sm},
   LANGUAGE = {dutch},
 }
-
 @BOOK{domino:1780,
   TITLE = {Règles et principes sur le jeu de domino, avec les décisions des meilleurs joueurs},
   DATE = {1780},
@@ -2486,6 +2485,25 @@
   EVENTTYPE = {exhibition},
   LANGUAGE = {german},
   GENDER = {pp},
+}
+@BOOK{van:neck:yoder:1978,
+  AUTHOR = {van Neck Yoder, Hilda},
+  TITLE = {Dramatizations of social change},
+  DATE = {1978},
+  SUBTITLE = {Herman Heijermans' plays as compared with selected dramas by Ibsen,
+    Hauptmann and Chekhov},
+  PUBLISHER = {Martinus Nijhoff},
+  ISBN = {90 247 2117 7},
+  PAGETOTAL = {81},
+  SERIES = ufg-BiblNeerlandicaExtraMuros,
+  NUMBER = {5},
+  LOCATION = {The Hague AND Boston AND London},
+  ABSTRACT = {Behandelt \mkbibquote{Ghetto}, \mkbibquote{Op Hoop van Zegen} und \mkbibquote{Ora
+    et Labora}},
+  KEYWORDS = {Niederlande, Literatur, Theater, Naturalismus},
+  GENDER = {sf},
+  LANGUAGE = {english},
+  IDS = {de:neck:yoder:1978},
 }
 @THESIS{volk:1972,
   AUTHOR = {Volk, Peter},
@@ -10852,8 +10870,7 @@
     {\usebibmacro{postnote}}
 \DeclareCiteCommand{\textreviewcite}[]
     {\blxarch@reviewcite@removefields\usebibmacro{prenote}}
-    {\usedriver
-      {\ifboolexpr{
+    {\ifboolexpr{
             not test {\ifnameundef{author}}
             or 
             not test {\ifnameundef{editor}}
@@ -10868,20 +10885,19 @@
           \DeclareNameAlias{sortname}{gfull-family}%
           \printnames{labelname}%
           \DeclareNameFormat{\thefield{labelnamefield}}{}%
-          \ifboolexpr{
-            test {\ifnameundef{author}}
-            or
-            not test {\iffieldundef{authortype}}
-          }
-            {\DeclareDelimAlias{nametitledelim}{\addspace}}
-            {\DeclareDelimAlias{nametitledelim}{}}%
           \DeclareDelimAlias{authortypedelim}{}%
           \DeclareDelimAlias{editortypedelim}{}%
           \DeclareDelimAlias{translatortypedelim}{}%
-          \addspace}
+          \setunit*{\addspace}}
           {\DeclareDelimAlias{nametitledelim}{}}%
-      \bibopenparen}
-      {\thefield{entrytype}}}%
+		\printtext{%
+			\bibopenparen%
+			\printunit{\nopunct}%
+			\usedriver
+				{}
+				{\thefield{entrytype}}%
+		}%
+	}%
     {\multicitedelim}
     {\usebibmacro{postnote}\bibcloseparen}
 %    \end{macrocode}
