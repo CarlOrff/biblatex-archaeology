@@ -10769,19 +10769,33 @@
 % \begin{macro}{\fciteissue}
 % \begin{macro}{\pciteissue}
 %    \begin{macrocode}
+\newtoggle{archbool:citeissue}%
+\togglefalse{archbool:citeissue}
 \DeclareCiteCommand{citeissue}[]
     {\usebibmacro{prenote}}
-    {\csuse{blxarch@issuedate}\usebibmacro{title+issuetitle}\restorebibmacro{issue+date}}
+    {\toggletrue{archbool:citeissue}%
+	 \csuse{blxarch@issuedate}%
+	 \usebibmacro{title+issuetitle}%
+	 \restorebibmacro{issue+date}%
+	 \togglefalse{archbool:citeissue}}
     {\multicitedelim}
     {\usebibmacro{postnote}}
 \DeclareCiteCommand{fciteissue}[\mkbibfootnote]
     {\usebibmacro{prenote}}
-    {\csuse{blxarch@issuedate}\usebibmacro{title+issuetitle}\restorebibmacro{issue+date}}
+    {\toggletrue{archbool:citeissue}%
+	 \csuse{blxarch@issuedate}%
+	 \usebibmacro{title+issuetitle}%
+	 \restorebibmacro{issue+date}%
+	 \togglefalse{archbool:citeissue}}
     {\multicitedelim}
     {\usebibmacro{postnote}}
 \DeclareCiteCommand{pciteissue}[\mkbibparens]
     {\usebibmacro{prenote}}
-    {\csuse{blxarch@issuedate}\usebibmacro{title+issuetitle}\restorebibmacro{issue+date}}
+    {\toggletrue{archbool:citeissue}%
+	 \csuse{blxarch@issuedate}%
+	 \usebibmacro{title+issuetitle}%
+	 \restorebibmacro{issue+date}%
+	 \togglefalse{archbool:citeissue}}
     {\multicitedelim}
     {\usebibmacro{postnote}}
 %    \end{macrocode}
@@ -11594,13 +11608,21 @@
 % \end{macro}
 %
 % \begin{bibmacro}{bibliographydate}
-% \changes{1.1}{2017/05/23}{Do not print \Feld{extrayear} field in verbose styles. (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/3}{issue \#3})}
+% \changes{1.1}{2017/05/23}{Do not print \Feld{extrayear} field in verbose styles (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/3}{issue \#3})}
 % \changes{2.0}{2018/05/20}{Print \Feld{extradate} field instead of \Feld{extrayear}}
+% \changes{2.2}{2019/12/29}{check if \Bibmacro{bibliographydate} is called in \Befehl{citeissue} and friends}
 % We never have an empty date but a string like 'sine anno' or the \Feld{pubstate}.
 % The newsdate has always to be printed because the label contains the year only.
 %    \begin{macrocode}
 \newbibmacro*{bibliographydate}{%
-    \ifpositionlabeldate{label}
+	\ifboolexpr{
+		test {\ifpositionlabeldate{label}}
+		and
+%    \end{macrocode}
+% Not in \Befehl{citeissue} and friends:
+%    \begin{macrocode}
+		not togl {archbool:citeissue}
+	}
         {\ifnewspaper
             {\usebibmacro{newsdate}}
             {}%
