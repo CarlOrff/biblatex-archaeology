@@ -118,7 +118,7 @@ remove_intermediary_files();
 # clean working directory
 remove_intermediary_files();
 remove( "*.bbx", "*.cbx", "*.dbx", "*.lbx", "*.sty", "*.bib", "$package.pdf" );
-
+ 
 # install latest build
 system_call("pdftex -8bit $package.ins");
 system_call("texhash");

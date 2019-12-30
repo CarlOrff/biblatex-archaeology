@@ -129,49 +129,7 @@
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
-\DeclareNameAlias{shortformauthor}{given-family}
-\DeclareFieldFormat*{shortformauthor}{\addspace\mkbibparens{#1}}
 
-% \begin{macro}{\sfcite}
-% \begin{macro}{\sfcites}
-% Make it a \Befehl{cite} alias in author date styles! Originally planned as starred variant.
-% but the \Befehl{DeclareMultiCiteCommand} did not accept it.
-%    \begin{macrocode}
-\DeclareCiteCommand{\sfcite}[]
-  {\usebibmacro{prenote}}
-  {\usedriver{}{shortform}}
-  {\multicitedelim}
-  {\usebibmacro{postnote}%
-  \setunit*{\addspace}%
-  \ifentrytype{inreference}{\printfield[dictionary]{title}}{}%
-  \ifnameundef{author}{}
-  {\printtext[shortformauthor]{\printnames[shortformauthor]{author}}}%
-}
-\DeclareMultiCiteCommand{\sfcites}[]
-{\sfcite}{\multicitedelim}
-%    \end{macrocode}
-% \end{macro}
-% \end{macro}
-%
-% \begin{macro}{\shortformcite}
-% \begin{macro}{\shortformcites}
-% Make it an \Befehl{autocite} alias in author date styles!
-%    \begin{macrocode}
-\DeclareCiteCommand{\shortformcite}[\mkbibfootnote]
-  {\usebibmacro{prenote}}
-  {\usedriver{}{shortform}}
-  {\multicitedelim}
-  {\usebibmacro{postnote}%
-  \setunit*{\addspace}%
-  \ifentrytype{inreference}{\printfield[dictionary]{title}}{}%
-  \ifnameundef{author}{}
-  {\printtext[shortformauthor]{\printnames[shortformauthor]{author}}}%
-}
-\DeclareMultiCiteCommand{\shortformcites}[\mkbibfootnote]
-{\shortformcite}{\multicitedelim}
-%    \end{macrocode}
-% \end{macro}
-% \end{macro}
 	
 %%% END EXPERIMENTAL CODE
 \makeatother
