@@ -145,7 +145,7 @@
     pdfapart=1,
     pdfaconformance=B,
     pdfmetalang=en,
-    pdfcontacturl={https://ingram-braun.net/erga/the-biblatex-archaeology-styles-for-german-cultural-anthropology/\#ib_campaign=biblatex-archaeology-v2.2\&ib_medium=manual\&ib_source=ctan\&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7, https://independent.academia.edu/IngramBraun},
+    pdfcontacturl={https://ingram-braun.net/erga/the-biblatex-archaeology-styles-for-german-cultural-anthropology/\#ib_campaign=biblatex-archaeology-v2.2\&ib_medium=manual\&ib_source=github\&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7, https://independent.academia.edu/IngramBraun},
     pdflicenseurl = {http://www.latex-project.org/lppl.txt},
     pdfsource={\jobname.dtx},
     pdftype=Software,
@@ -232,7 +232,7 @@
 % \GlossaryPrologue{\section*{\changessectiontitle}\addcontentsline{toc}{section}{\changessectiontitle}\fancypagestyle{changes}{\fancyhead[RO,LE]{\changessectiontitle}}\pagestyle{changes}}
 %
 % \title{\LARGE\color{\headingscolor}The \archbib styles [v2.2]}
-% \author{\Large Ingram Braun \\ \href{https://ingram-braun.net/\#ib_campaign=biblatex-archaeology-v2.2\&ib_medium=manual\&ib_source=ctan\&ib_content=titlepage}{\Kbd{https://ingram-braun.net/}}}
+% \author{\Large Ingram Braun \\ \href{https://ingram-braun.net/\#ib_campaign=biblatex-archaeology-v2.2\&ib_medium=manual\&ib_source=github\&ib_content=titlepage}{\Kbd{https://ingram-braun.net/}}}
 %
 % \maketitle
 %
@@ -335,11 +335,11 @@
 % \subsection{Help}\label{kap:help}
 % \par If there are any concerns you can reach me directly via the
 % \href{https://github.com/CarlOrff/biblatex-archaeology/issues}{GitHub tracker} or comment section on
-% a \href{https://ingram-braun.net/erga/the-biblatex-archaeology-styles-for-german-cultural-anthropology/\#ib_campaign=biblatex-archaeology-v2.2&ib_medium=manual&ib_source=ctan\&ib_content=helpsection}
+% a \href{https://ingram-braun.net/erga/the-biblatex-archaeology-styles-for-german-cultural-anthropology/\#ib_campaign=biblatex-archaeology-v2.2&ib_medium=manual&ib_source=github\&ib_content=helpsection}
 %{small project page on my personal website}.
-% Alternatively you can e-mail me through the \href{https://ingram-braun.net/erga/legal-notice-and-contact/\#ib_campaign=biblatex-archaeology-v2.2&ib_medium=manual&ib_source=ctan\&ib_content=helpsection}{contact form} there.
+% Alternatively you can e-mail me through the \href{https://ingram-braun.net/erga/legal-notice-and-contact/\#ib_campaign=biblatex-archaeology-v2.2&ib_medium=manual&ib_source=github\&ib_content=helpsection}{contact form} there.
 % Of course, \href{http://tex.stackexchange.com}{TeX Stack Exchange} is always worth a try.
-% \par The \href{https://ingram-braun.net/erga/online-biblatex-editor/\#ib_campaign=biblatex-archaeology-v2.2&ib_medium=manual&ib_source=ctan\&ib_content=helpsection}{Online \blx Editor}
+% \par The \href{https://ingram-braun.net/erga/online-biblatex-editor/\#ib_campaign=biblatex-archaeology-v2.2&ib_medium=manual&ib_source=github\&ib_content=helpsection}{Online \blx Editor}
 % on my website provides the additional \archbib fields.
 % 
 % \section{Reference}
@@ -2071,6 +2071,7 @@
   GENDER = {sm},
   LANGUAGE = {dutch},
 }
+
 @BOOK{domino:1780,
   TITLE = {Règles et principes sur le jeu de domino, avec les décisions des meilleurs joueurs},
   DATE = {1780},
@@ -2149,6 +2150,7 @@
   SHORTFORM = {RGA},
   LANGUAGE = {german},
 }
+
 @ONLINE{kenmore,
   URL = {http://www.kenmore.org/kenmore/kp_arch.html},
   URLDATE = {2015-12-23},
@@ -2409,25 +2411,6 @@
   EVENTTYPE = {exhibition},
   LANGUAGE = {german},
   GENDER = {pp},
-}
-@BOOK{van:neck:yoder:1978,
-  AUTHOR = {van Neck Yoder, Hilda},
-  TITLE = {Dramatizations of social change},
-  DATE = {1978},
-  SUBTITLE = {Herman Heijermans' plays as compared with selected dramas by Ibsen,
-    Hauptmann and Chekhov},
-  PUBLISHER = {Martinus Nijhoff},
-  ISBN = {90 247 2117 7},
-  PAGETOTAL = {81},
-  SERIES = ufg-BiblNeerlandicaExtraMuros,
-  NUMBER = {5},
-  LOCATION = {The Hague AND Boston AND London},
-  ABSTRACT = {Behandelt \mkbibquote{Ghetto}, \mkbibquote{Op Hoop van Zegen} und \mkbibquote{Ora
-    et Labora}},
-  KEYWORDS = {Niederlande, Literatur, Theater, Naturalismus},
-  GENDER = {sf},
-  LANGUAGE = {english},
-  IDS = {de:neck:yoder:1978},
 }
 @THESIS{volk:1972,
   AUTHOR = {Volk, Peter},
@@ -23922,7 +23905,7 @@
 % \begin{localization}{urlfrom}
 % Redefinitions of \blx' localization keys:
 %    \begin{macrocode}
-	nodate  = {{no\space date}{n\adddot\addabbrvspace \adddot}},
+	nodate  = {{no\space date}{n\adddot\addabbrvspace d\adddot}},
     urlfrom  = {{Online}{Online}},
 }
 %    \end{macrocode}
