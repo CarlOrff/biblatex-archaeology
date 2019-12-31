@@ -1,4 +1,4 @@
-# The `biblatex-archaeology` styles [v2.2]
+# The `biblatex-archaeology` styles [v2.3]
 
 ## Objective
 
@@ -80,14 +80,14 @@ Remark that `biblatex-archaeology` makes heavy use of Biber-only features. It wo
 ## Help
 
 The package is hosted on [GitHub](https://github.com/CarlOrff/biblatex-archaeology). If you have any concerns it is by far best to use the issue tracker there.
-Alternatively you can e-mail me through the [contact form on my website](https://ingram-braun.net/erga/legal-notice-and-contact/#ib_campaign=biblatex-archaeology-v2.2&ib_medium=readme.md&ib_source=github&ib_content=helpsection). Or you can employ the comment script of a project page on my personal website: [The `biblatex-archaeology` styles for German cultural anthropology](https://ingram-braun.net/erga/the-biblatex-archaeology-styles-for-german-cultural-anthropology/#ib_campaign=biblatex-archaeology-v2.2&ib_medium=readme.md&ib_source=github&ib_content=helpsection).
+Alternatively you can e-mail me through the [contact form on my website](https://ingram-braun.net/erga/legal-notice-and-contact/#ib_campaign=biblatex-archaeology-v2.3&ib_medium=readme.md&ib_source=github&ib_content=helpsection). Or you can employ the comment script of a project page on my personal website: [The `biblatex-archaeology` styles for German cultural anthropology](https://ingram-braun.net/erga/the-biblatex-archaeology-styles-for-german-cultural-anthropology/#ib_campaign=biblatex-archaeology-v2.3&ib_medium=readme.md&ib_source=github&ib_content=helpsection).
 gzm-dguf/
 Normally you will get the latest production version through the update script of your TeX distribution. If you want to keep track actively, use
 the news feeds of CTAN, GitHub, Academia or my personal website.
 
 ## Copyright
 
-© 2005–2019 by [Ingram Braun](https://ingram-braun.net/#ib_campaign=biblatex-archaeology-v2.2&ib_medium=readme.md&ib_source=github&ib_content=copyright)
+© 2005–2020 by [Ingram Braun](https://ingram-braun.net/#ib_campaign=biblatex-archaeology-v2.3&ib_medium=readme.md&ib_source=github&ib_content=copyright)
 
 ## License
 
