@@ -1,0 +1,162 @@
+% arara: pdflatex
+% arara: biber
+% arara: pdflatex
+% arara: clean: { extensions: [aux,log,out,toc,bbl,bcf] }
+\documentclass[12pt]{scrreprt}
+% Schrift und Sprache
+\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+\usepackage{noto}
+\usepackage[english,latin,french,dutch,danish,ngerman,german]{babel}
+\usepackage[german=quotes]{csquotes}
+\usepackage{xspace,bxtexlogo}
+\bxtexlogoimport{*}
+\bxtexlogoimport{**}
+\usepackage[style=rgk-verbose]{biblatex}
+\title{Kurzeinführung}
+\let\textls\relax
+\usepackage[protrusion=true,expansion=true,verbose=true,babel=true,tracking=true]{microtype}
+\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
+\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
+            % dass alle Passagen in Kapitälchen automatisch leicht
+            % gesperrt werden.
+\newrobustcmd*{\blx}{\Paket{bib\-la\-tex}\xspace}
+\makeatletter
+\newrobustcmd*{\archbib}{\Paket{\blxarch@name@hyph}\xspace}
+\newrobustcmd*{\Biber}{\Paket{Biber}\xspace}
+\makeatother
+\newrobustcmd*{\Befehl}[1]{\texttt{\textbackslash\detokenize{#1}}}
+\newrobustcmd*{\Typ}[1]{\texttt{\symbol{64}#1}}
+% no hyphenation within tt fonts:
+\newrobustcmd*{\Paket}[1]{\textsf{#1}}
+\newrobustcmd*{\Feld}[1]{\texttt{#1}}
+\newrobustcmd*{\Option}[1]{\texttt{#1}}
+\newrobustcmd*{\Kbd}[1]{\texttt{#1}}
+\newrobustcmd*{\Stil}[1]{\texttt{#1}}
+\newrobustcmd*{\Datei}[1]{\texttt{#1}}
+\newrobustcmd*{\Englisch}[1]{\foreignlanguage{english}{#1}}
+\title{Kurzeinführung \blx und \archbib [v2.3]}
+\author{Ingram Braun}
+\date{\today}
+\usepackage{hyperref}
+\begin{document}
+
+\maketitle
+
+\begin{abstract}\noindent
+Diese Kurzeinführung intendiert, Interessenten an der Benutzung meines \archbib-Paketes dessen grundlegenden Designprinzipien unter dem Aspekt strikter Anwendungsorientierung zu erläutern. Dies vor dem Hintergund, daß in den Philosophischen Fakultäten der Universitäten im deutschsprachigen Raum die Verwendung von \LaTeX{} eher ungewöhnlich ist. Zielpublikum sind vor allem Autoren, die vorhandene Stile benutzen oder nur leicht modifizieren wollen. Für eine Befehlsreferenz sind die Handbücher von \blx und \archbib zu konsultieren.
+\end{abstract}
+ 
+\tableofcontents
+
+\chapter{Für diejenigen, die \LaTeX{} noch gar nicht kennen}
+
+\section{Was ist \LaTeX}
+Sprich \enquote{Lahtech} -- das vermeintliche X ist ein griechisches Chi. Es ist eigentlich nur eine Makrosprache für \TeX{}. \TeX{} wurde 196x von Donald Knuth entwickelt, der zu den bedeutendsten Informatikern des 20. Jahrhunderts zählt, weil er sich über den armseligen Mathematiksatz in den Fachzeitschriften geärgert hatte. Seine Popularität verdankt es neben dem Umstand, daß es typographisch ein Riesenfortschritt war, auch der Lizenz, die es auch zur kommerziellen Nutzung freigab. Da reines \TeX{} schwer zu schreiben ist, entwickelte Leslie \textbf{La}mport die Makrosprache \LaTeX{} -- nicht die einzige, aber die Populärste und mit den meisten Erweiterungen gesegnete. Später ging er übrigens zu Microsoft und war einer der wesentlichen Entwickler von MS Word.
+ 
+\section{Soll man \LaTeX{} überhaupt in den deutschsprachigen Geisteswissenschaften verwenden?}
+Die Frage nach der besten Software ist für gewöhnlich sehr ideologielastig -- vermutlich hat jeder schon  einmal solche ebenso ermüdenden wie fruchtlosen Debatten in den sozialen Medien gesehen. Für \LaTeX{} gibt es offensichtlich zwei schwere Hypotheken:
+\begin{enumerate}
+\item \LaTeX{} hat eine sehr steile Lernkurve, die bei Anfängern erheblich Frust erzeugen kann, wenn viel Zeit für die Suche nach den Ursachen von Fehlermeldungen aufgewendet wird.
+\item Geisteswissenschaftliche Zeitschriften aus dem deutschen Sprachraum akzeptieren in aller Regel keine \LaTeX-Quellen.
+\end{enumerate}
+Es ist absolut verständlich, wenn hier jemand aufhört, zu lesen, weil \LaTeX{} offensichtlich an seinen Bedürfnissen vorbeigeht. Danke für die Aufmerksamkeit und viel Erfolg mit Ihren weiteren Plänen!
+
+Die Vorteile von \LaTeX{} erschließen sich desto besser, je komplexer Dokumente werden.
+\begin{enumerate}
+\item Es gibt ein riesiges Archiv von Erweiterungen (CTAN = \Englisch{Comprehensive \TeX{} Archive Network})
+\item Der Satz ist erheblich präziser als bei Textverarbeitungsprogrammen.
+\item Das Automatisierungspotential ist sehr viel höher als bei Textverarbeitungsprogrammen. Zudem ist es als Konsolenprogramm sehr gut zu \Englisch{social engineering} fähig, also zur Kommunikation mit anderen Programmen und Programmiersprachen.
+\item Es ist kostenlos beziehbar. Daß die Lizenz den kommerziellen Einsatz uneingeschränkt erlaubt, wurde oben schon erwähnt.
+\item Es ist mittlerweile ziemlich gut möglich, \LaTeX-Dokumente in HTML oder XML-basierte Formate wie ODT oder DOCX zu konvertieren.
+\item \LaTeX{} ist nebenbei auch ein enorm mächtiges Grafikprogramm.
+\end{enumerate}
+
+Mit \LaTeX{} kann man nicht nur die üblichen Aufgaben des Textsatzes erledigen, sondern auch Bibliographien, Indices und Glossare automatisiert erstellen, Atommodelle und Landkarten zeichnen, Noten in Partituren stechen, Schachpartien direkt aus Datenbanken ausdrucken, Funktionsgraphen plotten, ausführbaren Code in anderen Programmiersprachen einbetten etc. pp.
+
+Als ich begann, mich mit \LaTeX{} zu befassen, hörte man noch gruselige Geschichten von Diplomarbeiten in MS Word, die nach ihrem finalen Wachstum kurz vor Abgabe abstürzten. Damals erreichten die Bürocomputer allerdings auch nur einen Bruchteil ihrer heutigen Performanz und waren mit großen, grafikreichen Dokumenten tatsächlich ausge- bis überlastet. Ich weiß nicht, ob das Problem wirklich je so groß war wie gerne kolportiert, aber diese Geschichten haben sich längst verflüchtigt. Mittlerweile kann man auch PDF exportieren (das gab es noch nicht, als ich es das letztemal benutzt habe). Die Satzqualität ist deutlich geringer als mit \LaTeX. Trotzdem werden heute Bücher (etwa in den \Englisch{Print on demand}-Verlagen) von MS Word-Vorlagen gedruckt, und die Satzqualität ist auch nicht so schlecht, daß man sie überhaupt nicht mehr in die Hand nehmen mag. Daß die Satzqualität schlechter ist, ist konzeptbedingt. Textverarbeitungsprogramme wie MS Word, LibreOffice und dergleichen verfahren nach dem WYSIWYG-Prinzip: \Englisch{What You See Is What You Get}. Das funktioniert nur, wenn die sehr komplexen Satzberechnungen in Echtzeit ausgeführt werden, weil sonst der Bildschirm während des Renderns  einfrieren würde. In \LaTeX{} hingegen wird nur auf ausdrückliche Benutzeranweisung gerendert und man kann auf das Ergebnis warten.
+
+Ein weiterer Nachteil von \LaTeX{} war lange Zeit die fehlende Konvertierbarkeit seiner Ausgabeformate. Es wird normalerweise PDF erzeugt; andere Optionen sind PS und DVI. Das sind alles Grafikformate, die keine Informationen zur Textgliederung (Überschrift, Absatz, Fußnote, Seitenzahl etc.) enthalten. Zudem ist nicht alles, was beim Nutzer als Text erscheint, in der Datei überhaupt als solcher codiert. Zwar gibt es viele PDF zu DOC/RTF-Konverter, aber die erstellen kein gegliedertes Dokument, sondern äffen die Positonierungen des Originals nach. Man emuliert also praktisch eine Grafikdatei im Zielformat. Da es aber immer notwendiger wurde, \LaTeX{}-Dokumente vor allem für Webservices und Screenreader zu konfektionieren, wurden zahlreiche  Konverter entwickelt. Zwei Projekte sind heutzutage interessant und zeigen auch mit \archbib ordentliche Resultate:
+\Paket{\LaTeXML{}} für HTML und \Paket{tex4ht} für HTML und allerlei XML-basierte Formate (EPUB für E-Books z.\,B.). Mit letzterem kann man ODT-Dateien erzeugen, die auch MS Word lesen kann. Der Vorgang ist wie alles an \LaTeX{} nicht so ganz einfach, aber er funktioniert soweit, daß man ihn nicht meiden muß. Wir widmen der Konvertierung noch ein eigenes Kapitel.
+
+Es mag nun jeder für sich selbst entscheiden, ob ihm das den Lernaufwand wert ist. Eine geplante Dissertation dürfte es wohl sein, denn \blx ist ganz erheblich mächtiger als die MS Word-Addons von Citavi oder Zotero und spart allein beim Korrekturlesen mehrere Tage Zeit.
+
+\section{Der grundlegende Unterschied von \LaTeX{} und WYSIWYG-Editoren}
+Der wesentliche Unterschied von \TeX{}basierten Satzsystemen und WYSIWYG-Editoren besteht darin, daß bei \TeX{} eine Quellcode-Datei zu einer Grafikdatei kompiliert wird. Die Quelldatei bleibt dabei unangetastet; man hat nach der Kompilierung zwei Dateien (i.\,d\,R. \Datei{jobname.tex} und \Datei{jobname.pdf}). Im Gegensatz dazu erzeugen WYSIWYG-Textverarbeiter die grafische Anzeige direkt aus der Quelle. Die Quelldatei (DOC, DOCX, RTF, RTFX, ODT etc.) ist auch gleichzeitig Ausgabedatei. Das hat Folgen auch für die Entwicklung von Zitier- und Bibliographiersoftware. Daß kommerzielle Bibliographierprogramme wie Endnote und Citavi verglichen mit dem kostenlosen \blx fast schon primitiv wirken, hat sicherlich nichts mit fehlender Kompetenz ihrer Schöpfer zu tun, sondern mit den Einschränkungen der Grundsysteme, auf die sie aufsetzen.
+
+\subsection{Semantische statt lokaler Auszeichnungen}
+In \LaTeX{} ist es meist falsch, Textauszeichnungen direkt in den Text zu setzen. Stellen sie sich folgendes Beispiel eines Textes vor, in dem fremdsprachige Ausdrücke und Werktitel kursiv gesetzt werden sollen:
+\paragraph{FALSCH: lokale Auszeichnung}
+\begin{verbatim}
+\documentclass[12pt]{scrartcl}
+...
+\begin{document}
+Ein gutes Beispiel für einen \textit{locus amoenus} findet sich in den \textit{Metamorphosen} von Ovid.
+\end{document}
+\end{verbatim}
+Wenn man jetzt bei der Endredaktion auf den Gedanken kommt, daß die Werktitel doch besser in Anführungszeichen stünden, müßte man den gesamten Text durchgehen und die nicht eindeutigen Auszeichnungen ändern. Deshalb
+\paragraph{RICHTIG: semantische Auszeichnung}
+\begin{verbatim}
+\documentclass[12pt]{scrartcl}
+...
+\newcommand{Fremdsprache}[1]{\textit{#1}}
+\newcommand{Werktitel}[1]{\textit{#1}}
+\begin{document}
+Ein gutes Beispiel für einen \Fremdsprache{locus amoenus} findet sich in den \Werktitel{Metamorphosen} von Ovid.
+\end{document}
+\end{verbatim}
+Hier würde man im selben Fall nur das \Befehl{Werktitel}-Kommando ändern. In WYSIWYG-Editoren sind semantische Auszeichnungen nur sehr eingeschränkt möglich. Die Nutzer greifen die zu formatierenden Stellen üblicherweise mit der Maus und ändern sie lokal. Es gibt zwar auch dort die Möglichkeit, Marken in den Text zu setzen und dann mit Makros zu formatieren, aber dieser Vorgang läßt sich nicht rückgängig machen, weil man keine separate Quelldatei hat, die vor den Eingriffen des Renderns der Grafik geschützt wäre. Für das Bibliographieren hat das auch Folgen, denn ein Bibliographierprogramm braucht Informationen über die Gestalt des Haupttextes. Manche Stile z.\,B. setzen das Literaturverzeichnis in eine geringere Schriftgröße als den Fließtext, weil Verzeichnisse nicht dessen hohen Lesbarkeitsanforderungen genügen müssen. In \LaTeX{} gibt man die Schriftgröße normalerweise nur einmal absolut als Parameter der Dokumentenklasse an und beschreibt lokale Änderungen dann nur noch relativ (\Befehl{HUGE}, \Befehl{footnotesize} etc.). Die für die Berechnungen relevante Normgröße wäre selbst dann bekannt, wenn sie im Text immer geändert worden ist. In den Dokumentenformaten der WYSIWYG-Editoren fehlt eine solche Norm, weil alles nur lokal ausgezeichnet ist.
+
+\subsection{Seitenaufbau}
+Beim Zitieren und Bibliographieren braucht man Kenntnisse des konkreten Seitenaufbaus, darunter leicht veränderlicher Werte wie Seiten- und Fußnotenzähler. Es gibt z. B. Regeln, die besagen, daß man komprimierte Wiederholungszitate auf jeder neuen Seite erst einmal wieder voll ausschreiben soll. Dafür muß man wissen, ob sich der Seitenzähler seit dem letzten Zitat desselben Werkes geändert hat. Das geht schlecht, wenn man das Zitat beim Einsetzen direkt formatiert und damit seinen maschinenlesbaren Code vernichtet -- es sei denn, man kann wie der späte Mozart auch komplexere Werke ganz ohne Korrekturen niederschreiben. Mit den Fußnoten ergibt sich das Problem ganz konkret im geisteswissenschaftlichen RGK-Stil: ob man Wiederholungszitate mit \enquote{aao.}, \enquote{Ebd.} oder \enquote{(Fußnote 15)} markiert, hängt davon ab, ob die Differenz des Fußnotenzählers zum letzten Auftauchen desselben Werkes 0, 1 oder viele beträgt.
+
+\subsection{Textrevisionen}
+Bei Textrevisionen müssen die Zitate verändert werden können. Wenn man ein Zitat entfernt, muß geprüft werden, ob es auch aus dem Literaturverzeichnis entfernt werden muß oder ob es nochmal vorkommt. Man muß aus dem Zitat eines einzelnen Werkes das mehrerer machen können. Zitatformen können sich ändern, wenn der Satzbau umgestellt wird, z.\,B. \enquote{lorem ipsum (Müller \& Meier 2019, 56)} zu \enquote{Müller und Meier (2019, 56) behaupten, dass lorem ipsum}. Und nicht zuletzt müssen auch Korrekturen in der Literaturdatenbank in den Text eingepflegt werden. Dafür ist es notwendig, daß im Quelltext die maschinenlesbaren Marken erhalten bleiben. Das ist wahrscheinlich der größte Vorteil einer separaten Quellcodedatei, die beim Rendern unangetastet bleibt.
+
+\section{Noch ein Hinweis zu den Distributionen}
+Da das Problem mit verschiedenen \TeX-Distributionen in einer Nutzerreaktion zu \archbib auftauchte: Es ist egal, ob man \TeX{} Live oder MiK\TeX{} verwendet (andere wie z.\,B. Mac\TeX{} satteln auf einer von diesen beiden auf). \TeX{} Live ist etwas größer, während MiK\TeX{} eine für Windowsnutzer gewohntere Benutzerführung hat. Wenn man an mehreren Computern arbeitet, muß man allerdings sehr darauf achten, daß man immer denselben Zustand der Distribution hat. \TeX{} Live kann man täglich updaten, MiK\TeX{} wöchentlich. Onlinedienste wie Overleaf oder ArXiv können das nicht. Es kann immer mal passieren, daß es in der Ladekette eines Paketes zu inkompatiblen Änderungen kommt. Onlinedienste brauchen aber langfristige Stabilität. Ähnliches gilt für die über Paketmanager wie \Paket{yum}, \Paket{APT}, \Paket{RPM} oder \Paket{dpkg} ausgelieferten Versionen. Auch die werden für gewöhnlich nur in längeren Abständen erneuert und sind mitunter auch nur Minimalinstallationen bzw. in mehrere thematische Pakete aufgeteilt. Wenn man auf mehreren Computern des gleichen Betriebssystems arbeitet, lassen sich beide Distributionen portabel auf USB-Sticks installieren. Da kann man dann auch gleich ein Backup der Distribution machen, falls nach einem Update etwas nicht mehr funktioniert.
+
+\chapter{\blx Grundlagen}
+
+\section{\BibTeX-Datenbanken}
+
+\section{Einbindung}
+ 
+\section{Stile}
+
+\section{Zitierkommandos}
+
+\section{Bibliographien}
+
+\section{Personennamen}
+
+\chapter{Erweiterungen durch \archbib}
+
+\chapter{Die Ökologie von \archbib}
+
+In einer Serie von Blogposts auf meiner privaten Homepage habe ich \archbib in Zusammenarbeit mit verschiedenen Hilfsmitteln ausprobiert. Dies insbesondere, um zu erfahren, ob ich dies von der \archbib-Seite aus unterstützen kann. Meine Erkenntnisse sind hier zusammengefaßt. Ein bißchen Mißtrauen ist geboten, denn mit Ausnahme von \Paket{tex4ht} habe ich keines dieser Programme vorher im Produktiveinsatz gehabt.
+
+\section{Editoren}
+
+\subsection{\LyX}
+\LyX{} ist ein graphischer Editor á la MS Word für \LaTeX. Er benutzt eine eigene Makrosprache, die für die Bildschirmausgabe nach HTML und für druckbare Dokumente nach \LaTeX{} übersetzt wird. Das funktioniert aber nur für eine Teilmenge von \LaTeX, für die entsprechende HTML-Formate vorliegen. Man kann beliebige \LaTeX-Kommandos eingeben oder neue \LyX-Makros für sie schreiben. Seit Version 2.3.0 wird \blx nativ unterstützt, allerdings nur für Autor-Jahr- und numerische Stile. Schwierig wird es allerdings dann, wenn man Pakete wie \archbib nutzen will, die \blx wesentlich erweitern und insbesondere neue Zitierkommandos einführen. Hier muß man dann damit leben, daß dies in der HTML-Ausgabe nicht oder nur sehr unzureichend unterstützt wird.
+
+Alles in allem ist das ein ziemlich cleverer Ansatz. Warum ich \LyX{} dennoch für größere Dokumente nicht in Betracht ziehen würde, hängt vor allem damit zusammen, daß die graphische Eingabe wieder lokales Markup erzeugt. Je größer die Dokumente werden, desto mehr hilft mir aber ein kluges semantisches Markup bei der Schlußredaktion. Auf diesen Vorteil würde ich bei Dokumenten von der Größe einer Abschlußarbeit nicht verzichten wollen. Überhaupt finde ich die Möglichkeit, \LaTeX-Dokumente ohne \LaTeX-Kenntnisse zu schreiben, ziemlich problematisch. Ein Gutteil seiner hohen Skalierbarkeit liegt doch gerade darin, eigene Makros zur Strukturierung und Automatisierung schreiben zu können.
+
+\subsection{Pandoc}
+
+
+\section{Datenbanken}
+\subsection{Citavi}
+\subsection{Zotero}
+\subsection{Endnote}
+
+\subsection{\Paket{JabRef}}
+\Paket{JabRef} ist ein in der \TeX-Welt sehr verbreiteter Manager für \BibTeX-Datenbanken. Da er in Java geschrieben ist, läuft er auf allen relevanten Betriebssystemen. Die Integration von \archbib ist ziemlich leicht. Da das \BibTeX-Format keine abgeschlossene Menge an Feldern oder Dokumententypen hat, wurden entsprechende Editoren vorgesehen. Einzelheiten finden sich in einem \href{https://ingram-braun.net/erga/2020/02/biblatex-archaeology-in-its-environment-%e2%85%b0-jabref/#ib_campaign=biblatex-archaeology-2.2&ib_medium=github&ib_source=german_short_intro}{Blogpost}.
+
+\section{Konverter}
+\subsection{\LaTeXML}
+\subsection{\Paket{tex4ht}}
+
+\end{document}
+\endinput
