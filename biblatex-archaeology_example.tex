@@ -17,6 +17,7 @@
 \else 
 	\usepackage{fontspec,noto}\setmonofont{NotoSansMono}[HyphenChar=None]
 	\usepackage[french,dutch,danish,swedish,english,german,ngerman]{babel}
+	\setmainfont[Ligatures=TeX]{NotoSerif}
     %\usepackage{polyglossia}\setdefaultlanguage{english}\setotherlanguage{german}
     %\usepackage{polyglossia}\setdefaultlanguage{german}\setotherlanguage{english}
 % command is missing in some fonts:
@@ -50,7 +51,7 @@
     %style=verbose-trad2note-archaeology,
     %style=verbose-ibid-archaeology,
     %style=verbose-archaeology,
-    style=aefkw,
+    %style=aefkw,
     %style=afwl,
     %style=amit,
 	%style=niedersachsen,
@@ -70,7 +71,7 @@
     %style=mpkoeaw,
     %style=nnu,
     %style=offa,
-    %style=rgk-inline,
+    style=rgk-inline,
     %style=rgk-numeric,
     %style=rgk-verbose,
     %style=rgzm-inline,
@@ -129,6 +130,24 @@
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
+\DeclareFieldFormat[article,review,suppperiodical]{number}{#1\addcomma\addspace}
+
+\DeclareSourcemap{
+	\maps[datatype=bibtex]{
+		\map{
+             \step[
+                fieldsource=year,
+                fieldtarget=date,
+            ]
+        }
+		\map{
+             \step[
+                fieldsource=address,
+                fieldtarget=location,
+            ]
+        }
+	}
+}
 
 	
 %%% END EXPERIMENTAL CODE
@@ -398,8 +417,10 @@
 
 \subsection{Journal with \Feld{number}}
 \begin{itemize}
-    \item\cite{ib:domino:europa}%
-    \item\fullcite{ib:domino:europa}%
+    \item\cite{arora:becker:1997}%
+    \item\fullcite{arora:becker:1997}%
+	\item\cite{asmus:1938}%
+    \item\fullcite{asmus:1938}%
 \end{itemize}
 
 \subsection{\Typ{inbook}}

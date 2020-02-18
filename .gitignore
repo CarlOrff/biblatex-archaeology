@@ -224,5 +224,9 @@ biblatex-archaeology_example-ent.*
 # hyperref
 *.out
 
+# LyX
+*.lyx
+*.lyx~
+
 # Nextcloud
 *_conflict-*

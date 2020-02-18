@@ -15,4 +15,5 @@ texhash
 REM make example
 call example.bat
 
+
 pause>nul
