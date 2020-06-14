@@ -1,30 +1,12 @@
 \listfiles
 \documentclass[a4paper,12pt]{scrartcl}
 % no fontenc support by tex4ht:
-\ifdefined\HCode% detect tex4ht
-    \usepackage[T1]{fontenc}
-    \usepackage[utf8]{inputenc} 
-    %\usepackage[ansinew]{inputenc}
-    \usepackage[USenglish,nswissgerman]{babel}
-    \usepackage{lmodern}
-    \usepackage[osf,sc]{mathpazo}
-    \makeatletter
-        \def\hshchr{\expandafter\@gobble\string\#}
-        \def\ampchr{\expandafter\@gobble\string\&}
-        \def\entity#1{\HCode{\ampchr\hshchr#1;}}
-    \makeatother
-    \raggedright
-\else 
-	\usepackage{fontspec,noto}\setmonofont{NotoSansMono}[HyphenChar=None]
-	\usepackage[french,dutch,danish,swedish,english,german,ngerman]{babel}
-	\setmainfont[Ligatures=TeX]{NotoSerif}
-    %\usepackage{polyglossia}\setdefaultlanguage{english}\setotherlanguage{german}
-    %\usepackage{polyglossia}\setdefaultlanguage{german}\setotherlanguage{english}
-% command is missing in some fonts:
-%    \DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\} 
-\fi
 %\usepackage[logonly]{trace}\traceon
 %\tracingpatches % write \patchcmd log
+\usepackage[T1]{fontenc}
+\usepackage[USenglish,nswissgerman]{babel}
+\usepackage{lmodern}
+\usepackage[osf,sc]{mathpazo}
 \usepackage[protrusion=true,expansion=true,verbose=true,babel=true,tracking=true]{microtype}
 \DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
 \SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
@@ -107,7 +89,7 @@
     {\addbibresource{biblatex-archaeology-example.bib}}
     \usepackage{xcolor}
 % heading (after biblatex!)
-\usepackage{scrpage2}
+\usepackage{scrlayer-scrpage}
 \pagestyle{scrheadings}
 \clearscrheadings
 \ihead{\explhead}
@@ -117,7 +99,7 @@
     {\def\explhead{\scriptsize{\texttt{bibstyle}: \archaeobibstyletitle\\\texttt{citestyle}: \archaeocitestyletitle}}}
     {\def\explhead{no biblatex-archaeology style}}
 \title{biblatex-archaeology [v2.3] sample document}
-\subtitle{\explhead}
+%\subtitle{\explhead}
 \author{Ingram Braun}
       
 % technical expressions
@@ -134,15 +116,72 @@
 
 \DeclareSourcemap{
 	\maps[datatype=bibtex]{
+%    \end{macrocode}
+% Move plan BibTeX \Feld{years} to \Feld{date} field if the latter not available (only 4-dgit years)
+%    \begin{macrocode}
 		\map{
-             \step[
+            \step[ 
                 fieldsource=year,
-                fieldtarget=date,
+                fieldset=date,
+				match=\regexp{\A\d{4}\Z},
+				origfieldval,
+				notfield=date,
+				final
             ]
-        }
+			\step[
+				fieldset=year,
+				null,
+            ]
+			\step[ 
+                fieldsource=month,
+                fieldset=date,
+				match=\regexp{\A(1[0-2]|\d)\Z},
+				fieldvalue=-,
+				append,
+				final,
+            ]
+			\step[
+				match=\regexp{\A\d\Z},
+				fieldvalue=0,
+				append
+            ]
+			\step[
+				origfieldval,
+				append
+            ]
+			\step[
+				fieldset=month,
+				null
+            ]
+			\step[ 
+                fieldsource=day,
+                fieldset=date,
+				match=\regexp{\A([1-3]?\d)\Z},
+				final,
+				fieldvalue=-,
+				append
+            ]
+			\step[
+				match=\regexp{\A\d\Z},
+				fieldvalue=0,
+				append
+            ]
+			\step[
+				origfieldval,
+				append
+            ]
+			\step[
+				fieldset=day,
+				null
+            ]
+        } 
+%    \end{macrocode}
+% Move \Feld{address} to \Feld{location} if the latter not existent.
+%    \begin{macrocode}
 		\map{
              \step[
                 fieldsource=address,
+				notfield=location,
                 fieldtarget=location,
             ]
         }
