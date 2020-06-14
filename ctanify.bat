@@ -1,0 +1,1 @@
+perl ctanify.pl > ctanify.log 2>&1

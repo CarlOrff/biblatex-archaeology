@@ -265,7 +265,7 @@ finish("Job regularly finished!");
 
 # append arguments to build log file
 sub add_log {
-	$log .= join('',(@_,$newline));
+	#$log .= join('',(@_,$newline));
 	print @_,"\n";
 }
 
@@ -374,16 +374,16 @@ sub remove_intermediary_files {
 sub finish {
 	add_log($_[0]) if defined $_[0];
     
-	my $logfh = FileHandle->new('ctanify.log', O_WRONLY|O_TRUNC|O_CREAT);
+	#my $logfh = FileHandle->new('ctanify.log', O_WRONLY|O_TRUNC|O_CREAT);
     
     my $exectime = (time - $time)/60;
     add_log("Script execution lasted $exectime minutes\n");
     
-	if (defined $logfh) {
-		print $logfh $log;
-		die "\n$log";
-	}
-	else {die "FATAL ERROR: Could not write build log: $!"}
+	#if (defined $logfh) {
+	#	print $logfh $log;
+	#	die "\n$log";
+	#}
+	#else {die "FATAL ERROR: Could not write build log: $!"}
 }
 
 # call arg1 on command line and log result
