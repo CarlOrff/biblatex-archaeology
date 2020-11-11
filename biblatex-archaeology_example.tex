@@ -1,12 +1,34 @@
 \listfiles
+\RequirePackage{scrlfile}
+\ReplacePackage{scrpage2}{scrlayer-scrpage}
 \documentclass[a4paper,12pt]{scrartcl}
 % no fontenc support by tex4ht:
+\ifdefined\HCode% detect tex4ht
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc} 
+    %\usepackage[ansinew]{inputenc}
+    \usepackage[USenglish,nswissgerman]{babel}
+    \usepackage{lmodern}
+    \usepackage[osf,sc]{mathpazo}
+    \makeatletter
+        \def\hshchr{\expandafter\@gobble\string\#}
+        \def\ampchr{\expandafter\@gobble\string\&}
+        \def\entity#1{\HCode{\ampchr\hshchr#1;}}
+    \makeatother
+    \raggedright
+\else 
+	%\usepackage{fontspec}
+	\usepackage[T1]{fontenc}
+	%\usepackage{noto}%\setmonofont{NotoSansMono}[HyphenChar=None]
+	%\usepackage[french,dutch,danish,swedish,english,german,ngerman]{babel}
+	%\setmainfont[Ligatures=TeX]{NotoSerif}
+    %\usepackage{polyglossia}\setdefaultlanguage{english}\setotherlanguage{german}
+    %\usepackage{polyglossia}\setdefaultlanguage{german}\setotherlanguage{english}
+% command is missing in some fonts:
+%    \DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\} 
+\fi
 %\usepackage[logonly]{trace}\traceon
 %\tracingpatches % write \patchcmd log
-\usepackage[T1]{fontenc}
-\usepackage[USenglish,nswissgerman]{babel}
-\usepackage{lmodern}
-\usepackage[osf,sc]{mathpazo}
 \usepackage[protrusion=true,expansion=true,verbose=true,babel=true,tracking=true]{microtype}
 \DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
 \SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
@@ -53,7 +75,7 @@
     %style=mpkoeaw,
     %style=nnu,
     %style=offa,
-    style=rgk-inline,
+    %style=rgk-inline,
     %style=rgk-numeric,
     %style=rgk-verbose,
     %style=rgzm-inline,
@@ -64,7 +86,7 @@
     %style=rgk-verbose-old,
     %style=ufg-muenster-inline,
     %style=ufg-muenster-numeric,
-    %style=ufg-muenster-verbose,
+    style=ufg-muenster-verbose,
     %style=volkskunde,
     %style=zaak,
     %style=zaes,
@@ -89,7 +111,7 @@
     {\addbibresource{biblatex-archaeology-example.bib}}
     \usepackage{xcolor}
 % heading (after biblatex!)
-\usepackage{scrlayer-scrpage}
+\usepackage{scrpage2}
 \pagestyle{scrheadings}
 \clearscrheadings
 \ihead{\explhead}
@@ -99,7 +121,7 @@
     {\def\explhead{\scriptsize{\texttt{bibstyle}: \archaeobibstyletitle\\\texttt{citestyle}: \archaeocitestyletitle}}}
     {\def\explhead{no biblatex-archaeology style}}
 \title{biblatex-archaeology [v2.3] sample document}
-%\subtitle{\explhead}
+\subtitle{\explhead}
 \author{Ingram Braun}
       
 % technical expressions
@@ -112,81 +134,34 @@
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
-\DeclareFieldFormat[article,review,suppperiodical]{number}{#1\addcomma\addspace}
+\newtoggle{archbool:posscite}
+\togglefalse{archbool:posscite}
 
-\DeclareSourcemap{
-	\maps[datatype=bibtex]{
-%    \end{macrocode}
-% Move plan BibTeX \Feld{years} to \Feld{date} field if the latter not available (only 4-dgit years)
-%    \begin{macrocode}
-		\map{
-            \step[ 
-                fieldsource=year,
-                fieldset=date,
-				match=\regexp{\A\d{4}\Z},
-				origfieldval,
-				notfield=date,
-				final
-            ]
-			\step[
-				fieldset=year,
-				null,
-            ]
-			\step[ 
-                fieldsource=month,
-                fieldset=date,
-				match=\regexp{\A(1[0-2]|\d)\Z},
-				fieldvalue=-,
-				append,
-				final,
-            ]
-			\step[
-				match=\regexp{\A\d\Z},
-				fieldvalue=0,
-				append
-            ]
-			\step[
-				origfieldval,
-				append
-            ]
-			\step[
-				fieldset=month,
-				null
-            ]
-			\step[ 
-                fieldsource=day,
-                fieldset=date,
-				match=\regexp{\A([1-3]?\d)\Z},
-				final,
-				fieldvalue=-,
-				append
-            ]
-			\step[
-				match=\regexp{\A\d\Z},
-				fieldvalue=0,
-				append
-            ]
-			\step[
-				origfieldval,
-				append
-            ]
-			\step[
-				fieldset=day,
-				null
-            ]
-        } 
-%    \end{macrocode}
-% Move \Feld{address} to \Feld{location} if the latter not existent.
-%    \begin{macrocode}
-		\map{
-             \step[
-                fieldsource=address,
-				notfield=location,
-                fieldtarget=location,
-            ]
-        }
+
+\renewbibmacro*{genitive}[1]{AAA%
+	\ifboolexpr{
+		test {\ifdefvoid{#1}}
+		or
+		togl {archbool:posscite}
 	}
+        {\global\togglefalse{archbool:posscite}}
+        {\togglefalse{archbool:genitiveapostrophe}%
+		 \global\toggletrue{archbool:posscite}%
+         \fullexpandarg%
+         \StrRemoveBraces{#1}[\blxarch@nobraces]%
+         \renewcommand*{\do}[1]{%
+            \IfEndWith{\blxarch@nobraces}{##1}
+                {\toggletrue{archbool:genitiveapostrophe}\listbreak}
+                {}%
+         }%
+         \dolistloop{\blxarch@genitiveapostrophechars}%
+         \iftoggle{archbool:genitiveapostrophe}
+            {\bibstring{genitiveapostrophe}}
+            {\bibstring{genitives}}%
+        }%
 }
+%    \end{macrocode}
+% \end{bibmacro}
 
 	
 %%% END EXPERIMENTAL CODE
@@ -258,6 +233,12 @@
     \item[\footnotesize\Befehl{citeurl}] \citeurl{kenmore}
     \item[\footnotesize\Befehl{fullcite}] \fullcite{auler:hiller:2015}
     \item[\footnotesize\Befehl{footfullcite}] \footfullcite[159--187]{auler:hiller:2015}
+	\item[\footnotesize\Befehl{mautocite}] \ifcsdef{mautocite}
+        {\mautocite[48]{de:neck:yoder:1978}}
+        {\textbf{undefined!}}%
+	\item[\footnotesize\Befehl{Mautocite}] \ifcsdef{Mautocite}
+        {\Mautocite[48]{de:neck:yoder:1978}}
+        {\textbf{undefined!}}%
     \item[\footnotesize\Befehl{shortformcite}] \ifcsdef{shortformcite}
         {\shortformcite[433]{bauchhenss:et:al:1978}}
         {\textbf{undefined!}}%
