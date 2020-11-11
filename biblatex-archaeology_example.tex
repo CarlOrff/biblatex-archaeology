@@ -7,7 +7,7 @@
     \usepackage[T1]{fontenc}
     \usepackage[utf8]{inputenc} 
     %\usepackage[ansinew]{inputenc}
-    \usepackage[USenglish,nswissgerman]{babel}
+    \usepackage[USenglish,nswissgerman,german,british]{babel}
     \usepackage{lmodern}
     \usepackage[osf,sc]{mathpazo}
     \makeatletter
@@ -17,10 +17,10 @@
     \makeatother
     \raggedright
 \else 
-	%\usepackage{fontspec}
-	\usepackage[T1]{fontenc}
-	%\usepackage{noto}%\setmonofont{NotoSansMono}[HyphenChar=None]
-	%\usepackage[french,dutch,danish,swedish,english,german,ngerman]{babel}
+	\usepackage{fontspec}
+	%\usepackage[T1]{fontenc}
+	\usepackage{noto}%\setmonofont{NotoSansMono}[HyphenChar=None]
+	\usepackage[french,dutch,danish,swedish,english,german,ngerman]{babel}
 	%\setmainfont[Ligatures=TeX]{NotoSerif}
     %\usepackage{polyglossia}\setdefaultlanguage{english}\setotherlanguage{german}
     %\usepackage{polyglossia}\setdefaultlanguage{german}\setotherlanguage{english}
@@ -134,36 +134,8 @@
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
-\newtoggle{archbool:posscite}
-\togglefalse{archbool:posscite}
-
-
-\renewbibmacro*{genitive}[1]{AAA%
-	\ifboolexpr{
-		test {\ifdefvoid{#1}}
-		or
-		togl {archbool:posscite}
-	}
-        {\global\togglefalse{archbool:posscite}}
-        {\togglefalse{archbool:genitiveapostrophe}%
-		 \global\toggletrue{archbool:posscite}%
-         \fullexpandarg%
-         \StrRemoveBraces{#1}[\blxarch@nobraces]%
-         \renewcommand*{\do}[1]{%
-            \IfEndWith{\blxarch@nobraces}{##1}
-                {\toggletrue{archbool:genitiveapostrophe}\listbreak}
-                {}%
-         }%
-         \dolistloop{\blxarch@genitiveapostrophechars}%
-         \iftoggle{archbool:genitiveapostrophe}
-            {\bibstring{genitiveapostrophe}}
-            {\bibstring{genitives}}%
-        }%
-}
-%    \end{macrocode}
-% \end{bibmacro}
-
-	
+		
+		
 %%% END EXPERIMENTAL CODE
 \makeatother
 

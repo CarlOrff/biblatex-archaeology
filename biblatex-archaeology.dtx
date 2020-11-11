@@ -12283,10 +12283,17 @@
 % \marg{command}\\
 % Prints the \Kbd{genitives} or \Kbd{genitiveapostrophe} bibstring respectively. The argument must be a command that
 % can be expanded to a string.
+% \changes{2.3}{2020/11/12}{Suppress doubled possessive forms in footnotes}
 %    \begin{macrocode}
 \newtoggle{archbool:genitiveapostrophe}
+\newtoggle{archbool:posscite}
+\pretocmd{\footnote}{\toggletrue{archbool:posscite}}{}{footnote patch failed!}
 \newbibmacro*{genitive}[1]{%
-    \ifdefvoid{#1}
+    \ifboolexpr{
+		test {\ifdefvoid{#1}}
+		or
+		togl {archbool:posscite}
+	}
         {}
         {\togglefalse{archbool:genitiveapostrophe}%
          \fullexpandarg%
