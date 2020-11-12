@@ -1031,6 +1031,18 @@
 % \item[]\DescribeMacro{\Posscites}(\meta{multiprenote})(\meta{multipostnote})[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis[\meta{prenote}][\meta{postnote}]\marg{key}\\
 % Like \Befehl{posscites} but capitalizes a trailing prefix.
 %
+% \item[]\DescribeMacro{\possvolcite}\marg{volume}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{posscite} but with additional volume parameter.
+%
+% \item[]\DescribeMacro{\Possvolcite}\marg{volume}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{Posscite} but with additional volume parameter.
+%
+% \item[]\DescribeMacro{\possvolcites}(\meta{multiprenote})(\meta{multipostnote})\marg{volume}[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis\marg{volume}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{posscites} but with additional volume parameters.
+%
+% \item[]\DescribeMacro{\Possvolcite}(\meta{multiprenote})(\meta{multipostnote})\marg{volume}[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis\marg{volume}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% Like \Befehl{Posscites} but with additional volume parameters.
+%
 % \item[]\DescribeMacro{\shortformcite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
 % Some verbose styles format entries in encyclopedias in a special way:
 % \begin{Beispiel}
@@ -1733,6 +1745,26 @@
 % \fi
 
 %    \begin{macrocode}
+@Article{arora:becker:1997,
+  author       = {Arora, Surendra-Kumar AND Becker, Wolf-Dietrich},
+  title        = {Die große Chance, bevor der Bagger kommt},
+  JOURNALTITLE = {Archäologie in Deutschland},
+  date         = {1997},
+  number       = {3},
+  pages        = {6--11},
+  abstract     = {Kursorische Übersicht über die Tätigkeit der \mkbibquote{Außenstelle Titz} im rheinischen Braunkohlerevier.},
+  keywords     = {Bergbau, Braunkohle, Bodendenkmalpflege, Nordrhein-Westfalen, Ur- und Frühgeschichte, Mittelalterarchäologie, Elsbachtal, Wasserleitung},
+}
+@Article{asmus:1938,
+  author       = {Asmus, Gisela},
+  title        = {Reihengräberschädel des karolingerzeitlichen Grabfeldes Holle, Kr. Marienburg \mkbibquote{Hannover}},
+  JOURNALTITLE = {Niedersächsisches Jahrbuch für Landesgeschichte},
+  date         = {1938},
+  number       = {12},
+  pages        = {98--114},
+  volume       = {15},
+  keywords     = {Anthropologie, Frühmittelalter, Karolingerzeit, Totenkult, Holle, Niedersachsen},
+}
 @INCOLLECTION{auler:hiller:2011,
   AUTHOR = {Auler, Jost AND Hiller, Petra},
   TITLE = {Ein Kinderschuh des 19. Jahrhunderts aus Dor\-ma\-gen\--Stür\-zel\-berg, Rhein-Kreis Neuss},
@@ -1802,17 +1834,17 @@
   XREF = {hoops:1978},
   GENDER = {pm},
 }
-@ARTICLE{bhattacharyya:1973,
-  AUTHOR = {Bhattacharyya, N. N.},
-  TITLE = {The King and the Dice},
+@Article{bhattacharyya:1973,
+  author       = {Bhattacharyya, N. N.},
+  title        = {The King and the Dice},
   JOURNALTITLE = ufg-JournalOrientInst,
-  DATE = {1973/1974},
-  SUBTITLE = {A Study in the Rituals of the Rājasūa},
-  VOLUME = {23},
-  PAGES = {287--307},
-  KEYWORDS = {Spiel, Würfel, Indologie, Rājasūa, Sanskrit, Religion},
-  LOCATION = {Baroda},
-  LANGUAGE = {english},
+  date         = {1973/1974},
+  language     = {english},
+  pages        = {287--307},
+  volume       = {23},
+  subtitle     = {A Study in the Rituals of the Rājasūa},
+  keywords     = {Spiel, Würfel, Indologie, Rājasūa, Sanskrit, Religion},
+  location     = {Baroda},
 }
 @INBOOK{boppert:1998,
   AUTHOR = {Boppert, Walburg},
@@ -1823,28 +1855,28 @@
   XREF = {stanzl:1998},
   GENDER = {sf},
 }
-@ARTICLE{caselitz:1980a,
-  AUTHOR = {Caselitz, Peter},
-  TITLE = {Schwangerschaft im archäologischen Befund},
+@Article{caselitz:1980a,
+  author       = {Caselitz, Peter},
+  title        = {Schwangerschaft im archäologischen Befund},
   JOURNALTITLE = ufg-ArchAdvertiser,
-  LOCATION = {Bad Bramstedt},
-  PUBLISHER = {Moreland \& Co.},
-  DATE = {1980},
-  PAGES = {20--26},
-  ABSTRACT = {Über Funde von Feten im Pelvis.},
-  KEYWORDS = {Schwangerschaft, Anthropologie, Mortalität}
+  date         = {1980},
+  pages        = {20--26},
+  abstract     = {Über Funde von Feten im Pelvis.},
+  keywords     = {Schwangerschaft, Anthropologie, Mortalität},
+  location     = {Bad Bramstedt},
+  publisher    = {Moreland \& Co.},
 }
-@ARTICLE{cossel:1933-35,
-  AUTHOR = {von Cossel, Otto},
-  TITLE = {Pfarrer und Schulmeister},
+@Article{cossel:1933-35,
+  author       = {von Cossel, Otto},
+  title        = {Pfarrer und Schulmeister},
   JOURNALTITLE = ufg-DtRoland,
-  LOCATION = {Berlin},
-  DATE = {1933/1935},
-  SUBTITLE = {Ein Beitrag zur Geschichte der Kirchenbuchführung},
-  VOLUME = {6},
-  NUMBER = {21--23},
-  PAGES = {121},
-  KEYWORDS = {Kirchenbuch, Pfarrer, Lehrer, Sozialgeschichte, Historische Demographie}
+  date         = {1933/1935},
+  number       = {21--23},
+  pages        = {121},
+  volume       = {6},
+  subtitle     = {Ein Beitrag zur Geschichte der Kirchenbuchführung},
+  keywords     = {Kirchenbuch, Pfarrer, Lehrer, Sozialgeschichte, Historische Demographie},
+  location     = {Berlin},
 }
 @INCOLLECTION{edenmo:1997,
   AUTHOR = {Edenmo, Roger},
@@ -1888,24 +1920,6 @@
   GENDER = {sm},
   KEYWORDS = {Spiel, Domino, Dormagen, Nordrhein-Westfalen, 19. Jahrhundert, Landwirtschaft, Archäologie},
   IDS = {ib:2016},
-}
-@ARTICLE{ib:domino:europa,
-  AUTHOR = {Braun, Ingram},
-  TITLE = {Die Kenntnis des Dominospiels in Europa: Archäologie, Geschichte, Bibliographie},
-  JOURNALTITLE = ufg-BoardGameStud,
-  LOCATION = {Berlin},
-  PUBLISHER = {de Gruyter},
-  LANGUAGE = {german},
-  GENDER = {sm},
-  KEYWORDS = {Spiel, Domino, Europa, Spielbücher, Grafik, Druck, Knochenschnitzerei, Archäologie},
-  SHORTTITLE = {Kenntnis},
-  VOLUME = 10,
-  DATE = 2016,
-  DOI = {10.1515/bgs-2016-0004},
-  URL = {https://www.degruyter.com/view/j/bgs.2016.10.issue-1/bgs-2016-0004/bgs-2016-0004.xml},
-  PAGES = {61--100},
-  IDS = {ib:2016a},
-  ISSN = {1604-7982},
 }
 @ARTICLE{ilinskaja:1965,
   AUTHOR = {Il’inskaja, V.~A.},
@@ -2412,6 +2426,23 @@
   EVENTTYPE = {exhibition},
   LANGUAGE = {german},
   GENDER = {pp},
+}
+@BOOK{van:der:linde:1874,
+  AUTHOR = {van der Linde, Antonius},
+  TITLE = {Geschichte und Literatur des Schachspiels},
+  DATE = {1981},
+  PUBLISHER = {Olms},
+  SERIES = {Tschaturanga. Darstellungen und Quellen zur Geschichte des Schachspiels},
+  NUMBER = {20},
+  LOCATION = {Zürich},
+  KEYWORDS = {Schachspiel, Literatur, Spiel},
+  ISBN = {3-283-00079-4},
+  ORIGPUBLISHER = {Julius Springer},
+  ORIGLOCATION = {Berlin},
+  ORIGDATE = {1874},
+  FOREWORD = {Bijl, Christiaan M.},
+  LANGUAGE = {german},
+  GENDER = {sm},
 }
 @THESIS{volk:1972,
   AUTHOR = {Volk, Peter},
@@ -12360,6 +12391,7 @@
 % \begin{macro}{\posscite}
 % \begin{macro}{\Posscite}
 % \begin{macro}{\posscites}
+% \begin{macro}{\Posscites}
 % Possessive \Befehl{textcite}-like cite commands.
 % \changes{2.0}{2018/05/15}{New cite command \Befehl{posscite}}
 % \changes{2.0}{2018/05/15}{New cite command \Befehl{Posscite}}
@@ -12378,6 +12410,28 @@
 % \end{macro}
 % \end{macro}
 % \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\possvolcite}
+% \begin{macro}{\Possvolcite}
+% \begin{macro}{\possvolcites}
+% \begin{macro}{\Possvolcites}
+% Possessive \Befehl{tvolcite}-like cite commands.
+% \changes{2.3}{2020/11/12}{New cite command \Befehl{possvolcite}}
+% \changes{2.3}{2020/11/12}{New cite command \Befehl{Possvolcite}}
+% \changes{2.3}{2020/11/12}{New cite command \Befehl{possvolcites}}
+% \changes{2.3}{2020/11/12}{New cite command \Befehl{Possvolcites}}
+%    \begin{macrocode}
+\newrobustcmd*{\possvolcite}{\volcitecmd\posscite}
+\newrobustcmd*{\Possvolcite}{\volcitecmd\Posscite}
+\newrobustcmd*{\possvolcites}{\multivolcitecmd\posscites}
+\newrobustcmd*{\Possvolcites}{\multivolcitecmd\posscites}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+
 %
 %\subsubsubsection{Formatting in citations}
 %
