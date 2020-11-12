@@ -1,46 +1,35 @@
-% arara: lualatex
+% arara: pdflatex
 % arara: biber
-% arara: lualatex
+% arara: pdflatex
 % arara: clean: { extensions: [aux,log,out,toc,bbl,bcf,bgl] }
 \documentclass[12pt]{scrreprt}
-% Schrift und Sprache
-%\usepackage{fontspec}
-%\usepackage[T1]{fontenc}
-%\usepackage[utf8]{inputenc}
-\usepackage{noto}
-\usepackage[english,latin,french,dutch,danish,ngerman,german]{babel}
-\usepackage[german=quotes]{csquotes}
-\usepackage{xspace,bxtexlogo}
-\bxtexlogoimport{*}
-\bxtexlogoimport{**}
+
+%%% The following conditionals allow for compiling with various engines without changing the document.
+\usepackage{iftex}
+\ifpdftex % latex, pdflatex, tex4ht
+	\usepackage[T1]{fontenc}
+	%\usepackage[utf8]{inputenc} % loaded by default with up-to-date installs
+\else
+	\ifluatex % lualatex
+		%\usepackage{fontspec} % loaded by default with up-to-date installs
+	\else
+		\ifxetex % xelatex
+			%\usepackage{fontspec} % loaded by default with up-to-date installs
+		\else
+		\fi
+	\fi
+\fi
+
+%%% Fonts
+\usepackage{noto}  % Noto, NotoSans, NotoSansMono optimized for screens
+
+%%% Bibliography
 \usepackage[style=rgk-inline]{biblatex}
 \IfFileExists{ingram-braun-local.sty}
     {\usepackage{ingram-braun-local}
      \addbibresource{\IBbibmain}}
     {\addbibresource{biblatex-archaeology-exampel.bib}}
-\title{Kurzeinführung zu \blx und \archbib [v.2.3]}
-\let\textls\relax
-\usepackage[protrusion=true,expansion=true,verbose=true,babel=true,tracking=true]{microtype}
-\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
-\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
-            % dass alle Passagen in Kapitälchen automatisch leicht
-            % gesperrt werden.
-\newrobustcmd*{\blx}{\Paket{bib\-la\-tex}\xspace}
-\makeatletter
-\newrobustcmd*{\archbib}{\Paket{\blxarch@name@hyph}\xspace}
-\newrobustcmd*{\Biber}{\Paket{Biber}\xspace}
-\makeatother
-\newrobustcmd*{\Befehl}[1]{\texttt{\textbackslash#1}}
-\newrobustcmd*{\Typ}[1]{\texttt{\symbol{64}#1}}
-% no hyphenation within tt fonts:
-\newrobustcmd*{\Paket}[1]{\textsf{#1}}
-\newrobustcmd*{\Feld}[1]{\texttt{#1}}
-\newrobustcmd*{\Option}[1]{\texttt{#1}}
-\newrobustcmd*{\Kbd}[1]{\texttt{#1}}
-\newrobustcmd*{\Stil}[1]{\texttt{#1}}
-\newrobustcmd*{\Datei}[1]{\textsf{#1}}
-\newrobustcmd*{\Englisch}[1]{\foreignlanguage{english}{#1}}
-
+	
 %%% Verbatim environments are not allowed inside commands. But we need this for our example boxes.
 \usepackage{fvextra} 
 \DefineShortVerb{°} % use ° as delimiter for \SaveVerb (employ \textdegree for literal print)
@@ -56,6 +45,43 @@
 \UseVerb[breaklines=true,breakanywhere=true]{Verb}%
 \tcblower#1%
  \end{tcolorbox}}
+ 
+ 
+%%% Babel works with lualatex and xelatex  with up-to-date installs.
+%%% Last language in list is set as document main.
+\usepackage[english,latin,french,dutch,danish,ngerman,german]{babel}
+\usepackage[german=quotes]{csquotes} % context sensitive quotatation
+	
+%%% Microtypography (only pdflatex provides full support!)
+\usepackage[protrusion=true,expansion=true,verbose=true,babel=true,tracking=true]{microtype}
+\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
+\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
+            % dass alle Passagen in Kapitälchen automatisch leicht
+            % gesperrt werden.
+			
+%%% Logos
+\usepackage{bxtexlogo}
+\bxtexlogoimport{*}
+\bxtexlogoimport{**}
+
+%%% Semantic markup
+\usepackage{xspace}
+\newrobustcmd*{\blx}{\Paket{bib\-la\-tex}\xspace}
+\makeatletter
+\newrobustcmd*{\archbib}{\Paket{\blxarch@name@hyph}\xspace}
+\newrobustcmd*{\Biber}{\Paket{Biber}\xspace}
+\makeatother
+\newrobustcmd*{\Befehl}[1]{\texttt{\textbackslash#1}}
+\newrobustcmd*{\Typ}[1]{\texttt{\symbol{64}#1}}
+% no hyphenation within tt fonts:
+\newrobustcmd*{\Paket}[1]{\textsf{#1}}
+\newrobustcmd*{\Feld}[1]{\texttt{#1}}
+\newrobustcmd*{\Option}[1]{\texttt{#1}}
+\newrobustcmd*{\Kbd}[1]{\texttt{#1}}
+\newrobustcmd*{\Stil}[1]{\texttt{#1}}
+\newrobustcmd*{\Datei}[1]{\texttt{#1}}
+\newrobustcmd*{\Englisch}[1]{\foreignlanguage{english}{#1}}
+
  
  %%% title data
 \title{Kurzeinführung \blx und \archbib [v2.3]}

@@ -1040,7 +1040,7 @@
 % \item[]\DescribeMacro{\possvolcites}(\meta{multiprenote})(\meta{multipostnote})\marg{volume}[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis\marg{volume}[\meta{prenote}][\meta{postnote}]\marg{key}\\
 % Like \Befehl{posscites} but with additional volume parameters.
 %
-% \item[]\DescribeMacro{\Possvolcite}(\meta{multiprenote})(\meta{multipostnote})\marg{volume}[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis\marg{volume}[\meta{prenote}][\meta{postnote}]\marg{key}\\
+% \item[]\DescribeMacro{\Possvolcites}(\meta{multiprenote})(\meta{multipostnote})\marg{volume}[\meta{prenote}][\meta{postnote}]\marg{key}\textellipsis\marg{volume}[\meta{prenote}][\meta{postnote}]\marg{key}\\
 % Like \Befehl{Posscites} but with additional volume parameters.
 %
 % \item[]\DescribeMacro{\shortformcite}[\meta{prenote}][\meta{postnote}]\marg{key}\\
@@ -1136,9 +1136,9 @@
 %
 % \item[]\DescribeMacro{\mkbibletterspacing}\marg{text}\\
 % This is a replacement for \LaTeX' non-existing letter spacing command. As the procise settings depend very much
-% on the chosen font, they cannot be given in a universal formula. \Befehl{mkbibletterspacing} allows style
-% authors to mark the affected locations (usually names). By default it uses the \Befehl{textls} command if it is
-% available from some package or prints its bare argument otherwise.
+% on the chosen font, they cannot be given in a universal setting. \Befehl{mkbibletterspacing} allows style
+% authors to mark the affected locations (usually names). Employs \Befehl{textls} from package \Paket{microtype}. I
+% failed to get \Befehl{so} from package \Paket{soul} to run. Falls back to small caps and issues a warning.
 %
 % \item[]\DescribeMacro{\mkbiblistnamefamily}\marg{text}\\
 % Formatting of the family name of authors in the bibliography.
@@ -8862,10 +8862,15 @@
 % \subsubsubsection{Local name formatting}
 %
 % \begin{macro}{\mkbibletterspacing}
-% A wrapper for letter spaced names. Falls back to small caps if \Befehl{textls} is not at hand.
+% A wrapper for letter spaced names. Falls back to small caps if \Befehl{textls} from \Paket{microtype}. 
+% Failed to get \Befehl{\so} from \Paket{soul} to run.
+% \changes{2.3}{2020/11/12}{check for package \Paket{microtype}}
 %    \begin{macrocode}
-\newcommand*{\mkbibletterspacing}[1]{\textls{#1}}
-\providecommand*{\textls}[1]{\textsc{#1}}
+\newcommand*{\mkbibletterspacing}[1]{\textsc{#1}%
+	\blxarch@warnmsg{Using small caps instead of letter spacing. Load microtype package!}}
+\@ifpackageloaded{microtype}
+	{\renewcommand*{\mkbibletterspacing}[1]{\textls{#1}}}
+	{}
 %    \end{macrocode}
 % \end{macro}
 %
