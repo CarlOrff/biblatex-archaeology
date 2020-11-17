@@ -3,7 +3,7 @@
 % arara: biber
 % arara: lualatex
 \documentclass[12pt,table]{scrreprt}
-% The table option is passed to xcolor package when loaded through hyperref.
+% The 'table' option is passed to xcolor package when loaded through another one.
 
 %%% The following conditionals allow for compiling with various engines without changing the document.
 %%% Mainly concerning fonts.
@@ -158,8 +158,10 @@
 \usepackage{ellipsis} % better typesetting of ... (must load after babel)
 
 %%% Table layout.
-%\usepackage{colortbl}  % zebra striped tables (loads )
-\usepackage{longtable} % multipage tables
+\usepackage{xltabular} % long tables across pages with tabularx features
+\usepackage{booktabs} % adding layout features to other tabular packages
+\usepackage{array} % define new columntypes
+\newcolumntype{L}{>{\raggedright\small\arraybackslash}X}
 		
 %%% Logos
 \usepackage{bxtexlogo}
@@ -397,65 +399,70 @@ Wenn in Namen oder Listen das Trennzeichen in den Einträgen vorkommt, muß man 
 \end{tabular}
 \end{figure}
 \subsection{Dokumententypen}
-Nicht alle Dokumententypen, die \blx definiert, werden von den Standardstilen genutzt. Ich beschränke mich hier in \cref{tab:doctypes} auf die tatsächlich unterstützten. Wer spezielle Stile verwendet, wird in den Handbüchern Erklärungen zu den Erweiterungen finden.
+Nicht alle Dokumententypen, die \blx definiert, werden von den Standardstilen genutzt. Ich beschränke mich hier in \cref{tab:doctypes} auf die tatsächlich unterstützten. Wer spezielle Stile verwendet, wird in den Handbüchern Erklärungen zu den Erweiterungen finden. Jeder Dokumententyp hat sogenannte Pflichtfelder und optionale Felder. Allerdings dürfen durchaus auch die Pflichtfelder fehlen, denn sonst könnte man ja keine Werke ohne Verfasser oder Publikationsdatum zitieren. Näheres dazu findet sich in \cref{kap:felder}.
 
 Bei einigen Dokumententypen wird man kaum Unterschiede feststellen. U./,U. sind sie tatsächlich nur als Aliase implementiert. Das gilt für die mehrbändigen Typen (\Typ{mv\textellipsis})-Varianten und ihre Grundformen, für \Typ{supp\textellipsis} und \Typ{in\textellipsis} bzw. \Typ{article}, für \Typ{book}, \Typ{manual} und \Typ{booklet} sowie für alles, was mit Sammelwerken zu tun hat ((\Typ{proceedings}-, \Typ{collection}- und \Typ{reference}-Gruppen). Es kann aber sein, daß Stile von solchen Feinunterscheidungen Gebrauch machen. \archbib z.\,B. unterscheidet \Typ{inreference} für Lexikonartikel tatsächlich von \Typ{incollection} und \Typ{inproceedings}.
 
-\rowcolors{2}{white}{gray!25}
-\renewcommand{\arraystretch}{1.5} % increase row padding
 \newcommand{\DokTypTabKopf}{
 \rowcolor{white}
-\multicolumn{1}{c}{\textbf{Dokumententyp}} &
-\multicolumn{1}{c}{\textbf{Bedeutung}} &
-\multicolumn{1}{c}{\textbf{Weitere Hinweise}} \\}
+\textbf{Typ} &
+\textbf{\normalsize Erläuterung} &
+\textbf{\normalsize \enquote{Pflichtfelder}}
+\\\toprule}
+\renewcommand{\arraystretch}{1.5} % increase row padding
+\rowcolors{1}{}{gray!15}
+\newlength{\ErsteSpalte}\setlength{\ErsteSpalte}{9em}
 
-\begin{longtable}{p{0.24\textwidth}p{0.38\textwidth}p{0.38\textwidth}}
-\caption[Dokumententypen in \blx]{Dokumententypen in \blx}
+\begin{xltabular}{\linewidth}{p{\ErsteSpalte}LL}
+\rowcolor{white}
+\caption[Dokumententypen von \blx]{Dokumententypen von \blx}
 \label{tab:doctypes} % must be after \caption
 \\
 \DokTypTabKopf
 \endfirsthead
 \rowcolor{white}
-\multicolumn{3}{c}%
-{{\tablename\ \thetable{} (Fortsetzung)}} \\
-\DokTypTabKopf 
+\multicolumn{3}{c}{{\tablename\ \thetable{} (Fortsetzung)}} \\
+\DokTypTabKopf
 \endhead
 
-\rowcolor{white}\multicolumn{3}{r}{{\itshape Fortsetzung auf der nächsten Seite}}
+\rowcolor{white}
+\multicolumn{3}{r}{{\itshape Fortsetzung auf der nächsten Seite}}
 \endfoot
 
-\hline
+\bottomrule
 \endlastfoot
 
-\Typ{article} & Artikel in Zeitschriften &  \\
-\Typ{book} & Monographie (kein Sammelwerk) &  \\
-\Typ{mvbook} & wie \Typ{book}, aber mehrbändig &  \\
-\Typ{inbook} & Teil von \Typ{book} oder \Typ{mvbook} mit eigenem Titel & z.\,B., wenn eine Monographie einen Aufsatz eines anderen Autors enthält \\
-\Typ{bookinbook} & ein ursprünglich selbstständiges Buch, das jetzt ein einem anderen \Typ{book} oder \Typ{mvbook} wieder abgedruckt ist & Soetwas kann z.\,B. in Quellensammlungen vorkommen \\
-\Typ{suppbook} & Supplement in \Typ{book} oder \Typ{mvbook} &  \\
-\Typ{booklet} & wie \Typ{book}, aber ohne Verlag &  \\
-\Typ{collection} & Sammelwerk & Vorsicht: keine Werke mit Veranstaltungstiteln (Konferenzen, Ausstellungen) \\
-\Typ{mvcollection} & wie \Typ{collection}, aber mehrbändig &  \\
-\Typ{incollection} & Aufsatz in \Typ{collection} oder \Typ{mvcollection} &  \\
-\Typ{suppcollection} & Supplement in \Typ{collection} oder \Typ{mvcollection} &  \\
-\Typ{manual} & Handbücher bzw. Dokumentationen für Geräte, Software, Laborausstattung etc. &  \\
-\Typ{misc} & wenn nichts anderes paßt &  \\
-\Typ{online} & Onlineressourcen &  alles, was mit URL zitiert werden muß \\
-\Typ{patent} & Patentschriften &  \\
-\Typ{periodical} & Zeitschriftenheft & nur, wenn man das ganze Heft als solches zitieren will \\
-\Typ{suppperiodical} & Supplement in einer Zeitschrift &  \\
-\Typ{proceedings} & Sammelwerk, das aus Veranstaltung hervorgegangen ist & der wesentliche Unterschied zu \Typ{collection} ist, daß man die ausrichtende Organisation angeben kann \\
-\Typ{mvproceedings} & wie \Typ{proceedings}, aber mehrbändig &  \\
-\Typ{inproceedings} & Aufsatz in \Typ{proceedings} oder \Typ{mvproceedings} &  \\
-\Typ{reference} & Enzyklopädien, Wörterbücher, Lexika &  \\
-\Typ{mvreference} & wie \Typ{reference}, aber mehrbändig &  \\
-\Typ{inreference} & Eintrag in \Typ{reference} oder \Typ{mvreference} &  \\
-\Typ{report} & Technische oder Forschungsberichte, Whitepapers & hier sollten der Typ und die herausgebende Organisation angeben werden\\
-\Typ{set} & Liste von Datenbankeinträgen & ist hauptsächlich für numerische Stile gedacht \\
-\Typ{thesis} & Examensschrift & hier sollten der Typ und die prüfende Hochschule angeben werden \\
-\Typ{xdata} & ein Container, um die Daten an andere Einträge zu vererben & nicht zum eigenständigen Zitieren gedacht! \\
-\end{longtable}
-\subsection{Die Felder}
+\Typ{article} & Artikel in Zeitschriften & \Feld{author}, \Feld{title}, \Feld{journaltitle}, \Feld{date} \\
+\Typ{book} & Monographie (kein Sammelwerk) & \Feld{author}, \Feld{title}, \Feld{date} \\
+\Typ{mvbook} & wie \Typ{book}, aber mehrbändig & \Feld{author}, \Feld{title}, \Feld{date} \\
+\Typ{inbook} & Teil von \Typ{book} oder \Typ{mvbook} mit eigenem Titel:z.\,B., wenn eine Monographie einen Aufsatz eines anderen Autors enthält, wenn eine Monographie einen Aufsatz eines anderen Autors enthält & \Feld{author}, \Feld{title}, \Feld{booktitle}, \Feld{date} \\
+\Typ{bookinbook} & ein ursprünglich selbstständiges Buch, das jetzt ein einem anderen \Typ{book} oder \Typ{mvbook} wieder abgedruckt ist z.\,B. in Quellensammlungen & ? \\
+\Typ{suppbook} & Supplement in \Typ{book} oder \Typ{mvbook} & \Feld{author}, \Feld{title}, \Feld{booktitle}, \Feld{date} \\
+\Typ{booklet} & wie \Typ{book}, aber ohne Verlag & \Feld{authtor}/\Feld{editor}, \Feld{title}, \Feld{date} \\
+\Typ{collection} & Sammelwerk -- Vorsicht: keine aus Veranstaltungen (Konferenzen, Ausstellungen) hervorgegangenen Werke! & \Feld{editor}, \Feld{title}, \Feld{date} \\
+\Typ{mvcollection} & wie \Typ{collection}, aber mehrbändig & \Feld{editor}, \Feld{title}, \Feld{date} \\
+\Typ{incollection} & Aufsatz in \Typ{collection} oder \Typ{mvcollection} & \Feld{author}, \Feld{title}, \Feld{booktitle}, \Feld{date} \\
+\Typ{suppcollection} & Supplement in \Typ{collection} oder \Typ{mvcollection} (Vor-, Nachwort etc.) & \Feld{author}, \Feld{title}, \Feld{booktitle}, \Feld{date} \\
+\Typ{manual} & Handbücher bzw. Dokumentationen für Geräte, Software, Laborausstattung etc. & \Feld{authtor}/\Feld{editor}, \Feld{title}, \Feld{date} \\
+\Typ{misc} & wenn nichts anderes paßt & \Feld{authtor}/\Feld{editor}, \Feld{title}, \Feld{date} \\
+\Typ{online} & Onlineressourcen & \Feld{authtor}/\Feld{editor}, \Feld{title}, \Feld{date}, \Feld{url} \\
+\Typ{patent} & Patentschriften & \Feld{author}, \Feld{title}, number, \Feld{date} \\
+\Typ{periodical} & Zeitschriftenheft & \Feld{editor}, \Feld{title}, \Feld{date} \\
+\Typ{suppperiodical} & für Inhalte von Zeitschriften ohne Werktitel (Rubriken, Leserbriefe, Familienanzeigen etc.) & \Feld{author}, \Feld{title}, \Feld{journaltitle}, \Feld{date} \\
+\Typ{proceedings} & Sammelwerk, das aus Veranstaltung (Konferenz, Ausstellung) hervorgegangen ist & \Feld{title}, \Feld{date} \\
+\Typ{mvproceedings} & wie \Typ{proceedings}, aber mehrbändig & \Feld{title}, \Feld{date} \\
+\Typ{inproceedings} & Aufsatz in \Typ{proceedings} oder \Typ{mvproceedings} & \Feld{author}, \Feld{title}, \Feld{booktitle}, \Feld{date} \\
+\Typ{reference} & Enzyklopädien, Wörterbücher, Lexika & \Feld{editor}, \Feld{title}, \Feld{date} \\
+\Typ{mvreference} & wie \Typ{reference}, aber mehrbändig & \Feld{editor}, \Feld{title}, \Feld{date} \\
+\Typ{inreference} & Eintrag in \Typ{reference} oder \Typ{mvreference} & \Feld{author}, \Feld{title}, \Feld{booktitle}, \Feld{date} \\
+\Typ{report} & Technische oder Forschungsberichte, Whitepapers (hier sollten der Typ und die herausgebende Organisation angeben werden) & \Feld{author}, \Feld{title}, \Feld{type}, \Feld{institution}, \Feld{date} \\
+\Typ{set} & Liste von Datenbankeinträgen (ist hauptsächlich für numerische Stile gedacht) & --- \\
+\Typ{thesis} & Examensschrift (hier sollten der Typ und die prüfende Hochschule angeben werden) & \Feld{author}, \Feld{title}, \Feld{type}, \Feld{institution}, \Feld{date} \\
+\Typ{unpublished} & unpubliziert & \Feld{authtor}/\Feld{editor}, \Feld{title}, \Feld{date} \\
+\Typ{xdata} & ein Container, um Daten an andere Einträge zu vererben -- nicht zum eigenständigen Zitieren gedacht! & --- \\
+\end{xltabular}
+
+\subsection{Die Felder}\label{kap:felder}
 \BibTeX{} kennt verpflichtende und optionale Felder für jeden Dokumententyp. Das sind gewissermaßen die Felder, deren Auswertung von den Stilen garantiert wird. Praktisch spielt das keine große Rolle, denn grundsätzlich ist alles ein legitimer Datenbankeintrag, was ein \Feld{title}-Feld hat. Man kann davon ausgehen, daß jemand, der einen wissenschaftlichen Text mit \blx schreibt, weiß, welche Angaben für ein vollständiges Zitat eines Werkes gebraucht werden. Für Einzelheiten ist die Datei \Datei{biblatex-archaeology-example.bib} zu betrachten. In \blx gibt es auch kommaseparierte Listen (CSV), z. B. die Felder \Feld{keyword} und \Feld{option}.
 
 Die Codierung der \BibTeX-Datenbanken sollte heutzutage unbedingt in UTF-8 erfolgen. Das war lange Zeit ein Problem, denn die hinreichende Unterstützung von Unicode schleppte sich in der \TeX-Welt lange dahin. Mittlerweile sollten damit kaum noch Schwierigkeiten entstehen. Überhaupt ist das ein universeller Ratschlag: Egal, ob \LaTeX-Quellen, Datenbanken, Webseiten etc. pp., alles sollte in UTF-8 codiert sein, sofern man keine wirklich zwingenden Gründe hat, etwas anderes zu nehmen.
