@@ -1,0 +1,93 @@
+
+Feld & Datentyp & Erläuterungen  \\
+\Feld{abstract} & Text &  \\
+\Feld{addendum} & Text &  \\
+\Feld{annotation} & Text &  \\
+\Feld{annotator} & Name &  \\
+\Feld{author} & Name &  \\
+\Feld{authortype} & Schlüssel &  \\
+\Feld{bookauthor} & Name &  \\
+\Feld{bookpagination} & Schlüssel &  \\
+\Feld{booksubtitle} & Text &  \\
+\Feld{booktitle} & Text &  \\
+\Feld{booktitleaddon} & Text &  \\
+\Feld{chapter} & Text &  \\
+\Feld{commentator} & Name &  \\
+\Feld{date} & Datum & \\
+\Feld{doi} & wörtlich &  \\
+\Feld{edition & Ganzzahl oder Text &  \\
+\Feld{editor} & Name &  \\
+\Feld{editora} & Name &  \\
+\Feld{editorb} & Name &  \\
+\Feld{editorc} & Name &  \\
+\Feld{editortype} & Schlüssel &  \\
+\Feld{editoratype} & Schlüssel &  \\
+\Feld{editorbtype} & Schlüssel &  \\
+\Feld{editorctype} & Schlüssel &  \\
+\Feld{eid} & Text & Text \\
+\Feld{entrysubtype} &  &  \\
+\Feld{eprint} & wörtlich &  \\
+\Feld{eprintclass} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\
+\Feld{} &  &  \\

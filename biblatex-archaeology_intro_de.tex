@@ -162,6 +162,9 @@
 \usepackage{booktabs} % adding layout features to other tabular packages
 \usepackage{array} % define new columntypes
 \newcolumntype{L}{>{\raggedright\small\arraybackslash}X}
+\colorlet{zebraodd}{white}
+\colorlet{zebraeven}{gray!15}
+\let\defaultarraystretch\arraystretch % buffer \arraystretch
 		
 %%% Logos
 \usepackage{bxtexlogo}
@@ -184,7 +187,7 @@
 \newrobustcmd*{\Kbd}[1]{\texttt{#1}}
 \newrobustcmd*{\Stil}[1]{\texttt{#1}}
 \newrobustcmd*{\Datei}[1]{\texttt{#1}}
-\newrobustcmd*{\Englisch}[1]{\foreignlanguage{english}{#1}}
+\newrobustcmd*{\Englisch}[1]{\emph{\foreignlanguage{english}}{#1}}
 
 
 %%% Allow for fixed floating environments (this is often a bad idea!). Usually you want them to float
@@ -198,6 +201,7 @@
 
 %%% load hyperref for clickable links and PDF metadata as late as possible. The default layout with colored borders around links is ugly.
 \usepackage{hyperref}
+\usepackage[ocgcolorlinks]{ocgx2} % suppress color links on printers if PDF viewer can handle Optional Content Groups (OCG)
 \usepackage{hyperxmp} % extended metadata
 \hypersetup{
     linktocpage=true,       % only page numbers are clickable
@@ -358,11 +362,11 @@ Da das Problem mit verschiedenen \TeX-Distributionen in einer Nutzerreaktion zu 
 \chapter{\blx Grundlagen}
 
 
-\section{Konzept und Einbindung}
+\section{Konzept und Einbindung}\label{kap:concept}
 
 Als Oren Patashnik 198x \BibTeX{} entwarf, stand er vor dem Problem, daß man mit \LaTeX{} nicht gut sortieren kann. Deshalb schrieb er ein Hilfsprogramm in C, das mit Dateien \Datei{<stylename>.bst} konfiguriert werden kann. Der Ablauf war so, daß in einem erstem \LaTeX-Lauf alle Zitationsschlüssel in der ohnehin vorhandenen Hilfsdatei jobname.aux gesammelt wurden. \BibTeX{} las sie aus. Meistens war dann noch ein zweiter \BibTeX-Lauf nötig, um die in dem \Feld{crossreference}-Feld gefundenen Schlüssel zu bearbeiten. \BibTeX{} erstellte eine Datei Jobname.bbl, in der die Zitate fertig mit \LaTeX-Markup vorlagen. Ein zweiter \LaTeX-Lauf fügte diese dann in das Dokument ein. Im Laufe der Zeit enstanden viele Stile für spezielle Zwecke. Es zeigten sich aber auch immer mehr die Grenzen des Konzepts. Daß ich dasselbe Werk in verschiedenen Kontexten verschieden formatiert haben will, ist nicht vorgesehen -- das \LaTeX-Markup in der bbl-Datei ist nicht mehr veränderlich. Die polnische Notation der bst-Dateien war mit bloßen \TeX-kenntnissen nicht zu verstehen. Es gab zwar viele Stile für alle nur erdenklichen Zwecke, aber man konnte immer nur einen davon laden. Es ist deshalb z. B. nicht möglich, das Paket für kapitelweise Literaturverzeichnisse in einem beliebigen Stil ablaufen zu lassen.
 
-Um 2005 herum beschloß Philip Lehman deshalb, einen weithehend frei programmierbaren Universalstil zu entwickeln -- \blx war geboren. Die Grundidee dabei: \BibTeX{} sollte nur noch die Sortierung erledigen. Alles andere sollte in \LaTeX-Makros vorliegen, damit Nutzer mit durchschnittlichen \LaTeX-Kenntnissen auf gewohnte Weise durch Definition neuer Makros oder Veränderung bestehender ihre Bedürfnisse umsetzen konnten. \blx kommt mit einer Sammlung verschiedener Varianten aller wesentlichen Stilfamilien (Numerisch, Autor/Jahr, Autor/Title, Fußnoten). Zudem vereinigte \blx zahlreiche Aufgaben, für die es vorher spezielle bst-Dateien gab, so daß sie mit jedem beliebigen \blx-Stil kombinierbar sind. Da in der bbl-Datei kein \LaTeX-Markup mehr steht (es sei denn, es befand sich schon in der Datenbank), sind verschiedene Zitationen desselben Werks frei formatierbar. Bezahlt wurde das mit einer riesigen, schwer zu wartenden Codebasis, die trotz eines 400-Seiten-Handbuches auch deutliche Lücken in der Dokumentation aufweist. Zumal sein Schöpfer Philip Lehman -- offenbar ein Pseudonym -- seit 2012 wie vom Erdboden verschluckt ist. Zum Glück fanden sich immer wieder Freiwillige, die das Paket weiter gepflegt haben. Philipp Kim hat mit \Biber einen wesentlich leistungsstärkeren Ersatz für das in die Jahre gekommene \BibTeX{} erstellt. \blx wird z. Zt. hauptsächlich von Moritz Wemheuer gepflegt.
+Um 2005 herum beschloß Philip Lehman deshalb, einen weithehend frei programmierbaren Universalstil zu entwickeln -- \blx war geboren. Die Grundidee dabei: \BibTeX{} sollte nur noch die Sortierung erledigen. Alles andere sollte in \LaTeX-Makros vorliegen, damit Nutzer mit durchschnittlichen \LaTeX-Kenntnissen auf gewohnte Weise durch Definition neuer Makros oder Veränderung bestehender ihre Bedürfnisse umsetzen konnten. \blx kommt mit einer Sammlung verschiedener Varianten aller wesentlichen Stilfamilien (Numerisch, Autor/Jahr, Autor/Title, Fußnoten). Zudem vereinigte \blx zahlreiche Aufgaben, für die es vorher spezielle bst-Dateien gab, so daß sie mit jedem beliebigen \blx-Stil kombinierbar sind. Da in der bbl-Datei kein \LaTeX-Markup mehr steht (es sei denn, es befand sich schon in der Datenbank), sind verschiedene Zitationen desselben Werks frei formatierbar. Bezahlt wurde das mit einer riesigen, schwer zu wartenden Codebasis, die trotz eines 400-Seiten-Handbuches auch deutliche Lücken in der Dokumentation aufweist. Zumal sein Schöpfer Philip Lehman -- offenbar ein Pseudonym -- seit 2012 wie vom Erdboden verschluckt ist. Zum Glück fanden sich immer wieder Freiwillige, die das Paket weiter gepflegt haben. Philipp Kime hat mit \Biber einen wesentlich leistungsstärkeren Ersatz für das in die Jahre gekommene \BibTeX{} erstellt. \blx wird z. Zt. hauptsächlich von Moritz Wemheuer gepflegt.
 
 \blx funktioniert noch mit \BibTeX, allerdings sind viele Features nur mit \Biber nutzbar. Da \archbib viele davon benutzt, habe ich entschieden, bei \BibTeX{} eine Fehlermeldung auszuwerfen. Eine andere Lösung als \enquote{Benutzt \Biber!} hätte ich bei Anfragen sowieso nicht anzubieten.
 
@@ -374,7 +378,7 @@ $ pdflatex <jobname>
 \end{verbatim}
 Beim ersten \LaTeX-Lauf werden alle Zitationsschlüssel gesammelt und mit \Biber-Konfigurationen in die Datei \Datei{<jobname>.bcf} geschrieben. Es meckert über nichtaufgelöste Referenzen und erstellt ein dementsprechend unvollständiges PDF-Dokument. \Biber liest die relevanten Einträge anhand der Schlüssel in der \Datei{<jobname>.bcf} aus den bib-Dateien aus, bearbeitet sie gegebenfalls und schreibt sie sortiert in einem etwas abweichenden Format in eine Datei \Datei{<jobname>.bbl}. Beim zweiten \LaTeX-Lauf werden die Zitiermarken und gegebenfalls die Literaturverzeichnisse anhand der Einträge aus der \Datei{<jobname>.bbl} erstellt und formatiert und dann das vollständige \Datei{<jobname>.pdf} erstellt. In dem Dokumentenverzeichnis finden sich noch mehr Hilfsdateien (mindestens \Datei{<jobname>.aux}, \Datei{<jobname>.log} und die Logdatei von \Biber \Datei{<jobname>.blg}). Aufbewahren muß man immer nur die Quelldateien (also ".tex und *.bib und ggf. Mediendateien); alles andere kann gefahrlos gelöscht werden. Oft muß es das: wenn ich im Dokument ein neues Zitat hinzufüge, daß nicht in der jobname.bbl aufgelöst ist, muß der erste \LaTeX-Lauf wiederholt werden, indem man die alle Hilfsdateien löscht.
 
-\subsection{Das Dateiformat}
+\subsection{Das Dateiformat}\label{kap:fileformat}
 
 Datenbanken im \BibTeX-Format hat vermutlich jeder schon einmal gesehen. Sie haben immer die Dateiendung \Datei{bib} und die folgende Struktur:
 \begin{Verbatim}[breaklines=true,breakanywhere=true]
@@ -401,31 +405,31 @@ Wenn in Namen oder Listen das Trennzeichen in den Einträgen vorkommt, muß man 
 \subsection{Dokumententypen}
 Nicht alle Dokumententypen, die \blx definiert, werden von den Standardstilen genutzt. Ich beschränke mich hier in \cref{tab:doctypes} auf die tatsächlich unterstützten. Wer spezielle Stile verwendet, wird in den Handbüchern Erklärungen zu den Erweiterungen finden. Jeder Dokumententyp hat sogenannte Pflichtfelder und optionale Felder. Allerdings dürfen durchaus auch die Pflichtfelder fehlen, denn sonst könnte man ja keine Werke ohne Verfasser oder Publikationsdatum zitieren. Näheres dazu findet sich in \cref{kap:felder}.
 
-Bei einigen Dokumententypen wird man kaum Unterschiede feststellen. U./,U. sind sie tatsächlich nur als Aliase implementiert. Das gilt für die mehrbändigen Typen (\Typ{mv\textellipsis})-Varianten und ihre Grundformen, für \Typ{supp\textellipsis} und \Typ{in\textellipsis} bzw. \Typ{article}, für \Typ{book}, \Typ{manual} und \Typ{booklet} sowie für alles, was mit Sammelwerken zu tun hat ((\Typ{proceedings}-, \Typ{collection}- und \Typ{reference}-Gruppen). Es kann aber sein, daß Stile von solchen Feinunterscheidungen Gebrauch machen. \archbib z.\,B. unterscheidet \Typ{inreference} für Lexikonartikel tatsächlich von \Typ{incollection} und \Typ{inproceedings}.
+Bei einigen Dokumententypen wird man kaum Unterschiede feststellen. U.\,U. sind sie tatsächlich nur als Aliase implementiert. Das gilt für die mehrbändigen Typen (\Typ{mv\textellipsis})-Varianten und ihre Grundformen, für \Typ{supp\textellipsis} und \Typ{in\textellipsis} bzw. \Typ{article}, für \Typ{book}, \Typ{manual} und \Typ{booklet} sowie für alles, was mit Sammelwerken zu tun hat (\Typ{proceedings}-, \Typ{collection}- und \Typ{reference}-Gruppen). Es kann aber sein, daß Stile von solchen Feinunterscheidungen Gebrauch machen. \archbib z.\,B. unterscheidet \Typ{inreference} für Lexikonartikel tatsächlich von \Typ{incollection} und \Typ{inproceedings}.
 
-\newcommand{\DokTypTabKopf}{
-\rowcolor{white}
+\newcommand{\Tabellenkopf}{
+\rowcolor{zebraodd}
 \textbf{Typ} &
 \textbf{\normalsize Erläuterung} &
 \textbf{\normalsize \enquote{Pflichtfelder}}
 \\\toprule}
 \renewcommand{\arraystretch}{1.5} % increase row padding
-\rowcolors{1}{}{gray!15}
+\rowcolors{1}{zebraodd}{zebraeven}
 \newlength{\ErsteSpalte}\setlength{\ErsteSpalte}{9em}
 
 \begin{xltabular}{\linewidth}{p{\ErsteSpalte}LL}
-\rowcolor{white}
+\rowcolor{zebraodd}
 \caption[Dokumententypen von \blx]{Dokumententypen von \blx}
 \label{tab:doctypes} % must be after \caption
 \\
-\DokTypTabKopf
+\Tabellenkopf
 \endfirsthead
-\rowcolor{white}
+\rowcolor{zebraodd}
 \multicolumn{3}{c}{{\tablename\ \thetable{} (Fortsetzung)}} \\
-\DokTypTabKopf
+\Tabellenkopf
 \endhead
 
-\rowcolor{white}
+\rowcolor{zebraodd}
 \multicolumn{3}{r}{{\itshape Fortsetzung auf der nächsten Seite}}
 \endfoot
 
@@ -463,11 +467,160 @@ Bei einigen Dokumententypen wird man kaum Unterschiede feststellen. U./,U. sind 
 \end{xltabular}
 
 \subsection{Die Felder}\label{kap:felder}
-\BibTeX{} kennt verpflichtende und optionale Felder für jeden Dokumententyp. Das sind gewissermaßen die Felder, deren Auswertung von den Stilen garantiert wird. Praktisch spielt das keine große Rolle, denn grundsätzlich ist alles ein legitimer Datenbankeintrag, was ein \Feld{title}-Feld hat. Man kann davon ausgehen, daß jemand, der einen wissenschaftlichen Text mit \blx schreibt, weiß, welche Angaben für ein vollständiges Zitat eines Werkes gebraucht werden. Für Einzelheiten ist die Datei \Datei{biblatex-archaeology-example.bib} zu betrachten. In \blx gibt es auch kommaseparierte Listen (CSV), z. B. die Felder \Feld{keyword} und \Feld{option}.
+
+In \cref{kap:fileformat} wurde schon angedeutet, daß es vier Datentypen für Felder gibt: Listen, Namen, Ganzzahlen und Text. Listen und Namen können mehrere Elemente haben, die durch das Trennzeichen \Kbd{and} separiert werden. Ganzzahlen brauchen in der Datenbank keine Feldbegrenzer, Text schon. Schon in \BibTeX  gab es das Feld {\Feld{crossref}, daß einen speziellen Text enthielt, nämlich einen Schlüpssel eines anderen Eintrags. Dadurch konnten unselbstständige Typen (Artikel in Zeitschriften und Sammelwerken) den sie enthaltenden Einträgen zugeordnet werden, so daß diese in der Datenbank nur einmal erfaßt werden müßten. \blx erweitert das enorm und definiert eine ganze Reihe von Textfeldern, die ihren Inhalt auf spezielle Weise auswerten. Die folgende Liste ist von der in der \blx-Dokumentation aus Verständnisgründen leicht verschieden.
+\begin{itemize}
+\item \Kbd{Listen} sind Aufzählungen, die durch das Trennzeichen \Kbd{and} separiert werden. Typische Beispiele sind der Verlagsort (\Feld{location}) oder der Verlag (\Feld{publisher}).
+\item \Kbd{Namen} sind Listen mit dem Trennzeichen \Kbd{and}, aber die Elemente können in einzelne Namensbestandteile geparst werden (s.~\cref{{kap:names}}).
+\item \Kbd{Ganzahlen} brauchen in der Datenbank keine Feldbegrenzer. Sofern Textfelder nur Ganzzahlen beinhalten, kann man dieses Format benutzen.
+\item \Kbd{Textfelder}\footnote{In der \blx-Dokumentation werden Textfelder als \Englisch{literal} bezeichnet. Da es auch noch den Datentyp \Englisch{verbatim} gibt, was beides zu \enquote{wörtlich} übersetzt, verwende ich hier die Übersetzung \enquote{Text}.}\label{fn:literal} werden meistens wörtlich ausgedruckt.
+\item \Kbd{Schlüssel} enthält den Schlüssel eines anderen Datenbankeintrags.
+\item \Kbd{Schlüsselliste} wie \Kbd{Schlüssel}, aber als kommaseparierte Liste mehrerer Einträge.
+\item \Kbd{Wörtlich}\footref{fn:literal} In diesen Feldern müssen auch geschützte \TeX-Zeichen wörtlich ausgegeben werden. Daher werden in diesen Feldern keine Makros expandiert. Das trifft vor allem auf Identifier zu (\Feld{url}, \Feld{doi} etc.), wo man \Kbd{\detokenize{\~@\#}} o.\,ä. braucht.
+\item \Kbd{Datum} für Felder mit Datum nach ISO8601-2. \Biber teilt diese Felder in ihre Bestandteile auf, die dann jeweils eine Ganzzahl beinhalten. Näheres s.~\cref{kap:datum}.
+\item {Zahlenbereiche} \Biber parst diese Felder als \Kbd{von - bis} und ersetzt das Trennzeichen durch \Befehl{bibrangedash}. Typisch vor allem für das \Feld{pages}-Feld unselbstständiger Dokumententypen.
+\item \Kbd{Muster}: hier wird ein Wert aus einer Reihe vorgegebener Muster verlangt. Ein Beispiel ist \Feld{gender}, mit dem Numerus und Genus von Pronomen gesteuert werden.
+\item \Kbd{Lokalisation} erwartet einen Lokalisationsschlüssel, der als Platzhalter für einen Ausdruck der aktuellen Dokumentensprache dient.
+\end{itemize}
+
+Mit zunehmenden Funktionsumfang ist die Zahl der von \blx verarbeiteten Felder ziemlich groß geworden. Aber erstmal braucht man davon nur einige, weil wohl kaum ein Stil alle Features nutzt, und dann gibt es auch dort stellenweise eine Systematik, die das Memorieren der Feldnamen erleichtert.
+
+\begin{itemize}
+\item \Feld{title}, \Feld{maintitle} und \Feld{booktitle} haben jeweils ein Feld für einen Untertitel (\Feld{subtitle}, \Feld{mainsubtitle}, \Feld{booksubtitle}) und für einen Titelzusatz (\Feld{titleaddon}, \Feld{maintitleaddon} und \Feld{booktitleaddon}). Der Unterschied zwischen Untertitel und Titelzusatz wird in \archbib bedeutsam.
+\item Mit \Kbd{book<feld>} werden Feldnamen von Sammelwerken in unselbstständigen Typen gebildet, weil die Felder ohne Präfix dort schon besetzt sind: \Feld{bookauthor}, \Feld{bookauthortype}, \Feld{booktitle}, \Feld{booksubtitle}, \Feld{booktitleaddon}, \Feld{bookpagination}.
+\item Einen Unterschied zwischen \Feld{title} bzw \Feld{booktitle} einerseits und \Feld{maintitle} andererseits hat man vor allem dann, wenn eine Bandnummer dazwischen steht: \textellipsis  Maintitle Bd. 2: [Book]Title \textellipsis
+\item Zu einigen Namensfeldern \Kbd{<name>} gibt es Felder \Kbd{<name>type}, in dem man einen Lokalisationsschlüssel für dessen Rolle unterbringen kann (Herausgeber, Bearbeiter, Übersetzer etc.).
+\item Datumsfelder enden normalerweise immer auf \Kbd{date}: \Feld{date}, \Feld{urldate}, \Feld{origdate} etc.
+\item Wenn bei Übersetzungen oder Nachdrucken Daten des Originalwerks genannt werden sollen, beginnen die relevanten Feldnamen mit \Kbd{orig}: \Feld{origdate}, \Feld{origtitle}, \Feld{origlanguage}, \Feld{origlocation}, \Feld{origpublisher}.
+\end{itemize}
+
+Die folgende Tabelle enthält die Datenfelder, also solche, die von den Stilen für die jeweiligen Dokumententypen über das Datenmodell unterstützt werden können (oder auch nicht).
+
+\renewcommand{\Tabellenkopf}{
+\rowcolor{zebraodd}
+\textbf{Feld} &
+\textbf{\normalsize Datentyp} &
+\textbf{\normalsize Erläuterungen}
+\\\toprule}
+\setlength{\ErsteSpalte}{8em}
+
+\begin{xltabular}{\linewidth}{p{\ErsteSpalte}LL}
+\rowcolor{zebraodd}
+\caption[Datenfelder von \blx]{Datenfelder von \blx}
+\label{tab:stdfields} % must be after \caption
+\\
+\Tabellenkopf
+\endfirsthead
+\rowcolor{zebraodd}
+\multicolumn{3}{c}{{\tablename\ \thetable{} (Fortsetzung)}} \\
+\Tabellenkopf
+\endhead
+
+\rowcolor{zebraodd}
+\multicolumn{3}{r}{{\itshape Fortsetzung auf der nächsten Seite}}
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+\Feld{abstract} & Text & Abstrakt \\
+\Feld{addendum} & Text & beliebiger Zusatz am Ende eines Werks \\
+\Feld{afterword} & Name & Verfasser des Nachworts \\
+\Feld{annotation} & Text & Kommentar (in kommentierten Bibliographien) \\
+\Feld{annotator} & Name & Verfasser  \\
+\Feld{author} & Name & Autor(-en) \\
+\Feld{authortype} & Lokalisation & Rolle des Autors \\
+\Feld{bookauthor} & Name & Autor(-en) von Sammelwerken \\
+\Feld{bookpagination} & Lokalisation & Art der Seitenzählung (Paragraphen, Spalten etc.) \\
+\Feld{booksubtitle} & Text & Untertitel eines Sammelwerks \\
+\Feld{booktitle} & Text & Titel eines Sammelwerks \\
+\Feld{booktitleaddon} & Text & Titelzusatz eines Sammelwerks \\
+\Feld{chapter} & Text & Kapitel oder Abschnitt eines größeren Werks \\
+\Feld{commentator} & Name & Kommentator einer kommentierten Ausgabe \\
+\Feld{date} & Datum & Publikationsdatum \\
+\Feld{doi} & wörtlich & \Englisch{Digtal Object Identifier} (DOI) \\
+\Feld{edition} & Ganzzahl oder Text & Auflage \\
+\Feld{editor} & Name & Herausgeber \\
+\Feld{editora} & Name & weitere Herausgeber \\
+\Feld{editorb} & Name & weitere Herausgeber \\
+\Feld{editorc} & Name & weitere Herausgeber \\
+\Feld{editortype} & Lokalisation & Rolle des Herausgebers \\
+\Feld{editoratype} & Lokalisation & Rollen weiterer Herausgeber \\
+\Feld{editorbtype} & Lokalisation & Rollen weiterer Herausgeber \\
+\Feld{editorctype} & Lokalisation & Rollen weiterer Herausgeber \\
+\Feld{eid} & Text & Elektronischer Identifier eines Zeitschriftenaufsatzes \\
+\Feld{entrysubtype} & Text & Spezifizierer des Dokumententyps \\
+\Feld{eprint} & wörtlich & ID eines elektronischen Dokuments \\
+\Feld{eprintclass} & Text & Weitere Angaben zu \Feld{eid} \\
+\Feld{eprinttype} & Text & Weitere Angaben zu \Feld{eid} (v. a. die ausgebende Institution) \\
+\Feld{eventdate} & Datum & Veranstaltungsdatum \\
+\Feld{eventtitle} & Text & Veranstaltungstitel \\
+\Feld{eventtitleaddon} & Text & Zusatz zu Veranstaltungstitel \\
+\Feld{forword} & Name & Verfasser des Vorworts \\
+\Feld{holder} & Name & Halter eines Patents \\
+\Feld{howpublished} & Text & nähere Information zu ungewöhnlichen Publiukationsformen \\
+\Feld{indextitle} & Text & wenn der Titel in abweichender Form im Index erscheinen soll (z.\,B. ohne führenden Artikel) \\
+\Feld{institution} & Liste & Name der Institution bei Hochschulschriften \\
+\Feld{introduction} & Name & Verfasser einer Einführung \\
+\Feld{isan} & Text & \Englisch{International Standard Audiovisual Number} \\
+\Feld{isbn} & Text & \Englisch{International Standard Book Number} \\
+\Feld{ismn} & Text & \Englisch{The International Standard Music Number} \\
+\Feld{isrn} & Text & \Englisch{International Standard Technical Report Number} \\
+\Feld{issn} & Text & \Englisch{International Standard Serial Number} \\
+\Feld{issue} & Text & für Zeitschriften, die Bezeichner anstelle von Heftnummern benutzen (\enquote{Frühjahr} o.\,ä.) \\
+\Feld{issuesubtitle} & Text & Untertitel eines Themenheftes einer Zeitschrift \\
+\Feld{issuetitle} & Text & Titel eines Themenheftes einer Zeitschrift \\
+\Feld{iswc} & Text & \Englisch{International Standard Work Code} \\
+\Feld{journalsubtitle} & Text & Untertitel einer Zeitschrift \\
+\Feld{journaltitle} & Text & Titel einer Zeitschrift \\
+\Feld{label} & Text & Zitatlabel, (wenn die automatisch erzeugten nicht erwünscht sind) \\
+\Feld{language} & Schlüsselliste & Sprache des Eintrags \\
+\Feld{library} & Text & Angaben zu Standorten des Werks \\
+\Feld{location} & Liste & Publikationsort \\
+\Feld{mainsubtitle} & Text & Hauptuntertitel eines mehrbändigen Werks \\
+\Feld{maintitle} & Text & Haupttitel eines mehrbändigen Werks \\
+\Feld{maintitleaddon} & Text & Haupttitelzusatz eines mehrbändigen Werks \\
+\Feld{nameaddon} & Text & Zusatz zum \Feld{author} wie z. B. Aliase \\
+\Feld{note} & Text & bibliographische Angaben, die sonst nirgendwo hinpassen \\
+\Feld{number} & Text & Nummer eines Zeitschriftenheftes oder einer Serie \\
+\Feld{organization} & Liste & Institution, die ein Werk publiziert hat  \\
+\Feld{origdate} & Datum & Originaldatum bei Nachdrucken oder Übersetzungen \\
+\Feld{origlanguage} & Schlüsselliste & Originalsprache bei Nachdrucken oder Übersetzungen \\
+\Feld{origlocation}  & Liste & originale Publikationsorte bei Nachdrucken oder Übersetzungen \\
+\Feld{origpublisher} & Liste & Originalverlage bei Nachdrucken oder Übersetzungen \\
+\Feld{origtitle} & Text & Originaltitel bei Nachdrucken oder Übersetzungen \\
+\Feld{pages} & Zahlenbereich & Seitenzahlen bei unselbstständigen Publikationen \\
+\Feld{pagetotal} & Text & Gesamtzahl der Seiten eines selsbtständigen Werks \\
+\Feld{pagination} & Lokalisation & Art der Seitenzählung (Paragraphen, Spalten etc.) \\
+\Feld{part} & Text & Teil bzw. Faszikel eines mehrbändigen Werkes (nicht bei Zeitschriften!)\\
+\Feld{publisher} & Liste & Verlag \\
+\Feld{pubstate} & Lokalisation & Publikationsstatus (z.\,B. \enquote{im Druck}) \\
+\Feld{reprinttitle} & Text & Titel eines Reprints \\
+\Feld{series} & Text & Serientitel bei Büchern als auch Zeitschriften (z.\,B. \enquote{Neue Folge}) \\
+\Feld{shortauthor} & Name & Abkürzung des \Feld{author}, v.\,a. bei korporativen Autoren \\
+\Feld{shorteditor} & Name & Abkürzung des \Feld{editor}, v.\,a. bei korporativen Herausgebern \\
+\Feld{shorthand} & Text & für Einträge, die mit Abkürzung zitiert werden \\
+\Feld{shorthandintro} & Text & Einleitung der ersten Abkürzung  (z.\,B. \enquote{im Folgenden zitiert als \textellipsis}) \\
+\Feld{shortjournal} & Text & Abkürzung des Zeitschriftentitels \\
+\Feld{shortseries} & Text & Abkürzung des Serientitels \\
+\Feld{shorttitle} & Text & Abkürzung des Titels \\
+\Feld{subtitle} & Text & Untertitel \\
+\Feld{title} & Text & Titel \\
+\Feld{titleaddon} & Text & Titelzusatz \\
+\Feld{translator} & Name & Übersetzer \\
+\Feld{type} & Lokalisation & Art des Dokuments bei \Typ{manual}, \Typ{patent}, \Typ{report} und \Typ{thesis} \\
+\Feld{url} & wörtlich & URL \\
+\Feld{urldate} & Datum & Zugriffsdatum eines Onlinedokuments \\
+\Feld{venue} & Text & Veranstaltungsort \\
+\Feld{version} & Text & Versionsnummer \\
+\Feld{volume} & Ganzzahl & Bandnummer sdowohl bei mehrbändigen Werken als auch Zeitschriften \\
+\Feld{volumes} & Ganzzahl & Gesamtzahl der Bände eines mehrbändigen Werkes \\
+\end{xltabular}
+
 
 Die Codierung der \BibTeX-Datenbanken sollte heutzutage unbedingt in UTF-8 erfolgen. Das war lange Zeit ein Problem, denn die hinreichende Unterstützung von Unicode schleppte sich in der \TeX-Welt lange dahin. Mittlerweile sollten damit kaum noch Schwierigkeiten entstehen. Überhaupt ist das ein universeller Ratschlag: Egal, ob \LaTeX-Quellen, Datenbanken, Webseiten etc. pp., alles sollte in UTF-8 codiert sein, sofern man keine wirklich zwingenden Gründe hat, etwas anderes zu nehmen.
 
-\subsection{Das Namensformat}
+\subsection{Das Namensformat}\label{kap:names}
 \BibTeX{} setzt Namen aus vier Bestandteilen zusammen: \Kbd{first}, \Kbd{last}, \Kbd{prefix} (\enquote{von part}) und \Kbd{suffix} (\enquote{Jr part}). Damit man die Namen per Copy\&Paste aus anderen Quellen übernehmen kann, kennt \BibTeX drei Formate:
 \begin{Verbatim}[breaklines=true,breakanywhere=true]
 First von Last
@@ -475,6 +628,9 @@ von Last, First
 von Last, Sr, First
 \end{Verbatim}
 Einige Beispiele für korrekt geparste Namen:
+% reset tabular environments
+\renewcommand{\arraystretch}{\defaultarraystretch}
+\rowcolors{1}{zebraodd}{zebraodd}
 \begin{figure}[H]
 \begin{tabular}{ll}
 \NamenDemo{intro:name:1}
@@ -512,7 +668,7 @@ Das erlaubt jetzt auch die Definition neuer Namensbestandteile wie z. B. Patrony
 
 \subsection{Lokalisation}
 
-\blx definiert eine Reihe von \Englisch{localisation keys} (auch \Kbd{bibstring}s) als Platzhalter für Ausdrücke, die in die jeweilige Landessprache übersetzt werden müssen. Beispiele dafür sind die Bezeichnungen für Hochschulschriften, die Sprache des Dokuments oder die Rollen von Beteiligten (Herausgeber, Bearbeiter, Übersetzer etc.). In das Feld \Feld{type} des Dokumententyps \Typ{thesis} z. B. trägt man den Lokalisationsschlüssel für den Typ der Hochschulschrift ein.
+\blx definiert eine Reihe von \Englisch{localisation keys} (auch \Kbd{bibstring}s) als Platzhalter für Ausdrücke, die in die jeweilige Landessprache übersetzt werden müssen. Beispiele dafür sind die Bezeichnungen für Hochschulschriften, die Sprache des Dokuments oder die Rollen von Beteiligten (Herausgeber, Bearbeiter, Übersetzer etc.). In das Feld \Feld{type} des Dokumententyps \Typ{thesis} z. B. trägt man den LokalisationsLokalisation für den Typ der Hochschulschrift ein.
 \begin{Verbatim}[breaklines=true,breakanywhere=true]
 @THESIS{example-phd,
     ...
@@ -520,9 +676,9 @@ Das erlaubt jetzt auch die Definition neuer Namensbestandteile wie z. B. Patrony
 	...
 }
 \end{Verbatim}
-\blx prüft jetzt, ob es sich bei dem Inhalt des Feldes um einen bekannten Schlüssel handelt und druckt bei Erfolg die landessprachliche Bezeichnung stattdessen aus. Das funktioniert auch mit Sprachen (\Feld{language}, \Feld{origlanguage}), Rollen (\Feld{authortype}, \Feld{editortype} etc.) und XXX .
+\blx prüft jetzt, ob es sich bei dem Inhalt des Feldes um einen bekannten Lokalisation handelt und druckt bei Erfolg die landessprachliche Bezeichnung stattdessen aus. Das funktioniert auch mit Sprachen (\Feld{language}, \Feld{origlanguage}), Rollen (\Feld{authortype}, \Feld{editortype} etc.) und XXX .
 
-\subsection{Datum}
+\subsection{Datum}\label{kap:datum}
 \BibTeX{} kannte ursprünglich nur ein \Feld{year} (das Feld \Feld{month} ist nur für die Heftnummerierung von Zeitschriften gedacht und wird meist als Wort ausgeben). Normalerweise wurde dort das Datum als vierstellige Jahreszahl geschrieben. In der Regel haben die alten Stile aber alles wörtlich ausgegeben, was darin stand, also z. B.
 \begin{Verbatim}[breaklines=true,breakanywhere=true]
 @MISC{example-year-bst,
@@ -568,16 +724,16 @@ Was die Stile davon wirklich ausgeben, ist dann noch einmal eine andere Frage. S
 
 \section{Zitierkommandos}
 
-Es gibt eine ganze Menge Zitierkommandos, aber keine Bange: deren Nomenklatur folgt einer Systematik, die sich gut memorieren läßt. Sehen wir uns das basale Kommando \Befehl{cite} an. Es erzeugt ein Zitat -- wie das dann aussieht, wird von den Einstellungen des jeweiligen Stils bestimmt. Sofern die bbl-Datei noch nicht existiert, ist das Kommando eine Aufforderung für \Biber, den Eintrag mit dem jweiligen Schlüssel aus der Datenbank auszulesen. Ist das schon geschehen und die bbl-Datei vorhanden, wird die Zitatmarke an dieser Stelle formatiert. Wir gehen hier mal von einem Autor-Jahr-Stil aus: \SaveVerb{Verb}|\cite{steinmetz:strahl:wilbers:1979}|\Beispiel{\cite{steinmetz:strahl:wilbers:1979}}
+Es gibt eine ganze Menge Zitierkommandos, aber keine Bange: deren Nomenklatur folgt einer Systematik, die sich gut memorieren läßt. Sehen wir uns das basale Kommando \Befehl{cite} an. Es erzeugt ein Zitat -- wie das dann aussieht, wird von den Einstellungen des jeweiligen Stils bestimmt. Sofern die bbl-Datei noch nicht existiert, ist das Kommando eine Aufforderung für \Biber, den Eintrag mit dem jweiligen Lokalisation aus der Datenbank auszulesen. Ist das schon geschehen und die bbl-Datei vorhanden, wird die Zitatmarke an dieser Stelle formatiert. Wir gehen hier mal von einem Autor-Jahr-Stil aus: \SaveVerb{Verb}|\cite{steinmetz:strahl:wilbers:1979}|\Beispiel{\cite{steinmetz:strahl:wilbers:1979}}
 
-Wenn man mehrere Werke an derselben Stelle zitieren will, kann man eine kommaseparierte Liste von Schlüsseln übergeben: \SaveVerb{Verb}|\cite{steinmetz:strahl:wilbers:1979,cossel:1933-35,ib:domino:europa}|\Beispiel{\cite{steinmetz:strahl:wilbers:1979,cossel:1933-35,ib:domino:europa}}
+Wenn man mehrere Werke an derselben Stelle zitieren will, kann man eine kommaseparierte Liste von Lokalisationn übergeben: \SaveVerb{Verb}|\cite{steinmetz:strahl:wilbers:1979,cossel:1933-35,ib:domino:europa}|\Beispiel{\cite{steinmetz:strahl:wilbers:1979,cossel:1933-35,ib:domino:europa}}
 
-Die Zitierkommandos haben meistens ein verpflichtendes Argument in geschweiften Klammern (den Schlüssel des Eintrages aus der \BibTeX-Datenbank) und zwei optionale in eckigen Klammern für Prä- und Postnoten, mit denen man beliebigen Text vor und nach das Zitat stellen kann. Die Postnote enthält meistens die Seitenzahl und dergleichen: \SaveVerb{Verb}|\cite[Vgl.][12]{steinmetz:strahl:wilbers:1979}|\Beispiel{\cite[Vgl.][12]{steinmetz:strahl:wilbers:1979}}
+Die Zitierkommandos haben meistens ein verpflichtendes Argument in geschweiften Klammern (den Lokalisation des Eintrages aus der \BibTeX-Datenbank) und zwei optionale in eckigen Klammern für Prä- und Postnoten, mit denen man beliebigen Text vor und nach das Zitat stellen kann. Die Postnote enthält meistens die Seitenzahl und dergleichen: \SaveVerb{Verb}|\cite[Vgl.][12]{steinmetz:strahl:wilbers:1979}|\Beispiel{\cite[Vgl.][12]{steinmetz:strahl:wilbers:1979}}
 
 Jetzt können folgende Spezialfälle auftreten:
 \begin{itemize}
 \item Das Zitat steht am Satzanfang, der Name beginnt aber mit einem Kleinbuchstaben. Dann kann man Großschreibung erzwingen, indem man den ersten Buchstaben des Zitierkommandos groß schreibt: \SaveVerb{Verb}|\Cite{cossel:1933-35}|\Beispiel{\Cite{cossel:1933-35}}
-\item Ich will in einem Zitat mehrerer Werke Text vor und nach einzelne Werke stellen. Dafür hängt man ein Plural-s an das Zitat und wiederholt die Triole aus Prä- und Postnoten und Schlüssel solange, bis man fertig ist: \SaveVerb{Verb}|\cites(Wichtig!)(etc. pp.)[Vgl.][]{steinmetz:strahl:wilbers:1979}[22]{cossel:1933-35}[unbeachtlich hingegen ist][]{ib:domino:europa}|\Beispiel{\cites(Wichtig!)(etc. pp.)[Vgl.][]{steinmetz:strahl:wilbers:1979}[22]{cossel:1933-35}[unbeachtlich hingegen ist][]{ib:domino:europa}}
+\item Ich will in einem Zitat mehrerer Werke Text vor und nach einzelne Werke stellen. Dafür hängt man ein Plural-s an das Zitat und wiederholt die Triole aus Prä- und Postnoten und Lokalisation solange, bis man fertig ist: \SaveVerb{Verb}|\cites(Wichtig!)(etc. pp.)[Vgl.][]{steinmetz:strahl:wilbers:1979}[22]{cossel:1933-35}[unbeachtlich hingegen ist][]{ib:domino:europa}|\Beispiel{\cites(Wichtig!)(etc. pp.)[Vgl.][]{steinmetz:strahl:wilbers:1979}[22]{cossel:1933-35}[unbeachtlich hingegen ist][]{ib:domino:europa}}
 \item Ich möchte gerne Klammern um das Zitat haben. Dafür stelle ich dem Zitierbefehl ein \texttt{paren} voran, bei längeren Kommandonamen meist nur ein \texttt{p}: \SaveVerb{Verb}|\parencite{steinmetz:strahl:wilbers:1979}|\Beispiel{\parencite{steinmetz:strahl:wilbers:1979}}
 \item Das Zitat soll eine Fußnote sein. Dafür stelle ich dem Zitierbefehl ein \texttt{foot} voran, bei längeren Komandonamen meist nur ein \texttt{f}: \SaveVerb{Verb}|\footcite{steinmetz:strahl:wilbers:1979}|\Beispiel{\footcite{steinmetz:strahl:wilbers:1979}}
 \item Der Name soll Bestandteil des Satzes sein, aber nicht weitere Bestandteile der Zitiermarke. Dafür stelle ich dem Zitierbefehl ein \texttt{text} voran: \SaveVerb{Verb}|\textcite{steinmetz:strahl:wilbers:1979} behaupten \textellipsis|\Beispiel{\textcite{steinmetz:strahl:wilbers:1979} behaupten \textellipsis}
@@ -693,7 +849,7 @@ Schwierig ist auch alles, was mit Mustererkennung zu tun hat. Das in Perl geschr
 
 \archbib wurde erstellt, in dem zahlreiche Zitiervorschriften deutscher, zumeist archäologischer Publikationsorgane verglichen wurden, um die Anforderungen an ein universale Software für diesen Interessentenkreis zu ermitteln. Keine einzige der betreffenden Zeitschriften akzeptiert derzeit \LaTeX-Quellen. Paradoxerweise ist das nachgerade die Voraussetzung für die Arbeit an \archbib, da nur so der Eindruck vermieden wird, hierbei handle es sich um offizielle Regeln der Redaktionen. Grundsätzlich sind alle ausführlichen Zitiervorschriften erheblich unvollständig, meist widersprüchlich und merklich ohne Gedanken an automatisiertes Zitieren verfaßt worden. 
 
-Wie jedes Kulturaggregat sind auch Zitierstile historisch bedingt. Welchen Sinn z. B. ergibt die Angabe von Verlagsorten in einer Welt, in der Warenbestellungen kaum noch mit der gelben Post aufgegeben werden? Bemerkenswert hingegen ist die große Zurückhaltung bei den digitalen Identifikationsschlüsseln (ISBN/ISSN, DOI, URN etc.), deren nachhaltige Auflösbarkeit von den Bibliotheken gesichert werden muß. 
+Wie jedes Kulturaggregat sind auch Zitierstile historisch bedingt. Welchen Sinn z. B. ergibt die Angabe von Verlagsorten in einer Welt, in der Warenbestellungen kaum noch mit der gelben Post aufgegeben werden? Bemerkenswert hingegen ist die große Zurückhaltung bei den digitalen Identifikatoren (ISBN/ISSN, DOI, URN etc.), deren nachhaltige Auflösbarkeit von den Bibliotheken gesichert werden muß. 
 
 \chapter{Die Ökologie von \archbib}
 
