@@ -196,7 +196,7 @@
  
  %%% title data
 \title{Einführung \blx und \archbib [v2.3]}
-\author{Ingram Braun}
+\author{Ingram Braun\\\href{https://ingram-braun.net/}{\texttt{https://ingram-braun.net/}}}
 \date{\today}
 
 %%% load hyperref for clickable links and PDF metadata as late as possible. The default layout with colored borders around links is ugly.
@@ -442,14 +442,14 @@ Bei einigen Dokumententypen wird man kaum Unterschiede feststellen. U.\,U. sind 
 \Typ{inbook} & Teil von \Typ{book} oder \Typ{mvbook} mit eigenem Titel:z.\,B., wenn eine Monographie einen Aufsatz eines anderen Autors enthält, wenn eine Monographie einen Aufsatz eines anderen Autors enthält & \Feld{author}, \Feld{title}, \Feld{booktitle}, \Feld{date} \\
 \Typ{bookinbook} & ein ursprünglich selbstständiges Buch, das jetzt ein einem anderen \Typ{book} oder \Typ{mvbook} wieder abgedruckt ist z.\,B. in Quellensammlungen & ? \\
 \Typ{suppbook} & Supplement in \Typ{book} oder \Typ{mvbook} & \Feld{author}, \Feld{title}, \Feld{booktitle}, \Feld{date} \\
-\Typ{booklet} & wie \Typ{book}, aber ohne Verlag & \Feld{authtor}/\Feld{editor}, \Feld{title}, \Feld{date} \\
+\Typ{booklet} & wie \Typ{book}, aber ohne Verlag & \Feld{author}/\Feld{editor}, \Feld{title}, \Feld{date} \\
 \Typ{collection} & Sammelwerk -- Vorsicht: keine aus Veranstaltungen (Konferenzen, Ausstellungen) hervorgegangenen Werke! & \Feld{editor}, \Feld{title}, \Feld{date} \\
 \Typ{mvcollection} & wie \Typ{collection}, aber mehrbändig & \Feld{editor}, \Feld{title}, \Feld{date} \\
 \Typ{incollection} & Aufsatz in \Typ{collection} oder \Typ{mvcollection} & \Feld{author}, \Feld{title}, \Feld{booktitle}, \Feld{date} \\
 \Typ{suppcollection} & Supplement in \Typ{collection} oder \Typ{mvcollection} (Vor-, Nachwort etc.) & \Feld{author}, \Feld{title}, \Feld{booktitle}, \Feld{date} \\
-\Typ{manual} & Handbücher bzw. Dokumentationen für Geräte, Software, Laborausstattung etc. & \Feld{authtor}/\Feld{editor}, \Feld{title}, \Feld{date} \\
-\Typ{misc} & wenn nichts anderes paßt & \Feld{authtor}/\Feld{editor}, \Feld{title}, \Feld{date} \\
-\Typ{online} & Onlineressourcen & \Feld{authtor}/\Feld{editor}, \Feld{title}, \Feld{date}, \Feld{url} \\
+\Typ{manual} & Handbücher bzw. Dokumentationen für Geräte, Software, Laborausstattung etc. & \Feld{author}/\Feld{editor}, \Feld{title}, \Feld{date} \\
+\Typ{misc} & wenn nichts anderes paßt & \Feld{author}/\Feld{editor}, \Feld{title}, \Feld{date} \\
+\Typ{online} & Onlineressourcen & \Feld{author}/\Feld{editor}, \Feld{title}, \Feld{date}, \Feld{url} \\
 \Typ{patent} & Patentschriften & \Feld{author}, \Feld{title}, number, \Feld{date} \\
 \Typ{periodical} & Zeitschriftenheft & \Feld{editor}, \Feld{title}, \Feld{date} \\
 \Typ{suppperiodical} & für Inhalte von Zeitschriften ohne Werktitel (Rubriken, Leserbriefe, Familienanzeigen etc.) & \Feld{author}, \Feld{title}, \Feld{journaltitle}, \Feld{date} \\
@@ -462,7 +462,7 @@ Bei einigen Dokumententypen wird man kaum Unterschiede feststellen. U.\,U. sind 
 \Typ{report} & Technische oder Forschungsberichte, Whitepapers (hier sollten der Typ und die herausgebende Organisation angeben werden) & \Feld{author}, \Feld{title}, \Feld{type}, \Feld{institution}, \Feld{date} \\
 \Typ{set} & Liste von Datenbankeinträgen (ist hauptsächlich für numerische Stile gedacht) & --- \\
 \Typ{thesis} & Examensschrift (hier sollten der Typ und die prüfende Hochschule angeben werden) & \Feld{author}, \Feld{title}, \Feld{type}, \Feld{institution}, \Feld{date} \\
-\Typ{unpublished} & unpubliziert & \Feld{authtor}/\Feld{editor}, \Feld{title}, \Feld{date} \\
+\Typ{unpublished} & unpubliziert & \Feld{author}/\Feld{editor}, \Feld{title}, \Feld{date} \\
 \Typ{xdata} & ein Container, um Daten an andere Einträge zu vererben -- nicht zum eigenständigen Zitieren gedacht! & --- \\
 \end{xltabular}
 
