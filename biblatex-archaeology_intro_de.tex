@@ -54,6 +54,7 @@
 
 %%% Fonts
 \usepackage{noto}  % Noto, NotoSans, NotoSansMono optimized for screens
+\usepackage{fontawesome} % a collection of icons (primarily intended for websites)
 
 %%% Bibliography
 \usepackage[
@@ -192,6 +193,7 @@
 \newrobustcmd*{\Stil}[1]{\texttt{#1}}
 \newrobustcmd*{\Datei}[1]{\texttt{#1}}
 \newrobustcmd*{\Englisch}[1]{\emph{\foreignlanguage{english}}{#1}}
+\newcommand*{\Wichtig}{\faExclamationCircle}
 
 
 %%% Allow for fixed floating environments (this is often a bad idea!). Usually you want them to float
@@ -409,7 +411,7 @@ Wenn in Namen oder Listen das Trennzeichen in den Einträgen vorkommt, muß man 
 \subsection{Dokumententypen}
 Nicht alle Dokumententypen, die \blx definiert, werden von den Standardstilen genutzt. Ich beschränke mich hier in \cref{tab:doctypes} auf die tatsächlich unterstützten. Wer spezielle Stile verwendet, wird in den Handbüchern Erklärungen zu den Erweiterungen finden. Jeder Dokumententyp hat sogenannte Pflichtfelder und optionale Felder. Allerdings dürfen durchaus auch die Pflichtfelder fehlen, denn sonst könnte man ja keine Werke ohne Verfasser oder Publikationsdatum zitieren. Näheres dazu findet sich in \cref{kap:felder}.
 
-Bei einigen Dokumententypen wird man kaum Unterschiede feststellen. U.\,U. sind sie tatsächlich nur als Aliase implementiert. Das gilt für die mehrbändigen Typen (\Typ{mv\textellipsis})-Varianten und ihre Grundformen, für \Typ{supp\textellipsis} und \Typ{in\textellipsis} bzw. \Typ{article}, für \Typ{book}, \Typ{manual} und \Typ{booklet} sowie für alles, was mit Sammelwerken zu tun hat (\Typ{proceedings}-, \Typ{collection}- und \Typ{reference}-Gruppen). Es kann aber sein, daß Stile von solchen Feinunterscheidungen Gebrauch machen. \archbib z.\,B. unterscheidet \Typ{inreference} für Lexikonartikel tatsächlich von \Typ{incollection} und \Typ{inproceedings}.
+Bei einigen Dokumententypen wird man kaum Unterschiede feststellen. U.\,U. sind sie tatsächlich nur als Aliase implementiert. Das gilt für die mehrbändigen Typen (\Typ{mv\textellipsis})-Varianten und ihre Grundformen, für \Typ{supp...} und \Typ{in...} bzw. \Typ{article}, für \Typ{book}, \Typ{manual} und \Typ{booklet} sowie für alles, was mit Sammelwerken zu tun hat (\Typ{proceedings}-, \Typ{collection}- und \Typ{reference}-Gruppen). Es kann aber sein, daß Stile von solchen Feinunterscheidungen Gebrauch machen. \archbib z.\,B. unterscheidet \Typ{inreference} für Lexikonartikel tatsächlich von \Typ{incollection} und \Typ{inproceedings}.
 
 \newcommand{\Tabellenkopf}{
 \rowcolor{zebraodd}
@@ -473,7 +475,7 @@ LL}
 
 \subsection{Die Felder}\label{kap:felder}
 
-Die Anzahl möglicher Felder ist in \BibTeX  praktisch unendlich. Allerdings müssen Felder, die von \BibTeX  oder \Biber gedruckt oder sonstwie verarbeitet werden sollen, diesen bekannt gemacht werden. Es spricht aber nichts dagegen, daß man persönliche Notizen in Phantasiefelder schreibt. Man sollte nur beachten, daß die Feldnamen auf die 26 Alphabetbuchstaben beschränkt sind.
+Die Anzahl möglicher Felder ist in \BibTeX  praktisch unendlich. Allerdings müssen Felder, die von \BibTeX  oder \Biber gedruckt oder sonstwie verarbeitet werden sollen, diesen bekannt gemacht werden. Es spricht aber nichts dagegen, daß man persönliche Notizen in Phantasiefelder schreibt. Man sollte nur beachten, daß die Feldnamen auf die 26 Alphabetbuchstaben beschränkt sind. Die \BibTeX-Stile hatten teilweise andere Feldnamen (\Feld{address} statt \Feld{location}, \Feld{school} statt \Feld{institution}). Sie werden in \blx  als Aliase behandelt.
 
 In \cref{kap:fileformat} wurde schon angedeutet, daß es vier Datentypen für Felder gibt: Listen, Namen, Ganzzahlen und Text. Listen und Namen können mehrere Elemente haben, die durch das Trennzeichen \Kbd{and} separiert werden. Ganzzahlen brauchen in der Datenbank keine Feldbegrenzer, Text schon. Schon in \BibTeX  gab es das Feld {\Feld{crossref}, daß einen speziellen Text enthielt, nämlich einen Schlüpssel eines anderen Eintrags. Dadurch konnten unselbstständige Typen (Artikel in Zeitschriften und Sammelwerken) den sie enthaltenden Einträgen zugeordnet werden, so daß diese in der Datenbank nur einmal erfaßt werden müßten. \blx erweitert das enorm und definiert eine ganze Reihe von Textfeldern, die ihren Inhalt auf spezielle Weise auswerten. Die folgende Liste ist von der in der \blx-Dokumentation aus Verständnisgründen leicht verschieden.
 \begin{itemize}
@@ -502,10 +504,11 @@ Mit zunehmenden Funktionsumfang ist die Zahl der von \blx verarbeiteten Felder z
 \item Wenn bei Übersetzungen oder Nachdrucken Daten des Originalwerks genannt werden sollen, beginnen die relevanten Feldnamen mit \Kbd{orig}: \Feld{origdate}, \Feld{origtitle}, \Feld{origlanguage}, \Feld{origlocation}, \Feld{origpublisher}.
 \end{itemize}
 
-Die folgende Tabelle enthält die Datenfelder, also solche, die von den Stilen für die jeweiligen Dokumententypen über das Datenmodell unterstützt werden können (oder auch nicht).
+\cref{tab:stdfields} enthält die Datenfelder, also solche, die von den Stilen für die jeweiligen Dokumententypen über das Datenmodell unterstützt werden können (oder auch nicht). Felder, die von \archbib explizit verarbeitet werden, werden mit \Wichtig  gekennzeichnet. Ob die anderen verarbeitet werden, hängt davon ab, ob der von \blx vererbte Code das tut, wobei ich das nicht teste.
 
 \renewcommand{\Tabellenkopf}{
 \rowcolor{zebraodd}
+ & 
 \textbf{Feld} &
 \textbf{\normalsize Datentyp} &
 \textbf{\normalsize Erläuterungen}
@@ -513,7 +516,7 @@ Die folgende Tabelle enthält die Datenfelder, also solche, die von den Stilen f
 \setlength{\ErsteSpalte}{8.5em}
 \newlength{\ZweiteSpalte}\setlength{\ZweiteSpalte}{7em}
 
-\begin{xltabular}{\linewidth}{p{\ErsteSpalte}p{\ZweiteSpalte}L}
+\begin{xltabular}{\linewidth}{p{1em}p{\ErsteSpalte}p{\ZweiteSpalte}L}
 \rowcolor{zebraodd}
 \caption[Datenfelder von \blx]{Datenfelder von \blx}
 \label{tab:stdfields} % must be after \caption
@@ -521,109 +524,109 @@ Die folgende Tabelle enthält die Datenfelder, also solche, die von den Stilen f
 \Tabellenkopf
 \endfirsthead
 \rowcolor{zebraodd}
-\multicolumn{3}{c}{{\tablename\ \thetable{} (Fortsetzung)}} \\
+\multicolumn{4}{c}{{\tablename\ \thetable{} (Fortsetzung)}} \\
 \Tabellenkopf
 \endhead
 
 \rowcolor{zebraodd}
-\multicolumn{3}{r}{{\itshape Fortsetzung auf der nächsten Seite}}
+\multicolumn{4}{r}{{\itshape Fortsetzung auf der nächsten Seite}}
 \endfoot
 
 \bottomrule
 \endlastfoot
 
-\Feld{abstract} & Text & Abstrakt \\
-\Feld{addendum} & Text & beliebiger Zusatz am Ende eines Werks \\
-\Feld{afterword} & Name & Verfasser des Nachworts \\
-\Feld{annotation} & Text & Kommentar (in kommentierten Bibliographien) \\
-\Feld{annotator} & Name & Verfasser  \\
-\Feld{author} & Name & Autor(-en) \\
-\Feld{authortype} & Lokalisation & Rolle des Autors \\
-\Feld{bookauthor} & Name & Autor(-en) von Sammelwerken \\
-\Feld{bookpagination} & Lokalisation & Art der Seitenzählung (Paragraphen, Spalten etc.) \\
-\Feld{booksubtitle} & Text & Untertitel eines Sammelwerks \\
-\Feld{booktitle} & Text & Titel eines Sammelwerks \\
-\Feld{booktitleaddon} & Text & Titelzusatz eines Sammelwerks \\
-\Feld{chapter} & Text & Kapitel oder Abschnitt eines größeren Werks \\
-\Feld{commentator} & Name & Kommentator einer kommentierten Ausgabe \\
-\Feld{date} & Datum & Publikationsdatum \\
-\Feld{doi} & wörtlich & \Englisch{Digtal Object Identifier} (DOI) \\
-\Feld{edition} & Ganzzahl oder Text & Auflage \\
-\Feld{editor} & Name & Herausgeber \\
-\Feld{editora} & Name & weitere Herausgeber \\
-\Feld{editorb} & Name & weitere Herausgeber \\
-\Feld{editorc} & Name & weitere Herausgeber \\
-\Feld{editortype} & Lokalisation & Rolle des Herausgebers \\
-\Feld{editoratype} & Lokalisation & Rollen weiterer Herausgeber \\
-\Feld{editorbtype} & Lokalisation & Rollen weiterer Herausgeber \\
-\Feld{editorctype} & Lokalisation & Rollen weiterer Herausgeber \\
-\Feld{eid} & Text & Elektronischer Identifier eines Zeitschriftenaufsatzes \\
-\Feld{entrysubtype} & Text & Spezifizierer des Dokumententyps \\
-\Feld{eprint} & wörtlich & ID eines elektronischen Dokuments \\
-\Feld{eprintclass} & Text & Weitere Angaben zu \Feld{eid} \\
-\Feld{eprinttype} & Text & Weitere Angaben zu \Feld{eid} (v. a. die ausgebende Institution) \\
-\Feld{eventdate} & Datum & Veranstaltungsdatum \\
-\Feld{eventtitle} & Text & Veranstaltungstitel \\
-\Feld{eventtitleaddon} & Text & Zusatz zu Veranstaltungstitel \\
-\Feld{forword} & Name & Verfasser des Vorworts \\
-\Feld{holder} & Name & Halter eines Patents \\
-\Feld{howpublished} & Text & nähere Information zu ungewöhnlichen Publiukationsformen \\
-\Feld{indextitle} & Text & wenn der Titel in abweichender Form im Index erscheinen soll (z.\,B. ohne führenden Artikel) \\
-\Feld{institution} & Liste & Name der Institution bei Hochschulschriften \\
-\Feld{introduction} & Name & Verfasser einer Einführung \\
-\Feld{isan} & Text & \Englisch{International Standard Audiovisual Number} \\
-\Feld{isbn} & Text & \Englisch{International Standard Book Number} \\
-\Feld{ismn} & Text & \Englisch{The International Standard Music Number} \\
-\Feld{isrn} & Text & \Englisch{International Standard Technical Report Number} \\
-\Feld{issn} & Text & \Englisch{International Standard Serial Number} \\
-\Feld{issue} & Text & für Zeitschriften, die Bezeichner anstelle von Heftnummern benutzen (\enquote{Frühjahr} o.\,ä.) \\
-\Feld{issuesubtitle} & Text & Untertitel eines Themenheftes einer Zeitschrift \\
-\Feld{issuetitle} & Text & Titel eines Themenheftes einer Zeitschrift \\
-\Feld{iswc} & Text & \Englisch{International Standard Work Code} \\
-\Feld{journalsubtitle} & Text & Untertitel einer Zeitschrift \\
-\Feld{journaltitle} & Text & Titel einer Zeitschrift \\
-\Feld{label} & Text & Zitatlabel, (wenn die automatisch erzeugten nicht erwünscht sind) \\
-\Feld{language} & Schlüsselliste & Sprache des Eintrags \\
-\Feld{library} & Text & Angaben zum Standort des Werks \\
-\Feld{location} & Liste & Publikationsort \\
-\Feld{mainsubtitle} & Text & Hauptuntertitel eines mehrbändigen Werks \\
-\Feld{maintitle} & Text & Haupttitel eines mehrbändigen Werks \\
-\Feld{maintitleaddon} & Text & Haupttitelzusatz eines mehrbändigen Werks \\
-\Feld{nameaddon} & Text & Zusatz zum \Feld{author} wie z. B. Aliase \\
-\Feld{note} & Text & bibliographische Angaben, die sonst nirgendwo hinpassen \\
-\Feld{number} & Text & Nummer eines Zeitschriftenheftes oder einer Serie \\
-\Feld{organization} & Liste & Institution, die ein Werk publiziert hat  \\
-\Feld{origdate} & Datum & Originaldatum bei Nachdrucken oder Übersetzungen \\
-\Feld{origlanguage} & Schlüsselliste & Originalsprache bei Nachdrucken oder Übersetzungen \\
-\Feld{origlocation}  & Liste & originale Publikationsorte bei Nachdrucken oder Übersetzungen \\
-\Feld{origpublisher} & Liste & Originalverlage bei Nachdrucken oder Übersetzungen \\
-\Feld{origtitle} & Text & Originaltitel bei Nachdrucken oder Übersetzungen \\
-\Feld{pages} & Zahlenbereich & Seitenzahlen bei unselbstständigen Publikationen \\
-\Feld{pagetotal} & Text & Gesamtzahl der Seiten eines selsbtständigen Werks \\
-\Feld{pagination} & Lokalisation & Art der Seitenzählung (Paragraphen, Spalten etc.) \\
-\Feld{part} & Text & Teil bzw. Faszikel eines mehrbändigen Werkes (nicht bei Zeitschriften!)\\
-\Feld{publisher} & Liste & Verlag \\
-\Feld{pubstate} & Lokalisation & Publikationsstatus (z.\,B. \enquote{im Druck}) \\
-\Feld{reprinttitle} & Text & Titel eines Reprints \\
-\Feld{series} & Text & Serientitel bei Büchern als auch Zeitschriften (z.\,B. \enquote{Neue Folge}) \\
-\Feld{shortauthor} & Name & Abkürzung des \Feld{author}, v.\,a. bei korporativen Autoren \\
-\Feld{shorteditor} & Name & Abkürzung des \Feld{editor}, v.\,a. bei korporativen Herausgebern \\
-\Feld{shorthand} & Text & für Einträge, die mit Abkürzung zitiert werden \\
-\Feld{shorthandintro} & Text & Einleitung der ersten Abkürzung  (z.\,B. \enquote{im Folgenden zitiert als \textellipsis}) \\
-\Feld{shortjournal} & Text & Abkürzung des Zeitschriftentitels \\
-\Feld{shortseries} & Text & Abkürzung des Serientitels \\
-\Feld{shorttitle} & Text & Abkürzung des Titels \\
-\Feld{subtitle} & Text & Untertitel \\
-\Feld{title} & Text & Titel \\
-\Feld{titleaddon} & Text & Titelzusatz \\
-\Feld{translator} & Name & Übersetzer \\
-\Feld{type} & Lokalisation & Art des Dokuments bei \Typ{manual}, \Typ{patent}, \Typ{report} und \Typ{thesis} \\
-\Feld{url} & wörtlich & URL \\
-\Feld{urldate} & Datum & Zugriffsdatum eines Onlinedokuments \\
-\Feld{venue} & Text & Veranstaltungsort \\
-\Feld{version} & Text & Versionsnummer \\
-\Feld{volume} & Ganzzahl & Bandnummer sdowohl bei mehrbändigen Werken als auch Zeitschriften \\
-\Feld{volumes} & Ganzzahl & Gesamtzahl der Bände eines mehrbändigen Werkes \\
+ & \Feld{abstract} & Text & Abstrakt \\
+\Wichtig & \Feld{addendum} & Text & beliebiger Zusatz am Ende eines Werks \\
+ & \Feld{afterword} & Name & Verfasser des Nachworts \\
+ & \Feld{annotation} & Text & Kommentar (in kommentierten Bibliographien) \\
+ & \Feld{annotator} & Name & Verfasser  \\
+\Wichtig & \Feld{author} & Name & Autor(-en) \\
+\Wichtig & \Feld{authortype} & Lokalisation & Rolle des Autors \\
+\Wichtig & \Feld{bookauthor} & Name & Autor(-en) von Sammelwerken \\
+\Wichtig & \Feld{bookpagination} & Lokalisation & Art der Seitenzählung (Paragraphen, Spalten etc.) \\
+\Wichtig & \Feld{booksubtitle} & Text & Untertitel eines Sammelwerks \\
+\Wichtig & \Feld{booktitle} & Text & Titel eines Sammelwerks \\
+\Wichtig & \Feld{booktitleaddon} & Text & Titelzusatz eines Sammelwerks \\
+ & \Feld{chapter} & Text & Kapitel oder Abschnitt eines größeren Werks \\
+ & \Feld{commentator} & Name & Kommentator einer kommentierten Ausgabe \\
+\Wichtig & \Feld{date} & Datum & Publikationsdatum \\
+\Wichtig & \Feld{doi} & wörtlich & \Englisch{Digtal Object Identifier} (DOI) \\
+\Wichtig & \Feld{edition} & Ganzzahl oder Text & Auflage \\
+\Wichtig & \Feld{editor} & Name & Herausgeber \\
+ & \Feld{editora} & Name & weitere Herausgeber \\
+ & \Feld{editorb} & Name & weitere Herausgeber \\
+ & \Feld{editorc} & Name & weitere Herausgeber \\
+ & \Feld{editortype} & Lokalisation & Rolle des Herausgebers \\
+ & \Feld{editoratype} & Lokalisation & Rollen weiterer Herausgeber \\
+ & \Feld{editorbtype} & Lokalisation & Rollen weiterer Herausgeber \\
+ & \Feld{editorctype} & Lokalisation & Rollen weiterer Herausgeber \\
+ & \Feld{eid} & Text & Elektronischer Identifier eines Zeitschriftenaufsatzes \\
+\Wichtig & \Feld{entrysubtype} & Text & Spezifizierer des Dokumententyps \\
+\Wichtig & \Feld{eprint} & wörtlich & ID eines elektronischen Dokuments \\
+ & \Feld{eprintclass} & Text & Weitere Angaben zu \Feld{eid} \\
+ & \Feld{eprinttype} & Text & Weitere Angaben zu \Feld{eid} (v. a. die ausgebende Institution) \\
+\Wichtig & \Feld{eventdate} & Datum & Veranstaltungsdatum \\
+ & \Feld{eventtitle} & Text & Veranstaltungstitel \\
+ & \Feld{eventtitleaddon} & Text & Zusatz zu Veranstaltungstitel \\
+ & \Feld{forword} & Name & Verfasser des Vorworts \\
+ & \Feld{holder} & Name & Halter eines Patents \\
+\Wichtig & \Feld{howpublished} & Text & nähere Information zu ungewöhnlichen Publiukationsformen \\
+ & \Feld{indextitle} & Text & wenn der Titel in abweichender Form im Index erscheinen soll (z.\,B. ohne führenden Artikel) \\
+\Wichtig & \Feld{institution} & Liste & Name der Institution bei Hochschulschriften \\
+ & \Feld{introduction} & Name & Verfasser einer Einführung \\
+ & \Feld{isan} & Text & \Englisch{International Standard Audiovisual Number} \\
+ & \Feld{isbn} & Text & \Englisch{International Standard Book Number} \\
+ & \Feld{ismn} & Text & \Englisch{The International Standard Music Number} \\
+ & \Feld{isrn} & Text & \Englisch{International Standard Technical Report Number} \\
+ & \Feld{issn} & Text & \Englisch{International Standard Serial Number} \\
+ & \Feld{issue} & Text & für Zeitschriften, die Bezeichner anstelle von Heftnummern benutzen (\enquote{Frühjahr} o.\,ä.) \\
+ & \Feld{issuesubtitle} & Text & Untertitel eines Themenheftes einer Zeitschrift \\
+ & \Feld{issuetitle} & Text & Titel eines Themenheftes einer Zeitschrift \\
+ & \Feld{iswc} & Text & \Englisch{International Standard Work Code} \\
+\Wichtig & \Feld{journalsubtitle} & Text & Untertitel einer Zeitschrift \\
+\Wichtig & \Feld{journaltitle} & Text & Titel einer Zeitschrift \\
+\Wichtig & \Feld{label} & Text & Zitatlabel, (wenn die automatisch erzeugten nicht erwünscht sind) \\
+\Wichtig & \Feld{language} & Schlüsselliste & Sprache des Eintrags \\
+ & \Feld{library} & Text & Angaben zum Standort des Werks \\
+\Wichtig & \Feld{location} & Liste & Publikationsort \\
+\Wichtig & \Feld{mainsubtitle} & Text & Hauptuntertitel eines mehrbändigen Werks \\
+\Wichtig & \Feld{maintitle} & Text & Haupttitel eines mehrbändigen Werks \\
+\Wichtig & \Feld{maintitleaddon} & Text & Haupttitelzusatz eines mehrbändigen Werks \\
+ & \Feld{nameaddon} & Text & Zusatz zum \Feld{author} wie z. B. Aliase \\
+ & \Feld{note} & Text & bibliographische Angaben, die sonst nirgendwo hinpassen \\
+\Wichtig & \Feld{number} & Text & Nummer eines Zeitschriftenheftes oder einer Serie \\
+ & \Feld{organization} & Liste & Institution, die ein Werk publiziert hat  \\
+\Wichtig & \Feld{origdate} & Datum & Originaldatum bei Nachdrucken oder Übersetzungen \\
+ & \Feld{origlanguage} & Schlüsselliste & Originalsprache bei Nachdrucken oder Übersetzungen \\
+\Wichtig & \Feld{origlocation}  & Liste & originale Publikationsorte bei Nachdrucken oder Übersetzungen \\
+\Wichtig & \Feld{origpublisher} & Liste & Originalverlage bei Nachdrucken oder Übersetzungen \\
+ & \Feld{origtitle} & Text & Originaltitel bei Nachdrucken oder Übersetzungen \\
+\Wichtig & \Feld{pages} & Zahlenbereich & Seitenzahlen bei unselbstständigen Publikationen \\
+ & \Feld{pagetotal} & Text & Gesamtzahl der Seiten eines selsbtständigen Werks \\
+\Wichtig & \Feld{pagination} & Lokalisation & Art der Seitenzählung (Paragraphen, Spalten etc.) \\
+\Wichtig & \Feld{part} & Text & Teil bzw. Faszikel eines mehrbändigen Werkes (nicht bei Zeitschriften!)\\
+\Wichtig & \Feld{publisher} & Liste & Verlag \\
+\Wichtig & \Feld{pubstate} & Lokalisation & Publikationsstatus (z.\,B. \enquote{im Druck}) \\
+ & \Feld{reprinttitle} & Text & Titel eines Reprints \\
+\Wichtig & \Feld{series} & Text & Serientitel bei Büchern als auch Zeitschriften (z.\,B. \enquote{Neue Folge}) \\
+\Wichtig & \Feld{shortauthor} & Name & Abkürzung des \Feld{author}, v.\,a. bei korporativen Autoren \\
+\Wichtig & \Feld{shorteditor} & Name & Abkürzung des \Feld{editor}, v.\,a. bei korporativen Herausgebern \\
+ & \Feld{shorthand} & Text & für Einträge, die mit Abkürzung zitiert werden \\
+ & \Feld{shorthandintro} & Text & Einleitung der ersten Abkürzung  (z.\,B. \enquote{im Folgenden zitiert als \textellipsis}) \\
+\Wichtig & \Feld{shortjournal} & Text & Abkürzung des Zeitschriftentitels \\
+\Wichtig & \Feld{shortseries} & Text & Abkürzung des Serientitels \\
+\Wichtig & \Feld{shorttitle} & Text & Abkürzung des Titels \\
+\Wichtig & \Feld{subtitle} & Text & Untertitel \\
+\Wichtig & \Feld{title} & Text & Titel \\
+\Wichtig & \Feld{titleaddon} & Text & Titelzusatz \\
+ & \Feld{translator} & Name & Übersetzer \\
+\Wichtig & \Feld{type} & Lokalisation & Art des Dokuments bei \Typ{manual}, \Typ{patent}, \Typ{report} und \Typ{thesis} \\
+\Wichtig & \Feld{url} & wörtlich & URL \\
+\Wichtig & \Feld{urldate} & Datum & Zugriffsdatum eines Onlinedokuments \\
+\Wichtig & \Feld{venue} & Text & Veranstaltungsort \\
+\Wichtig & \Feld{version} & Text & Versionsnummer \\
+\Wichtig & \Feld{volume} & Ganzzahl & Bandnummer sdowohl bei mehrbändigen Werken als auch Zeitschriften \\
+ & \Feld{volumes} & Ganzzahl & Gesamtzahl der Bände eines mehrbändigen Werkes \\
 \end{xltabular}
 
 Spezielle Felder enthalten keine druckbaren Daten. Sie sind grundsätzlich in allen vom Dokumententypen verfügbar. 
@@ -635,53 +638,54 @@ Spezielle Felder enthalten keine druckbaren Daten. Sie sind grundsätzlich in al
 
 \renewcommand{\Tabellenkopf}{
 \rowcolor{zebraodd}
+ &
 \textbf{Feld} &
 \textbf{\normalsize Datentyp} &
 \textbf{\normalsize Erläuterungen}
 \\\toprule}
 \setlength{\ErsteSpalte}{8.5em}
 
-\begin{xltabular}{\linewidth}{p{\ErsteSpalte}LL}
+\begin{xltabular}{\linewidth}{p{1em}p{\ErsteSpalte}LL}
 \rowcolor{zebraodd}
 \caption[Spezielle Felder von \blx]{Spezielle Felder von \blx}
-\label{tab:stdfields} % must be after \caption
+\label{tab:specfields} % must be after \caption
 \\
 \Tabellenkopf
 \endfirsthead
 \rowcolor{zebraodd}
-\multicolumn{3}{c}{{\tablename\ \thetable{} (Fortsetzung)}} \\
+\multicolumn{4}{c}{{\tablename\ \thetable{} (Fortsetzung)}} \\
 \Tabellenkopf
 \endhead
 
 \rowcolor{zebraodd}
-\multicolumn{3}{r}{{\itshape Fortsetzung auf der nächsten Seite}}
+\multicolumn{4}{r}{{\itshape Fortsetzung auf der nächsten Seite}}
 \endfoot
 
 \bottomrule
 \endlastfoot
 
-\Feld{crossref} & Schlüssel & Der Verweis eines Kindeintrages auf seinen Elterneintrag \\
-\Feld{entryset } & Schlüsselliste & Einträge eines \Typ{set} \\
-\Feld{execute} & Text & ausführbarer \LaTeX-code \\
-\Feld{gender} & Muster & Genus und Numerus von Pronomen (\Kbd{sf}, \Kbd{sm}, \Kbd{sn}, \Kbd{pf}, \Kbd{pm}, \Kbd{pn} oder \Kbd{pp}) \\
-\Feld{langid} & Muster & eine dem \Paket{babel}- oder \Paket{polyglossia}-Paket bekannte Sprache, um die Sprache des Eintrags festzulegen \\
-\Feld{langidopts} & CSV & Liste von \Kbd{key=value}-Ausdrücken, um \Feld{langid} näher zu bestimmen \\
-\Feld{ids} & Schlüsselliste & Aliase für den Schlüssel des Eintrags, mit denen man genauso zitieren kann \\
-\Feld{indexsorttitle} & Text & abweichende Sortierung des Titels im Index \\
-\Feld{keywords} & CSV & Schlagwörter \\
-\Feld{options} & CSV & Liste von \Kbd{key=value}-Ausdrücken für eintragsspezifische Optionen \\
-\Feld{presort} & Text & Ausdruck zur Vorsortierung (damit kann man Gruppen in der Sortierung erzeugen) \\
-\Feld{related} & Schlüsselliste & Liste von Einträgen, die in einer näher zu bestimmenden relation zum aktuellen Eintrag stehen \\
-\Feld{relatedoptions} & CSV & Liste von \Kbd{key=value}-Ausdrücken für Optionen, um \Feld{related} näher zu bestimmen \\
-\Feld{relatedtype} & Lokalisation & die Art von \Feld{related} \\
-\Feld{relatedstring} & Text & überschreibt \Feld{relatedtype} \\
-\Feld{sortkey} & Text & überschreibt alle anderen Sortierkriterien bis auf \Feld{presort} \\
-\Feld{sortname} & Name & ein alternativer Name für die Sortierung \\
-\Feld{sortshorthand} & Text & wie \Feld{sortkey}, aber für die abgekürzt zitierte Literatur \\
-\Feld{sorttitle} & ein alternativer Titel für die Sortierung &  \\
-\Feld{sortyear} & Ganzzahl & ein alternatives Jahr für die Sortierung \\
-\Feld{xdata} & Schlüsselliste & Verweise auf \Typ{xdata}-Container \\
-\Feld{xref} & Schlüssel & ein Verweis für einen Zähler, der die Anzahl der Aufsätze aus einem Sammelwerk zählt \\
+\Wichtig & \Feld{crossref} & Schlüssel & Der Verweis eines Kindeintrages auf seinen Elterneintrag \\
+ & \Feld{entryset } & Schlüsselliste & Einträge eines \Typ{set} \\
+ & \Feld{execute} & Text & ausführbarer \LaTeX-code \\
+\Wichtig & \Feld{gender} & Muster & Genus und Numerus von Pronomen (\Kbd{sf}, \Kbd{sm}, \Kbd{sn}, \Kbd{pf}, \Kbd{pm}, \Kbd{pn} oder \Kbd{pp}) \\
+ & \Feld{langid} & Muster & eine dem \Paket{babel}- oder \Paket{polyglossia}-Paket bekannte Sprache, um die Sprache des Eintrags festzulegen \\
+ & \Feld{langidopts} & CSV & Liste von \Kbd{key=value}-Ausdrücken, um \Feld{langid} näher zu bestimmen \\
+ & \Feld{ids} & Schlüsselliste & Aliase für den Schlüssel des Eintrags, mit denen man genauso zitieren kann \\
+ & \Feld{indexsorttitle} & Text & abweichende Sortierung des Titels im Index \\
+\Wichtig & \Feld{keywords} & CSV & Schlagwörter \\
+\Wichtig & \Feld{options} & CSV & Liste von \Kbd{key=value}-Ausdrücken für eintragsspezifische Optionen \\
+ & \Feld{presort} & Text & Ausdruck zur Vorsortierung (damit kann man Gruppen in der Sortierung erzeugen) \\
+\Wichtig & \Feld{related} & Schlüsselliste & Liste von Einträgen, die in einer näher zu bestimmenden relation zum aktuellen Eintrag stehen \\
+ & \Feld{relatedoptions} & CSV & Liste von \Kbd{key=value}-Ausdrücken für Optionen, um \Feld{related} näher zu bestimmen \\
+ & \Feld{relatedtype} & Lokalisation & die Art von \Feld{related} \\
+ & \Feld{relatedstring} & Text & überschreibt \Feld{relatedtype} \\
+ & \Feld{sortkey} & Text & überschreibt alle anderen Sortierkriterien bis auf \Feld{presort} \\
+\Wichtig & \Feld{sortname} & Name & ein alternativer Name für die Sortierung \\
+ & \Feld{sortshorthand} & Text & wie \Feld{sortkey}, aber für die abgekürzt zitierte Literatur \\
+ & \Feld{sorttitle} & Text & ein alternativer Titel für die Sortierung \\
+ & \Feld{sortyear} & Ganzzahl & ein alternatives Jahr für die Sortierung \\
+\Wichtig & \Feld{xdata} & Schlüsselliste & Verweise auf \Typ{xdata}-Container \\
+ & \Feld{xref} & Schlüssel & ein Verweis für einen Zähler, der die Anzahl der Aufsätze aus einem Sammelwerk zählt \\
 \end{xltabular}
 
 Die Codierung der \BibTeX-Datenbanken sollte heutzutage unbedingt in UTF-8 erfolgen. Das war lange Zeit ein Problem, denn die hinreichende Unterstützung von Unicode schleppte sich in der \TeX-Welt lange dahin. Mittlerweile sollten damit kaum noch Schwierigkeiten entstehen. Überhaupt ist das ein universeller Ratschlag: Egal, ob \LaTeX-Quellen, Datenbanken, Webseiten etc. pp., alles sollte in UTF-8 codiert sein, sofern man keine wirklich zwingenden Gründe hat, etwas anderes zu nehmen.
