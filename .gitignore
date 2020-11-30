@@ -24,6 +24,9 @@
 *-blx.bib
 *.brf
 *.run.xml
+*.save
+_biber.
+_bibertool.
 
 ## Build tool auxiliary files:
 *.fdb_latexmk

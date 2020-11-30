@@ -1,30 +1,21 @@
 % arara: clean: { extensions: [aux,log,out,toc,bbl,bcf,bgl] }
-% arara: lualatex
+% arara: xelatex
 % arara: biber
-% arara: lualatex
+% arara: xelatex
 \documentclass[11pt,table]{scrreprt}
 % The 'table' option is passed to xcolor package when loaded implicitly.
 
 %%% The following conditionals allow for compiling with various engines without changing the document.
 %%% Mainly concerning fonts.
+\newcommand{\IfTeXforHt}[2]{\ifdefined\HCode#1\else#2\fi} % detect tex4ht
 \usepackage{iftex}
-\ifpdftex % pdflatex
-	\usepackage[T1]{fontenc}
-	%\usepackage[utf8]{inputenc} % loaded by default with up-to-date installs
-	\usepackage[
-		protrusion=true,
-		expansion=true,
-		verbose=true,
-		babel=true,
-		tracking=true
-	]{microtype}
-	\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
-	\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
-            % dass alle Passagen in Kapitälchen automatisch leicht
-            % gesperrt werden.
-\else
-	\ifluatex % lualatex
-		%\usepackage{fontspec} % loaded by default with up-to-date installs
+\IfTeXforHt{
+	\usepackage{xcolor}
+	\providecommand*{\href}[2]{#2 <\url{#1}>}
+}{
+	\ifpdftex % pdfLaTeX
+		\usepackage[T1]{fontenc}
+		%\usepackage[utf8]{inputenc} % loaded by default with up-to-date installs
 		\usepackage[
 			protrusion=true,
 			expansion=true,
@@ -34,26 +25,44 @@
 		]{microtype}
 		\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
 		\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
-            % dass alle Passagen in Kapitälchen automatisch leicht
-            % gesperrt werden.
+				% dass alle Passagen in Kapitälchen automatisch leicht
+				% gesperrt werden.
 	\else
-		\ifxetex % xelatex
+		\ifluatex % LuaLaTeX
 			%\usepackage{fontspec} % loaded by default with up-to-date installs
-			% microtype: no tracking and font expansion
 			\usepackage[
 				protrusion=true,
-				expansion=false,
+				expansion=true,
 				verbose=true,
 				babel=true,
-				tracking=false
+				tracking=true
 			]{microtype}
+			\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
+			\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
+				% dass alle Passagen in Kapitälchen automatisch leicht
+				% gesperrt werden.
 		\else
+			\ifxetex % XeLaTeX
+				%\usepackage{fontspec} % loaded by default with up-to-date installs
+				% microtype: no tracking and font expansion
+				\usepackage[
+					protrusion=true,
+					expansion=false,
+					verbose=true,
+					babel=true,
+					tracking=false
+				]{microtype}
+			\else
+			\fi
 		\fi
 	\fi
-\fi
+}
 
 %%% Fonts
-\usepackage[osf]{noto}  % Noto, NotoSans, NotoSansMono optimized for screens; osf = old style figures ("Mediävalziffern")
+\IfTeXforHt{}{\usepackage[osf]{noto}}  % Noto, NotoSans, NotoSansMono optimized for screens; osf = old style figures ("Mediävalziffern")
+\setmonofont{Noto Mono}[Scale=MatchLowercase] % This is already done by noto package but we need it to get rid of the default Ligatures=TeX
+                                              % option for monospaced font which urges listings to format quotes. The ususal upquote package
+                                  			  % does not work with Noto fonts.
 \usepackage{fontawesome} % a collection of icons (primarily intended for websites)
 
 %%% Bibliography
@@ -141,23 +150,47 @@
 \newcommand{\NamenDemo}[1]{\citefield{#1}[userd]{userc} & \citename{#1}[family-given]{namec}\\}
 \newcommand{\SortierungDemo}[1]{\nocite{intro_sort_1,intro_sort_2,intro_sort_3,intro_sort_4,intro_sort_5,intro_sort_6,intro_sort_7,intro_sort_8,intro_sort_9,intro_sort_10,intro_sort_12,intro_sort_13,intro_sort_14,intro_sort_15,intro_sort_16,intro_sort_17,intro_sort_18,intro_sort_19,intro_sort_20,intro_sort_21,intro_sort_22,intro_sort_23,intro_sort_24,intro_sort_25,intro_sort_26,intro_sort_27,intro_sort_28,intro_sort_29,intro_sort_30}}
 	
-%%% Verbatim environments are not allowed inside commands. But we need this for our example boxes.
-\usepackage{fvextra} 
+%%% code listings
+\usepackage{listings}\lstloadlanguages{[LaTeX]TeX} % pretty-print code
+\lstset{
+	basicstyle=\ttfamily,
+	language=[LaTeX]TeX,
+	numbers=left,
+	stepnumber=1,
+	numbersep=5pt,
+	numberstyle=\small\color{black},
+	frame=single,
+	tabsize=2,
+	backgroundcolor=\color{zebraeven},
+	breaklines,
+}
+\ifpdftex
+	 % pdfLaTeX: no font macro substitution in verbatim environments
+	\lstset{literate=%
+	  {Ö}{{\"O}}1
+	  {Ä}{{\"A}}1
+	  {Ü}{{\"U}}1
+	  {ß}{{\ss}}1
+	  {ü}{{\"u}}1
+	  {ä}{{\"a}}1
+	  {ö}{{\"o}}1
+	}
+\else\fi
 \usepackage[many]{tcolorbox}
-\def\Beispiel#1{%
+\newcommand*{\Beispiel}[1]{%
 \begin{tcolorbox}[
-    %colback=\backgroundcolor,
-    %colframe=\headingscolor,
+    colback=zebraeven,
+    colframe=gray!99,
     fonttitle=\bfseries\sffamily,
     title=\vspace{0.7ex}Beispiel,
     halign=flush left,
 ]%
-\UseVerb[breaklines=true,breakanywhere=true]{Verb}%
+\texttt{\detokenize{#1}}
 \tcblower#1%
- \end{tcolorbox}}
+\end{tcolorbox}}
  
  
-%%% Babel works with lualatex and xelatex  with up-to-date installs.
+%%% Babel works with lualatex and xelatex with up-to-date installs.
 %%% Last language in list is set as document main.
 \usepackage[english,latin,french,dutch,danish,ngerman,german]{babel}
 \usepackage[german=quotes]{csquotes} % context sensitive quotatation
@@ -170,8 +203,11 @@
 \newcolumntype{L}{>{\raggedright\small\arraybackslash}X}
 \colorlet{zebraodd}{white}
 \colorlet{zebraeven}{gray!15}
-\let\defaultarraystretch\arraystretch % buffer \arraystretch
-		
+\newenvironment*{Zebratabelle}
+	{\renewcommand*{\arraystretch}{1.5}% increase row padding locally
+	 \rowcolors{1}{zebraodd}{zebraeven}}
+	{\rowcolors{1}{zebraodd}{zebraodd}}
+
 %%% Logos
 \usepackage{bxtexlogo}
 \bxtexlogoimport{*}
@@ -193,45 +229,46 @@
 \newrobustcmd*{\Kbd}[1]{\texttt{#1}}
 \newrobustcmd*{\Stil}[1]{\texttt{#1}}
 \newrobustcmd*{\Datei}[1]{\texttt{\detokenize{#1}}}
-\newrobustcmd*{\Englisch}[1]{\emph{\foreignlanguage{english}}{#1}}
-\newcommand*{\Wichtig}{\faExclamationCircle}
+\newrobustcmd*{\Englisch}[1]{\foreignlanguage{english}{\emph{#1}}}
+\newcommand*{\Wichtig}{\IfTeXforHt{!}{\faExclamationCircle}}
 
 
 %%% Allow for fixed floating environments (this is often a bad idea!). Usually you want them to float
-%%% and to refer to them with labels (fig. 3 or tab. 9).
+%%% and to refer to them via labels (fig. 3 or tab. 9).
 \usepackage{float}
  
- %%% title data
-\title{Einführung \blx{} und \archbib{} [v2.3]}
+%%% title data
+\title{Einführung in \blx{} und \archbib{} [v2.3]}
 \author{Ingram Braun\\\href{https://ingram-braun.net/}{\texttt{https://ingram-braun.net/}}}
 \date{\today}
 
-%%% load hyperref for clickable links and PDF metadata as late as possible. The default layout with colored borders around links is ugly.
-\usepackage{hyperref}
-\usepackage[ocgcolorlinks]{ocgx2} % suppress color links on printers if PDF viewer can handle Optional Content Groups (OCG)
-\usepackage{hyperxmp} % extended metadata
-\hypersetup{
-    linktocpage=true,       % only page numbers are clickable
-    colorlinks=true,        % colored links
-    breaklinks=true,        % break URLs
-    pdfborder={0 0 0},      % for removing borders around links
-    bookmarksnumbered=true, % If Acrobat bookmarks are requested, include section numbers.
-    bookmarksopen=false,    % If Acrobat bookmarks are requested, show them with all the subtrees expanded. 
-    linkcolor=blue,
-    citecolor=blue,
-    urlcolor=teal,
-    pdfpagemode={UseOutlines}, % show pdf bookmarks (indices) on startup; does not function all the time
-    pdfdisplaydoctitle=true,
-    pdfauthor={Ingram Braun},
-    pdfcaptionwriter={Ingram Braun},
-    pdflang=de,
-    pdfmenubar=true,        % make PDF viewer's menu bar visible
-    pdfkeywords={archaeology, anthropology, bibliography, typesetting, LaTeX, BibTeX, biblatex, history, Egyptology},
-    pdfapart=1,
-    pdfaconformance=B,
-    pdfmetalang=en,
+%%% Load hyperref for clickable links and PDF metadata as late as possible. The default layout with colored borders around links is ugly.
+\IfTeXforHt{}{
+	\usepackage{hyperref}
+	\usepackage[ocgcolorlinks]{ocgx2} % suppress color links on printers if PDF viewer can handle Optional Content Groups (OCG)
+	\usepackage{hyperxmp} % extended metadata
+	\hypersetup{
+		linktocpage=true,       % only page numbers are clickable
+		colorlinks=true,        % colored links
+		breaklinks=true,        % break URLs
+		pdfborder={0 0 0},      % for removing borders around links
+		bookmarksnumbered=true, % If Acrobat bookmarks are requested, include section numbers.
+		bookmarksopen=false,    % If Acrobat bookmarks are requested, show them with all the subtrees expanded. 
+		linkcolor=blue,
+		citecolor=blue,
+		urlcolor=teal,
+		pdfpagemode={UseOutlines}, % show pdf bookmarks (indices) on startup; does not function all the time
+		pdfdisplaydoctitle=true,
+		pdfauthor={Ingram Braun},
+		pdfcaptionwriter={Ingram Braun},
+		pdflang=de,
+		pdfmenubar=true,        % make PDF viewer's menu bar visible
+		pdfkeywords={archaeology, anthropology, bibliography, typesetting, LaTeX, BibTeX, biblatex, history, Egyptology},
+		pdfapart=1,
+		pdfaconformance=B,
+		pdfmetalang=en,
+	}
 }
-
 %%% Context sensitive references (cleveref must be loaded after hyperref)
 \usepackage[german]{cleveref}
 \crefname{fig}{Abbildung}{Abbildungen}
@@ -239,18 +276,27 @@
 \crefname{tab}{Tabelle}{Tabellen}
 \Crefname{tab}{Tabelle}{Tabellen}
 
+% The following code was borrowed from https://tex.stackexchange.com/questions/376763/incomplete-iffalse-all-text-was-ignored-after-line-x-with-lstlisting
+% Tt patches a hard-to-track-down error with page breaks in listings only happening in PDFLaTeX.
+\makeatletter
+\expandafter\let\csname active@char\string?\endcsname\relax
+\expandafter\let\csname active@char\string!\endcsname\relax
+\expandafter\let\csname active@char\string:\endcsname\relax
+\initiate@active@char{?}
+\initiate@active@char{!}
+\initiate@active@char{:}
+\makeatother
+
 %%% End header and begin text body.
 \begin{document}
 
-\DefineShortVerb{\|} % delimiter for \SaveVerb (doesn't work in header with pdflatex)
-
-\maketitle
+\IfTeXforHt{}{\maketitle}
 
 \begin{abstract}
-Dieses Dokument bietet eine Einführung in \blx  und \archbib  unter dem Aspekt strikter Anwendungsorientierung. Es geht also um Ausfüllen der
+Dieses Dokument bietet eine Einführung in \blx{} und \archbib{} unter dem Aspekt strikter Anwendungsorientierung. Es geht also um Ausfüllen der
 Datenbanken und das Zitieren in Dokumenten; dazu die Zusammenarbeit mit anderer Software. Athematisch sind die technischen Interna und
 das Entwickeln von Stilen.
-Vermutlich liegt bei den meisten Lesern der Erstkontakt mit \LaTeX  noch nicht lange zurück. Und wahrscheinlich war \blx  bzw. \archbib  einer der wesentlichen Gründe für das Interesse. Deswegen werden in \cref{kap_intro} zuerst einige konzeptionelle Probleme angesprochen, die ein gewisses Verständnis dafür wecken sollen, warum \blx  so ist, wie es ist. Dann folgt in \cref{kap_blx} eine Vorstellung der Eigenschaften von \blx. Im Prinzip sollte man nach der Lektüre \blx  benutzen können, soweit man es bei den \Englisch{out of box}-Einstellungen beläßt. Sobald man Einstellungen ändern oder Befehle neu definieren möchte, wird man schwerlich umhinkommen, in das Handbuch zu schauen. In dem \blx-Teil gibt es nur wenige Bezüge zu \archbib. Es sollte also auch für Interessenten anderer Stile nützlich sein. Im \cref{kap_blxarch} werden die von \archbib  zur Verfügung gestellten Features etwas ausführlicher besprochen. Aber auch hier gilt, daß es sich um eine Einführung handelt, die die Handbuchlektüre auf Dauer nicht ersetzen kann.
+Vermutlich liegt bei den meisten Lesern der Erstkontakt mit \LaTeX{} noch nicht lange zurück. Und wahrscheinlich war \blx{} bzw. \archbib{} einer der wesentlichen Gründe für das Interesse. Deswegen werden in \cref{kap_intro} zuerst einige konzeptionelle Probleme angesprochen, die ein gewisses Verständnis dafür wecken sollen, warum \blx{} so ist, wie es ist. Dann folgt in \cref{kap_blx{} } eine Vorstellung der Eigenschaften von \blx{} . Im Prinzip sollte man nach der Lektüre \blx{} benutzen können, soweit man es bei den \Englisch{out of box}-Einstellungen beläßt. Sobald man Einstellungen ändern oder Befehle neu definieren möchte, wird man schwerlich umhinkommen, in das Handbuch zu schauen. In dem \blx{} -Teil gibt es nur wenige Bezüge zu \archbib{} . Es sollte also auch für Interessenten anderer Stile nützlich sein. Im \cref{kap_blx{} arch} werden die von \archbib{} zur Verfügung gestellten Features etwas ausführlicher besprochen. Aber auch hier gilt, daß es sich um eine Einführung handelt, die die Handbuchlektüre auf Dauer nicht ersetzen kann.
 \end{abstract}
  
 \tableofcontents
@@ -280,85 +326,85 @@ Ich gehe davon aus, daß schon minimale \LaTeX-Kenntnisse vorhanden sind. Sie so
 \item In Antiqua (proportionale Schrift mit Serifen, also die kleinen Fortsätze am Strichende zur Verstärkung des Linieneindrucks) steht der Fließtext.
 \item In \Datei{Grotesk (proportionale serifenlose Schrift)} stehen die Namen von Programmen (vulgo \enquote{Apps}) und Paketen. Für einige bekannte Systeme der \TeX-Welt gibt es Logos, z. B. \LaTeX. Auch gezählte wie ungezählte Überschriften werden so geschrieben, weil Serifen bei großer Schrift klobig wirken.
 \item In \texttt{nichtproportionaler Schrift} stehen Ein- und Ausgaben von Computern, Dateinamen, URLs und Code(fragmente). Ein Dollarzeichen am Zeilenanfang symbolisiert das Prompt eines Terminals, also z. B. \Kbd{C:\textbackslash{}Benutzer\textbackslash{}USERNAME>} der \Datei{cmd.exe} bzw. \Kbd{PS C:\textbackslash{}Benutzer\textbackslash{}\%USERNAME\%>} der PowerShell von Windows oder \Kbd{[<USERNAME>]<DIR>\#} auf der Bash eines Linuxsystems.
-\begin{Verbatim}
+\begin{lstlisting}
 $ latex -v
-\end{Verbatim}
+\end{lstlisting}
 z.\,B. gibt die Versionsnummer des aktuellen \LaTeX-Programms zurück.
 \end{itemize}
 
 \paragraph{standardisierte Pfade}
-Wenn man \TeX-Quellen zitiert, macht man dies üblicherweise nach dem folgenden Muster: \Kbd{CTAN:path/to/package}. Das Protokoll CTAN verweist auf das gleichnamige Softwarearchiv der \TeX-Welt \Englisch{Comprehensive \TeX  Archive Network}. Es ist aus Kapazitätsgründen unerwünscht, auf seine physikalische Adresse zu verlinken. \Kbd{CTAN:} ist gegen die physikalische Adresse eines möglichst nahegelegenen Spiegels zu ersetzen. Einer Liste solcher Spiegelserver findet sich auf \url{https://www.ctan.org/mirrors/}.
+Wenn man \TeX-Quellen zitiert, macht man dies üblicherweise nach dem folgenden Muster: \Kbd{CTAN:path/to/package}. Das Protokoll CTAN verweist auf das gleichnamige Softwarearchiv der \TeX-Welt \Englisch{Comprehensive \TeX{} Archive Network}. Es ist aus Kapazitätsgründen unerwünscht, auf seine physikalische Adresse zu verlinken. \Kbd{CTAN:} ist gegen die physikalische Adresse eines möglichst nahegelegenen Spiegels zu ersetzen. Einer Liste solcher Spiegelserver findet sich auf \url{https://www.ctan.org/mirrors/}.
 
-Auch die \TeX-Distributionen haben einen standardisierten Aufbau. Als \Datei{\%TEXMF} bezeichnet man den Wurzelordner einer \TeX-Installation, also bei \TeX  Live unter dem Ordner mit der Jahreszahl. In \Datei{\%TEXMFLOCAL} kann man lokale Dateien unterbringen, die beim Updaten nicht überschrieben werden sollen. \Datei{\%TEXMFHOME} ist ein Ordner für Dateien, die dem aktuellen Benutzerkonto zugeordent sind. Wenn \LaTeX  eine Datei sucht, z. B. weil sie mit \Befehl{usepackage} in ein Dokument eingebunden wurde, tut es das in der Reihenfolge \Datei{Dokumentenordner} – \Datei{\%TEXMFHOME} – \Datei{\%TEXMFLOCAL} – \Datei{\%TEXMF}. Außerhalb des Dokumentenordners sucht es allerdings nicht im Dateisystem, sondern in der Paketdatenbank, die man entsprechend updaten muß, wenn man neue Dateien installiert oder entfernt. Private Einstellungen wie z. B. Briefköpfe kann man in \Datei{\%TEXMFHOME/tex/latex/myconfig/myconfig.sty} ablegen. Ebenso kann man dort Entwicklerversionen von Paketen installieren. Wenn man sie nicht mehr braucht, löscht man sie einfach wieder, denn die aktuelle Produktivversion findet sich ja immer noch unangetastet in \Datei{\%TEXMF}.
+Auch die \TeX-Distributionen haben einen standardisierten Aufbau. Als \Datei{\%TEXMF} bezeichnet man den Wurzelordner einer \TeX-Installation, also bei \TeX{} Live unter dem Ordner mit der Jahreszahl. In \Datei{\%TEXMFLOCAL} kann man lokale Dateien unterbringen, die beim Updaten nicht überschrieben werden sollen. \Datei{\%TEXMFHOME} ist ein Ordner für Dateien, die dem aktuellen Benutzerkonto zugeordent sind. Wenn \LaTeX{} eine Datei sucht, z. B. weil sie mit \Befehl{usepackage} in ein Dokument eingebunden wurde, tut es das in der Reihenfolge \Datei{Dokumentenordner} – \Datei{\%TEXMFHOME} – \Datei{\%TEXMFLOCAL} – \Datei{\%TEXMF}. Außerhalb des Dokumentenordners sucht es allerdings nicht im Dateisystem, sondern in der Paketdatenbank, die man entsprechend updaten muß, wenn man neue Dateien installiert oder entfernt. Private Einstellungen wie z. B. Briefköpfe kann man in \Datei{\%TEXMFHOME/tex/latex/myconfig/myconfig.sty} ablegen. Ebenso kann man dort Entwicklerversionen von Paketen installieren. Wenn man sie nicht mehr braucht, löscht man sie einfach wieder, denn die aktuelle Produktivversion findet sich ja immer noch unangetastet in \Datei{\%TEXMF}.
 
 Die Dateien finden sich an folgenden Ablageorten
 
-Bei den \BibTeX-Datenbanken sind die Administratoren der Distributionen sehr zurückhaltend. Die von \archbib  mitgelieferten Datenbanken finden sich nur in MiK\TeX  im Standardpfad und werden ohne Pfadangabe gefunden. Auf \TeX  Live sind sie im Quellcode-Verzeichnis, wo nicht gesucht wird. Wenn man Pakete in \Datei{\%TEXMFLOCAL} oder \Datei{\%TEXMFHOME} installiert, muß man dieselben Hierarchien verwenden. Manche Pakete, so auch \blx  und \archbib  ab Version 2.2, liefern ein Archiv \Datei{<package>.tds.zip} mit. Darin sind die Dateien alle bereits in die richtigen Ordner einsortiert. Man kann sie einfach in einen der Wurzelordner entpacken, und alle Dateien sind dort, wo sie hingehören.
+Bei den \BibTeX-Datenbanken sind die Administratoren der Distributionen sehr zurückhaltend. Die von \archbib{} mitgelieferten Datenbanken finden sich nur in MiK\TeX{} im Standardpfad und werden ohne Pfadangabe gefunden. Auf \TeX{} Live sind sie im Quellcode-Verzeichnis, wo nicht gesucht wird. Wenn man Pakete in \Datei{\%TEXMFLOCAL} oder \Datei{\%TEXMFHOME} installiert, muß man dieselben Hierarchien verwenden. Manche Pakete, so auch \blx{} und \archbib{} ab Version 2.2, liefern ein Archiv \Datei{<package>.tds.zip} mit. Darin sind die Dateien alle bereits in die richtigen Ordner einsortiert. Man kann sie einfach in einen der Wurzelordner entpacken, und alle Dateien sind dort, wo sie hingehören.
 
 Die Handbücher braucht man nicht im Dateisystem zu suchen. Folgender Konsolenbefehl tut es auch:
-\begin{Verbatim}
+\begin{lstlisting}
 $ texdoc <package>
-\end{Verbatim}
+\end{lstlisting}
 
 \paragraph{Argumente von Kommandos}
 Verpflichtende Argumente von Kommandos werden in geschweifte Klammern gesetzt; optionale fast immer in eckige, selten auch in runde:
-\begin{Verbatim}
+\begin{lstlisting}
 $ \kommando{verpflichtend 1}[optional 1][optional 2]{verpflichtend 2}
+\end{lstlisting}
 Leider kann man sich nicht hundertprozentig darauf verlassen, aber in diesem Dokument ist das so.
-\end{Verbatim}
 
-\section{Soll man \LaTeX  überhaupt in den deutschsprachigen Geisteswissenschaften verwenden?}
+\section{Soll man \LaTeX{} überhaupt in den deutschsprachigen Geisteswissenschaften verwenden?}
 
-Da vermutlich so mancher in dieses Dokument sieht, um sich zu fragen, ob eine Beschäftigung mit \LaTeX  überhaupt aussichtsreich ist, will ich versuchen, hierzu ein paar Entscheidungshilfen zu geben.
+Da vermutlich so mancher in dieses Dokument sieht, um sich zu fragen, ob eine Beschäftigung mit \LaTeX{} überhaupt aussichtsreich ist, will ich versuchen, hierzu ein paar Entscheidungshilfen zu geben.
 
-\LaTeX  (Sprich \enquote{Lahtech} -- das vermeintliche X ist ein griechisches Chi) ist eigentlich nur eine Makrosprache für \TeX{}. \TeX  wurde 197x von dem bedeutenden Informatiker Donald Knuth entwickelt, weil er sich über den armseligen Mathematiksatz in den Fachzeitschriften geärgert hatte. Seine Popularität verdankt es neben dem Umstand, daß es typographisch ein Riesenfortschritt war, auch der Lizenz, die es auch zur kommerziellen Nutzung freigab. Da reines \TeX  schwer zu schreiben ist, entwickelte Leslie \textbf{La}mport die Makrosprache \LaTeX  -- nicht die einzige, aber die populärste und mit den meisten Erweiterungen gesegnete. Später ging er übrigens zu Microsoft und war einer der wesentlichen Entwickler von MS Word.
+\LaTeX{} (Sprich \enquote{Lahtech} -- das vermeintliche X ist ein griechisches Chi) ist eigentlich nur eine Makrosprache für \TeX{}. \TeX{} wurde 197x von dem bedeutenden Informatiker Donald Knuth entwickelt, weil er sich über den armseligen Mathematiksatz in den Fachzeitschriften geärgert hatte. Seine Popularität verdankt es neben dem Umstand, daß es typographisch ein Riesenfortschritt war, auch der Lizenz, die es auch zur kommerziellen Nutzung freigab. Da reines \TeX{} schwer zu schreiben ist, entwickelte Leslie \textbf{La}mport die Makrosprache \LaTeX{} -- nicht die einzige, aber die populärste und mit den meisten Erweiterungen gesegnete. Später ging er übrigens zu Microsoft und war einer der wesentlichen Entwickler von MS Word.
 
-Die Frage nach der besten Software ist für gewöhnlich sehr ideologielastig -- vermutlich hat jeder schon  einmal solche ebenso ermüdenden wie fruchtlosen Debatten in den sozialen Medien gesehen. Für \LaTeX  gibt es offensichtlich zwei schwere Hypotheken:
+Die Frage nach der besten Software ist für gewöhnlich sehr ideologielastig -- vermutlich hat jeder schon  einmal solche ebenso ermüdenden wie fruchtlosen Debatten in den sozialen Medien gesehen. Für \LaTeX{} gibt es offensichtlich zwei schwere Hypotheken:
 \begin{enumerate}
-\item \LaTeX  hat eine sehr steile Lernkurve, die bei Anfängern erheblich Frust erzeugen kann, wenn viel Zeit für die Suche nach den Ursachen von Fehlermeldungen aufgewendet wird.
+\item \LaTeX{} hat eine sehr steile Lernkurve, die bei Anfängern erheblich Frust erzeugen kann, wenn viel Zeit für die Suche nach den Ursachen von Fehlermeldungen aufgewendet wird.
 \item Geisteswissenschaftliche Zeitschriften aus dem deutschen Sprachraum akzeptieren in aller Regel keine \LaTeX-Quellen.
 \end{enumerate}
-Es ist absolut verständlich, wenn man deshalb \LaTeX  nicht verwenden möchte. Die Vorteile von \LaTeX  erschließen sich desto besser, je komplexer Dokumente werden.
+Es ist absolut verständlich, wenn man deshalb \LaTeX{} nicht verwenden möchte. Die Vorteile von \LaTeX{} erschließen sich desto besser, je komplexer Dokumente werden.
 \begin{enumerate}
-\item Es gibt ein riesiges Archiv von Erweiterungen (CTAN = \Englisch{Comprehensive \TeX  Archive Network})
+\item Es gibt ein riesiges Archiv von Erweiterungen (CTAN = \Englisch{Comprehensive \TeX{} Archive Network})
 \item Der Satz ist erheblich präziser als bei Textverarbeitungsprogrammen.
 \item Das Automatisierungspotential ist sehr viel höher als bei Textverarbeitungsprogrammen. Zudem ist es als Konsolenprogramm sehr gut zu \Englisch{social engineering} fähig, also zur Kommunikation mit anderen Programmen und Programmiersprachen.
 \item Es ist kostenlos beziehbar. Daß die Lizenz den kommerziellen Einsatz uneingeschränkt erlaubt, wurde oben schon erwähnt.
 \item Es ist mittlerweile ziemlich gut möglich, \LaTeX-Dokumente in HTML oder XML-basierte Formate wie ODT oder DOCX zu konvertieren.
-\item \LaTeX  ist nebenbei auch ein enorm mächtiges Grafikprogramm.
+\item \LaTeX{} ist nebenbei auch ein enorm mächtiges Grafikprogramm.
 \end{enumerate}
 
-Mit \LaTeX  kann man nicht nur die üblichen Aufgaben des Textsatzes erledigen, sondern auch Bibliographien, Indices und Glossare automatisiert erstellen, Atommodelle und Landkarten zeichnen, Noten in Partituren stechen, Schachpartien direkt aus Datenbanken ausdrucken, Funktionsgraphen plotten, ausführbaren Code in anderen Programmiersprachen einbetten etc. pp.
+Mit \LaTeX{} kann man nicht nur die üblichen Aufgaben des Textsatzes erledigen, sondern auch Bibliographien, Indices und Glossare automatisiert erstellen, Atommodelle und Landkarten zeichnen, Noten in Partituren stechen, Schachpartien direkt aus Datenbanken ausdrucken, Funktionsgraphen plotten, ausführbaren Code in anderen Programmiersprachen einbetten etc. pp.
 
-Als ich begann, mich mit \LaTeX  zu befassen, hörte man noch gruselige Geschichten von Diplomarbeiten in MS Word, die nach ihrem finalen Wachstum kurz vor Abgabe abstürzten. Damals erreichten die Bürocomputer allerdings auch nur einen Bruchteil ihrer heutigen Performanz und waren mit großen, grafikreichen Dokumenten tatsächlich stark belastet. Ich weiß nicht, ob das Problem wirklich je so groß war, wie gerne kolportiert wird, aber diese Geschichten haben sich längst verflüchtigt. Mittlerweile kann man auch PDF exportieren (das gab es noch nicht, als ich es das letztemal benutzt habe). Die Satzqualität ist deutlich geringer als mit \LaTeX. Trotzdem werden heute Bücher (etwa in den \Englisch{Print on demand}-Verlagen) direkt von MS Word-Vorlagen gedruckt, und die Satzqualität ist auch nicht so schlecht, daß man sie überhaupt nicht mehr in die Hand nehmen mag. Daß die Satzqualität schlechter ist, ist konzeptbedingt. Textverarbeitungsprogramme wie MS Word, LibreOffice und dergleichen verfahren nach dem WYSIWYG-Prinzip: \Englisch{What You See Is What You Get}. Das funktioniert nur, wenn die sehr komplexen Satzberechnungen in Echtzeit ausgeführt werden, weil sonst der Bildschirm während des Renderns einfrieren würde. In \LaTeX  hingegen wird nur auf ausdrückliche Benutzeranweisung gerendert, und man kann auf das Ergebnis warten.
+Als ich begann, mich mit \LaTeX{} zu befassen, hörte man noch gruselige Geschichten von Diplomarbeiten in MS Word, die nach ihrem finalen Wachstum kurz vor Abgabe abstürzten. Damals erreichten die Bürocomputer allerdings auch nur einen Bruchteil ihrer heutigen Performanz und waren mit großen, grafikreichen Dokumenten tatsächlich stark belastet. Ich weiß nicht, ob das Problem wirklich je so groß war, wie gerne kolportiert wird, aber diese Geschichten haben sich längst verflüchtigt. Mittlerweile kann man auch PDF exportieren (das gab es noch nicht, als ich es das letztemal benutzt habe). Die Satzqualität ist deutlich geringer als mit \LaTeX. Trotzdem werden heute Bücher (etwa in den \Englisch{Print on demand}-Verlagen) direkt von MS Word-Vorlagen gedruckt, und die Satzqualität ist auch nicht so schlecht, daß man sie überhaupt nicht mehr in die Hand nehmen mag. Daß die Satzqualität schlechter ist, ist konzeptbedingt. Textverarbeitungsprogramme wie MS Word, LibreOffice und dergleichen verfahren nach dem WYSIWYG-Prinzip: \Englisch{What You See Is What You Get}. Das funktioniert nur, wenn die sehr komplexen Satzberechnungen in Echtzeit ausgeführt werden, weil sonst der Bildschirm während des Renderns einfrieren würde. In \LaTeX{} hingegen wird nur auf ausdrückliche Benutzeranweisung gerendert, und man kann auf das Ergebnis warten.
 
-Ein weiterer Nachteil von \LaTeX  war lange Zeit die fehlende Konvertierbarkeit seiner Ausgabeformate. Es wird normalerweise PDF erzeugt; andere Optionen sind PS und DVI. Das sind alles Grafikformate, die keine Informationen zur Textgliederung (Überschrift, Absatz, Fußnote, Seitenzahl etc.) enthalten. Zudem ist nicht alles, was beim Nutzer als Text ankommt, in der Datei überhaupt als solcher codiert. Zwar gibt es viele PDF zu DOC/RTF-Konverter, aber die erstellen kein gegliedertes Dokument, sondern äffen die Positonierungen des Originals nach. Man emuliert also praktisch eine Grafikdatei im Zielformat. Da es aber immer notwendiger wurde, \LaTeX{}-Dokumente vor allem für Webservices und Screenreader zu konfektionieren, wurden zahlreiche  Konverter entwickelt. Zwei Projekte sind heutzutage interessant und zeigen auch mit \archbib  ordentliche Resultate:
-\Paket{\LaTeXML{}} für HTML und \Paket{tex4ht} für HTML und allerlei XML-basierte Formate (EPUB für E-Books z.\,B.). Mit letzterem kann man ODT-Dateien erzeugen, die auch MS Word lesen kann. Der Vorgang ist wie alles an \LaTeX  nicht so ganz einfach, aber er funktioniert soweit, daß man ihn nicht meiden muß. Wir widmen der Konvertierung noch ein eigenes Kapitel.
+Ein weiterer Nachteil von \LaTeX{} war lange Zeit die fehlende Konvertierbarkeit seiner Ausgabeformate. Es wird normalerweise PDF erzeugt; andere Optionen sind PS und DVI. Das sind alles Grafikformate, die keine Informationen zur Textgliederung (Überschrift, Absatz, Fußnote, Seitenzahl etc.) enthalten. Zudem ist nicht alles, was beim Nutzer als Text ankommt, in der Datei überhaupt als solcher codiert. Zwar gibt es viele PDF zu DOC/RTF-Konverter, aber die erstellen kein gegliedertes Dokument, sondern äffen die Positonierungen des Originals nach. Man emuliert also praktisch eine Grafikdatei im Zielformat. Da es aber immer notwendiger wurde, \LaTeX{}-Dokumente vor allem für Webservices und Screenreader zu konfektionieren, wurden zahlreiche  Konverter entwickelt. Zwei Projekte sind heutzutage interessant und zeigen auch mit \archbib{} ordentliche Resultate:
+\Paket{\LaTeXML{}} für HTML und \Paket{tex4ht} für HTML und allerlei XML-basierte Formate (EPUB für E-Books z.\,B.). Mit letzterem kann man ODT-Dateien erzeugen, die auch MS Word lesen kann. Der Vorgang ist wie alles an \LaTeX{} nicht so ganz einfach, aber er funktioniert soweit, daß man ihn nicht meiden muß. Wir widmen der Konvertierung noch ein eigenes Kapitel.
 
-Der wesentliche Unterschied von \TeX{}basierten Satzsystemen und WYSIWYG-Editoren besteht darin, daß bei \TeX  eine Quellcode-Datei zu einer Grafikdatei kompiliert wird. Die Quelldatei bleibt dabei unangetastet; man hat nach der Kompilierung zwei Dateien (i.\,d\,R. \Datei{jobname.tex} und \Datei{jobname.pdf}). Im Gegensatz dazu erzeugen WYSIWYG-Textverarbeiter die grafische Anzeige direkt aus der Quelle. Die Quelldatei (DOC, DOCX, RTF, RTFX, ODT etc.) ist auch gleichzeitig Ausgabedatei. Das hat Folgen auch für die Entwicklung von Zitier- und Bibliographiersoftware. Daß kommerzielle Bibliographierprogramme wie Endnote und Citavi verglichen mit dem kostenlosen \blx  fast schon primitiv wirken, hat sicherlich nichts mit fehlender Kompetenz ihrer Schöpfer zu tun, sondern mit den Einschränkungen der Grundsysteme, auf die sie aufsetzen.
+Der wesentliche Unterschied von \TeX{}basierten Satzsystemen und WYSIWYG-Editoren besteht darin, daß bei \TeX{} eine Quellcode-Datei zu einer Grafikdatei kompiliert wird. Die Quelldatei bleibt dabei unangetastet; man hat nach der Kompilierung zwei Dateien (i.\,d\,R. \Datei{jobname.tex} und \Datei{jobname.pdf}). Im Gegensatz dazu erzeugen WYSIWYG-Textverarbeiter die grafische Anzeige direkt aus der Quelle. Die Quelldatei (DOC, DOCX, RTF, RTFX, ODT etc.) ist auch gleichzeitig Ausgabedatei. Das hat Folgen auch für die Entwicklung von Zitier- und Bibliographiersoftware. Daß kommerzielle Bibliographierprogramme wie Endnote und Citavi verglichen mit dem kostenlosen \blx{} fast schon primitiv wirken, hat sicherlich nichts mit fehlender Kompetenz ihrer Schöpfer zu tun, sondern mit den Einschränkungen der Grundsysteme, auf die sie aufsetzen.
 
-Es mag nun jeder für sich selbst entscheiden, ob ihm das den Lernaufwand wert ist. Eine geplante Dissertation dürfte es wohl sein, denn \blx  ist ganz erheblich mächtiger als die MS Word-Addons von Citavi oder Zotero und spart allein beim Korrekturlesen mehrere Tage Zeit.
+Es mag nun jeder für sich selbst entscheiden, ob ihm das den Lernaufwand wert ist. Eine geplante Dissertation dürfte es wohl sein, denn \blx{} ist ganz erheblich mächtiger als die MS Word-Addons von Citavi oder Zotero und spart allein beim Korrekturlesen mehrere Tage Zeit.
 
-\subsection{Semantische statt lokaler Auszeichnungen}
-In \LaTeX  ist es meist falsch, Textauszeichnungen direkt in den Text zu setzen. Stellen sie sich folgendes Beispiel eines Textes vor, in dem fremdsprachige Ausdrücke und Werktitel kursiv gesetzt werden sollen:
-\paragraph{FALSCH: lokale Auszeichnung}
-\begin{Verbatim}[breaklines=true]
+\section{Semantische statt lokaler Auszeichnungen}
+In \LaTeX{} ist es meist falsch, Textauszeichnungen direkt in den Text zu setzen. Stellen sie sich folgendes Beispiel eines Textes vor, in dem fremdsprachige Ausdrücke und Werktitel kursiv gesetzt werden sollen:
+\subsection*{FALSCH: lokale Auszeichnung}
+\begin{lstlisting}
 \documentclass[12pt]{scrartcl}
 \begin{document}
 Ein gutes Beispiel für einen \textit{locus amoenus} findet sich in den \textit{Metamorphosen} von Ovid.
 \end{document}
-\end{Verbatim}
+\end{lstlisting}
 Wenn man jetzt bei der Endredaktion auf den Gedanken kommt, daß die Werktitel doch besser in Anführungszeichen stünden, müßte man den gesamten Text durchgehen und die nicht eindeutigen Auszeichnungen einzeln ändern. Deshalb
-\paragraph{RICHTIG: semantische Auszeichnung}
-\begin{Verbatim}[breaklines=true]
+\subsection*{RICHTIG: semantische Auszeichnung}
+\begin{lstlisting}
 \documentclass[12pt]{scrartcl}
-\newcommand*{Fremdsprache}[1]{\textit{#1}}
-\newcommand*{Werktitel}[1]{\textit{#1}}
+\newcommand*{\Fremdsprache}[1]{\textit{#1}}
+\newcommand*{\Werktitel}[1]{\textit{#1}}
 \begin{document}
 Ein gutes Beispiel für einen \Fremdsprache{locus amoenus} findet sich in den \Werktitel{Metamorphosen} von Ovid.
 \end{document}
-\end{Verbatim}
-Hier würde man im selben Fall nur das \Befehl{Werktitel}-Kommando ändern. In WYSIWYG-Editoren sind semantische Auszeichnungen nur sehr eingeschränkt möglich. Die Nutzer greifen die zu formatierenden Stellen üblicherweise mit der Maus und ändern sie lokal. Es gibt zwar auch dort die Möglichkeit, Marken in den Text zu setzen und dann mit Makros zu formatieren, aber dieser Vorgang läßt sich nicht rückgängig machen, weil man keine vor Interpretereingriffen geschützte Quelldatei hat, die vor den Eingriffen des Renderns der Grafik geschützt wäre. Für das Bibliographieren hat das auch Folgen, denn ein Bibliographierprogramm braucht Informationen über die Gestalt des Haupttextes. Manche Stile z.\,B. setzen das Literaturverzeichnis in eine geringere Schriftgröße als den Fließtext, weil Verzeichnisse nicht dessen hohen Lesbarkeitsanforderungen genügen müssen. In \LaTeX  gibt man die Schriftgröße normalerweise nur einmal absolut als Parameter der Dokumentenklasse an und beschreibt lokale Änderungen dann nur noch relativ (\Befehl{HUGE}, \Befehl{footnotesize} etc.). Die für die Berechnungen relevante Normgröße wäre selbst dann bekannt, wenn sie im Text immer geändert worden ist. In den Dokumentenformaten der WYSIWYG-Editoren fehlt eine solche Norm, weil alles nur lokal ausgezeichnet ist.
+\end{lstlisting}
+Hier würde man im selben Fall nur das \Befehl{Werktitel}-Kommando ändern. In WYSIWYG-Editoren sind semantische Auszeichnungen nur sehr eingeschränkt möglich. Die Nutzer greifen die zu formatierenden Stellen üblicherweise mit der Maus und ändern sie lokal. Es gibt zwar auch dort die Möglichkeit, Marken in den Text zu setzen und dann mit Makros zu formatieren, aber dieser Vorgang läßt sich nicht rückgängig machen, weil man keine vor Interpretereingriffen geschützte Quelldatei hat, die vor den Eingriffen des Renderns der Grafik geschützt wäre. Für das Bibliographieren hat das auch Folgen, denn ein Bibliographierprogramm braucht Informationen über die Gestalt des Haupttextes. Manche Stile z.\,B. setzen das Literaturverzeichnis in eine geringere Schriftgröße als den Fließtext, weil Verzeichnisse nicht dessen hohen Lesbarkeitsanforderungen genügen müssen. In \LaTeX{} gibt man die Schriftgröße normalerweise nur einmal absolut als Parameter der Dokumentenklasse an und beschreibt lokale Änderungen dann nur noch relativ (\Befehl{HUGE}, \Befehl{footnotesize} etc.). Die für die Berechnungen relevante Normgröße wäre selbst dann bekannt, wenn sie im Text immer geändert worden ist. In den Dokumentenformaten der WYSIWYG-Editoren fehlt eine solche Norm, weil alles nur lokal ausgezeichnet ist.
 
 \section{Seitenaufbau}
 Beim Zitieren und Bibliographieren braucht man Kenntnisse des konkreten Seitenaufbaus, darunter leicht veränderlicher Werte wie Seiten- und Fußnotenzähler. Es gibt z. B. Regeln, die besagen, daß man komprimierte Wiederholungszitate auf jeder neuen Seite erst einmal wieder voll ausschreiben soll. Dafür muß man wissen, ob sich der Seitenzähler seit dem letzten Zitat desselben Werkes geändert hat. Das geht schlecht, wenn man das Zitat beim Einsetzen direkt formatiert und damit seinen maschinenlesbaren Code vernichtet -- es sei denn, man kann wie der späte Mozart auch komplexere Werke ganz ohne Korrekturen niederschreiben. Mit den Fußnoten ergibt sich das Problem ganz konkret im geisteswissenschaftlichen RGK-Stil: ob man Wiederholungszitate mit \enquote{aao.}, \enquote{Ebd.} oder \enquote{(Anm.~15)} markiert, hängt davon ab, ob die Differenz des Fußnotenzählers zum letzten Zitat desselben Werkes 0, 1 oder viele beträgt.
@@ -367,13 +413,13 @@ Beim Zitieren und Bibliographieren braucht man Kenntnisse des konkreten Seitenau
 Bei Textrevisionen müssen die Zitate verändert werden können. Wenn man ein Zitat entfernt, muß geprüft werden, ob es auch aus dem Literaturverzeichnis entfernt werden muß oder ob es nochmal vorkommt. Man muß aus dem Zitat eines einzelnen Werkes das mehrerer machen können. Zitatformen können sich ändern, wenn der Satzbau umgestellt wird, z.\,B. \enquote{lorem ipsum (Müller \& Meier 2019, 56)} zu \enquote{Müller und Meier (2019, 56) behaupten, dass lorem ipsum}. Und nicht zuletzt müssen auch Korrekturen in der Literaturdatenbank in den Text eingepflegt werden. Dafür ist es notwendig, daß im Quelltext die maschinenlesbaren Marken erhalten bleiben. Das ist wahrscheinlich der größte Vorteil einer separaten Quellcodedatei, die beim Rendern unangetastet bleibt.
 
 \section{Noch ein Hinweis zu den Distributionen}
-Da das Problem mit verschiedenen \TeX-Distributionen in einer Nutzerreaktion zu \archbib  auftauchte: Es ist egal, ob man \TeX  Live oder MiK\TeX  verwendet (andere wie z.\,B. Mac\TeX  satteln auf einer von diesen beiden auf). \TeX  Live ist etwas größer, während MiK\TeX  eine für Windowsnutzer gewohntere Benutzerführung hat. Wenn man an mehreren Computern arbeitet, muß man allerdings sehr darauf achten, daß man immer denselben Zustand der Distribution hat. \TeX  Live kann man täglich updaten, MiK\TeX  wöchentlich. Onlinedienste wie Overleaf oder ArXiv können das nicht. Es kann immer mal passieren, daß es in der Ladekette eines Paketes zu inkompatiblen Änderungen kommt. Onlinedienste brauchen aber langfristige Stabilität. Ähnliches gilt für die über Paketmanager wie \Paket{yum}, \Paket{APT}, \Paket{RPM} oder \Paket{dpkg} ausgelieferten Versionen. Auch die werden für gewöhnlich nur in längeren Abständen erneuert und sind mitunter auch nur Minimalinstallationen bzw. in mehrere thematische Pakete aufgeteilt. Wenn man auf mehreren Computern des gleichen Betriebssystems arbeitet, lassen sich beide Distributionen portabel auf USB-Sticks installieren. Da kann man dann auch gleich ein Backup der Distribution machen, falls nach einem Update etwas nicht mehr funktioniert.
+Da das Problem mit verschiedenen \TeX-Distributionen in einer Nutzerreaktion zu \archbib{} auftauchte: Es ist egal, ob man \TeX{} Live oder MiK\TeX{} verwendet (andere wie z.\,B. Mac\TeX{} satteln auf einer von diesen beiden auf). \TeX{} Live ist etwas größer, während MiK\TeX{} eine für Windowsnutzer gewohntere Benutzerführung hat. Wenn man an mehreren Computern arbeitet, muß man allerdings sehr darauf achten, daß man immer denselben Zustand der Distribution hat. \TeX{} Live kann man täglich updaten, MiK\TeX{} wöchentlich. Onlinedienste wie Overleaf oder ArXiv können das nicht. Es kann immer mal passieren, daß es in der Ladekette eines Paketes zu inkompatiblen Änderungen kommt. Onlinedienste brauchen aber langfristige Stabilität. Ähnliches gilt für die über Paketmanager wie \Paket{yum}, \Paket{APT}, \Paket{RPM} oder \Paket{dpkg} ausgelieferten Versionen. Auch die werden für gewöhnlich nur in längeren Abständen erneuert und sind mitunter auch nur Minimalinstallationen bzw. in mehrere thematische Pakete aufgeteilt. Wenn man auf mehreren Computern des gleichen Betriebssystems arbeitet, lassen sich beide Distributionen portabel auf USB-Sticks installieren. Da kann man dann auch gleich ein Backup der Distribution machen, falls nach einem Update etwas nicht mehr funktioniert.
 
 \section{Unerläßlich für den Support: das Minimalbeispiel}\label{kap_mwe}
 Im Internet gibt es sehr viele Orte, wo man Probleme mit \LaTeX-Code besprechen kann. Der meistfrequentierte ist wohl die englischsprachige Internetseite \url{https://tex.stackexchange.com/}. Dort trifft man auf viele bekannte Experten. Deutschsprachige Foren sind \url{https://golatex.de/} und \url{https://texwelt.de/}. Ansonsten hilft häufig auch Googeln -- man ist selten der Erste, der das Problem hat oder eine bestimmte Fehlermeldung sieht.
 
-\paragraph{Wichtig! Wichtig! Wichtig!} Wenn man Fragen auf diesen Seiten postet, sollte man unbedingt ein Minimalbeispiel (\url{https://minimalbeispiel.de/}) beifügen. Ein solches Minimalbeispiel oder MWE (\Englisch{minimal working example}) versucht, das Problem mit \textbf{so wenig Code wie möglich} zu reproduzieren. Man lädt vor allem nur die Pakete, die man unbedingt dazu braucht. Lauffähig muß es allerdings sein. Häufig führt alleine das Herstellen eines MWE dazu, daß man das Problem löst. Ein Minimalbeispiel für \blx  oder \archbib  sieht so aus:
-\begin{Verbatim}[breaklines=true]
+\paragraph{Wichtig! Wichtig! Wichtig!} Wenn man Fragen auf diesen Seiten postet, sollte man unbedingt ein Minimalbeispiel (\url{https://minimalbeispiel.de/}) beifügen. Ein solches Minimalbeispiel oder MWE (\Englisch{minimal working example}) versucht, das Problem mit \textbf{so wenig Code wie möglich} zu reproduzieren. Man lädt vor allem nur die Pakete, die man unbedingt dazu braucht. Lauffähig muß es allerdings sein. Häufig führt alleine das Herstellen eines MWE dazu, daß man das Problem löst. Ein Minimalbeispiel für \blx{} oder \archbib{} sieht so aus:
+\begin{lstlisting}
 \documentclass[12pt]{article}
 \usepackage[style=rgk-verbose]{biblatex}
 \addbibresource{biblatex-examples.bib}
@@ -381,13 +427,12 @@ Im Internet gibt es sehr viele Orte, wo man Probleme mit \LaTeX-Code besprechen 
 \begin{document}
 Das ist ein Zitat\autocite{nietzsche:ksa1}.
 \end{document}
-\end{Verbatim}
+\end{lstlisting}
 
-Wenn man jetzt den Verdacht hat, daß \blx  oder \archbib  mit einem anderen Paket nicht korrekt zusammenwirkt, dann lädt man es und paßt den Ausgabetext entsprechend an. Nach dem kompilieren weiß man, ob der Verdacht richtig war.
+Wenn man jetzt den Verdacht hat, daß \blx{} oder \archbib{} mit einem anderen Paket nicht korrekt zusammenwirkt, dann lädt man es und paßt den Ausgabetext entsprechend an. Nach dem kompilieren weiß man, ob der Verdacht richtig war.
 
-Die Beispieldatenbank von \blx  \Datei{biblatex-examples.bib} wird auch ohne Pfadangabe gefunden. Für die entsprechende \Datei{biblatex-archaeology-example.bib} gilt das leider nur auf MiK\TeX. Will man eigene bibliographische Daten für das MWE bereitstellen, bietet sich die \Umgebung{filecontents} an\footnote{Vor September 2019 mußte man dafür noch das gleichnamige Paket laden.}. Damit kann man im Header Dateien einfügen, die bei der Kompilierung ausgegeben werden:
-\begin{Verbatim}[breaklines=true]
-\documentclass[12pt]{article}
+Die Beispieldatenbank von \blx{} \Datei{biblatex-examples.bib} wird auch ohne Pfadangabe gefunden. Für die entsprechende \Datei{biblatex-archaeology-example.bib} gilt das leider nur auf MiK\TeX. Will man eigene bibliographische Daten für das MWE bereitstellen, bietet sich die \Umgebung{filecontents} an\footnote{Vor September 2019 mußte man dafür noch das gleichnamige Paket laden.}. Damit kann man im Header Dateien einfügen, die bei der Kompilierung ausgegeben werden:
+\begin{lstlisting}
 \begin{filecontents}[overwrite]{\jobname.bib} 
 @MISC{mwe,
 	author = {Ingram Braun},
@@ -395,38 +440,38 @@ Die Beispieldatenbank von \blx  \Datei{biblatex-examples.bib} wird auch ohne Pfa
 	date   = {2020},
 }
 \end{filecontents}
+\documentclass[12pt]{article}
 \usepackage[style=rgk-verbose]{biblatex}
 \addbibresource{\jobname.bib}
 
 \begin{document}
 Das ist ein Zitat\autocite{mwe}.
 \end{document}
-\end{Verbatim}
+\end{lstlisting}
 
 MWEs kann man auch benutzen, wenn man komplizierte Aufbauten (unregelmäßige Tabellen, Strukturgraphiken etc.) basteln oder überhaupt etwas ausprobieren will. Schon einfach, weil sie schneller kompilieren als umfangreiche Dokumente. Es ist vermutlich auch keine schlechte Idee, zum Lernen die ganzen Codefragmente in diesem Dokument mal in die MWE-Schablonen einzusetzen.
 
-\chapter{\blx  Grundlagen}\label{kap_blx}
-
+\chapter{\blx{} Grundlagen}\label{kap_blx{} }
 
 \section{Konzept}\label{kap_concept}
 
-Als Oren Patashnik 198x \BibTeX  entwarf, stand er vor dem Problem, daß man mit \LaTeX  nicht gut sortieren kann. Deshalb schrieb er ein Hilfsprogramm in C, das mit Dateien \Datei{<style>.bst} konfiguriert werden kann. Der Ablauf war so, daß in einem erstem \LaTeX-Lauf alle Zitationsschlüssel in der ohnehin vorhandenen Hilfsdatei \Datei{<jobname>.aux} gesammelt wurden. \BibTeX  las sie aus. Meistens war dann noch ein zweiter \BibTeX-Lauf nötig, um die in dem \Feld{crossreference}-Feld gefundenen Schlüssel zu bearbeiten. \BibTeX  erstellte eine Datei \Datei{<jobname>.bbl}, in der die Zitate fertig mit \LaTeX-Markup vorlagen. Ein zweiter \LaTeX-Lauf fügte diese dann in das Dokument ein. Im Laufe der Zeit enstanden viele Stile für spezielle Zwecke. Es zeigten sich aber auch immer mehr die Grenzen des Konzepts. Daß ich dasselbe Werk in verschiedenen Kontexten verschieden formatiert haben will, ist nicht vorgesehen -- das \LaTeX-Markup in der bbl-Datei ist nicht mehr veränderlich. Die polnische Notation der bst-Dateien war mit bloßen \TeX-kenntnissen nicht zu verstehen. Es gab zwar viele Stile für alle nur erdenklichen Zwecke, aber man konnte immer nur einen davon laden. Es ist deshalb z. B. nicht möglich, das Paket für kapitelweise Literaturverzeichnisse in einem beliebigen Stil ablaufen zu lassen.
+Als Oren Patashnik 198x \BibTeX{} entwarf, stand er vor dem Problem, daß man mit \LaTeX{} nicht gut sortieren kann. Deshalb schrieb er ein Hilfsprogramm in C, das mit Dateien \Datei{<style>.bst} konfiguriert werden kann. Der Ablauf war so, daß in einem erstem \LaTeX-Lauf alle Zitationsschlüssel in der ohnehin vorhandenen Hilfsdatei \Datei{<jobname>.aux} gesammelt wurden. \BibTeX{} las sie aus. Meistens war dann noch ein zweiter \BibTeX-Lauf nötig, um die in dem \Feld{crossreference}-Feld gefundenen Schlüssel zu bearbeiten. \BibTeX{} erstellte eine Datei \Datei{<jobname>.bbl}, in der die Zitate fertig mit \LaTeX-Markup vorlagen. Ein zweiter \LaTeX-Lauf fügte diese dann in das Dokument ein. Im Laufe der Zeit enstanden viele Stile für spezielle Zwecke. Es zeigten sich aber auch immer mehr die Grenzen des Konzepts. Daß ich dasselbe Werk in verschiedenen Kontexten verschieden formatiert haben will, ist nicht vorgesehen -- das \LaTeX-Markup in der bbl-Datei ist nicht mehr veränderlich. Die polnische Notation der bst-Dateien war mit bloßen \TeX-kenntnissen nicht zu verstehen. Es gab zwar viele Stile für alle nur erdenklichen Zwecke, aber man konnte immer nur einen davon laden. Es ist deshalb z. B. nicht möglich, das Paket für kapitelweise Literaturverzeichnisse in einem beliebigen Stil ablaufen zu lassen.
 
-Um 2005 herum beschloß Philip Lehman deshalb, einen weithehend frei programmierbaren Universalstil namens \blx  zu entwickeln. Die Grundidee dabei: \BibTeX  sollte nur noch die Sortierung erledigen. Alles andere sollte in \LaTeX-Makros vorliegen, damit Nutzer mit durchschnittlichen \LaTeX-Kenntnissen auf gewohnte Weise durch Definition neuer Makros oder Veränderung bestehender ihre Bedürfnisse umsetzen konnten. \blx  kommt mit einer Sammlung verschiedener Varianten aller wesentlichen Stilfamilien (Numerisch, Autor/Jahr, Autor/Title, Fußnoten). Zudem vereinigte \blx  zahlreiche Aufgaben, für die es vorher spezielle bst-Dateien gab, so daß sie mit jedem beliebigen \blx-Stil kombinierbar sind. Da in der bbl-Datei kein \LaTeX-Markup mehr steht (es sei denn, es befand sich schon in der Datenbank), sind verschiedene Zitationen desselben Werks frei formatierbar. Bezahlt wurde das mit einer riesigen, schwer zu wartenden Codebasis, die trotz eines 400-Seiten-Handbuches auch deutliche Lücken in der Dokumentation aufweist. Zumal sein Schöpfer Philip Lehman -- offenbar ein Pseudonym -- seit 2012 wie vom Erdboden verschluckt ist. Zum Glück fanden sich immer wieder Freiwillige, die das Paket weiter gepflegt haben. Philipp Kime hat mit \Biber einen wesentlich leistungsstärkeren Ersatz für das in die Jahre gekommene \BibTeX  erstellt. \blx  wird z. Zt. hauptsächlich von Moritz Wemheuer gepflegt. \blx  funktioniert grundsätzlich noch mit \BibTeX, allerdings sind viele Features nur mit \Biber nutzbar. 
+Um 2005 herum beschloß Philip Lehman deshalb, einen weithehend frei programmierbaren Universalstil namens \blx{} zu entwickeln. Die Grundidee dabei: \BibTeX{} sollte nur noch die Sortierung erledigen. Alles andere sollte in \LaTeX-Makros vorliegen, damit Nutzer mit durchschnittlichen \LaTeX-Kenntnissen auf gewohnte Weise durch Definition neuer Makros oder Veränderung bestehender ihre Bedürfnisse umsetzen konnten. \blx{} kommt mit einer Sammlung verschiedener Varianten aller wesentlichen Stilfamilien (Numerisch, Autor/Jahr, Autor/Title, Fußnoten). Zudem vereinigte \blx{} zahlreiche Aufgaben, für die es vorher spezielle bst-Dateien gab, so daß sie mit jedem beliebigen \blx{} -Stil kombinierbar sind. Da in der bbl-Datei kein \LaTeX-Markup mehr steht (es sei denn, es befand sich schon in der Datenbank), sind verschiedene Zitationen desselben Werks frei formatierbar. Bezahlt wurde das mit einer riesigen, schwer zu wartenden Codebasis, die trotz eines 400-Seiten-Handbuches auch deutliche Lücken in der Dokumentation aufweist. Zumal sein Schöpfer Philip Lehman -- offenbar ein Pseudonym -- seit 2012 wie vom Erdboden verschluckt ist. Zum Glück fanden sich immer wieder Freiwillige, die das Paket weiter gepflegt haben. Philipp Kime hat mit \Biber einen wesentlich leistungsstärkeren Ersatz für das in die Jahre gekommene \BibTeX{} erstellt. \blx{} wird z. Zt. hauptsächlich von Moritz Wemheuer gepflegt. \blx{} funktioniert grundsätzlich noch mit \BibTeX, allerdings sind viele Features nur mit \Biber nutzbar. 
 
-Stellen Sie sich vor, Sie haben einen Text mit \blx-Zitaten in einer Datei \Datei{<jobname>.tex} geschrieben. Der grundlegende Workflow sieht so aus:
-\begin{verbatim}
+Stellen Sie sich vor, Sie haben einen Text mit \blx{} -Zitaten in einer Datei \Datei{<jobname>.tex} geschrieben. Der grundlegende Workflow sieht so aus:
+\begin{lstlisting}
 $ pdflatex <jobname>
 $ biber <jobname>
 $ pdflatex <jobname>
-\end{verbatim}
+\end{lstlisting}
 Beim ersten \LaTeX-Lauf werden alle Zitationsschlüssel gesammelt und mit \Biber-Konfigurationen in die Datei \Datei{<jobname>.bcf} geschrieben. Es warnt vor nichtaufgelösten Referenzen und erstellt ein dementsprechend unvollständiges PDF-Dokument. \Biber liest die relevanten Einträge anhand der Schlüssel in der \Datei{<jobname>.bcf} aus den bib-Dateien aus, bearbeitet sie gegebenfalls und schreibt sie sortiert in einem etwas abweichenden Format in eine Datei \Datei{<jobname>.bbl}. Beim zweiten \LaTeX-Lauf werden die Zitiermarken und gegebenfalls die Literaturverzeichnisse anhand der Einträge aus der \Datei{<jobname>.bbl} erstellt und formatiert und dann das vollständige \Datei{<jobname>.pdf} erstellt. In dem Dokumentenverzeichnis finden sich noch mehr Hilfsdateien (mindestens \Datei{<jobname>.aux}, \Datei{<jobname>.log} und die Logdatei von \Biber \Datei{<jobname>.blg}). Aufbewahren muß man immer nur die Quelldateien (also ".tex und *.bib und ggf. Mediendateien); alles andere kann gefahrlos gelöscht werden. Oft muß es das: wenn ich im Dokument ein neues Zitat hinzufüge, ist das nicht in der \Datei{<jobname>.bbl} aufgelöst. Deshalb muß der erste \LaTeX-Lauf wiederholt werden, indem man die Hilfsdateien löscht.
 
 \subsection{Stile}\label{kap_stile}
 
 Stile bestehen aus vier Dateiformaten: \Datei{<style>.bbx} enthält die Einstellungen für die Bibliographie, \Datei{<style>.cbx} für die Zitate, \Datei{<style>.dbx} enthält das Datenmodell und \Datei{*.lbx}-Dateien die sprachabhängigen Einstellungen.
 
-\blx  hat fünf Stilfamilien. Diese unterscheiden suich technisch sehr deutlich und können deshalb nicht vermengt werden.
+\blx{} hat fünf Stilfamilien. Diese unterscheiden suich technisch sehr deutlich und können deshalb nicht vermengt werden.
 \begin{itemize}
 \item \Stil{numeric}: Numerische Stile zählen die Zitate einfach durch und ordnen das Literaturverezichnis nach dem Auftauchen im Text. Vom technischen Standpunkt aus die einfachste Art des Zitierens. Die nur aus einer fortlaufenden Nummer bestehenden Label müssen im Literaturverzeichnis wiederholt werden.
 \item \Stil{alphabetic}: Im Grunde ein Autor/Jahr-Stil, aber da aus den Autorennamen Abkürzungen gebildet werden, die die Sortierreihenfolge ändern können, muß das Label im Literaturverzeichnis wiederholt werden.
@@ -437,15 +482,15 @@ Stile bestehen aus vier Dateiformaten: \Datei{<style>.bbx} enthält die Einstell
 Von diesen Stilen gibt es dann einige Varianten, die sich hauptsächlich durch Details bei der Produktion von Labeln unterscheiden (Trunkierung von Namens- oder Labelwiederholungen, Konkatenation mehrere Werke in einem Zitat, Vermeidung mehrdeutiger Labels etc.).
 
 Man lädt den Stil durch die Paketoption \Option{style}:
-\begin{Verbatim}[breaklines=true,breakanywhere=true]
+\begin{lstlisting}
 \usepackage[style=numeric]{biblatex}
-\end{Verbatim}
+\end{lstlisting}
 Mit Hilfe der Optionen \Option{citestyle} und \Option{bibstyle} kann man theoretisch verschiedene Stile zum Zitieren und für die Bibliographie laden. Sofern das nicht explizit vorgesehen ist, muß aber man schon Glück haben, daß das überhaupt funktioniert und dann noch sinnvolle Ergebnisse zeitigt. Da \Datei{<style>.bbx} und \Datei{<style>.cbx} einen anderen Stil erben können, kann es auch Stile geben, die nur eines von beiden bereitstellen..
 
 Wenn man sich informieren will, welche zusätzlichen Stile es gibt, ist das Verzeichnis \href{https://www.ctan.org/tex-archive/macros/latex/contrib/biblatex-contrib/}{\Kbd{CTAN:macros/latex/contrib/biblatex-contrib/}} der geeignete Anlaufpunkt. Stand November 2020 sind dort 67 Stilpakete gelistet, von denen einige aber vermutlich mangels aktiver Pflege nicht mehr funktionieren. Man sieht aber schon beim Überfliegen, daß deutsche Geisteswissenschaften gut vertreten sind; vermutlich, weil diese vergleichsweise hohe typographische Ansprüche hat.
 
 \subsection{Paketoptionen}
-\blx  hat eine Unmenge von Paketoptionen. Vermutlich werden die wenigsten davon von Endanwendern benutzt werden, weswegen es wohl keinen Sinn ergibt, hier alle aufzulisten. Ich fasse sie in Funktionsgruppen zusammen, damit man weiß, welche Möglichkeiten man hat.
+\blx{} hat eine Unmenge von Paketoptionen. Vermutlich werden die wenigsten davon von Endanwendern benutzt werden, weswegen es wohl keinen Sinn ergibt, hier alle aufzulisten. Ich fasse sie in Funktionsgruppen zusammen, damit man weiß, welche Möglichkeiten man hat.
 \begin{itemize}
 \item Die ganzen \Kbd{<...>counter} und \Kbd{<...>tracker} nützen natürlich nur, wenn der gewählte Stil sie auch auswertet. Die in \cref{kap_stile} erwähnten Stilvarianten beruhen meist auf speziellen Kombinationen dieser Optionen. Mit \Option{citereset} kann man eine Gliederungsebene angeben, an der diese Werte zurückgesetzt werden.
 \item Auch alles anderen Optionen, die unter \Englisch{internal} gelistet sind, sind eher etwas für Stilautoren. das gilt auch für \Option{loadfiles}.
@@ -454,7 +499,7 @@ Wenn man sich informieren will, welche zusätzlichen Stile es gibt, ist das Verz
 \item Man kann die gleichnamigen Felder für Identifier mit \Kbd{true} oder \Kbd{false} an- oder abschalten: \Option{isbn}, \Option{url} (nicht bei \Typ{online}), \Option{eprint}, \Option{doi}.
 \item Es gibt eine Reihe von Optionen zum Sortieren. Interessant ist \Option{sortcites}, mit der man bei der Zitation mehrerer Werke in einem Kommando diese sortiert. Das wird allerdings nur funktionieren, wenn die Einzelwerke keinen Text in den Prä- oder Postnoten haben. \Option{sortlocale} ist von Haus so eingestellt, daß sie die Sortierreihenfolge der Hauptsprache des Dokuments auswählt. Das kann unerwünscht sein, wenn man den z.\,B. englische Texte in deutschen Zeitschriften veröffentlichen möchte.
 \item Mit der Option \Option{backref} und ihren Verwandten kann man Rückverweise im Literaturverzeichnis anlegen. Dort steht dann also, auf welchen Seiten das Zitat steht.
-\item Wenn das \Paket{hyperref}-Paket geladen ist, erzeugt \blx  klickbare Links. Mit der Option \Option{hyperref} kann man das beeinflussen oder abschalten.
+\item Wenn das \Paket{hyperref}-Paket geladen ist, erzeugt \blx{} klickbare Links. Mit der Option \Option{hyperref} kann man das beeinflussen oder abschalten.
 \item \Option{autocite} und \Option{autopunct} steuern das Verhalten von \Befehl{autocite} (s.~\cref{kap_zitat}).
 \item \Option{language}, \Option{clearlang} und \Option{autolang} sind nur bedeutsam, wenn Datenbankeinträge mit \Feld{langid}-Feld vorhanden sind.
 \item \Option{block} und \Option{locallabelwidth} steuern Abstände in der Bibliographie.
@@ -464,54 +509,57 @@ Wenn man sich informieren will, welche zusätzlichen Stile es gibt, ist das Verz
 \item Mit \Option{backend} kann man das Sortierprogramm auswählen. \Biber ist voreingestellt, nur für die beiden \BibTeX-Varianten muß sie angegeben werden. \Option{bibwarn} gibt an, ob \Biber-Warnungen al \LaTeX-Warnungen ausgegeben werden.
 \item \Option{mcite} und \Option{natbib} laden Module für die Zitierkommandos zweier wichtiger \BibTeX-Stile.
 \item Mit \Option{notetype} kann man steuern, ob Fußnotenzitate als Fußnoten, Endnoten oder beides ausgegeben werden.
-\item Mit \Option{texencoding}, \Option{bibencoding} braucht man für unterschiedliches Encoding von \Datei{*.tex} und \Datei{*.bib}. Wenn beides UTF-8 ist, sind sie unnötig. \Option{safeinputenc} weist \Biber an, Unicode-Zeichen in ASCII-Notierung zu übersetzen. Das kann unter \pdfLaTeX  nötig sein, weil \Paket{inputenc} nicht alle Unicode-Zeichen kennt.
+\item Mit \Option{texencoding}, \Option{bibencoding} braucht man für unterschiedliches Encoding von \Datei{*.tex} und \Datei{*.bib}. Wenn beides UTF-8 ist, sind sie unnötig. \Option{safeinputenc} weist \Biber an, Unicode-Zeichen in ASCII-Notierung zu übersetzen. Das kann unter \pdfLaTeX{} nötig sein, weil \Paket{inputenc} nicht alle Unicode-Zeichen kennt.
 \item \Option{mincrossrefs} und \Option{minxrefs} sind Schwellwerte für die Felder \Feld{crossref} und \Feld{xref}. Werden aus einen Sammelwerk entsprechend viele Aufsätze zitiert, wird das Sammelwerk einzeln in das Literaturverzeichnis aufgenommen und die Aufsätze auf dieses verwiesen.
 \end{itemize}
 
+\subsection{Grenzen von \blx{} }
+Natürlich sind den Fähigkeiten auch von \blx{} gewisse Grenzen gesetzt. Beim Laden von Stilen werden viele interne Makros des \blx{} -Kerns angepaßt, die dann so nicht mehr mit anderen Stilen verwendet werden können. Deshalb ist es nicht möglich, Dokumente mit verschiedenen Stilen in einer Datei zu schreiben. Das betrifft z. B. Zeitschriften, die sowohl Autor/Jahr- als auch Fußnotenstile nebeneinander verwenden. Der Workaround wäre hier, die einzelnen Artikel separat zu erstellen und den Seitenähler manuell anzupassen. Dann kann man sie mit einem Paket wie \Paket{pdfpages} zusammenkleben. Vermutlich ist das bei Zeitschriften und Sammelwerken ohnehin eine übliche Vorgehensweise, um Sonderdrucke mit eigener Titelei zu erstellen.
 
-\subsection{Grenzen von \blx}
-Natürlich sind den Fähigkeiten auch von \blx  gewisse Grenzen gesetzt. Beim Laden von Stilen werden viele interne Makros des \blx-Kerns angepaßt, die dann so nicht mehr mit anderen Stilen verwendet werden können. Deshalb ist es nicht möglich, Dokumente mit verschiedenen Stilen in einer Datei zu schreiben. Das betrifft z. B. Zeitschriften, die sowohl Autor/Jahr- als auch Fußnotenstile nebeneinander verwenden. Der Workaround wäre hier, die einzelnen Artikel separat zu erstellen und den Seitenähler manuell anzupassen. Dann kann man sie mit einem Paket wie \Paket{pdfpages} zusammenkleben. Vermutlich ist das bei Zeitschriften und Sammelwerken ohnehin eine übliche Vorgehensweise, um Sonderdrucke mit eigener Titelei zu erstellen.
+Schwierig ist auch alles, was mit Mustererkennung zu tun hat. Das in Perl geschriebene Biber ist dafür eigentlich wunderbar ausgestattet, kann aber kein \LaTeX{} parsen. \LaTeX{} selbst hingegen hat nur sehr eingeschränkt Werkzeuge dafür, insbesondere hat es keine Regulären Ausdrücke zur Erkennung von Textmustern. Bemerkbar macht sich das z. B. im Falle der Sequentes, also Seitenzahlen wie 21f. oder 23ff. Um die zu erzeugen, muß man sehen, ob ein Ausdruck als Differenz von Start- und Endseite interpretierbar ist. So etwas ist überraschend kompliziert, denn die Seiten können z,\,B. als römische Zahlen codiert sein, die wiederum in Unicode in verschiedenen Varianten vorliegen. Das Trennzeichen kann ein Binde-, Halbgeviert- oder Geviertstrich sein, mit oder ohne Leerzeichen. Die Nicht-ASCII-Zeichen können als \LaTeX-Makros oder Unicodepoints codiert sein etc. Tatsächlich rechnet Biber -- soweit möglich -- die Differenz für das \Feld{pages} aus. Die meisten Seitenzahlen stehen aber in den Postnoten der Zitationskommandos -- und die sieht Biber nicht. Es hat diese Funktion früher mal auch in \blx{} gegeben; sie wurde aber wegen ihrer Fehleranfälligkeit wieder gestrichen.
 
-Schwierig ist auch alles, was mit Mustererkennung zu tun hat. Das in Perl geschriebene Biber ist dafür eigentlich wunderbar ausgestattet, kann aber kein \LaTeX  parsen. \LaTeX  selbst hingegen hat nur sehr eingeschränkt Werkzeuge dafür, insbesondere hat es keine Regulären Ausdrücke zur Erkennung von Textmustern. Bemerkbar macht sich das z. B. im Falle der Sequentes, also Seitenzahlen wie 21f. oder 23ff. Um die zu erzeugen, muß man sehen, ob ein Ausdruck als Differenz von Start- und Endseite interpretierbar ist. So etwas ist überraschend kompliziert, denn die Seiten können z,\,B. als römische Zahlen codiert sein, die wiederum in Unicode in verschiedenen Varianten vorliegen. Das Trennzeichen kann ein Binde-, Halbgeviert- oder Geviertstrich sein, mit oder ohne Leerzeichen. Die Nicht-ASCII-Zeichen können als \LaTeX-Makros oder Unicodepoints codiert sein etc. Tatsächlich rechnet Biber -- soweit möglich -- die Differenz für das \Feld{pages} aus. Die meisten Seitenzahlen stehen aber in den Postnoten der Zitationskommandos -- und die sieht Biber nicht. Es hat diese Funktion früher mal auch in \blx  gegeben; sie wurde aber wegen ihrer Fehleranfälligkeit wieder gestrichen.
+\subsection{Funktionen von \Biber}
 
-\subsection{Weitere Funktionen von \Biber}
-
-\Biber wird hauptsächlich über \blx gesteuert, indem die Einstellungen über die \Datei{<jobname>.bcf} durchgereicht werden. Deshalb kann \Biber im normalen Workflow für Dokumente auch ganz ohne Optionen aufgerufen werden. Eine wichtige Option ist \Option{--trace}, die ein sehr detailliertes Logging in der \Datei{<jobname>.blg} veranlaßt. Es kann aber noch weit mehr als nur die \Datei{<jobname>.bbl} erstellen. Ein typisches Problem ist es z.\,B., alle Einträge eines Dokuments zu extrahieren und daraus eine neue Datenbank zu erstellen:
-\begin{Verbatim}
+\Biber wird hauptsächlich über \blx{} gesteuert, indem die Einstellungen über die \Datei{<jobname>.bcf} durchgereicht werden. Deshalb kann \Biber im normalen Workflow für Dokumente auch ganz ohne Optionen aufgerufen werden. Eine wichtige Option ist \Option{--trace}, die ein sehr detailliertes Logging in der \Datei{<jobname>.blg} veranlaßt. Es kann aber noch weit mehr als nur die \Datei{<jobname>.bbl} erstellen. Ein typisches Problem ist es z.\,B., alle Einträge eines Dokuments zu extrahieren und daraus eine neue Datenbank zu erstellen:
+\begin{lstlisting}
 $ <engine>latex <jobname>
 $ biber --output-format=bibtex <jobname>
-\end{Verbatim}
-Das erstellt jetzt eine Datenbank \Datei{<jobname>.bib}. So man möchte, kann man dabei mit der Option \Option{--output-resolve} die Vererbung von Daten zwischen Einträgen auflösen.
+\end{lstlisting}
+Das erstellt jetzt eine Datenbank \Datei{<jobname>_biber.bib}. So man möchte, kann man durch Hinzufügen der Option \Option{--output-resolve} die Vererbung von Daten zwischen Einträgen auflösen.
 
-Wenn Biber mit der \Datei{<jobname>.bcf} aufgerufen wird, erhält es auch die in der Datei \Datei{<style>.dbx} gespeicherten Informationen über Dokumententypen und Felder. Z.\,B. müssen Datumsfelder, Listen und Namen geparst werden, damit ihre Elemente separat aufrufbar sind. Im Datenmodell steht, welche Felder das sind. Nun gibt es aber auch Szenarien, in denen man die Fähigkeiten von \Biber nutzen will, ohne daß ein Dokument verarbeitet wird. Dafür gibt es den sogenannten Werkzeugmodus, den man mit der Option \Option{--tool} aufruft.
+Wenn Biber mit der \Datei{<jobname>.bcf} aufgerufen wird, erhält es auch die in der Datei \Datei{<style>.dbx} gespeicherten Informationen über Dokumententypen und Felder. Z.\,B. müssen Datumsfelder, Listen und Namen geparst werden, damit ihre Elemente separat aufrufbar sind. Im Datenmodell steht, welche Felder das sind. Nun gibt es aber auch Szenarien, in denen man die Fähigkeiten von \Biber nutzen will, ohne daß ein Dokument verarbeitet wird. Dafür gibt es den sogenannten Werkzeugmodus, den man mit der Option \Option{--tool} aufruft. Der Haken dabei ist, daß \Biber jetzt ja auch das Datenmodell aus der \Datei{*.dbx}-Datei nicht zu sehen bekommt. Deshalb gibt es eine \Datei{bibertool.conf}, in der eine Kopie des Modells im XML-Format gespeichert ist. Jetzt werden aber Felder, die es nicht kennt oder deren Inhalt es nicht validieren kann, einfach ignoriert. Wenn man ein Datenmodell für einen bestimmten Stil braucht, produziert man mit LaTeX-Lauf eine \Datei{*.bcf}. Dort befindet sich das Datenmodell in der Gruppe \Kbd{<bcf:datamodel>...</bcf:datamodel>} (die spitzen Klammern sind in diesem Fall Begrenzer von XML-Elementen). Die Anweisung
+\begin{lstlisting}
+$ biber --tool-config
+\end{lstlisting}
+verrät, wo die aktuell in Gebrauch befindliche \Datei{bibertool.conf} abgelegt ist. Machen Sie davon eine Kopie, tauschen Sie in dieser die \Kbd{<datamodel>...</datamodel>}-Gruppe aus, entfernen Sie die Präfixe für den BCF-Namensraum (\Kbd{bcf:}). Dasselbe müssen sie für die \Kbd{<bcf:inheritance>...</bcf:inheritance>}-Gruppe tun, die die Feldnamen für die Vererbungsziele angibt, und evtl. für die \Kbd{<bcf:sourcemap>...</bcf:sourcemap>}-Gruppe, die Anweisungen für Textersetzungen wie z.\,B. die Umbennenung von Feldern enthält. Wenn die Zieldatei sortiert sein soll, übernehmen Sie auch die \Kbd{<bcf:sortingtemplate>...</bcf:sortingtemplate>}-Gruppe. Dann rufen Sie Biber im Toolmodus künfig mit der Option \Option{-g}\Kbd{=/path/to/bibertool-copy.conf} auf. Das Sortieren von Quelldatenbanken ist aber im Allgemeinen nicht sinnvoll.
 
-\begin{Verbatim}
+\begin{lstlisting}
 $ biber --tool --output-encoding=ascii <file>.bib
-\end{Verbatim}
-Das erstellt aus einer UTF-8-codierten Datenbank eine \Datei{<file>_bibertool.bib}, in der alle Zeichen jenseit US-ASCII in \LaTeX-Makros umgewandelt sind, soweit \Biber  dafür Makros kennt -- unbekannte Zeichen werden markiert. Für den umgekehrten Vorgang gibt man \Kbd{UTF-8} an (oder nur \Option{-U}). Es gibt auch noch weitere Encodings, die man auch mit \Option{--input_encoding} angeben kann, falls man eine Datenbank konvertieren will.
+\end{lstlisting}
+Das erstellt aus einer UTF-8-codierten Datenbank eine \Datei{<file>_bibertool.bib}, in der alle Zeichen höher als US-ASCII in \LaTeX-Makros umgewandelt sind, soweit \Biber  dafür Makros kennt -- unbekannte Zeichen werden markiert. Für den umgekehrten Vorgang gibt man \Kbd{UTF-8} an (oder nur \Option{-U}). Es gibt auch noch weitere Encodings, die man auch mit \Option{--input_encoding} angeben kann, falls man eine Datenbank konvertieren will. Zeichen, für die Biber kein Mapping im Zielformat kennt, werden dabei markiert. Es gibt noch eine ganze Reihe von Optionen, mit denen man Datenbanken formatieren, validieren und sortieren kann.
 
 \section{Datenerfassung}
 
 \subsection{Das Dateiformat}\label{kap_fileformat}
 
-Obacht! \BibTeX  bezeichnet sowohl das Programm als auch das Dateiformat.
+Obacht! \BibTeX{} bezeichnet sowohl das Programm als auch das Dateiformat.
 
 Datenbanken im \BibTeX-Format hat vermutlich jeder schon einmal gesehen. Sie haben immer die Dateiendung \Datei{bib} und die folgende Struktur:
-\begin{Verbatim}[breaklines=true,breakanywhere=true]
+\begin{lstlisting}
 @misc(example1,
     author = "Thomas Schneider and Barbara Schulze",
     title = "Das ist ein Titel",
     publisher = "Titelmühle Press and Hansen und Hartmann",
     date = "1988",)
-\end{Verbatim}
-In der ersten Zeile stehen der Dokumententyp (nach dem \symbol{64}) und zwischen der geschweiften Klammer und dem Komma der eindeutige Schlüssel, den man den Zitierkommandos von \blx  übergeben muß. Man kann in die Felder beliebigen \LaTeX-Code schreiben, sollte aber daran denken, daß einige Felder von einem externen Sortierprogramm gelesen werden müssen, das kein \LaTeX  versteht. Man kann auch beliebig neue Dokumententypen und Felder erfinden, allerdings werden die von den vorhandenen Stilen nicht verstanden und ignoriert, sofern man keine Aliase definiert. \BibTeX  kennt drei Datentypen: Felder, Listen und Namen. Das Trennzeichen in Listen und Namen ist \Kbd{and}. Dokumententypen, Feldnamen und Trennzeichen können groß oder klein geschreiben werden. Als Feldbegrenzer sind auch geschweifte Klammern zulässig. Ganzzahlen brauchen keine Feldbegrenzer. Den obigen Eintrag kann man auch so schreiben, ohne daß sich etwas ändert:
-\begin{Verbatim}[breaklines=true,breakanywhere=true]
+\end{lstlisting}
+In der ersten Zeile stehen der Dokumententyp (nach dem \symbol{64}) und zwischen der geschweiften Klammer und dem Komma der eindeutige Schlüssel, den man den Zitierkommandos von \blx{} übergeben muß. Man kann in die Felder beliebigen \LaTeX-Code schreiben, sollte aber daran denken, daß einige Felder von einem externen Sortierprogramm gelesen werden müssen, das kein \LaTeX{} versteht. Man kann auch beliebig neue Dokumententypen und Felder erfinden, allerdings werden die von den vorhandenen Stilen nicht verstanden und ignoriert, sofern man keine Aliase definiert. \BibTeX{} kennt drei Datentypen: Felder, Listen und Namen. Das Trennzeichen in Listen und Namen ist \Kbd{and}. Dokumententypen, Feldnamen und Trennzeichen können groß oder klein geschreiben werden. Als Feldbegrenzer sind auch geschweifte Klammern zulässig. Ganzzahlen brauchen keine Feldbegrenzer. Den obigen Eintrag kann man auch so schreiben, ohne daß sich etwas ändert:
+\begin{lstlisting}
 @MISC{ example1,
     AUTHOR = {Schneider, Thomas AND Schulze, Barbara},
     TITLE = {Das ist ein Titel},
     PUBLISHER = {Titelmühle Press AND Hansen und Hartmann},
     DATE = 1988, }
-\end{Verbatim}
+\end{lstlisting}
 Wenn in Namen oder Listen das Trennzeichen in den Einträgen vorkommt, muß man es mit geschweiften Klammern schützen:
 \begin{figure}[H]
 \begin{tabular}{ll}
@@ -520,9 +568,9 @@ Wenn in Namen oder Listen das Trennzeichen in den Einträgen vorkommt, muß man 
 \end{figure}
 
 \subsection{Dokumententypen}
-Nicht alle Dokumententypen, die \blx  definiert, werden von den Standardstilen genutzt. Ich beschränke mich hier in \cref{tab:doctypes} auf die tatsächlich unterstützten. Wer spezielle Stile verwendet, wird in den Handbüchern Erklärungen zu den Erweiterungen finden. Jeder Dokumententyp hat sogenannte Pflichtfelder und optionale Felder. Allerdings dürfen durchaus auch die Pflichtfelder fehlen, denn sonst könnte man ja keine Werke ohne Verfasser oder Publikationsdatum zitieren. Näheres dazu findet sich in \cref{kap_felder}.
+Nicht alle Dokumententypen, die \blx{} definiert, werden von den Standardstilen genutzt. Ich beschränke mich hier in \cref{tab:doctypes} auf die tatsächlich unterstützten. Wer spezielle Stile verwendet, wird in den Handbüchern Erklärungen zu den Erweiterungen finden. Jeder Dokumententyp hat sogenannte Pflichtfelder und optionale Felder. Allerdings dürfen durchaus auch die Pflichtfelder fehlen, denn sonst könnte man ja keine Werke ohne Verfasser oder Publikationsdatum zitieren. Näheres dazu findet sich in \cref{kap_felder}.
 
-Bei einigen Dokumententypen wird man kaum Unterschiede feststellen. U.\,U. sind sie tatsächlich nur als Aliase implementiert. Das gilt für die mehrbändigen Typen (\Typ{mv\textellipsis})-Varianten und ihre Grundformen, für \Typ{supp...} und \Typ{in...} bzw. \Typ{article}, für \Typ{book}, \Typ{manual} und \Typ{booklet} sowie für alles, was mit Sammelwerken zu tun hat (\Typ{proceedings}-, \Typ{collection}- und \Typ{reference}-Gruppen). Es kann aber sein, daß Stile von solchen Feinunterscheidungen Gebrauch machen. \archbib  z.\,B. unterscheidet \Typ{inreference} für Lexikonartikel tatsächlich von \Typ{incollection} und \Typ{inproceedings}.
+Bei einigen Dokumententypen wird man kaum Unterschiede feststellen. U.\,U. sind sie tatsächlich nur als Aliase implementiert. Das gilt für die mehrbändigen Typen (\Typ{mv\textellipsis})-Varianten und ihre Grundformen, für \Typ{supp...} und \Typ{in...} bzw. \Typ{article}, für \Typ{book}, \Typ{manual} und \Typ{booklet} sowie für alles, was mit Sammelwerken zu tun hat (\Typ{proceedings}-, \Typ{collection}- und \Typ{reference}-Gruppen). Es kann aber sein, daß Stile von solchen Feinunterscheidungen Gebrauch machen. \archbib{} z.\,B. unterscheidet \Typ{inreference} für Lexikonartikel tatsächlich von \Typ{incollection} und \Typ{inproceedings}.
 
 \newcommand{\Tabellenkopf}{
 \rowcolor{zebraodd}
@@ -530,14 +578,13 @@ Bei einigen Dokumententypen wird man kaum Unterschiede feststellen. U.\,U. sind 
 \textbf{\normalsize Erläuterung} &
 \textbf{\normalsize \enquote{Pflichtfelder}}
 \\\toprule}
-\renewcommand{\arraystretch}{1.5} % increase row padding
-\rowcolors{1}{zebraodd}{zebraeven}
 \newlength{\ErsteSpalte}\setlength{\ErsteSpalte}{9em}
 
+\begin{Zebratabelle}
 \begin{xltabular}{\linewidth}{p{\ErsteSpalte}
 LL}
 \rowcolor{zebraodd}
-\caption[Dokumententypen von \blx]{Dokumententypen von \blx}
+\caption[Dokumententypen von \blx{} ]{Dokumententypen von \blx{} }
 \label{tab:doctypes} % must be after \caption
 \\
 \Tabellenkopf
@@ -583,39 +630,40 @@ LL}
 \Typ{unpublished} & unpubliziert & \Feld{author}/\Feld{editor}, \Feld{title}, \Feld{date} \\
 \Typ{xdata} & ein Container, um Daten an andere Einträge zu vererben -- nicht zum eigenständigen Zitieren gedacht! & --- \\
 \end{xltabular}
+\end{Zebratabelle}
 
 Es gibt noch drei besondere Datentypen von technischer Bedeutung:
 \begin{itemize}
-\item \Typ{comment} Um Kommentare in die Datenbank zu schreiben. Ich habe diesen Typ noch nie in freier Wildbahn angetroffen. Üblicherweise macht man das mit dem \%-Zeichen wie in \LaTeX  auch. Man muß sich ohnehin vergegenwärtigen, daß bei der Verarbeitung die Position solcher Kommentare geändert werden kann. Wer Anmerkungen zu bestimmten Einträgen aufbewahren will, muß die dafür vorgesehenen Felder (\Feld{abstract}, \Feld{note}, \Feld{addendum}, \Feld{howpublished}) benutzen.
+\item \Typ{comment} Um Kommentare in die Datenbank zu schreiben. Ich habe diesen Typ noch nie in freier Wildbahn angetroffen. Üblicherweise macht man das mit dem \%-Zeichen wie in \LaTeX{} auch. Man muß sich ohnehin vergegenwärtigen, daß bei der Verarbeitung die Position solcher Kommentare geändert werden kann. Wer Anmerkungen zu bestimmten Einträgen aufbewahren will, muß die dafür vorgesehenen Felder (\Feld{abstract}, \Feld{note}, \Feld{addendum}, \Feld{howpublished}) benutzen.
 \item \Typ{string} deklariert Ersetzungstext -- z.\,B. Zeitschriften- und Serientitel, die voll oder abgekürzt zitiert werden können.
-\begin{Verbatim}[breaklines=true,breakanywhere=true]
+\begin{lstlisting}
 @STRING(ZAngewString = {Zeitschrift für Angewandte Stringtheorie})
 @PERIODICAL(example-string1,
     journaltitle = ZAngewString,)
 @BOOK(example-string2,
     series = "Beihefte zur " # ZAngewString # { und ihrer Vorgänger},)
-\end{Verbatim}
+\end{lstlisting}
 Soll der String ein komplettes Feld ersetzen, verzichtet man auf Feldbegrenzer. das zweite beispiel zeigt, wie Ersetzungstext mit Hilfe des Trennzeichen \Kbd{and} in Text hineingestzt werden kann.
 \item \Typ{preamble} kann Anweisungen für den Dokumentenheader aufnehmen. Ein typisches Szenario ist folgendes: Im Titel eines Werkes kommen Anführungsstriche vor. Die würde man natürlich gerne kontext- und sprachsensitiv mit dem \Paket{csquotes}-Paket setzen(\Befehl{enquote}). Andererseits ist in einer gemeinsam genutzten Projektdatenbank nicht klar, ob jeder dieses Paket wirklich laden will. Jetzt kann man so etwas tun:
-\begin{Verbatim}[breaklines=true,breakanywhere=true]
+\begin{lstlisting}
 @PREAMBLE(\providecommand*{\enquote}[1]{"#1"})
 @MISC(
     title = {Die sogenannten \enquote{Anführungszeichen} als technisches Problem},)
-\end{Verbatim}
+\end{lstlisting}
 \Befehl{providecommand*} ist wie \Befehl{newcommand*}, tut aber nichts, wenn das Kommando schon vorhanden ist. Ist \Paket{csquotes} geladen, tut es nichts. Wenn nicht, ummantelt es sein Argument mit amerikanischen Anführungszeichen. Man könnte auch \Befehl{usepackage} hier unterbringen, wenn man auf spezielle Befehle aus einem bestimmten Paket angewiesen ist.
 \end{itemize}
 
 \subsection{Die Felder}\label{kap_felder}
 
-Die Anzahl möglicher Felder ist in \BibTeX  praktisch unendlich. Allerdings müssen Felder, die von \BibTeX  oder \Biber gedruckt oder sonstwie verarbeitet werden sollen, diesen bekannt gemacht werden. Es spricht aber nichts dagegen, daß man persönliche Notizen in Phantasiefelder schreibt. Man sollte nur beachten, daß die Feldnamen auf die 26 Alphabetbuchstaben beschränkt sind. Die \BibTeX-Stile hatten teilweise andere Feldnamen (z.\,B. \Feld{address} statt \Feld{location}, \Feld{school} statt \Feld{institution}). Sie werden in \blx   als Aliase behandelt.
+Die Anzahl möglicher Felder ist in \BibTeX{} praktisch unendlich. Allerdings müssen Felder, die von \BibTeX{} oder \Biber gedruckt oder sonstwie verarbeitet werden sollen, diesen bekannt gemacht werden. Es spricht aber nichts dagegen, daß man persönliche Notizen in Phantasiefelder schreibt. Man sollte nur beachten, daß die Feldnamen auf die 26 Alphabetbuchstaben beschränkt sind. Die \BibTeX-Stile hatten teilweise andere Feldnamen (z.\,B. \Feld{address} statt \Feld{location}, \Feld{school} statt \Feld{institution}). Sie werden in \blx{} als Aliase behandelt.
 
-In \cref{kap_fileformat} wurde schon angedeutet, daß es vier Datentypen für Felder gibt: Listen, Namen, Ganzzahlen und Text. Listen und Namen können mehrere Elemente haben, die durch das Trennzeichen \Kbd{and} separiert werden. Ganzzahlen brauchen in der Datenbank keine Feldbegrenzer, Text schon. Schon in \BibTeX  gab es das Feld {\Feld{crossref}, daß einen speziellen Text enthielt, nämlich einen Schlüpssel eines anderen Eintrags. Dadurch konnten unselbstständige Typen (Artikel in Zeitschriften und Sammelwerken) den sie enthaltenden Einträgen zugeordnet werden, so daß diese in der Datenbank nur einmal erfaßt werden müßten. \blx  erweitert das enorm und definiert eine ganze Reihe von Textfeldern, die ihren Inhalt auf spezielle Weise auswerten. Die folgende Liste ist von der in der \blx-Dokumentation aus Verständnisgründen leicht verschieden.
+In \cref{kap_fileformat} wurde schon angedeutet, daß es vier Datentypen für Felder gibt: Listen, Namen, Ganzzahlen und Text. Listen und Namen können mehrere Elemente haben, die durch das Trennzeichen \Kbd{and} separiert werden. Ganzzahlen brauchen in der Datenbank keine Feldbegrenzer, Text schon. Schon in \BibTeX{} gab es das Feld {\Feld{crossref}, daß einen speziellen Text enthielt, nämlich einen Schlüpssel eines anderen Eintrags. Dadurch konnten unselbstständige Typen (Artikel in Zeitschriften und Sammelwerken) den sie enthaltenden Einträgen zugeordnet werden, so daß diese in der Datenbank nur einmal erfaßt werden müßten. \blx{} erweitert das enorm und definiert eine ganze Reihe von Textfeldern, die ihren Inhalt auf spezielle Weise auswerten. Die folgende Liste ist von der in der \blx{} -Dokumentation aus Verständnisgründen leicht verschieden.
 \begin{itemize}
 \item \Kbd{Listen} sind Aufzählungen, die durch das Trennzeichen \Kbd{and} separiert werden. Typische Beispiele sind der Verlagsort (\Feld{location}) oder der Verlag (\Feld{publisher}).
 \item \Kbd{Namen} sind Listen mit dem Trennzeichen \Kbd{and}, aber die Elemente können in einzelne Namensbestandteile geparst werden (s.~\cref{{kap_names}}).
 \item \Kbd{CSV} sind Listen, die das Komma als Trennzeichen benutzen.
 \item \Kbd{Ganzahlen} brauchen in der Datenbank keine Feldbegrenzer. Sofern Textfelder nur Ganzzahlen beinhalten, kann man dieses Format benutzen.
-\item \Kbd{Textfelder}\footnote{In der \blx-Dokumentation werden Textfelder als \Englisch{literal} bezeichnet. Da es auch noch den Datentyp \Englisch{verbatim} gibt, was beides zu \enquote{wörtlich} übersetzt, verwende ich hier die Übersetzung \enquote{Text}.}\label{fn:literal} werden meistens wörtlich ausgedruckt.
+\item \Kbd{Textfelder}\footnote{In der \blx{} -Dokumentation werden Textfelder als \Englisch{literal} bezeichnet. Da es auch noch den Datentyp \Englisch{verbatim} gibt, was beides zu \enquote{wörtlich} übersetzt, verwende ich hier die Übersetzung \enquote{Text}.}\label{fn:literal} werden meistens wörtlich ausgedruckt.
 \item \Kbd{Schlüssel} enthält den Schlüssel eines anderen Datenbankeintrags.
 \item \Kbd{Schlüsselliste} wie \Kbd{Schlüssel}, aber als kommaseparierte Liste mehrerer Einträge.
 \item \Kbd{Wörtlich}\footref{fn:literal} In diesen Feldern müssen auch geschützte \TeX-Zeichen wörtlich ausgegeben werden. Daher werden in diesen Feldern keine Makros expandiert. Das trifft vor allem auf Identifier zu (\Feld{url}, \Feld{doi} etc.), wo man \Kbd{\detokenize{\~@\#}} o.\,ä. braucht.
@@ -625,10 +673,10 @@ In \cref{kap_fileformat} wurde schon angedeutet, daß es vier Datentypen für Fe
 \item \Kbd{Lokalisation} erwartet einen Lokalisationsschlüssel, der als Platzhalter für einen Ausdruck der aktuellen Dokumentensprache dient.
 \end{itemize}
 
-Mit zunehmenden Funktionsumfang ist die Zahl der von \blx  verarbeiteten Felder ziemlich groß geworden. Aber erstmal braucht man davon nur einige, weil wohl kaum ein Stil alle Features nutzt, und dann gibt es auch dort stellenweise eine Systematik, die das Memorieren der Feldnamen erleichtert.
+Mit zunehmenden Funktionsumfang ist die Zahl der von \blx{} verarbeiteten Felder ziemlich groß geworden. Aber erstmal braucht man davon nur einige, weil wohl kaum ein Stil alle Features nutzt, und dann gibt es auch dort stellenweise eine Systematik, die das Memorieren der Feldnamen erleichtert.
 
 \begin{itemize}
-\item \Feld{title}, \Feld{maintitle} und \Feld{booktitle} haben jeweils ein Feld für einen Untertitel (\Feld{subtitle}, \Feld{mainsubtitle}, \Feld{booksubtitle}) und für einen Titelzusatz (\Feld{titleaddon}, \Feld{maintitleaddon} und \Feld{booktitleaddon}). Der Unterschied zwischen Untertitel und Titelzusatz wird in \archbib  bedeutsam.
+\item \Feld{title}, \Feld{maintitle} und \Feld{booktitle} haben jeweils ein Feld für einen Untertitel (\Feld{subtitle}, \Feld{mainsubtitle}, \Feld{booksubtitle}) und für einen Titelzusatz (\Feld{titleaddon}, \Feld{maintitleaddon} und \Feld{booktitleaddon}). Der Unterschied zwischen Untertitel und Titelzusatz wird in \archbib{} bedeutsam.
 \item Mit \Kbd{book<feld>} werden Feldnamen von Sammelwerken in unselbstständigen Typen gebildet, weil die Felder ohne Präfix dort schon besetzt sind: \Feld{bookauthor}, \Feld{booktitle}, \Feld{booksubtitle}, \Feld{booktitleaddon}, \Feld{bookpagination}.
 \item Einen Unterschied zwischen \Feld{title} bzw \Feld{booktitle} einerseits und \Feld{maintitle} andererseits hat man vor allem dann, wenn eine Bandnummer dazwischen steht: \textellipsis  Maintitle Bd. 2: [Book]Title \textellipsis
 \item Zu einigen Namensfeldern \Kbd{<name>} gibt es Felder \Kbd{<name>type}, in dem man einen Lokalisationsschlüssel für dessen Rolle unterbringen kann (Herausgeber, Bearbeiter, Übersetzer etc.).
@@ -636,7 +684,7 @@ Mit zunehmenden Funktionsumfang ist die Zahl der von \blx  verarbeiteten Felder 
 \item Wenn bei Übersetzungen oder Nachdrucken Daten des Originalwerks genannt werden sollen, beginnen die relevanten Feldnamen mit \Kbd{orig}: \Feld{origdate}, \Feld{origtitle}, \Feld{origlanguage}, \Feld{origlocation}, \Feld{origpublisher}.
 \end{itemize}
 
-\cref{tab:stdfields} enthält die Datenfelder, also solche, die von den Stilen für die jeweiligen Dokumententypen über das Datenmodell unterstützt werden können (oder auch nicht). Benutzer von \archbib  sollten sich die mit \Wichtig{} gekennzeichneten Felder anschauen. Ob die anderen verarbeitet werden, hängt davon ab, ob der von \blx  vererbte Code das tut, wobei ich das nicht teste.
+\cref{tab:stdfields} enthält die Datenfelder, also solche, die von den Stilen für die jeweiligen Dokumententypen über das Datenmodell unterstützt werden können (oder auch nicht). Benutzer von \archbib{} sollten sich die mit \Wichtig{} gekennzeichneten Felder anschauen. Ob die anderen verarbeitet werden, hängt davon ab, ob der von \blx{} vererbte Code das tut, wobei ich das nicht teste.
 
 \renewcommand{\Tabellenkopf}{
 \rowcolor{zebraodd}
@@ -648,9 +696,10 @@ Mit zunehmenden Funktionsumfang ist die Zahl der von \blx  verarbeiteten Felder 
 \setlength{\ErsteSpalte}{8.5em}
 \newlength{\ZweiteSpalte}\setlength{\ZweiteSpalte}{7em}
 
+\begin{Zebratabelle}
 \begin{xltabular}{\linewidth}{p{1em}p{\ErsteSpalte}p{\ZweiteSpalte}L}
 \rowcolor{zebraodd}
-\caption[Datenfelder von \blx]{Datenfelder von \blx}
+\caption[Datenfelder von \blx{} ]{Datenfelder von \blx{} }
 \label{tab:stdfields} % must be after \caption
 \\
 \Tabellenkopf
@@ -760,10 +809,11 @@ Mit zunehmenden Funktionsumfang ist die Zahl der von \blx  verarbeiteten Felder 
 \Wichtig & \Feld{volume} & Ganzzahl & Bandnummer sdowohl bei mehrbändigen Werken als auch Zeitschriften \\
  & \Feld{volumes} & Ganzzahl & Gesamtzahl der Bände eines mehrbändigen Werkes \\
 \end{xltabular}
+\end{Zebratabelle}
 
 Spezielle Felder enthalten keine druckbaren Daten. Sie sind grundsätzlich in allen vom Dokumententypen verfügbar. 
 \begin{itemize}
-\item Man kann in einem Eintrag auf Daten aus anderen referenzieren. Schon die alten \BibTeX-Stile kennen das \Feld{crossref}. Mit ihm kann man die mit \Kbd{book<felder>} von Sammelwerksbeiträgen einsparen, da die entsprechenden \Kbd{<felder>} des Sammelwerks ausgelesen werden. Bei \BibTeX  ist es dafür notwendig, daß der Beitrag in der Datenbank vor dem Sammelwerk steht; bei Verwendung von \Biber  ist das egal. \blx  hat diese Technik ausgeweitet. Mit dem Feld \Feld{xdata} kann man auf \Typ{xdata} verweisen, in dem man wiederholende Datenkombinationen (z.\,B. \Feld{location}/\Feld{publisher}-Paare) speichern kann. Mit \Feld{related} ud seinen Spezifizieren können Stilautoren beliebige Verhältnisse entwickeln.
+\item Man kann in einem Eintrag auf Daten aus anderen referenzieren. Schon die alten \BibTeX-Stile kennen das \Feld{crossref}. Mit ihm kann man die mit \Kbd{book<felder>} von Sammelwerksbeiträgen einsparen, da die entsprechenden \Kbd{<felder>} des Sammelwerks ausgelesen werden. Bei \BibTeX{} ist es dafür notwendig, daß der Beitrag in der Datenbank vor dem Sammelwerk steht; bei Verwendung von \Biber  ist das egal. \blx{} hat diese Technik ausgeweitet. Mit dem Feld \Feld{xdata} kann man auf \Typ{xdata} verweisen, in dem man wiederholende Datenkombinationen (z.\,B. \Feld{location}/\Feld{publisher}-Paare) speichern kann. Mit \Feld{related} ud seinen Spezifizieren können Stilautoren beliebige Verhältnisse entwickeln.
 \item Das Feld \Feld{gender} wird gebraucht, um Genus und Numerus von Pronomen, die den Labelnamen ersetzen (derselbe, dieselbe, dasselbe), zu steuern. Im Deutschen braucht man sie für nichtmännliche Singulare. Im Englischen ist die Verwendung lateinischer Pronomen nicht unüblich, die auch im Plural deklinieren. Erlaubt sind die Werte \Kbd{sf}, \Kbd{sm}, \Kbd{sn}, \Kbd{pf}, \Kbd{pm}, \Kbd{pn} oder \Kbd{pp}.
 \item Mit den Feldern \Kbd{sort...} kann man alternative Sortierausdrücke angeben, die aber nicht ausgedruckt werden. Wenn ich z.\,B. \Feld{sortname} angebe, wird der Name nach diesem Feld sortiert, aber der \Feld{author} bzw. \Feld{editor} ausgedruckt wie gehabt. Damit kann man Sortierfehler beseitigen, z.\,B. wenn man Buchstaben mit diakritischen Zeichen anders sortiert sehen möchte.
 \end{itemize}
@@ -777,9 +827,10 @@ Spezielle Felder enthalten keine druckbaren Daten. Sie sind grundsätzlich in al
 \\\toprule}
 \setlength{\ErsteSpalte}{8.5em}
 
+\begin{Zebratabelle}
 \begin{xltabular}{\linewidth}{p{1em}p{\ErsteSpalte}LL}
 \rowcolor{zebraodd}
-\caption[Spezielle Felder von \blx]{Spezielle Felder von \blx}
+\caption[Spezielle Felder von \blx{} ]{Spezielle Felder von \blx{} }
 \label{tab:specfields} % must be after \caption
 \\
 \Tabellenkopf
@@ -819,20 +870,18 @@ Spezielle Felder enthalten keine druckbaren Daten. Sie sind grundsätzlich in al
 \Wichtig & \Feld{xdata} & Schlüsselliste & Verweise auf \Typ{xdata}-Container \\
  & \Feld{xref} & Schlüssel & ein Verweis für einen Zähler, der die Anzahl der Aufsätze aus einem Sammelwerk zählt \\
 \end{xltabular}
+\end{Zebratabelle}
 
 Die Codierung der \BibTeX-Datenbanken sollte heutzutage unbedingt in UTF-8 erfolgen. Das war lange Zeit ein Problem, denn die hinreichende Unterstützung von Unicode schleppte sich in der \TeX-Welt lange dahin. Mittlerweile sollten damit kaum noch Schwierigkeiten entstehen. Überhaupt ist das ein universeller Ratschlag: Egal, ob \LaTeX-Quellen, Datenbanken, Webseiten etc. pp., alles sollte in UTF-8 codiert sein, sofern man keine wirklich zwingenden Gründe hat, etwas anderes zu nehmen.
 
 \subsection{Das Namensformat}\label{kap_names}
-\BibTeX  setzt Namen aus vier Bestandteilen zusammen: \Kbd{first}, \Kbd{last}, \Kbd{prefix} (\enquote{von part}) und \Kbd{suffix} (\enquote{Jr part}). Damit man die Namen per Copy\&Paste aus anderen Quellen übernehmen kann, kennt \BibTeX drei Formate:
-\begin{Verbatim}[breaklines=true,breakanywhere=true]
+\BibTeX{} setzt Namen aus vier Bestandteilen zusammen: \Kbd{first}, \Kbd{last}, \Kbd{prefix} (\enquote{von part}) und \Kbd{suffix} (\enquote{Jr part}). Damit man die Namen per Copy\&Paste aus anderen Quellen übernehmen kann, kennt \BibTeX drei Formate:
+\begin{lstlisting}
 First von Last
 von Last, First
 von Last, Sr, First
-\end{Verbatim}
+\end{lstlisting}
 Einige Beispiele für korrekt geparste Namen:
-% reset tabular environments
-\renewcommand{\arraystretch}{\defaultarraystretch}
-\rowcolors{1}{zebraodd}{zebraodd}
 \begin{figure}[H]
 \begin{tabular}{ll}
 \NamenDemo{intro:name:1}
@@ -870,26 +919,26 @@ Das erlaubt jetzt auch die Definition neuer Namensbestandteile wie z. B. Patrony
 
 \subsection{Lokalisation}\label{kap_local}
 
-\blx  definiert eine Reihe von \Englisch{localisation keys} (auch \Kbd{bibstring}s) als Platzhalter für Ausdrücke, die in die jeweilige Landessprache übersetzt werden müssen. Beispiele dafür sind die Bezeichnungen für Hochschulschriften, die Sprache des Dokuments oder die Rollen von Beteiligten (Herausgeber, Bearbeiter, Übersetzer etc.). In das Feld \Feld{type} des Dokumententyps \Typ{thesis} z. B. trägt man den LokalisationsLokalisation für den Typ der Hochschulschrift ein.
-\begin{Verbatim}[breaklines=true,breakanywhere=true]
+\blx{} definiert eine Reihe von \Englisch{localisation keys} (auch \Kbd{bibstring}s) als Platzhalter für Ausdrücke, die in die jeweilige Landessprache übersetzt werden müssen. Beispiele dafür sind die Bezeichnungen für Hochschulschriften, die Sprache des Dokuments oder die Rollen von Beteiligten (Herausgeber, Bearbeiter, Übersetzer etc.). In das Feld \Feld{type} des Dokumententyps \Typ{thesis} z. B. trägt man den LokalisationsLokalisation für den Typ der Hochschulschrift ein.
+\begin{lstlisting}
 @THESIS{example-phd,
     ...
 	TYPE ={phdthesis},
 	...
 }
-\end{Verbatim}
-\blx  prüft jetzt, ob es sich bei dem Inhalt des Feldes um einen bekannten Lokalisation handelt und druckt bei Erfolg die landessprachliche Bezeichnung stattdessen aus. Das funktioniert auch mit Sprachen (\Feld{language}, \Feld{origlanguage}), Rollen (\Feld{authortype}, \Feld{editortype} etc.) und XXX .
+\end{lstlisting}
+\blx{} prüft jetzt, ob es sich bei dem Inhalt des Feldes um einen bekannten Lokalisation handelt und druckt bei Erfolg die landessprachliche Bezeichnung stattdessen aus. Das funktioniert auch mit Sprachen (\Feld{language}, \Feld{origlanguage}), Rollen (\Feld{authortype}, \Feld{editortype} etc.) und XXX .
 
 \subsection{Datum}\label{kap_datum}
-\BibTeX  kannte ursprünglich nur ein \Feld{year} (das Feld \Feld{month} ist nur für die Heftnummerierung von Zeitschriften gedacht und wird meist als Wort ausgeben). Normalerweise wurde dort das Datum als vierstellige Jahreszahl geschrieben. In der Regel haben die alten Stile aber alles wörtlich ausgegeben, was darin stand, also z. B.
-\begin{Verbatim}[breaklines=true,breakanywhere=true]
+\BibTeX{} kannte ursprünglich nur ein \Feld{year} (das Feld \Feld{month} ist nur für die Heftnummerierung von Zeitschriften gedacht und wird meist als Wort ausgeben). Normalerweise wurde dort das Datum als vierstellige Jahreszahl geschrieben. In der Regel haben die alten Stile aber alles wörtlich ausgegeben, was darin stand, also z. B.
+\begin{lstlisting}
 @MISC{example-year-bst,
     ...
 	YEAR = {o.\,J. [ca.~2005]},
 	...
 }
-\end{Verbatim}
-Die ältesten Versionen von \blx  hatten sich dieses Verfahrens auch noch bedient. Mittlerweile benutzt man aber ein Feld \Feld{date}, das Daten nach Format ISO8601-2 verarbeitet. Das bedeutet, man kann mit einem Schrägstrich Anfangs- und Enddatum eingeben, man kann sekundengenaue Werte angeben und man kann offene Zeitspannen markieren. Die folgenden Ausdrücke sind legal:
+\end{lstlisting}
+Die ältesten Versionen von \blx{} hatten sich dieses Verfahrens auch noch bedient. Mittlerweile benutzt man aber ein Feld \Feld{date}, das Daten nach Format ISO8601-2 verarbeitet. Das bedeutet, man kann mit einem Schrägstrich Anfangs- und Enddatum eingeben, man kann sekundengenaue Werte angeben und man kann offene Zeitspannen markieren. Die folgenden Ausdrücke sind legal:
 \begin{figure}[H]
 \begin{tabular}{ll}
 \DatumDemo{intro:date:1}
@@ -928,26 +977,26 @@ Was die Stile davon wirklich ausgeben, ist dann noch einmal eine andere Frage. S
 
 \subsection{Zitierkommandos}\label{kap_zitat}
 
-Es gibt eine ganze Menge Zitierkommandos, aber keine Bange: deren Nomenklatur folgt einer Systematik, die sich gut memorieren läßt. Sehen wir uns das basale Kommando \Befehl{cite} an. Es erzeugt ein Zitat -- wie das dann aussieht, wird von den Einstellungen des jeweiligen Stils bestimmt. Sofern die bbl-Datei noch nicht existiert, ist das Kommando eine Aufforderung für \Biber, den Eintrag mit dem jweiligen Lokalisation aus der Datenbank auszulesen. Ist das schon geschehen und die bbl-Datei vorhanden, wird die Zitatmarke an dieser Stelle formatiert. Wir gehen hier mal von einem Autor-Jahr-Stil aus: \SaveVerb{Verb}|\cite{steinmetz:strahl:wilbers:1979}|\Beispiel{\cite{steinmetz:strahl:wilbers:1979}}
+Es gibt eine ganze Menge Zitierkommandos, aber keine Bange: deren Nomenklatur folgt einer Systematik, die sich gut memorieren läßt. Sehen wir uns das basale Kommando \Befehl{cite} an. Es erzeugt ein Zitat -- wie das dann aussieht, wird von den Einstellungen des jeweiligen Stils bestimmt. Sofern die bbl-Datei noch nicht existiert, ist das Kommando eine Aufforderung für \Biber, den Eintrag mit dem jweiligen Lokalisation aus der Datenbank auszulesen. Ist das schon geschehen und die bbl-Datei vorhanden, wird die Zitatmarke an dieser Stelle formatiert. Wir gehen hier mal von einem Autor-Jahr-Stil aus: \Beispiel{\cite{steinmetz:strahl:wilbers:1979}}
 
-Wenn man mehrere Werke an derselben Stelle zitieren will, kann man eine kommaseparierte Liste von Schlüsseln übergeben: \SaveVerb{Verb}|\cite{steinmetz:strahl:wilbers:1979,cossel:1933-35,ib:domino:europa}|\Beispiel{\cite{steinmetz:strahl:wilbers:1979,cossel:1933-35,ib:domino:europa}}
+Wenn man mehrere Werke an derselben Stelle zitieren will, kann man eine kommaseparierte Liste von Schlüsseln übergeben: \Beispiel{\cite{steinmetz:strahl:wilbers:1979,cossel:1933-35,ib:domino:europa}}
 
-Die Zitierkommandos haben meistens ein verpflichtendes Argument in geschweiften Klammern (den Lokalisation des Eintrages aus der \BibTeX-Datenbank) und zwei optionale in eckigen Klammern für Prä- und Postnoten, mit denen man beliebigen Text vor und nach das Zitat stellen kann. Die Postnote enthält meistens die Seitenzahl und dergleichen: \SaveVerb{Verb}|\cite[Vgl.][12]{steinmetz:strahl:wilbers:1979}|\Beispiel{\cite[Vgl.][12]{steinmetz:strahl:wilbers:1979}}
+Die Zitierkommandos haben meistens ein verpflichtendes Argument in geschweiften Klammern (den Lokalisation des Eintrages aus der \BibTeX-Datenbank) und zwei optionale in eckigen Klammern für Prä- und Postnoten, mit denen man beliebigen Text vor und nach das Zitat stellen kann. Die Postnote enthält meistens die Seitenzahl und dergleichen: \Beispiel{\cite[Vgl.][12]{steinmetz:strahl:wilbers:1979}}
 
 Jetzt können folgende Spezialfälle auftreten:
 \begin{itemize}
-\item Das Zitat steht am Satzanfang, der Name beginnt aber mit einem Kleinbuchstaben. Dann kann man Großschreibung erzwingen, indem man den ersten Buchstaben des Zitierkommandos groß schreibt: \SaveVerb{Verb}|\Cite{cossel:1933-35}|\Beispiel{\Cite{cossel:1933-35}}
-\item Ich will in einem Zitat mehrerer Werke Text vor und nach einzelne Werke stellen. Dafür hängt man ein Plural-s an das Zitat und wiederholt die Triole aus Prä- und Postnoten und Lokalisation solange, bis man fertig ist: \SaveVerb{Verb}|\cites(Wichtig!)(etc. pp.)[Vgl.][]{steinmetz:strahl:wilbers:1979}[22]{cossel:1933-35}[unbeachtlich hingegen ist][]{ib:domino:europa}|\Beispiel{\cites(Wichtig!)(etc. pp.)[Vgl.][]{steinmetz:strahl:wilbers:1979}[22]{cossel:1933-35}[unbeachtlich hingegen ist][]{ib:domino:europa}}
-\item Ich möchte gerne Klammern um das Zitat haben. Dafür stelle ich dem Zitierbefehl ein \texttt{paren} voran, bei längeren Kommandonamen meist nur ein \texttt{p}: \SaveVerb{Verb}|\parencite{steinmetz:strahl:wilbers:1979}|\Beispiel{\parencite{steinmetz:strahl:wilbers:1979}}
-\item Das Zitat soll eine Fußnote sein. Dafür stelle ich dem Zitierbefehl ein \texttt{foot} voran, bei längeren Kommandonamen meist nur ein \texttt{f}: \SaveVerb{Verb}|\footcite{steinmetz:strahl:wilbers:1979}|\Beispiel{\footcite{steinmetz:strahl:wilbers:1979}}
-\item Der Name soll Bestandteil des Satzes sein, aber nicht weitere Bestandteile der Zitiermarke. Dafür stelle ich dem Zitierbefehl ein \texttt{text} voran: \SaveVerb{Verb}|\textcite{steinmetz:strahl:wilbers:1979} behaupten \textellipsis|\Beispiel{\textcite{steinmetz:strahl:wilbers:1979} behaupten \textellipsis}
-\item Wenn das Zitat komplett ausgedruckt werden soll, stellt man dem Zitierbefehl ein \texttt{full} voran: \SaveVerb{Verb}|\fullcite{steinmetz:strahl:wilbers:1979}|\Beispiel{\fullcite{steinmetz:strahl:wilbers:1979}}
-\Befehl{smartcite} verhält sich innerhalb von Fußnoten wie \Befehl{parencite} und ansonsten wie \Befehl{footcite}: \SaveVerb{Verb}|\smartcite{steinmetz:strahl:wilbers:1979}\textellipsis\footnote{\smartcite{steinmetz:strahl:wilbers:1979}}|\Beispiel{\smartcite{steinmetz:strahl:wilbers:1979}\textellipsis\footnote{\smartcite{steinmetz:strahl:wilbers:1979}}}
-\item Man kann in jedem Stil ein Standardkommando einstellen, das dann mit \Befehl{autocite} aufgerufen werden kann. Bei einem Autor/Jahr-Stil führt es \Befehl{parencite} aus, bei einem Fußnotenstil \Befehl{footcite}. Vor allem guckt es aber, ob hinter ihm ein Satzzeichen folgt. Man kann dann im Stil einstellen, ob das Label vor oder hinter dem Satzzeichen angelegt werden soll. Das folgende Beispiel \SaveVerb{Verb}|Lorem ipsum \autocite{steinmetz:strahl:wilbers:1979}.|\Beispiel{Lorem ipsum \autocite{steinmetz:strahl:wilbers:1979}.} würde in den geisteswissenschaftlichen Stilen die Fußnote \emph{hinter} den Schlußpunkt setzen. Das kann man mit den Minimalbeispielen aus \cref{kap_mwe} ausprobieren.
+\item Das Zitat steht am Satzanfang, der Name beginnt aber mit einem Kleinbuchstaben. Dann kann man Großschreibung erzwingen, indem man den ersten Buchstaben des Zitierkommandos groß schreibt: \Beispiel{\Cite{cossel:1933-35}}
+\item Ich will in einem Zitat mehrerer Werke Text vor und nach einzelne Werke stellen. Dafür hängt man ein Plural-s an das Zitat und wiederholt die Triole aus Prä- und Postnoten und Lokalisation solange, bis man fertig ist: \Beispiel{\cites(Wichtig!)(etc. pp.)[Vgl.][]{steinmetz:strahl:wilbers:1979}[22]{cossel:1933-35}[unbeachtlich hingegen ist][]{ib:domino:europa}}
+\item Ich möchte gerne Klammern um das Zitat haben. Dafür stelle ich dem Zitierbefehl ein \texttt{paren} voran, bei längeren Kommandonamen meist nur ein \texttt{p}: \Beispiel{\parencite{steinmetz:strahl:wilbers:1979}}
+\item Das Zitat soll eine Fußnote sein. Dafür stelle ich dem Zitierbefehl ein \texttt{foot} voran, bei längeren Kommandonamen meist nur ein \texttt{f}: \Beispiel{\footcite{steinmetz:strahl:wilbers:1979}}
+\item Der Name soll Bestandteil des Satzes sein, aber nicht weitere Bestandteile der Zitiermarke. Dafür stelle ich dem Zitierbefehl ein \texttt{text} voran: \Beispiel{\textcite{steinmetz:strahl:wilbers:1979} behaupten \textellipsis}
+\item Wenn das Zitat komplett ausgedruckt werden soll, stellt man dem Zitierbefehl ein \texttt{full} voran: \Beispiel{\fullcite{steinmetz:strahl:wilbers:1979}}
+\Befehl{smartcite} verhält sich innerhalb von Fußnoten wie \Befehl{parencite} und ansonsten wie \Befehl{footcite}: \Beispiel{\smartcite{steinmetz:strahl:wilbers:1979}\textellipsis\footnote{\smartcite{steinmetz:strahl:wilbers:1979}}}
+\item Man kann in jedem Stil ein Standardkommando einstellen, das dann mit \Befehl{autocite} aufgerufen werden kann. Bei einem Autor/Jahr-Stil führt es \Befehl{parencite} aus, bei einem Fußnotenstil \Befehl{footcite}. Vor allem guckt es aber, ob hinter ihm ein Satzzeichen folgt. Man kann dann im Stil einstellen, ob das Label vor oder hinter dem Satzzeichen angelegt werden soll. Das folgende Beispiel \Beispiel{Lorem ipsum \autocite{steinmetz:strahl:wilbers:1979}.} würde in den geisteswissenschaftlichen Stilen die Fußnote \emph{hinter} den Schlußpunkt setzen. Das kann man mit den Minimalbeispielen aus \cref{kap_mwe} ausprobieren.
 \end{itemize}
 
-Wenn man jetzt alle möglichen Kombinationen aus diesen Regeln erstellt, erhält man den wesentlichen Satz der Zitierkommandos von \blx:
-\begin{Verbatim}
+Wenn man jetzt alle möglichen Kombinationen aus diesen Regeln erstellt, erhält man den wesentlichen Satz der Zitierkommandos von \blx{} :
+\begin{lstlisting}
         \cite      \Cite      \cites      \Cites
 paren:  \parencite \Parencite \parencites \Parencites
 foot:   \footcite             \footcites
@@ -955,13 +1004,13 @@ text:   \textcite  \Textcite  \textcites  \Textcites
 full:   \fullcite  \Fullcite  \fullcites  \Fullcites
 smart:  \smartcite \Smartcite \smartcites \Smartcites
 auto:   \autocite  \Autocite  \autocites  \Autocites
-\end{Verbatim}
+\end{lstlisting}
 Für Fußnoten werden keine Großschreibungsvarianten gebraucht, weil sie als absatzartiges Element immer einen Satzanfang darstellen.
 
 Jetzt gibt es diese Zitate auch allesamt für mehrbändige Werke, wo immer auch die Bandnummer genannt werden muß. Deshalb haben die Kommandos der \Befehl{volcite}-Familie zwei verpflichtende Argumente. Das führt bei den Multizitaten zu dem Problem, daß alle Werke in der Liste eine Bandnummer haben müssen (also für alle Dokumententypen mit mv\textellipsis). Ich würde daher raten, soweit als möglich die Einzelbände als Einzelwerke zu zitieren. Das geht, wenn sie eine bandübergreifende Seitennummerierung haben oder sich noch in anderen Merkmalen als der Bandnummer unterscheiden (Autor, Titel, Jahr etc).  
-\SaveVerb{Verb}|\volcite[Vgl.]{1}[12]{steinmetz:strahl:wilbers:1979}|\Beispiel{\volcite[Vgl.]{1}[12]{steinmetz:strahl:wilbers:1979}}
+\Beispiel{\volcite[Vgl.]{1}[12]{steinmetz:strahl:wilbers:1979}}
 
-\begin{Verbatim}
+\begin{lstlisting}
         \volcite  \Volcite  \volcites  \Volcites
 paren:  \pvolcite \Pvolcite \pvolcites \Pvolcites
 foot:   \fvolcite           \fvolcites
@@ -969,7 +1018,7 @@ text:   \tvolcite \Tvolcite \tvolcite  \Tvolcite
 full:   ---
 smart:  \svolcite \Svolcite \svolcites \Svolcites
 auto:   \avolcite \Avolcite \avolcites \Avolcites
-\end{Verbatim}
+\end{lstlisting}
 \Befehl{fullcite}-Varianten wären hier sinnlos.
 \par
 Es gibt weitere, die eher speziellen Zwecken dienen.
@@ -985,7 +1034,7 @@ Es gibt weitere, die eher speziellen Zwecken dienen.
 \item Per Paketoption lassen sich die Zitierkommandos der wichtigen \BibTeX-Stile \Paket{natbib} und \Paket{mcite} aus Kompatibilitätsgründen einschalten (nicht in Übersicht).
 \end{itemize}
 
-\begin{Verbatim}
+\begin{lstlisting}
 \supercite                   \supercites
 \notecite       \Notecite
 \fnotecite
@@ -1005,12 +1054,12 @@ Es gibt weitere, die eher speziellen Zwecken dienen.
 \citeyear
 \citeyear*
 \citeurl
-\end{Verbatim}
+\end{lstlisting}
 
 \subsection{Bibliographien}\label{kap_biblio}
 Literaturverzeichnisse werden mit dem Kommando \Befehl{printbibliography} erzeugt. Es ist möglich, mit der Umgebung \Kbd{refsection} oder \Kbd{refsegment} Bereiche für separate Bibliographien zu erzeugen, mit denen man dann z. B. kapitelweise Literaturverzeichnisse anlegen lassen. Der Unterschied zwischen beiden Umgebungen liegt darin, daß bei \Kbd{refsection} die Eindeutigkeit der Label nur für den Bereich, bei \Kbd{refsegment} aber für das gesamte Dokument garantiert wird.
 
-\begin{Verbatim}
+\begin{lstlisting}
 \begin{refsection}
 ...
 \end{refsection}
@@ -1021,9 +1070,9 @@ Literaturverzeichnisse werden mit dem Kommando \Befehl{printbibliography} erzeug
 \printbibliography[section=1,heading=subbibliography]
 \printbibliography[section=2,heading=subbibliography]
 
-\end{Verbatim}
+\end{lstlisting}
 oder
-\begin{Verbatim}
+\begin{lstlisting}
 \begin{refsegment}
 ...
 \printbibliography[segment=1,heading=subbibliography]
@@ -1034,7 +1083,7 @@ oder
 \printbibliography[segment=2,heading=subbibliography]
 \end{refsegment}
 
-\end{Verbatim}
+\end{lstlisting}
 
 Die Sektionen und Segmente werden einfach durchgezählt und mit der eponymen Option dem Befehl \Befehl{printbibliography} zugeordnet. Bei Segmenten innerhalb von Sektionen beginnt die Zählung jedesmal von neuem. Die globale Bibliographie hat die Sektion 0. Es gibt sie auch als normale Kommandos (\Befehl{beginsection} \Befehl{endsection} \Befehl{beginsegment} \Befehl{endsegment}) für den Fall, daß es Probleme mit der Verschachtelung von Umgebungen gibt -- allerdings sind Umgebungen für die Fehlersuche besser.
 
@@ -1043,20 +1092,22 @@ Es geht sogar noch ein bißchen einfacher. Da solche Abschnittsbibliographien me
 In gleicher Weise als Umgebung wie als Kommando gibt es noch den \Kbd{refcontext}. Damit kann man Bereiche mit unterschiedlichen Sortierungen abzgrenzen. Obacht! Tiebreaker wie \enquote{2020a} können dann für denselben Eintrag unterschiedlich sein. Eine kleine Anwendung von Sektionen und Kontexten findet man in meinem Blogpost über Sortierung \autocite{braun_i_2020_sorting}.
 
 Ein anderer häufiger Anwendungsfall sind thematisch geordnete Literaturverzeichnisse; in historischen Zusammenhängen typischerweise nach Quellen und Sekundärliteratur. Eine Möglichkeit wäre, die Quellen mit einem entsprechenden Schlagwort zu versehen und dann die Bibliographien nach diesem Schlagwort zu filtern. Das folgende Beispiel erstellt auch noch ein Softwareverzeichnis.
-\begin{Verbatim}[breaklines=true,breakanywhere=true]
+\begin{lstlisting}
 \printbibliography[type=software,title=Softwareverzeichnis]
-\printbibliography[keyword=source,title={Verzeichnis der Primärquellen}]
+\printbibliography[keyword=source,title={Verzeichnis der Quellen]
 \printbibliography[notkeyword=source,nottype=software,heading=bibliography]
-\end{Verbatim}
-Es gibt eine ganze Reihe weitere Optionen für das Feintuning der Literaturverzeichnisse, die wir hier nicht alle besprechen können. Daneben gibt es noch den Befehl \Befehl{printshorthands} für alle Einträge, die ein Feld \Feld{shorthand} haben. Grundsätzlich kann man sich auch eigene Verzeichnisse bauen.
+\end{lstlisting}
+Die Filteroptionen \Option{type} und \Option{subtype} dürfen nur einmal, \Option{keyword}, \Option{category} und sämtliche Verneinungen auch mehrmals verwendet werden. Grund dafür ist, daß es sich um \enquote{und}-Verknüpfungen handelt.
 
-\chapter{\archbib}\label{kap_blxarch}
+Es gibt eine ganze Reihe weitere Optionen für das Feintuning der Literaturverzeichnisse, die wir hier nicht alle besprechen können. Daneben gibt es noch den Befehl \Befehl{printshorthands} für alle Einträge, die ein Feld \Feld{shorthand} haben. Grundsätzlich kann man sich auch eigene Verzeichnistypen bauen.
+
+\chapter{\archbib}\label{kap_blx{} arch}
 
 \section{Einleitung}
 
 \subsection{Rationale}
 
-\archbib  wurde erstellt, in dem zahlreiche Zitiervorschriften deutscher, zumeist archäologischer Publikationsorgane verglichen wurden, um die Anforderungen an ein universale Software für diesen Interessentenkreis zu ermitteln. Keine einzige der betreffenden Zeitschriften akzeptiert derzeit \LaTeX-Quellen. Paradoxerweise ist das nachgerade die Voraussetzung für die Arbeit an \archbib, da nur so der Eindruck vermieden wird, hierbei handle es sich um offizielle Regeln der Redaktionen. Grundsätzlich sind alle ausführlichen Zitiervorschriften erheblich unvollständig, meist widersprüchlich und merklich ohne Gedanken an automatisiertes Zitieren verfaßt worden.
+\archbib{} wurde erstellt, in dem zahlreiche Zitiervorschriften deutscher, zumeist archäologischer Publikationsorgane verglichen wurden, um die Anforderungen an ein universale Software für diesen Interessentenkreis zu ermitteln. Keine einzige der betreffenden Zeitschriften akzeptiert derzeit \LaTeX-Quellen. Paradoxerweise ist das nachgerade die Voraussetzung für die Arbeit an \archbib{} , da nur so der Eindruck vermieden wird, hierbei handle es sich um offizielle Regeln der Redaktionen. Grundsätzlich sind alle ausführlichen Zitiervorschriften erheblich unvollständig, meist widersprüchlich und merklich ohne Gedanken an automatisiertes Zitieren verfaßt worden.
 
 Wie jedes Kulturaggregat sind auch Zitierstile historisch bedingt. Welchen Sinn z. B. ergibt die Angabe von Verlagsorten in einer Welt, in der Warenbestellungen kaum noch mit der gelben Post aufgegeben werden? Bemerkenswert hingegen ist die große Zurückhaltung bei den digitalen Identifikatoren (ISBN/ISSN, DOI, URN etc.), deren nachhaltige Auflösbarkeit von den Bibliotheken gesichert werden muß.
 
@@ -1071,8 +1122,8 @@ Wie jedes Kulturaggregat sind auch Zitierstile historisch bedingt. Welchen Sinn 
 \subsubsection{Fußnoten}
 \subsubsection{Numerisch}
 
-\subsection{Kein \BibTeX  und die Konfiguration von \Biber}
-Da \archbib  viele als \Biber-only ausgewiesene Features von \blx  benutzt, habe ich entschieden, bei Verwendung von \BibTeX  eine Fehlermeldung auszuwerfen. Eine andere Lösung als \enquote{Benutzt \Biber!} hätte ich bei Anfragen sowieso nicht anzubieten.
+\subsection{Kein \BibTeX{} und die Konfiguration von \Biber}
+Da \archbib{} viele als \Biber-only ausgewiesene Features von \blx{} benutzt, habe ich entschieden, bei Verwendung von \BibTeX{} eine Fehlermeldung auszuwerfen. Eine andere Lösung als \enquote{Benutzt \Biber!} hätte ich bei Anfragen sowieso nicht anzubieten.
 
 XXX
 
@@ -1110,12 +1161,12 @@ Gleich, welche Methode benutzt wird, man wird sie nach jedem Update von \Biber w
 
 \chapter{Die Ökologie von \archbib}
 
-In einer Serie von Blogposts auf meiner privaten Homepage habe ich \archbib  in Zusammenarbeit mit verschiedenen Hilfsmitteln ausprobiert. Dies insbesondere, um zu erfahren, ob ich dies von der \archbib-Seite aus unterstützen kann. Meine Erkenntnisse sind hier zusammengefaßt. Ein bißchen Mißtrauen ist geboten, denn mit Ausnahme von \Paket{tex4ht} habe ich keines dieser Programme vorher im Produktiveinsatz gehabt.
+In einer Serie von Blogposts auf meiner privaten Homepage habe ich \archbib{} in Zusammenarbeit mit verschiedenen Hilfsmitteln ausprobiert. Dies insbesondere, um zu erfahren, ob ich dies von der \archbib{} -Seite aus unterstützen kann. Meine Erkenntnisse sind hier zusammengefaßt. Ein bißchen Mißtrauen ist geboten, denn mit Ausnahme von \Paket{tex4ht} habe ich keines dieser Programme vorher im Produktiveinsatz gehabt.
 
 \section{Editoren}
 
 \subsection{\LyX}
-\LyX{} ist ein graphischer Editor á la MS Word für \LaTeX. Er benutzt eine eigene Makrosprache, die für die Bildschirmausgabe nach HTML und für druckbare Dokumente nach \LaTeX  übersetzt wird. Das funktioniert aber nur für eine Teilmenge von \LaTeX, für die entsprechende HTML-Formate vorliegen. Man kann beliebige \LaTeX-Kommandos eingeben oder neue \LyX-Makros für sie schreiben. Seit Version 2.3.0 wird \blx  nativ unterstützt, allerdings nur für Autor-Jahr- und numerische Stile. Schwierig wird es allerdings dann, wenn man Pakete wie \archbib  nutzen will, die \blx  wesentlich erweitern und insbesondere neue Zitierkommandos einführen. Hier muß man dann damit leben, daß dies in der HTML-Ausgabe nicht oder nur sehr unzureichend unterstützt wird.
+\LyX{} ist ein graphischer Editor á la MS Word für \LaTeX. Er benutzt eine eigene Makrosprache, die für die Bildschirmausgabe nach HTML und für druckbare Dokumente nach \LaTeX{} übersetzt wird. Das funktioniert aber nur für eine Teilmenge von \LaTeX, für die entsprechende HTML-Formate vorliegen. Man kann beliebige \LaTeX-Kommandos eingeben oder neue \LyX-Makros für sie schreiben. Seit Version 2.3.0 wird \blx{} nativ unterstützt, allerdings nur für Autor-Jahr- und numerische Stile. Schwierig wird es allerdings dann, wenn man Pakete wie \archbib{} nutzen will, die \blx{} wesentlich erweitern und insbesondere neue Zitierkommandos einführen. Hier muß man dann damit leben, daß dies in der HTML-Ausgabe nicht oder nur sehr unzureichend unterstützt wird.
 
 Alles in allem ist das ein ziemlich cleverer Ansatz. Warum ich \LyX{} dennoch für größere Dokumente nicht in Betracht ziehen würde, hängt vor allem damit zusammen, daß die graphische Eingabe wieder lokales Markup erzeugt. Je größer die Dokumente werden, desto mehr hilft mir aber ein kluges semantisches Markup bei der Schlußredaktion. Auf diesen Vorteil würde ich bei Dokumenten von der Größe einer Abschlußarbeit nicht verzichten wollen. Überhaupt finde ich die Möglichkeit, \LaTeX-Dokumente ohne \LaTeX-Kenntnisse zu schreiben, ziemlich problematisch. Ein Gutteil seiner hohen Skalierbarkeit liegt doch gerade darin, eigene Makros zur Strukturierung und Automatisierung schreiben zu können.
 
@@ -1128,7 +1179,7 @@ Alles in allem ist das ein ziemlich cleverer Ansatz. Warum ich \LyX{} dennoch f�
 \subsection{Endnote}
 
 \subsection{\Paket{JabRef}}
-\Paket{JabRef} ist ein in der \TeX-Welt sehr verbreiteter Manager für \BibTeX-Datenbanken. Da er in Java geschrieben ist, läuft er auf allen relevanten Betriebssystemen. Die Integration von \archbib  ist ziemlich leicht. Da das \BibTeX-Format keine abgeschlossene Menge an Feldern oder Dokumententypen hat, wurden entsprechende Editoren vorgesehen. Einzelheiten finden sich in einem \href{https://ingram-braun.net/erga/2020/02/biblatex-archaeology-in-its-environment-%e2%85%b0-jabref/#ib_campaign=biblatex-archaeology-2.2&ib_medium=github&ib_source=german_short_intro}{Blogpost}.
+\Paket{JabRef} ist ein in der \TeX-Welt sehr verbreiteter Manager für \BibTeX-Datenbanken. Da er in Java geschrieben ist, läuft er auf allen relevanten Betriebssystemen. Die Integration von \archbib{} ist ziemlich leicht. Da das \BibTeX-Format keine abgeschlossene Menge an Feldern oder Dokumententypen hat, wurden entsprechende Editoren vorgesehen. Einzelheiten finden sich in einem \href{https://ingram-braun.net/erga/2020/02/biblatex-archaeology-in-its-environment-%e2%85%b0-jabref/#ib_campaign=biblatex-archaeology-2.2&ib_medium=github&ib_source=german_short_intro}{Blogpost}.
 
 \section{Konverter}
 %\subsection{\LaTeXML}
