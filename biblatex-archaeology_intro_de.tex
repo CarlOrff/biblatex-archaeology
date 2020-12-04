@@ -1,9 +1,13 @@
-% arara: clean: { extensions: [aux,log,out,toc,bbl,bcf,bgl] }
-% arara: xelatex
+% arara: clean: { extensions: [aux,log,out,toc,bbl,bcf,bgl,run.xml] }
+% arara: lualatex
 % arara: biber
-% arara: xelatex
-\documentclass[11pt,table]{scrreprt}
-% The 'table' option is passed to xcolor package when loaded implicitly.
+% arara: lualatex
+\documentclass[
+	11pt,       % font size
+	table,      % is passed to (x)color package when loaded implicitly
+	twoside,    % two-sided printing
+	openright,  % start on right side
+]{scrreprt}
 
 %%% The following conditionals allow for compiling with various engines without changing the document.
 %%% Mainly concerning fonts.
@@ -118,6 +122,7 @@
 @MISC{intro:name:16,namec={{Father and Sons Inc.} and Joe Andy Paul}}
 \end{filecontents}
 \addbibresource{\jobname.bib}
+\ExecuteBibliographyOptions[misc]{skipbib} % don't want these tests in bibliography
 \DeclareSourcemap{
 	\maps[datatype=bibtex]{
 % Since the bbl-file does not contain the literal content of date fields anymore we store it in another field:
@@ -226,10 +231,12 @@
 \newrobustcmd*{\Feld}[1]{\texttt{#1}}
 \newrobustcmd*{\Option}[1]{\texttt{\detokenize{#1}}}
 \newrobustcmd*{\Umgebung}[1]{\texttt{#1}}
+\newrobustcmd*{\Lokalisierung}[1]{\texttt{#1}}
 \newrobustcmd*{\Kbd}[1]{\texttt{#1}}
 \newrobustcmd*{\Stil}[1]{\texttt{#1}}
 \newrobustcmd*{\Datei}[1]{\texttt{\detokenize{#1}}}
 \newrobustcmd*{\Englisch}[1]{\foreignlanguage{english}{\emph{#1}}}
+\newrobustcmd*{\Latein}[1]{\foreignlanguage{latin}{\emph{#1}}}
 \newcommand*{\Wichtig}{\IfTeXforHt{!}{\faExclamationCircle}}
 
 
@@ -296,7 +303,7 @@
 Dieses Dokument bietet eine Einführung in \blx{} und \archbib{} unter dem Aspekt strikter Anwendungsorientierung. Es geht also um Ausfüllen der
 Datenbanken und das Zitieren in Dokumenten; dazu die Zusammenarbeit mit anderer Software. Athematisch sind die technischen Interna und
 das Entwickeln von Stilen.
-Vermutlich liegt bei den meisten Lesern der Erstkontakt mit \LaTeX{} noch nicht lange zurück. Und wahrscheinlich war \blx{} bzw. \archbib{} einer der wesentlichen Gründe für das Interesse. Deswegen werden in \cref{kap_intro} zuerst einige konzeptionelle Probleme angesprochen, die ein gewisses Verständnis dafür wecken sollen, warum \blx{} so ist, wie es ist. Dann folgt in \cref{kap_blx{} } eine Vorstellung der Eigenschaften von \blx{} . Im Prinzip sollte man nach der Lektüre \blx{} benutzen können, soweit man es bei den \Englisch{out of box}-Einstellungen beläßt. Sobald man Einstellungen ändern oder Befehle neu definieren möchte, wird man schwerlich umhinkommen, in das Handbuch zu schauen. In dem \blx{} -Teil gibt es nur wenige Bezüge zu \archbib{} . Es sollte also auch für Interessenten anderer Stile nützlich sein. Im \cref{kap_blx{} arch} werden die von \archbib{} zur Verfügung gestellten Features etwas ausführlicher besprochen. Aber auch hier gilt, daß es sich um eine Einführung handelt, die die Handbuchlektüre auf Dauer nicht ersetzen kann.
+Vermutlich liegt bei den meisten Lesern der Erstkontakt mit \LaTeX{} noch nicht lange zurück. Und wahrscheinlich war \blx{} bzw. \archbib{} einer der wesentlichen Gründe für das Interesse. Deswegen werden in \cref{kap_intro} zuerst einige konzeptionelle Probleme angesprochen, die ein gewisses Verständnis dafür wecken sollen, warum \blx{} so ist, wie es ist. Dann folgt in \cref{kap_blx} eine Vorstellung der Eigenschaften von \blx. Im Prinzip sollte man nach der Lektüre \blx{} benutzen können, soweit man es bei den \Englisch{out of box}-Einstellungen beläßt. Sobald man Einstellungen ändern oder Befehle neu definieren möchte, wird man schwerlich umhinkommen, in das Handbuch zu schauen. In dem \blx-Teil gibt es nur wenige Bezüge zu \archbib. Es sollte also auch für Interessenten anderer Stile nützlich sein. Im \cref{kap_blxarch} werden die von \archbib{} zur Verfügung gestellten Features etwas ausführlicher besprochen. Aber auch hier gilt, daß es sich um eine Einführung handelt, die die Handbuchlektüre auf Dauer nicht ersetzen kann.
 \end{abstract}
  
 \tableofcontents
@@ -455,7 +462,7 @@ MWEs kann man auch benutzen, wenn man komplizierte Aufbauten (unregelmäßige Ta
 
 \section{Konzept}\label{kap_concept}
 
-Als Oren Patashnik 198x \BibTeX{} entwarf, stand er vor dem Problem, daß man mit \LaTeX{} nicht gut sortieren kann. Deshalb schrieb er ein Hilfsprogramm in C, das mit Dateien \Datei{<style>.bst} konfiguriert werden kann. Der Ablauf war so, daß in einem erstem \LaTeX-Lauf alle Zitationsschlüssel in der ohnehin vorhandenen Hilfsdatei \Datei{<jobname>.aux} gesammelt wurden. \BibTeX{} las sie aus. Meistens war dann noch ein zweiter \BibTeX-Lauf nötig, um die in dem \Feld{crossreference}-Feld gefundenen Schlüssel zu bearbeiten. \BibTeX{} erstellte eine Datei \Datei{<jobname>.bbl}, in der die Zitate fertig mit \LaTeX-Markup vorlagen. Ein zweiter \LaTeX-Lauf fügte diese dann in das Dokument ein. Im Laufe der Zeit enstanden viele Stile für spezielle Zwecke. Es zeigten sich aber auch immer mehr die Grenzen des Konzepts. Daß ich dasselbe Werk in verschiedenen Kontexten verschieden formatiert haben will, ist nicht vorgesehen -- das \LaTeX-Markup in der bbl-Datei ist nicht mehr veränderlich. Die polnische Notation der bst-Dateien war mit bloßen \TeX-kenntnissen nicht zu verstehen. Es gab zwar viele Stile für alle nur erdenklichen Zwecke, aber man konnte immer nur einen davon laden. Es ist deshalb z. B. nicht möglich, das Paket für kapitelweise Literaturverzeichnisse in einem beliebigen Stil ablaufen zu lassen.
+Als Oren Patashnik 198x \BibTeX{} entwarf, stand er vor dem Problem, daß man mit \LaTeX{} nicht gut sortieren kann. Deshalb schrieb er ein Hilfsprogramm in C, das mit Dateien \Datei{<style>.bst} konfiguriert werden kann. Der Ablauf war so, daß in einem erstem \LaTeX-Lauf alle Zitationsschlüssel in der ohnehin vorhandenen Hilfsdatei \Datei{<jobname>.aux} gesammelt wurden. \BibTeX{} las sie aus und erstellte eine Datei \Datei{<jobname>.bbl}, in der die Zitate fertig mit \LaTeX-Markup vorlagen. Ein zweiter \LaTeX-Lauf fügte diese dann in das Dokument ein. Meistens war dann noch ein dritter \LaTeX-Lauf nötig, um die in dem \Feld{crossreference}-Feld gefundenen Verweise aufzulösen. Im Laufe der Zeit enstanden viele Stile für spezielle Zwecke. Es zeigten sich aber auch immer mehr die Grenzen des Konzepts. Daß ich dasselbe Werk in verschiedenen Kontexten verschieden formatiert haben will, ist nicht vorgesehen -- das \LaTeX-Markup in der bbl-Datei ist nicht mehr veränderlich. Die polnische Notation der bst-Dateien war mit bloßen \TeX-kenntnissen nicht zu verstehen. Es gab zwar viele Stile für alle nur erdenklichen Zwecke, aber man konnte immer nur einen davon laden. Es ist deshalb z. B. nicht möglich, das Paket für kapitelweise Literaturverzeichnisse in einem beliebigen Stil ablaufen zu lassen.
 
 Um 2005 herum beschloß Philip Lehman deshalb, einen weithehend frei programmierbaren Universalstil namens \blx{} zu entwickeln. Die Grundidee dabei: \BibTeX{} sollte nur noch die Sortierung erledigen. Alles andere sollte in \LaTeX-Makros vorliegen, damit Nutzer mit durchschnittlichen \LaTeX-Kenntnissen auf gewohnte Weise durch Definition neuer Makros oder Veränderung bestehender ihre Bedürfnisse umsetzen konnten. \blx{} kommt mit einer Sammlung verschiedener Varianten aller wesentlichen Stilfamilien (Numerisch, Autor/Jahr, Autor/Title, Fußnoten). Zudem vereinigte \blx{} zahlreiche Aufgaben, für die es vorher spezielle bst-Dateien gab, so daß sie mit jedem beliebigen \blx{} -Stil kombinierbar sind. Da in der bbl-Datei kein \LaTeX-Markup mehr steht (es sei denn, es befand sich schon in der Datenbank), sind verschiedene Zitationen desselben Werks frei formatierbar. Bezahlt wurde das mit einer riesigen, schwer zu wartenden Codebasis, die trotz eines 400-Seiten-Handbuches auch deutliche Lücken in der Dokumentation aufweist. Zumal sein Schöpfer Philip Lehman -- offenbar ein Pseudonym -- seit 2012 wie vom Erdboden verschluckt ist. Zum Glück fanden sich immer wieder Freiwillige, die das Paket weiter gepflegt haben. Philipp Kime hat mit \Biber einen wesentlich leistungsstärkeren Ersatz für das in die Jahre gekommene \BibTeX{} erstellt. \blx{} wird z. Zt. hauptsächlich von Moritz Wemheuer gepflegt. \blx{} funktioniert grundsätzlich noch mit \BibTeX, allerdings sind viele Features nur mit \Biber nutzbar. 
 
@@ -481,19 +488,23 @@ Stile bestehen aus vier Dateiformaten: \Datei{<style>.bbx} enthält die Einstell
 \end{itemize}
 Von diesen Stilen gibt es dann einige Varianten, die sich hauptsächlich durch Details bei der Produktion von Labeln unterscheiden (Trunkierung von Namens- oder Labelwiederholungen, Konkatenation mehrere Werke in einem Zitat, Vermeidung mehrdeutiger Labels etc.).
 
+Diese Stile interagieren auf verschiedene Weise mit dem sie tragenden Text. Numerische, alphabetische und Autor/Jahr-Stile sind nicht dafür ausgelegt, über das Label und die Seitenzahlen hinaus zusätzlichen Text aufzunehmen. In den ersten beiden zitiert man u.\,U. man nur einzelne Kapitel, weshalb \BibTeX{} dafür einen eigenen Datentyp \Typ{chapter} hat, während \blx{} ein Feld \Feld{chapter} bereit stellt. Etwas anderes ist es, wenn Fußnoten ins Spiel kommen. Das sind im Prinzip Absätze -- nur halt nicht im Textfluß -- und die können beliebig mit Text gefüllt werden. Man sollte allerdings ein bißchen aufpassen, daß die Label noch klar als solche erkennbar sind.
+
 Man lädt den Stil durch die Paketoption \Option{style}:
 \begin{lstlisting}
 \usepackage[style=numeric]{biblatex}
 \end{lstlisting}
 Mit Hilfe der Optionen \Option{citestyle} und \Option{bibstyle} kann man theoretisch verschiedene Stile zum Zitieren und für die Bibliographie laden. Sofern das nicht explizit vorgesehen ist, muß aber man schon Glück haben, daß das überhaupt funktioniert und dann noch sinnvolle Ergebnisse zeitigt. Da \Datei{<style>.bbx} und \Datei{<style>.cbx} einen anderen Stil erben können, kann es auch Stile geben, die nur eines von beiden bereitstellen..
 
-Wenn man sich informieren will, welche zusätzlichen Stile es gibt, ist das Verzeichnis \href{https://www.ctan.org/tex-archive/macros/latex/contrib/biblatex-contrib/}{\Kbd{CTAN:macros/latex/contrib/biblatex-contrib/}} der geeignete Anlaufpunkt. Stand November 2020 sind dort 67 Stilpakete gelistet, von denen einige aber vermutlich mangels aktiver Pflege nicht mehr funktionieren. Man sieht aber schon beim Überfliegen, daß deutsche Geisteswissenschaften gut vertreten sind; vermutlich, weil diese vergleichsweise hohe typographische Ansprüche hat.
+Wenn man sich informieren will, welche zusätzlichen Stile es gibt, ist das Verzeichnis \href{https://www.ctan.org/tex-archive/macros/latex/contrib/biblatex-contrib/}{\Kbd{CTAN:macros/latex/contrib/biblatex-contrib/}} der geeignete Anlaufpunkt. Stand November 2020 sind dort 67 Stilpakete gelistet, von denen einige aber vermutlich mangels aktiver Pflege nicht mehr funktionieren. Man sieht aber schon beim Überfliegen, daß deutsche Geisteswissenschaften gut vertreten sind; vermutlich, weil diese vergleichsweise hohe typographische Ansprüche haben.
 
-\subsection{Paketoptionen}
+
+
+\subsection{Optionen}
 \blx{} hat eine Unmenge von Paketoptionen. Vermutlich werden die wenigsten davon von Endanwendern benutzt werden, weswegen es wohl keinen Sinn ergibt, hier alle aufzulisten. Ich fasse sie in Funktionsgruppen zusammen, damit man weiß, welche Möglichkeiten man hat.
 \begin{itemize}
 \item Die ganzen \Kbd{<...>counter} und \Kbd{<...>tracker} nützen natürlich nur, wenn der gewählte Stil sie auch auswertet. Die in \cref{kap_stile} erwähnten Stilvarianten beruhen meist auf speziellen Kombinationen dieser Optionen. Mit \Option{citereset} kann man eine Gliederungsebene angeben, an der diese Werte zurückgesetzt werden.
-\item Auch alles anderen Optionen, die unter \Englisch{internal} gelistet sind, sind eher etwas für Stilautoren. das gilt auch für \Option{loadfiles}.
+\item Auch alles anderen Optionen, die unter \Englisch{internal} gelistet sind, sind eher etwas für Stilautoren. Das gilt auch für \Option{loadfiles}.
 \item Es gibt auch eine ganze Reihe von Optionen für das Datum. Ich gehe in \cref{kap_datum} kurz darauf ein.
 \item \Kbd{min<...>names} und \Kbd{max<...>names} steuern die Trunkierung von Namenslisten. Maximum ist der Schwellwert, bis zu dem die Liste komplett ausgedruckt wird. Minimum ist die Zahl der Namen, die bei einer trunkierten Liste angezeigt wird. Für einfache Listen gibt es nur die globale Einstellung \Option{minitems} und \Option{maxitems}.
 \item Man kann die gleichnamigen Felder für Identifier mit \Kbd{true} oder \Kbd{false} an- oder abschalten: \Option{isbn}, \Option{url} (nicht bei \Typ{online}), \Option{eprint}, \Option{doi}.
@@ -518,7 +529,7 @@ Natürlich sind den Fähigkeiten auch von \blx{} gewisse Grenzen gesetzt. Beim L
 
 Schwierig ist auch alles, was mit Mustererkennung zu tun hat. Das in Perl geschriebene Biber ist dafür eigentlich wunderbar ausgestattet, kann aber kein \LaTeX{} parsen. \LaTeX{} selbst hingegen hat nur sehr eingeschränkt Werkzeuge dafür, insbesondere hat es keine Regulären Ausdrücke zur Erkennung von Textmustern. Bemerkbar macht sich das z. B. im Falle der Sequentes, also Seitenzahlen wie 21f. oder 23ff. Um die zu erzeugen, muß man sehen, ob ein Ausdruck als Differenz von Start- und Endseite interpretierbar ist. So etwas ist überraschend kompliziert, denn die Seiten können z,\,B. als römische Zahlen codiert sein, die wiederum in Unicode in verschiedenen Varianten vorliegen. Das Trennzeichen kann ein Binde-, Halbgeviert- oder Geviertstrich sein, mit oder ohne Leerzeichen. Die Nicht-ASCII-Zeichen können als \LaTeX-Makros oder Unicodepoints codiert sein etc. Tatsächlich rechnet Biber -- soweit möglich -- die Differenz für das \Feld{pages} aus. Die meisten Seitenzahlen stehen aber in den Postnoten der Zitationskommandos -- und die sieht Biber nicht. Es hat diese Funktion früher mal auch in \blx{} gegeben; sie wurde aber wegen ihrer Fehleranfälligkeit wieder gestrichen.
 
-\subsection{Funktionen von \Biber}
+\subsection{Funktionen von \Biber}\label{kap_biber}
 
 \Biber wird hauptsächlich über \blx{} gesteuert, indem die Einstellungen über die \Datei{<jobname>.bcf} durchgereicht werden. Deshalb kann \Biber im normalen Workflow für Dokumente auch ganz ohne Optionen aufgerufen werden. Eine wichtige Option ist \Option{--trace}, die ein sehr detailliertes Logging in der \Datei{<jobname>.blg} veranlaßt. Es kann aber noch weit mehr als nur die \Datei{<jobname>.bbl} erstellen. Ein typisches Problem ist es z.\,B., alle Einträge eines Dokuments zu extrahieren und daraus eine neue Datenbank zu erstellen:
 \begin{lstlisting}
@@ -531,12 +542,14 @@ Wenn Biber mit der \Datei{<jobname>.bcf} aufgerufen wird, erhält es auch die in
 \begin{lstlisting}
 $ biber --tool-config
 \end{lstlisting}
-verrät, wo die aktuell in Gebrauch befindliche \Datei{bibertool.conf} abgelegt ist. Machen Sie davon eine Kopie, tauschen Sie in dieser die \Kbd{<datamodel>...</datamodel>}-Gruppe aus, entfernen Sie die Präfixe für den BCF-Namensraum (\Kbd{bcf:}). Dasselbe müssen sie für die \Kbd{<bcf:inheritance>...</bcf:inheritance>}-Gruppe tun, die die Feldnamen für die Vererbungsziele angibt, und evtl. für die \Kbd{<bcf:sourcemap>...</bcf:sourcemap>}-Gruppe, die Anweisungen für Textersetzungen wie z.\,B. die Umbennenung von Feldern enthält. Wenn die Zieldatei sortiert sein soll, übernehmen Sie auch die \Kbd{<bcf:sortingtemplate>...</bcf:sortingtemplate>}-Gruppe. Dann rufen Sie Biber im Toolmodus künfig mit der Option \Option{-g}\Kbd{=/path/to/bibertool-copy.conf} auf. Das Sortieren von Quelldatenbanken ist aber im Allgemeinen nicht sinnvoll.
+verrät, wo die aktuell in Gebrauch befindliche \Datei{bibertool.conf} abgelegt ist. Machen Sie davon eine Kopie, tauschen Sie in dieser die \Kbd{<datamodel>...</datamodel>}-Gruppe aus, entfernen Sie die Präfixe für den BCF-Namensraum (\Kbd{bcf:}). Dasselbe müssen Sie für die \Kbd{<bcf:inheritance>...</bcf:inheritance>}-Gruppe tun, die die Feldnamen für die Vererbungsziele angibt. Da \Biber mit jeder Version sein Konfigurationsformat ändert, muß man dieses Procedere nach jedem \Biber-Update wiederholen. Datenmodell ändert Dann rufen Sie Biber im Toolmodus künfig mit der Option \Option{-g}\Kbd{"/path/to/bibertool-copy.conf"} auf.
 
 \begin{lstlisting}
 $ biber --tool --output-encoding=ascii <file>.bib
 \end{lstlisting}
-Das erstellt aus einer UTF-8-codierten Datenbank eine \Datei{<file>_bibertool.bib}, in der alle Zeichen höher als US-ASCII in \LaTeX-Makros umgewandelt sind, soweit \Biber  dafür Makros kennt -- unbekannte Zeichen werden markiert. Für den umgekehrten Vorgang gibt man \Kbd{UTF-8} an (oder nur \Option{-U}). Es gibt auch noch weitere Encodings, die man auch mit \Option{--input_encoding} angeben kann, falls man eine Datenbank konvertieren will. Zeichen, für die Biber kein Mapping im Zielformat kennt, werden dabei markiert. Es gibt noch eine ganze Reihe von Optionen, mit denen man Datenbanken formatieren, validieren und sortieren kann.
+Das erstellt aus einer UTF-8-codierten Datenbank eine \Datei{<file>_bibertool.bib}, in der alle Zeichen höher als US-ASCII in \LaTeX-Makros umgewandelt sind, soweit \Biber{} dafür Makros kennt -- unbekannte Zeichen werden markiert. Für den umgekehrten Vorgang gibt man \Kbd{UTF-8} an (oder nur \Option{-U}). Es gibt auch noch weitere Encodings, die man auch mit \Option{--input_encoding} angeben kann, falls man eine Datenbank konvertieren will. Das ist vor allem interessant, wenn man Datenbanken aus OPACs oder Google Books etc. pp. importieren will, da deren Implementierung meist noch aus Zeiten stammt, wo UTF-8 noch kein ubiquitärer Standard war. Es gibt noch eine ganze Reihe von Optionen, mit denen man Datenbanken formatieren und validieren kann. Das Sortieren erfordert weitere Anpassungen der Konfigurationsdatei, ist aber bei Quelldatenbanken im Allgemeinen auch nicht sinnvoll.
+
+Diese Abhängigkeit des Toolmodus von dem Datenmodell ist nicht ganz unproblematisch. In der Datenbank könnten sich Eigenschaften verschiedener Stile befinden, die sich vielleicht sogar gegenseitig ausschließen. Und auch Drittanbietersoftware wie Literaturverwaltungen könnten eigene Felder für den internen Gebrauch setzen. Insofern eignet sich \Biber auch im Toolmodus nicht zur Datenbankverwaltung, sondern nur für begrenzte Aufgaben wie etwa das Erstellen dokumentenspezifischer Datenbanken zur Weitergabe mit den Quellen. Dafür kommt man wahrscheinlich häufig besser weg, wenn man ein MWE mit \Befehl{nocite}\Kbd{\detokenize{{*}}} macht und das wie oben als \Datei{*.bib} ausgeben läßt, weil dann die Konfiguration im Hintergrund erstellt wird. Allerdings werden dann auch die Eingabefilter (Sourcemaps) der Stile ausgeführt.
 
 \section{Datenerfassung}
 
@@ -655,7 +668,7 @@ Soll der String ein komplettes Feld ersetzen, verzichtet man auf Feldbegrenzer. 
 
 \subsection{Die Felder}\label{kap_felder}
 
-Die Anzahl möglicher Felder ist in \BibTeX{} praktisch unendlich. Allerdings müssen Felder, die von \BibTeX{} oder \Biber gedruckt oder sonstwie verarbeitet werden sollen, diesen bekannt gemacht werden. Es spricht aber nichts dagegen, daß man persönliche Notizen in Phantasiefelder schreibt. Man sollte nur beachten, daß die Feldnamen auf die 26 Alphabetbuchstaben beschränkt sind. Die \BibTeX-Stile hatten teilweise andere Feldnamen (z.\,B. \Feld{address} statt \Feld{location}, \Feld{school} statt \Feld{institution}). Sie werden in \blx{} als Aliase behandelt.
+Die Anzahl möglicher Felder ist in \BibTeX{} praktisch unendlich. Allerdings müssen Felder, die von \BibTeX{} oder \Biber gedruckt oder sonstwie verarbeitet werden sollen, diesen bekannt gemacht werden. Es spricht aber nichts dagegen, daß man persönliche Notizen in Phantasiefelder schreibt. Man sollte nur beachten, daß die Feldnamen auf die 26 Alphabetbuchstaben beschränkt sind. Die \BibTeX-Stile hatten teilweise andere Dokujmententypen und Feldnamen (z.\,B. \Feld{address} statt \Feld{location}, \Feld{school} statt \Feld{institution}). Sie werden in \blx{} als Aliase behandelt.
 
 In \cref{kap_fileformat} wurde schon angedeutet, daß es vier Datentypen für Felder gibt: Listen, Namen, Ganzzahlen und Text. Listen und Namen können mehrere Elemente haben, die durch das Trennzeichen \Kbd{and} separiert werden. Ganzzahlen brauchen in der Datenbank keine Feldbegrenzer, Text schon. Schon in \BibTeX{} gab es das Feld {\Feld{crossref}, daß einen speziellen Text enthielt, nämlich einen Schlüpssel eines anderen Eintrags. Dadurch konnten unselbstständige Typen (Artikel in Zeitschriften und Sammelwerken) den sie enthaltenden Einträgen zugeordnet werden, so daß diese in der Datenbank nur einmal erfaßt werden müßten. \blx{} erweitert das enorm und definiert eine ganze Reihe von Textfeldern, die ihren Inhalt auf spezielle Weise auswerten. Die folgende Liste ist von der in der \blx{} -Dokumentation aus Verständnisgründen leicht verschieden.
 \begin{itemize}
@@ -751,7 +764,7 @@ Mit zunehmenden Funktionsumfang ist die Zahl der von \blx{} verarbeiteten Felder
  & \Feld{eventtitleaddon} & Text & Zusatz zu Veranstaltungstitel \\
  & \Feld{forword} & Name & Verfasser des Vorworts \\
  & \Feld{holder} & Name & Halter eines Patents \\
-\Wichtig & \Feld{howpublished} & Text & nähere Information zu ungewöhnlichen Publiukationsformen \\
+\Wichtig & \Feld{howpublished} & Text & nähere Information zu ungewöhnlichen Publikationsformen \\
  & \Feld{indextitle} & Text & wenn der Titel in abweichender Form im Index erscheinen soll (z.\,B. ohne führenden Artikel) \\
 \Wichtig & \Feld{institution} & Liste & Name der Institution bei Hochschulschriften \\
  & \Feld{introduction} & Name & Verfasser einer Einführung \\
@@ -1025,7 +1038,7 @@ Es gibt weitere, die eher speziellen Zwecken dienen.
 \begin{itemize}
 \item \Befehl{supercite} stellt die Zitatmarke hoch. Er existiert nur in numerischen Stilen. Da dort kein Text in die Marke gedruckt wird, sind die Varianten für Großschreibung und Multizitate verzichtbar.
 \item \Befehl{cite*}, \Befehl{parencite*}, \Befehl{autocite*} gibt es nur in Autor/Jahr und Autor/Titel-Stilen. Sie drucken nur das Jahr bzw. den Titel, weswegen hier ebenfalls weder Großschreibung noch Multizitatvarianten gebraucht werden.
-\item \Befehl{nocite} dient dazu, Werke ohne Zitat in das Literaturverzeichnis aufzunehmen.
+\item \Befehl{nocite} dient dazu, Werke ohne Zitat in das Literaturverzeichnis aufzunehmen. \Befehl{nocite}\Kbd{\detokenize{{*}}} druckt alle Einträge aus.
 \item \Befehl{notecite} druckt die Prä- und Postnote ohne Zitat. Das Werk erscheint aber im Literaturverzeichnis.
 \item \Befehl{footcitetext} ist wie \Befehl{footcite}, setzt aber den Fußnotenzähler nicht hoch. Es ist für Fälle gedacht, wo der Fußnotentext an ungewöhnlichen Stellen erscheinen soll, z. B. unter Tabellen oder in Bildbeschriftungen. Solche Fußnoten benutzen normalerweise einen lokalen Zähler.
 \item \Befehl{footfullcite}: wie \Befehl{fullcite}, aber immer als Fußnote.
@@ -1094,70 +1107,224 @@ In gleicher Weise als Umgebung wie als Kommando gibt es noch den \Kbd{refcontext
 Ein anderer häufiger Anwendungsfall sind thematisch geordnete Literaturverzeichnisse; in historischen Zusammenhängen typischerweise nach Quellen und Sekundärliteratur. Eine Möglichkeit wäre, die Quellen mit einem entsprechenden Schlagwort zu versehen und dann die Bibliographien nach diesem Schlagwort zu filtern. Das folgende Beispiel erstellt auch noch ein Softwareverzeichnis.
 \begin{lstlisting}
 \printbibliography[type=software,title=Softwareverzeichnis]
-\printbibliography[keyword=source,title={Verzeichnis der Quellen]
+\printbibliography[keyword=source,title={Verzeichnis der Primärquellen]
 \printbibliography[notkeyword=source,nottype=software,heading=bibliography]
 \end{lstlisting}
 Die Filteroptionen \Option{type} und \Option{subtype} dürfen nur einmal, \Option{keyword}, \Option{category} und sämtliche Verneinungen auch mehrmals verwendet werden. Grund dafür ist, daß es sich um \enquote{und}-Verknüpfungen handelt.
 
 Es gibt eine ganze Reihe weitere Optionen für das Feintuning der Literaturverzeichnisse, die wir hier nicht alle besprechen können. Daneben gibt es noch den Befehl \Befehl{printshorthands} für alle Einträge, die ein Feld \Feld{shorthand} haben. Grundsätzlich kann man sich auch eigene Verzeichnistypen bauen.
 
-\chapter{\archbib}\label{kap_blx{} arch}
+\section{Anpassung}
+
+Dazu gäbe es viel zu sagen, aber ich will es nur kurz anreißen. Wie oben beschrieben ist der wichtigste Vorteil von \blx{} gegenüber \Datei{*.bst}-Stilen, daß man vieles durch Änderung von LaTeX-Makros anpassen kann. Aber sobald man mehr tun will, als ein paar grundlegende Formatierungen zu ändern, wird man sich im Quellcode umsehen müssen. 
+Feldformatierungen kann man so anpassen:
+\begin{lstlisting}
+\DeclareFieldFormat*{title}{\textbf{#1}}   		      % Alle Titel fett
+\DeclareFieldFormat[book,booklet]{title}{\textit{#1}} % Nur Titel von @book & @booklet kursiv
+\end{lstlisting}
+In der Regel gibt es für jedes Feld ein gleichnamiges Format (außer bei Datumsfeldern, die in ihre Bestandteile aufgespalten werden), aber es gibt noch wesentlich mehr Formate. Evtl. stehen aber auch komplexere Ausdrücke wie wenn\textellipsis dann-Beziehungen in den Formaten. Die würde man dann auch überschreiben. \Befehl{DeclareListFormat} und \Befehl{DeclareListFormat} müssen auch Zähler und ggf. Namnesbestandteile abfragen.
+
+Meist schreibt man komplexere Formate aber in \Kbd{bibmacros}, die analog zur \Befehl{newcommand}-Familie funktionieren, aber zusätzliche Zeichen im Namen erlauben: \Befehl{newbibmacro}, \Befehl{renewbibmacro} und die gesternten Varianten. Man kann solche \Kbd{bibmacros} auch zwischenspeichern und dann wiederherstellen. In der Regel wird es für semantische Gruppen wie Ort/Verlag/Jahr Formate geben.
+
+Formatanweisungen unterhalb der Felderebene wie Namensbestandteile und Trennzeichen von Listen liegen einfach als Befehle vor, die sich wie gehabt mit \Befehl{renewcommand*} ändern lassen. Trennzeichen lassen sich auch kontextsensitiv nur für bestimmte Bereiche ändern.
+\begin{lstlisting}
+\renewcommand*{\mkbibnamefamily}[1]{\textbf{#1}} % Nachname fett (auch -given, -prefix, -suffix)
+\DeclareDelimFormat*[bib]{multilistdelim}{\textbar\addthinspace} % Listentrenner nur in der Bibliographie
+\renewcommand*{\finalnamedelim}{\space\bibstring{and}\addspace} % letzter Namenstrenner global
+\end{lstlisting}
+ Bei Klammern sollte man unbedingt auf die \blx-Befehle zurückgreifen, weil dort deren Balance überwacht wird. Auch bei Interpunktion und Leerzeichen sollte man auf die \blx-Kommandos des Types \Befehl{addperiod}, \Befehl{addspace} etc. zurückgreifen. Interpunktion hängt nämlich auch davon ab, was folgt. \blx{}schreibt sie deswegen in einen Puffer, der erst ausgedruckt wird, wenn man weiß, was als nächstes kommt.
+Es gibt Hooks wie z.\,B. \Befehl{AtBeginBibliography} oder \Befehl{AtEveryCite}, mit denen man Code an bestimmten Einsprungstellen des Verarbeitungsprozesses placieren kann. Einfache Filter, um z.\,B. den Inhalt eines Feldes in ein anderes zu kopieren, kann man auf der LaTeX-Ebene mit \Befehl{AddInputHandler} durchführen. Mit als \Befehl{DeclareSourcemap} kann man Filter bauen, die beim Einlesen der Datenbank in \Biber auch Jokersuchen und Ersetzen mit regulären Ausdrücken durchführen können. Und schließlich kann man mit dem Paket \Paket{xpatch} Code an Makros anheften oder sogar ersetzen. 
+
+\chapter{\archbib}\label{kap_blxarch}
 
 \section{Einleitung}
 
+Das hier beabsichtigt keine Befehlsreferenz. Für die Implementation mußten auch eine ganze Reihe Makros für Abstände, Interpunktion und Tests geschrieben werden, mit denen Endnutzer vermutlich wenig in Kontakt kommen. Ich gehe hier nach Aufgaben vor, um einen Überblick, was \archbib{}alles kann bzw. gegenüber \blx{} verändert. Für eine vollständige Referenz ist weiterhin das Manual zu benutzen. Auch die Beispieldatenbanken sollten aufmerksam betrachtet werden.
+
 \subsection{Rationale}
 
-\archbib{} wurde erstellt, in dem zahlreiche Zitiervorschriften deutscher, zumeist archäologischer Publikationsorgane verglichen wurden, um die Anforderungen an ein universale Software für diesen Interessentenkreis zu ermitteln. Keine einzige der betreffenden Zeitschriften akzeptiert derzeit \LaTeX-Quellen. Paradoxerweise ist das nachgerade die Voraussetzung für die Arbeit an \archbib{} , da nur so der Eindruck vermieden wird, hierbei handle es sich um offizielle Regeln der Redaktionen. Grundsätzlich sind alle ausführlichen Zitiervorschriften erheblich unvollständig, meist widersprüchlich und merklich ohne Gedanken an automatisiertes Zitieren verfaßt worden.
+\archbib{} wurde erstellt, in dem zahlreiche Zitiervorschriften deutscher, zumeist archäologischer Publikationsorgane verglichen wurden, um die Anforderungen an ein universale Software für diesen Interessentenkreis zu ermitteln. Keine einzige der betreffenden Zeitschriften akzeptiert derzeit \LaTeX-Quellen. Paradoxerweise ist das nachgerade die Voraussetzung für die Arbeit an \archbib, da nur so der Eindruck vermieden wird, hierbei handle es sich um offizielle Regeln der Redaktionen. Grundsätzlich sind alle ausführlichen Zitiervorschriften erheblich unvollständig, meist widersprüchlich und merklich ohne Gedanken an automatisiertes Zitieren verfaßt worden.
 
-Wie jedes Kulturaggregat sind auch Zitierstile historisch bedingt. Welchen Sinn z. B. ergibt die Angabe von Verlagsorten in einer Welt, in der Warenbestellungen kaum noch mit der gelben Post aufgegeben werden? Bemerkenswert hingegen ist die große Zurückhaltung bei den digitalen Identifikatoren (ISBN/ISSN, DOI, URN etc.), deren nachhaltige Auflösbarkeit von den Bibliotheken gesichert werden muß.
+Ausgangspunkt waren natürlich die ausführlichen Zitier- und Bibliographiervorschriften der Römisch-Germanischen Kommission (RGK) \autocite{rgk::}, die für die deutschsprachige (Ur- und Frühgeschichte\textbar Vor- und Frühgeschichte\textbar Prähistorische Archäologie) autoritativ sind. Viele Richtlinien aus diesem Bereich nehmen nur unwesentliche Änderungen vor und verweisen für den Rest auf die RGK. Eher zufällig habe ich entdeckt, daß die deutschsprachige Ägyptologie auch häufig RGK-artige Regeln benutzt, was bei einem so stark philologisch geprägten Fach nicht selbstverständlich ist. Möglicherweise waren für beide die Klassischen Archäologen des Deutschen Archäologischen Instituts (DAI) Vorlagengeber, aber das hat zunächst nur den Status einer informierten Spekulation.
 
-\subsection{Charakteristik des RGK-Stils}
+Auch in der Kulturanthropologie/Ethnologie, vorwiegend der außereuropäischen (ehedem \enquote{Völkerkunde}), kommt man mit dem RGK-Schema einigermaßen weit. Trotzdem ist \Stil{zaak} einer von zweien, die technisch betrachtet eigentlich nicht in das Paket gehören. Die Unterstützung für die ungewöhnliche tabulierte Anordnung des Labeldatums sollte es aber auch in diesen Fächern ermöglichen, \archbib{} zu verwenden, sofern sich niemand findet, der ein spezielles Paket dafür schreibt. Der andere Fremdling ist \Stil{dguf-apa}, der deutsche Typographie mit dem verbreiteten angelsächsischen Stil der American Psychological Association (APA) versöhnen will. Beide aufzunehmen ist eine durchaus fragwürdige Entscheidung, weil sie unverhältnismäßig viel Programmieraufwand verursacht haben und den Code des Gesamtpakets zum Nachteil seiner Wartbarkeit aufblähen.
 
+\subsection{Charakteristik des RGK-Stils und typographische Hinweise}
+
+\begin{enumerate}
+\item Der größte Unterschied zu den Standardstilen von \blx{} ist, daß bei Aufsätzen Sammelwerksautoren vor dem Sammelwerkstitel stehen anstatt dahinter.\footnote{Moritz Wemheuer hat mittlerweile einen Stil \Stil{biblatex-ext} als Schablone für solche Stile erstellt. Den gab es noch nicht, als \archbib{} begonnen wurde.}
+\item Die Stile sind sehr sparsam mit Textauszeichnungen wie Fett- und Kursivdruck und Anführungszeichen. Lediglich die Auszeichnung von Labelnamen mit Kapitälchen ist verbreitet.
+\item Auch auf Zusätze wie Band, Jahrgang, Nummer, Heft, Seite(n) wird in der Regel verzichtet.
+\item Es werden keine Informationen zu Sprachen und Übersetzern angegeben.
+\item Verlagsangaben werden meist vermieden. Bei den Verlagsorten ist das unterschiedlich; mitunter kommen sie sogar bei Zeitschriften vor.
+\item Ziemlich bemerkenswert ist die große Zurückhaltung bei den digitalen Identifikatoren (ISBN/ISSN, DOI, URN, URL etc.).
+\item Großer Wert wird hingegen auf die Nennung von Veranstaltungstypen gelegt.
+\item Von monographischen Serientiteln werden auch Unterreihen ausgebeben, und zwar als eigener Block und nicht nur als Titelergänzung.
+\end{enumerate}
+
+Wenn man Kapitälchen verwendet, sollte man unbedingt Schriftarten wählen, die über echte Kapitälchen verfügen. Falsche Kapitälchen kann man erzeugen, indem man Großbuchstaben einfach in die Nähe der x-Höhe skaliert. Computerschriften bestehen zwar aus Vektorgrafiken, man bekommt beim Skalieren aber schnell Probleme mit der Strichstärke, die sich dann hier auch noch von den Majuskeln unterscheidet. Zudem profitieren Kapitälchen von einer geringen Sperrung. Wie man die mit dem Paket \Paket{microtype} erzeugt, steht im Quelltext dieses Dokuments. Das ist aber eine schriftartspezifische Einstellung, die Sichtkontrolle verlangt.
+
+Die Zurückhaltung bei den Identifikatoren sollte man überdenken. Wissenschaftliche Publikationen werden heutzutage vermutlich bevorzugt am Bildschirm gelesen. Und aus den Identifikatoren lassen sich meistens unschwer (z.\,T. vollautomatisisert) klickbare Links erzeugen. In diesem Dokument werden Optional Content Groups (OCG) verwendet, um am Bildschirm bunte Farben für klickbare Schriftzüge zu haben, auf dem Drucker aber normale Textfarbe auszugeben. Es hängt vom PDF-Viewer ab, ob er OCG beherrscht. Gegen dieses Vorgehen spricht wahrscheinlich die Langzeitarchivierbarkeit, weil der PDF/A-Standard Aufrufe externer Systeme verbietet.\footnote{Dieser Text ist also nicht PDF/A-konform, obwohl ihn der Validator \url{https://www.pdfen.com/pdf-a-validator} dafür hält.} Aber Identifikatoren ließen sich ja auch dann erkennen (Rohtextausgabe, Zwischenablage, OCR), so wie es ja auch das Browserplugin für \Paket{Zotero} tut.
+
+Daß das Paket nicht \blx\textsf{-rgk} heißt, hat zwei Gründe. Zum einen erschien es mir problematisch, einen Eigennamen ohne Erlaubnis zu verwenden. Zum anderen nahm ich an, daß wer nach \blx{} und RGK sucht, mangels Alternativen sowieso auf \archbib{} trifft. \Englisch{Archaeology} ist unter SEO-Gesichtspunkten einfach die bessere Wahl.
+ 
 \subsection{Alternativen}
+
+Es gibt den Stil \Stil{archaeologie} für die Richtlinien des DAI.
+
+Vom selben Autor gibt es auch einen Stil für das {International Journal of Student Research in Archaeology} IJSRA.
 
 \section{Änderungen und Erweiterungen zu \blx}
 
 \subsection{Stile}
-\subsubsection{Autor/Jahr}
-\subsubsection{Fußnoten}
-\subsubsection{Numerisch}
 
-\subsection{Kein \BibTeX{} und die Konfiguration von \Biber}
+Die prähistorische Archäologie ist wissenschaftsgeschichtlich sowohl aus philologischen (klassische Philologie, Geschichtswissenschaft, Germanistik) als auch aus naturwissenschaftlichen Disziplinen (v.\,a.~Geologie) hervorgegangen und rühmt sich gerne, eine Schnittstelle der Interdisziplinarität zu sein. Das drückt sich in den RGK-Anweisungen darin aus, daß man Zitieren sowohl im \Englisch{verbose}- als auch im Autor/Jahr-Modus zuläßt. \archbib{} deckt beides ab. Auf eine Nutzeranfrage hin habe ich auch numerische Varianten hinzugefügt. Die kommen zwar in der Fachliteratur nicht vor, werden aber offenbar in internen Papieren wie z.\,B. Forschungsanträgen genutzt. Auch in der generischen Webpublikation (also auf HTML-Seiten) sind sie beliebt. Ein Vorteil ist auf jeden Fall, daß sie bei sehr kleinen Bildschirmen (Smartphones) nicht so viel von der ohnehin geringen Zeilenlänge wegnehmen.
+
+Es gibt sechs generische Stile, die man daran erkennt, daß ihre Namen auf \Kbd{-archaeology} enden. Sie sind dafür da, den Code der korrespondierenden \blx-Stile erben. Für Endnutzer sind sie nicht optimiert. Allerdings wird man neue Stile auf sie aufsetzen.
+
+Die Auswahl der Stile ist arbiträr. Da ich wissen wollte, was \archbib{} alles können muß, habe ich mir alle leicht auffindbaren Richtlinien angesehen und dann implementiert, weil man in einem fortgeschrittenen Entwicklungsstadium den grundlegenden Code nur noch mit großer Mühe aufbohren kann. So kommt es, daß auch veraltete und sehr abseitige Stile dabei sind:
+
+\begin{enumerate}
+\item\Stil{aefkw}\hspace{0.8em}Ägyptologische Forschungsstätte für Kulturwissenschaft
+\item\Stil{afwl}\hspace{0.8em}Ausgrabungen und Forschungen in Westfalen-Lippe
+\item\Stil{amit}\hspace{0.8em}Eurasien-Abteilung des Deutschen Archäologischen Instituts (Archäologische Mitteilungen aus Iran und Turan)
+\item\Stil{archa}\hspace{0.8em}Archaeologia Austriaca (obsolet)
+\item\Stil{dguf}\hspace{0.8em}Deutsche Gesellschaft für Ur- und Frühgeschichte (obsolet)
+\item\Stil{dguf-alt}\hspace{0.8em}Deutsche Gesellschaft für Ur- und Frühgeschichte (obsolet)
+\item\Stil{dguf-apa}\hspace{0.8em}Deutsche Gesellschaft für Ur- und Frühgeschichte
+\item\Stil{eaz}\hspace{0.8em}Ethnographisch-Archäologische Zeitschrift
+\item\Stil{eaz-alt}\hspace{0.8em}Ethnographisch-Archäologische Zeitschrift (obsolet)
+\item\Stil{foe}\hspace{0.8em}Fundberichte aus Österreich
+\item\Stil{jb-halle}\hspace{0.8em}Landesamt für Denkmalpﬂege und Archäologie Sachsen-Anhalt
+\item\Stil{jb-kreis-neuss}\hspace{0.8em}Kreisheimatbund Neuss e. V.
+\item\Stil{karl}\hspace{0.8em}Karl. Das kulturelle Schachmagazin
+\item\Stil{kunde}\hspace{0.8em}Die Kunde
+\item\Stil{maja}\hspace{0.8em}Münchner Arbeitskreis Junge Aegyptologie
+\item\Stil{mpk}\hspace{0.8em}Mitteilungen der Prähistorischen Kommission der Österreichischen Akademie der Wissenschaften (obsolet)
+\item\Stil{mpkoeaw}\hspace{0.8em}Mitteilungen der Prähistorischen Kommission der Österreichischen Akademie der Wissenschaften
+\item\Stil{niedersachsen}\hspace{0.8em}Archäologische Kommission für Niedersachsen e. V.
+\item\Stil{nnu}\hspace{0.8em}Niedersächsisches Landesamt für Denkmalpﬂege
+\item\Stil{offa}\hspace{0.8em}Institut für Ur- und Frühgeschichte der Christian-Albrechts-Universität zu Kiel
+\item\Stil{rgk-inline}\hspace{0.8em}Römisch-Germanische Kommission des Deutschen Archäologischen Instituts (Autor/Jahr)
+\item\Stil{rgk-inline-old}\hspace{0.8em}Römisch-Germanische Kommission des Deutschen Archäologischen Instituts (Autor/Jahr), vor 2018
+\item\Stil{rgk-numeric}\hspace{0.8em}Römisch-Germanische Kommission des Deutschen Archäologischen Instituts (numeric)
+\item\Stil{rgk-numeric-old}\hspace{0.8em}Römisch-Germanische Kommission des Deutschen Archäologischen Instituts (numerisch), vor 2018
+\item\Stil{rgk-verbose}\hspace{0.8em}Römisch-Germanische Kommission des Deutschen Archäologischen Instituts (verbose)
+\item\Stil{rgk-verbose-old}\hspace{0.8em}Römisch-Germanische Kommission des Deutschen Archäologischen Instituts (verbose), vor 2018
+\item\Stil{rgzm-inline}\hspace{0.8em}Römisch-Germanisches Zentralmuseum (Autor/Jahr)
+\item\Stil{rgzm-numeric}\hspace{0.8em}Römisch-Germanisches Zentralmuseum (numerisch)
+\item\Stil{rgzm-verbose}\hspace{0.8em}Römisch-Germanisches Zentralmuseum (verbose)
+\item\Stil{ufg-muenster-inline}\hspace{0.8em}Westfälische Wilhelms-Universität Münster, Historisches Seminar, Abteilung für Ur- und Frühgeschichtliche Archäologie (Autor/Jahr)
+\item\Stil{ufg-muenster-numeric}\hspace{0.8em}Westfälische Wilhelms-Universität Münster, Historisches Seminar, Abteilung für Ur- und Frühgeschichtliche Archäologie (numerisch)
+\item\Stil{ufg-muenster-verbose}\hspace{0.8em}Westfälische Wilhelms-Universität Münster, Historisches Seminar, Abteilung für Ur- und Frühgeschichtliche Archäologie (verbose)
+\item\Stil{volkskunde}\hspace{0.8em}Zeitschrift für Volkskunde
+\item\Stil{zaak}\hspace{0.8em}Kommission für Archäologie außereuropäischer Kulturen des Deutschen Archäologischen Instituts
+\item\Stil{zaes}\hspace{0.8em}Zeitschrift für Ägyptische Sprache und Altertumskunde
+\end{enumerate}
+
+Für alle Stile gibt es Ausdrucke meiner Testdatei im Ordner mit der Dokumentation.
+
+
+\subsection{Konfiguration von \Biber}
 Da \archbib{} viele als \Biber-only ausgewiesene Features von \blx{} benutzt, habe ich entschieden, bei Verwendung von \BibTeX{} eine Fehlermeldung auszuwerfen. Eine andere Lösung als \enquote{Benutzt \Biber!} hätte ich bei Anfragen sowieso nicht anzubieten.
 
-XXX
-
-Gleich, welche Methode benutzt wird, man wird sie nach jedem Update von \Biber wiederholen müssen.
-
-\subsection{Optionen}
+Wer \Biber im Toolmodus benutzen will, findet das Datenmodell und die Vererbung in der Datei \Datei{bibertool.xm_} und kann sie in seine eigene Konfigurationsdatei einsetzen wie in \cref{kap_biber} beschrieben. Da das Datenmodell von \archbib{} das von \blx{} nur erweitert, aber nichts wegnimmt, kann man damit gefahrlos auch  Daten für die Standardstile bearbeiten.
 
 \subsection{Sortierung}
 
 \subsection{Dokumententypen}
 \paragraph{\Typ{inreference}}
+\Typ{inreference} ist in \blx{} nur ein Alias für \Typ{incollection}. In \archbib{}hat dieser Datentyp eine eigenständige Bedeutung, weil man im Titel einen Ausdruck wie \enquote{s.\,v.} (\Latein{sub voce}) voranstellen kann.
 \paragraph{\Typ{review}}
-\paragraph{\Kbd{digital} in Feld \Feld{entrysubtype}}
-\paragraph{\Kbd{news} in Feld \Feld{entrysubtype}}
-
-\subsection{Felder}
+\Typ{review} ist in \blx{} nur ein Alias für \Typ{article}. In \archbib{}hat dieser Typ eine Besonderheit. Man kann im Feld \Feld{related} eine Liste von Schlüsseln der besprochenen Werke angeben. Dann erzeugt \archbib{} daraus den Titel. Besprechungen in wissenschaftlichen Zeitschriften haben normalerweise keinen eigenständigen Titel, in Publikumszeitschriften schon. Dann sollte man wohl besser den realen Titel nehmen. Es gibt auch mehrere Lokalisierungsschlüssel dazu (\Lokalisierung{by}, \Lokalisierung{reviewof}, \Lokalisierung{reviewsof}).
+\paragraph{\Kbd{digital}}
+\Kbd{digital} ist ein Subtyp, den man bei jedem anderen Typ im \Feld{entrysubtype} angeben kann. Sinn ist es, das Abschalten von elektronischen identifiern mit den Optionen \Option{doi}, \Option{url} und \Option{eprint} zu unterbinden. Da im Grunde mittlerweile jeder Dokumententyp online erscheinen kann, kann man damit Fälle markieren, in dem \Typ{online} nicht geeignet ist, aber auch nicht ohne elektronische ID zitiert werden kann.
+\paragraph{\Kbd{news}}
+Der Subtyp \Kbd{news} geht in das Feld \Feld{entrysubtype}. Er ist nur bei Zeitungsartikeln sinnvoll (\Typ{article}, \Typ{review}, \Typ{suppperiodical}). Er markiert Zeitschriften, die nicht mit wie üblich mit Band, Heft und Jahrgang zitiert werden können, sondern ein volles Datum brauchen. Das ist meistens bei Tages- und Wochenzeitschriften der Fall. Selbstredend ergibt das nur Sinn, wenn man im \Feld{date}-Feld ein tagesgenaues Datum angibt. Dazu gibt es einen Lokalisierungsschlüssel \Lokalisierung{articledated} \enquote{Artikel vom}.
 
 \subsection{Publikationen aus Veranstaltungen}
+Archäologische Literaturverzeichnisse legen häufig großen Wert auf die Auszeichnung von Publikationen, die aus Veranstaltungen (Konferenzen, Ausstellungen, Festschriften) hervorgegangen sind. Das ist ein Relikt der Zettelkataloge. Meistens konnte man sich die Veranstaltung besser merken als die genauen Titel oder gar die möglicherweise nicht sehr bekannten Herausgeber. Deshalb hat man einfacher unter dem Veranstaltungstyp bzw. unter dem Namen der geehrten Person nachgesehen. Solche Publikationen haben i.\,d.\,R. eine Art Untertitel, in der Anlaß, Zeit und Ort der Veranstaltung beschrieben wird. \Wichtig{} Diese Angabe gehören in die \Feld{titleaddon}-Felder und \emph{nicht} in die \Feld{subtitle}-Felder. Da diese Zeilen häufig relativ lang sind, wird gerne eine Kurzformel stattdessen benutzt. Nur bei den Feldern der \Feld{titleaddon}-Familie kann ich mir sicher sein, daß ich sie weglassen darf. \blx' \Feld{eventtitle}-Feld hingegen ist hier nicht nutzbar, weil die Semantik von \Feld{maintitleaddon} und \Feld{booktitleaddon} bedeutsam ist.
+
+Die Kurzformeln habe ich freihändig als \Englisch{titlenotes} bezeichnet. Leider ist die Form sehr fusselig, weswegen ich ziemlich viele Felder definieren mußte, um sie komplett abzubilden. I.\,d.\,R. stehen aber sämtliche relevanten Angaben in den \Feld{titleaddon}-Feldern, so daß diese bei der Datenerfassung erst einmal ausreichen. Erst wenn man einen Eintrag tatsächlich mit Kurzform ausdruckt, muß man die entsprechenden Angaben nachtragen.
+
+Zwei boolsche Optionen steuern das Verhalten der Veranstaltungstypen:
+\begin{itemize}
+\item Ist \Option{titlenote} wahr, wird die Kurzform benutzt, sonst der wörtliche Inhalt von \Feld{titleaddon}.
+\item \Option{titlebrackets} bestimmt die Position. Wenn wahr, wird die Veranstaltung als (i.\,d.\,R. geklammerter) Zusatz in den \Feld{title}-Block gesetzt. Wenn falsch, wird die Veranstaltung vom \Feld{title}-Block durch eine Blocktrennung abgegrenzt.
+\end{itemize}
+Diese Optionen kann man als Paketoptionen setzen, aber auch im \Feld{options}-Feld. Das ist nötig, weil manche Stile nur Ausstellungen als \Englisch{titlenotes} behandeln. In diesem Fall sieht \Biber in den \Feld{titleaddon}-Feldern nach, ob es dort den Begriff Ausstellung in einigen westeuropäischen Sprachen erkennt. Im Erfolgsfall setzt es die Optionen automatisch.
+
+\blx{}erlaubt die Veranstaltungsangaben in den Feldern \Feld{eventdate}, \Feld{eventtitle} und \Feld{venue} nur in der \Typ{proceedings}-Familie. Bei \archbib{} sind die ganzen Buchtypen mit Ausnahme der Hochschulschriften nur Aliase. Trotzdem empfiehlt es sich, die korrekte Typisierung beizubehalten, um die die Kompatibilität zu den Standardstilen nicht stärker zu schädigen als unbedingt nötig.
+
 \subsection{Konferenzen}
+
 \paragraph{Ausstellungen}
+Ausstellungskataloge sollten in \Feld{eventtype} mit dem Lokalisierungsschlüssel \Lokalisierung{exhibition} identifiziert werden. \Lokalisierung{exhibcat} würde auch erkannt werden, allerdings wird es ohnedies der Stil regeln, ob \enquote{Ausstellung} oder \enquote{Ausstellungskatalog} angezeigt wird. Weitere Felder sind \Feld{eventdate} und \Feld{venue}. Bei letzterem stellt sich das Problem, daß es anders als \Feld{location} keine Liste ist. Und einen \Englisch{date list}-Datentyp gibt es in \blx{} ohnehin nicht. Für Wanderausstellungen kann man jetzt mit den Listenfeldern \Feld{multivenue} und \Feld{multieventdate} \emph{zusätzliche} Orte und Jahreszahlen angeben. Falls letzteres benutzt wird, muß es dieselbe Zahl an Elementen wie \Feld{multivenue} aufweisen, sonst gibt es eine Fehlermeldung.
+
 \paragraph{Festschriften}
+Die geehrte Person oder Institution gehört in das Feld \Feld{festschrift}. Da es sich dabei um ein übliches Namensfeld handelt, käme \archbib{} ggf. auch mit Sammelfestschriften für mehrere Jubilare zurecht. Ein \Feld{eventtype} ist überflüssig, weil das Vorhandensein von \Feld{festschrift} den Veranstaltungstyp eindeutig identifiziert. Im Feld \Feld{festschriftaddon} kann man Zusätze wie \enquote{zum 65. Geb.} unterbringen.
+
 \paragraph{Auktionen}
+Auktionskataloge werden in den von \archbib{} implementierten Richtlinien nirgendwo erwähnt, weswegen ich mich diesbezüglich bei den Kunsthistorikern umgesehen habe. Sie sollten normalerweise den Typ \Typ{booklet} haben. International üblich ist es, das Auktionshaus als korporativen Autor und den Bearbeiter ggf. als sekundären Herausgeber zu nennen. \Feld{eventtype} sollte einen der Lokalisierungsschlüssel \Lokalisierung{auction}, \Lokalisierung{auctions}, \Lokalisierung{specialauction}, \Lokalisierung{specialauctions} beinhalten. \Feld{venue} und taggenaues \Feld{eventdate} sollten angeben werden und möglichst auch die \Feld{eventnumber} (Auktionen werden normalerweise durchnummeriert).
+
+\paragraph{Und sonst?}
+Wenn nichts von den Vorgenannten paßt, kann man im Feld \Feld{titlenote} auch einen wörtlich auszudruckenden Inhalt übergeben.
 
 \subsection{Namen}
+
 \paragraph{Formatierung}
-\paragraph{Bigraphen}
+
+\paragraph{Ligaturen der Initialen}
+
+Manche Stile verlangen in bestimmten Fällen Ligaturen der Initialen der Vornamen (St, Ph, Th, Ch). Die \blx-Autoren haben eine entsprechenden Wunsch einmal abgelehnt, weil ihnen das zu randständig erschien. Der klassische Weg, so etwas in \BibTeX{} zu erreichen, ist die folgende Namensschreibung: \begin{lstlisting}
+author = {Müller, {Th}\relax omas}
+\end{lstlisting}
+ Das hat den Vorteil, daß es sortiert wird, aber den Nachteil, daß man es händisch in die Datenbanken eintragen muß. \archbib{} hat eine Option \Option{giveninitligatures}, der man eine Liste solcher Ligaturen übergeben kann, die dann bis zum ersten Treffer automatisch abgearbeitet wird. Allerdings geschieht dies auf der \LaTeX-Seite, wenn die Sortierung schon stattgefunden hat. T(rude) Meier müßte hier alphabetisch vor Th(orsten) Meier kommen, \Biber{} sortiert aber nach den vollständigen Vornamen. Solche Fälle sind selten und können mit dem \Feld{sortname}-Feld leicht repariert werden. Man muß aber beim Korrekturlesen wissen, daß so etwas passieren kann.
+
 \paragraph{Trunkierung von Listen}
+Wenn die Option \Option{preservelastauthor} wahr ist, dann werden Mamenslisten wie \Kbd{Müller AND Meier AND Schneider AND Schulze} statt mit \enquote{Müller, Meier u.\,a.} mit \enquote{Müller \textellipsis{} Schulze} trunkiert. Die Werte für \Option{maxnames} und \Option{minnames} gelten genauso.
+
 \paragraph{Anonyme Werke in Autor/Jahr-Stilen}
 
-\subsection{Publikationsorte}
-\paragraph{\enquote{ohne Ort}}
-\paragraph{Regionen}
+In Autor/Jahr-Stilen fehlen in anonymen Werken der oder die Autorennamen für die Erzeugung des Labels. \blx{} nimmt dann Titel, denn man meist als \Feld{shorttitle} abkürzt. \archbib{}hingegen kennt ein Feld \Feld{anonstring}, in dem man einen Namen für einen Anonymus unterbringen kann (von Haus aus ist es leer, so daß auch hier der Titel greift). Das kann automatisch geschehen.  Da \Biber es lesen können muß, kann man hier keine \LaTeX-Makros verwenden. Weil \Feld{anonstring} in der Liste der möglichen Namensfelder von Labelnamen als letztes kommt, kann es nur gewählt werden, wenn nichts anderes trifft. Man kann es deshalb mit einem Filter an jeden Eintrag setzen. Obacht! Das Feld wird als Name geparst.
+\begin{lstlisting}
+\DeclareSourcemap{
+	\maps[datatype=bibtex]{
+		\map{
+			\step[fieldset=anonstring,fieldvalue={{N.{\,}N.}}]}}}
+\end{lstlisting}
 
-\subsection{Auflagen}
+\subsection{Datum}
+\paragraph{\enquote{ohne Jahr}}
+Wenn das Publikationszahl
+
+\subsection{Publikationsorte, Verlage und Institutionen}
+\paragraph{\enquote{ohne Ort}}
+Wenn Verlagsorte fehlen, setzt \archbib{} automatisch einen Lokalisationsschlüssel für \enquote{ohne Ort}. Deswegen sollte man das nicht selbst eintragen.
+\paragraph{Regionen}
+Amerikanische Orte werden normalerweise in der Form \enquote{Stadt, Bundesstaat} angegeben. Da viele \archbib-Stile kommaseparierte Listen von Verlagsorten verwenden, ist das etwas störend. Es schreibt den Bereich hinter dem Komma deshalb ein Makro \Befehl{} und erlaubt so eine andere Formatierung. Von Haus aus läßt es den Staat einfach weg.
+
+\paragraph{Verlage}
+Verlage werden von \archbib-Stilen normalerweise nicht genutzt. Trotzdem sollte man sie in der Datenbank angeben, weil es manchmal nützlich ist, auf ihr Vorhandensein zu testen. Im Gegensatz zu \blx{} sind Verlage sogar im Typ \Typ{thesis} erlaubt. Das hängt damit zusammen, daß manche Stile bei Hochschulschriften so etwas wie \enquote{ungedruckte Diss.} verlangen. Niederländische Dissertationen z.\,B. erscheinen aber schon vor dem Rigorosum als Verlagsausgabe. Das kann man durch so einen Test erkennen.
+
+\paragraph{Institutionen}
+Die Namen von Institutionen in den Hochschulschriften interagieren mit der Frage, ob der Stil Publikationsorte angibt. Wenn man die Universität mit ihrem Standort angibt, kommt es zu einer Doppelung. Allerdings ist bei den deutschen Traditionsuniversitäten unüblich, deren Namen zu verwenden: es heißt auch im akademischen Sprachgebrauch \enquote{Uni. Tübingen} und nicht \enquote{Eberhard-Karls-Universität}. Es gibt aber sehr wohl den umgekehrten Fall: \enquote{Harvard} wird nie \enquote{Uni. Cambridge, Massachusetts} genannt, auch, um die Verwechslung mit dem  \Englisch{Massachusetts Institute of Technology} am selben Ort zu vermeiden. \archbib{}kennt verschiedene Modi, den Block aus Institution, Ort und Verlag zusammenzusetzen, die mit der Option \Option{useinstitution} gesteuert werden. Diese Option kann man auch im \Option{options}-Feld für einzelne Werke setzen. Trotzdem kann es sein, daß man in der Schlußredaktion manuelle Anpassungen vornehmen muß.
+
+\paragraph{Nachdrucke}
+Wenn die Option boolsche \Option{origfields} wahr ist, behandelt \archbib{} Werke als Reprints, sofern eines der Felder \Feld{origdate}, \Feld{origlocation} oder \Feld{origpublisher} vorhanden ist.
+
+\subsection{Sonstiges}
+
+\paragraph{Sprachen}
+Wie oben beschreiben, ist es nachgerade ein Charaktristikum RGK-artiger Stile, keine Angaben über die Sprache von Werken zu machen. Nichtsdestotrotz wertet \archbib{} das \Feld{language} u.\,U. aus. Manchmal wird nämlich verlangt, daß nur deutschsprachige Werke deutsch lokalisert werden. Werke in anderen Sprachen sollen englische Lokalisation aufweisen (eds., p.). Dann braucht man diese Information bei nichtdeutschen Werken. Der Mechnismus dafür ist in den Stilen hardcodiert und läßt sich nicht einfach per Oprion ändern.
+
+\paragraph{Titelübersetzungen}
+Mitunter soll bei Literatur in unüblichen Sprachen entweder eine Übersetzung des Titels oder der Titel eines Resumés in einer geläufigeren Sprache angegeben werden. Diese Funktion läßt sich mit der Option \Option{summarytitle} anschalten. Die Übersetzung geht in das Feld \Feld{summerytitle}.
+
+\paragraph{Auflagen}
+\archbib{} kennt nur numerische Auflagen. Es ist aber möglich, so etwas wie \enquote{revidierte 22. Jubiläumsauflage} in das \Feld{edition zu schreiben}. \archbib{} extrahiert dann die erste Zahl, die es findet, und verwirft den Rest.
+
+Auflagennummern kann man an verschiedenen Positionen als hochgestellte Zahl anheften. Das regelt die Option \Option{editionsuperscript}.
 
 \chapter{Die Ökologie von \archbib}
 

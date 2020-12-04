@@ -31,7 +31,7 @@
 \setotherlanguage[spelling=new]{german}
 \setotherlanguage[frenchfootnote=false]{french}
 \setotherlanguage{latin}
-\usepackage{csquotes,dox,ellipsis,fancyhdr,longtable,sectsty,xcolor,xspace}
+\usepackage{csquotes,dox,ellipsis,fancyhdr,sectsty,xcolor,xspace}
 \usepackage[toc,page]{appendix}
 \usepackage[many]{tcolorbox}
 \usepackage[protrusion=true,expansion=true,verbose=true,babel=true,tracking=true]{microtype}
@@ -1946,6 +1946,42 @@
   KEYWORDS = {Kleinenkneten, Megalithik, Neolithikum, Niedersachsen},
   REALDATE = {1978},
 }
+@INCOLLECTION{mueller:a:1991,
+  AUTHOR = {von Müller, Adriaan},
+  TITLE = {Spandau im Mittelalter},
+  PAGES = {105--117},
+  CROSSREF = {kerndl:1991},
+  KEYWORDS = {Berlin, Spandau, Mittelalter, Stadt},
+  XREF = {kerndl:1991}
+}
+@INCOLLECTION{mueller:f:1991,
+  AUTHOR = {Müller, Felix},
+  TITLE = {Latènezeit},
+  SUBTITLE = {Die Welt gerät in Bewegung},
+  PAGES = {71--83},
+  CROSSREF = {furger:mueller:1991},
+  KEYWORDS = {latène, Kelten, Schweiz},
+  XREF = {furger:mueller:1991}
+}
+@INCOLLECTION{mueller:h:1900,
+  AUTHOR = {Müller, Hermann},
+  TITLE = {Kaiser Friedrich und das Kunstgewerbe-Museum},
+  PAGES = {62--70},
+  CROSSREF = {brandenburg:1900},
+  KEYWORDS = {Museologie, Forschungsgeschichte, Friedrich III. (dt. Kaiser), 19.
+    Jahrhundert, Hohenzollern, Berlin, Kunstgewerbe-Museum},
+  XREF = {brandenburg:1900}
+}
+@INCOLLECTION{mueller:har:1988,
+  AUTHOR = {Müller, Hartmut},
+  TITLE = {Wodurch die Unterweser, soweit die Fluth reicht, der überseeischen
+    Segel- und Dampfschiffahrt zugänglich gemacht werde},
+  SUBTITLE = {Die Weser-Korrektion},
+  PAGES = {61--63},
+  CROSSREF = {plagemann:1988},
+  KEYWORDS = {Bremen, Weser, 19. Jahrhundert, Schiffahrt, Wasserstraße},
+  XREF = {plagemann:1988}
+}
 @ARTICLE{nass:1938,
   AUTHOR = {Naß, Karl},
   TITLE = {Karolingische Reihengräberfelder aus Hessen},
@@ -2036,6 +2072,16 @@
   VOLUME = 69,
   GENDER = {sf},
   SHORTTITLE = {Ber. RGK},
+}
+@COLLECTION{brandenburg:1900,
+  EDITOR = {{Pestalozzi-Verein der Provinz Brandenburg}},
+  TITLE = {Die Provinz Brandenburg in Wort und Bild},
+  DATE = {1998},
+  ORIGPUBLISHER = {Julius Klinkhardt},
+  ORIGLOCATION = {Berlin},
+  ORIGDATE = {1900},
+  PUBLISHER = {Weltbild},
+  LOCATION = {Augsburg},
 }
 @COLLECTION{bratt:lundstroem:1997,
   EDITOR = {Bratt, Peter AND Lundström, Åsa},
@@ -2130,6 +2176,16 @@
   LANGUAGE = {german},
   GENDER = {sm},
 }
+@COLLECTION{furger:mueller:1991,
+  EDITOR = {Furger, Andres AND Müller, Felix},
+  TITLE = {Gold der Helvetier},
+  DATE = {1991},
+  SUBTITLE = {Keltische Kostbarkeiten aus der Schweiz},
+  PUBLISHER = {Eidolon},
+  LOCATION = {Einsiedeln},
+  BOOKSUBTITLE = {Keltische Kostbarkeiten aus der Schweiz},
+  BOOKTITLE = {Gold der Helvetier}
+}
 @BOOKLET{hesse:c:1995,
   AUTHOR = {{Hauswedell \& Nolte}},
   EDITOR = {Hesse, Christian},
@@ -2165,7 +2221,6 @@
   SHORTFORM = {RGA},
   LANGUAGE = {german},
 }
-
 @ONLINE{kenmore,
   URL = {http://www.kenmore.org/kenmore/kp_arch.html},
   URLDATE = {2015-12-23},
@@ -2173,6 +2228,16 @@
   AUTHOR = {{The George Washington Foundation}},
   SHORTAUTHOR = {{George Wahington Found.}},
   LANGUAGE = {english},
+}
+@COLLECTION{kerndl:1991,
+  EDITOR = {Kernd'l, Alfred},
+  TITLE = {Berlin und Umgebung},
+  DATE = {1991},
+  SERIES = {Führer zu archäologischen Denkmälern in Deutschland},
+  NUMBER = {23},
+  PUBLISHER = {Konrad Theiss},
+  LOCATION = {Stuttgart},
+  BOOKTITLE = {Berlin und Umgebung}
 }
 @BOOK{kossack:et:al:1980,
   AUTHOR = {Kossack, Georg AND Harck, Ole AND Newig, Jürgen AND Hoffmann, Dietrich AND Willkomm, Horst AND Averdieck, Fritz-Rudolf AND Reichstein, Joachim},
@@ -2297,6 +2362,16 @@
   ORGANIZATION = {Schloß Kleßheim AND Casino Linz AND Casino Baden},
   LANGUAGE = {german},
   GENDER = {sm},
+}
+@COLLECTION{plagemann:1988,
+  EDITOR = {Plagemann, Volker},
+  TITLE = {Übersee},
+  DATE = {1988},
+  SUBTITLE = {Seefahrt und Seemacht im Deutschen Kaiserreich},
+  PUBLISHER = {C.H. Beck},
+  LOCATION = {München},
+  BOOKSUBTITLE = {Seefahrt und Seemacht im Deutschen Kaiserreich},
+  BOOKTITLE = {Übersee}
 }
 @COLLECTION{radmacher:kronsbein:2011,
   EDITOR = {Radmacher, Franz-Josef AND Kronsbein, Stefan},
@@ -8863,7 +8938,7 @@
 %
 % \begin{macro}{\mkbibletterspacing}
 % A wrapper for letter spaced names. Falls back to small caps if \Befehl{textls} from \Paket{microtype}. 
-% Failed to get \Befehl{\so} from \Paket{soul} to run.
+% Failed to get \Befehl{so} from \Paket{soul} to run.
 % \changes{2.3}{2020/11/12}{check for package \Paket{microtype}}
 %    \begin{macrocode}
 \newcommand*{\mkbibletterspacing}[1]{\textsc{#1}%
@@ -26712,12 +26787,12 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
 %
 % \subsubsubsection{Anonymous works}
 %
-% \begin{format}{location}
-% Allow \Feld{location} in journals.
+% \begin{format}{anonstring}
+% Declare name field \Feld{anonstring}.
 %    \begin{macrocode}
 \DeclareDatamodelFields[type=list,datatype=name]{anonstring}
 %    \end{macrocode}
-% \end{format}
+% \end{anonstring}
 %
 % \iffalse
 %</DBX>
