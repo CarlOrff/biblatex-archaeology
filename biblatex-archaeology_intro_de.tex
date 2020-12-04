@@ -6,7 +6,7 @@
 	11pt,       % font size
 	table,      % is passed to (x)color package when loaded implicitly
 	twoside,    % two-sided printing
-	openright,  % start on right side
+	notitlepage 
 ]{scrreprt}
 
 %%% The following conditionals allow for compiling with various engines without changing the document.
@@ -245,7 +245,7 @@
 \usepackage{float}
  
 %%% title data
-\title{Einführung in \blx{} und \archbib{} [v2.3]}
+\title{Einführung in \blx{} und \archbib\thanks{gehört zur Dokumentation von \archbib{~v.2.3.0}}}
 \author{Ingram Braun\\\href{https://ingram-braun.net/}{\texttt{https://ingram-braun.net/}}}
 \date{\today}
 
@@ -1228,7 +1228,7 @@ Für alle Stile gibt es Ausdrucke meiner Testdatei im Ordner mit der Dokumentati
 \subsection{Konfiguration von \Biber}
 Da \archbib{} viele als \Biber-only ausgewiesene Features von \blx{} benutzt, habe ich entschieden, bei Verwendung von \BibTeX{} eine Fehlermeldung auszuwerfen. Eine andere Lösung als \enquote{Benutzt \Biber!} hätte ich bei Anfragen sowieso nicht anzubieten.
 
-Wer \Biber im Toolmodus benutzen will, findet das Datenmodell und die Vererbung in der Datei \Datei{bibertool.xm_} und kann sie in seine eigene Konfigurationsdatei einsetzen wie in \cref{kap_biber} beschrieben. Da das Datenmodell von \archbib{} das von \blx{} nur erweitert, aber nichts wegnimmt, kann man damit gefahrlos auch  Daten für die Standardstile bearbeiten.
+Wer \Biber im Toolmodus benutzen will, findet das Datenmodell und die Vererbung in der Datei \Datei{bibertool.xm_} und kann sie in seine eigene Konfigurationsdatei einsetzen wie in \cref{kap_biber} beschrieben.
 
 \subsection{Sortierung}
 
@@ -1242,7 +1242,23 @@ Wer \Biber im Toolmodus benutzen will, findet das Datenmodell und die Vererbung 
 \paragraph{\Kbd{news}}
 Der Subtyp \Kbd{news} geht in das Feld \Feld{entrysubtype}. Er ist nur bei Zeitungsartikeln sinnvoll (\Typ{article}, \Typ{review}, \Typ{suppperiodical}). Er markiert Zeitschriften, die nicht mit wie üblich mit Band, Heft und Jahrgang zitiert werden können, sondern ein volles Datum brauchen. Das ist meistens bei Tages- und Wochenzeitschriften der Fall. Selbstredend ergibt das nur Sinn, wenn man im \Feld{date}-Feld ein tagesgenaues Datum angibt. Dazu gibt es einen Lokalisierungsschlüssel \Lokalisierung{articledated} \enquote{Artikel vom}.
 
-\subsection{Publikationen aus Veranstaltungen}\label{kap_events}
+\subsection{Zitierkommandos}
+
+\archbib{} stellt folgende zusätzliche Zitierkommandos bereit, deren Bedeutung unten erklärt wird.
+
+\paragraph{\Englisch{shortformes}}
+Einige besonders häufige Enzyklopädien und Corpora werden abgekürzt zitiert, allerdings auf eine Weise, die sich von den dafür vorhandenen Mechanismen von \blx{} unterscheidet
+
+\paragraph{Possessivformen}
+In den meisten germanischen Sprachen ist die Bildung des Genitivs mit angehängtem s verbreitet. Das Problem bei der Benutzung von \Befehl{textcite} ist, daß man bei \enquote{Müller (2020)} nicht an die Innenseite des Namens herankommt, um so etwas wie \enquote{Müllers (2020) Hauptwerk \textellipsis} zu schreiben. Das ermöglichen die Kommandos der \Befehl{posscite}-Familie. Die Frage ist, ob man bei mehreren Autoren alle oder nur den letzten Namen in den Genitiv setzen soll? \archbib tut letzteres, weil es sich nach meinem Sprachgefühl um eine feste Verbindung ähnlich einem Kompositum handelt.
+
+\paragraph{Zitieren in Besprechungen}
+Die Kommandos der \Befehl{reviewcite}-Familie sind für das Zitieren in Besprechungen gedacht. Dort verlangen die RGK-Regeln etwas abgespeckte \Befehl{fullcite}-Varianten (v.\,a. keine Reihen). In solchen Texten sollten ausschließlich Zitierkommandos dieser Familie vorkommen.
+
+\paragraph{Zeitschriftenhefte}
+Die Befehle der \Befehl{citeissue}-Familie dienen dazu, ganze Zeitschriftenhefte zu zitieren und drucken nur den Jahrgang/Heft/Jahreszahl-Block. Sie sind deshalb nur sinnvoll, wenn die Schlüssel vom Typ \Typ{periodical} stammen. Im Text muß also klar sein, um welche Zeitschrift es geht.
+
+\subsection{Titelergänzungen (v.\,a. Publikationen aus Veranstaltungen)}\label{kap_events}
 Archäologische Literaturverzeichnisse legen häufig großen Wert auf die Auszeichnung von Publikationen, die aus Veranstaltungen (Konferenzen, Ausstellungen, Festschriften) hervorgegangen sind. Das ist ein Relikt der Zettelkataloge. Meistens konnte man sich die Veranstaltung besser merken als die genauen Titel oder gar die möglicherweise nicht sehr bekannten Herausgeber. Deshalb hat man einfacher unter dem Veranstaltungstyp bzw. unter dem Namen der geehrten Person nachgesehen. Solche Publikationen haben i.\,d.\,R. eine Art Untertitel, in der Anlaß, Zeit und Ort der Veranstaltung beschrieben wird. \Wichtig{} Diese Angabe gehören in die \Feld{titleaddon}-Felder und \emph{nicht} in die \Feld{subtitle}-Felder. Da diese Zeilen häufig relativ lang sind, wird gerne eine Kurzformel stattdessen benutzt. Nur bei den Feldern der \Feld{titleaddon}-Familie kann ich mir sicher sein, daß ich sie weglassen darf. \blx' \Feld{eventtitle}-Feld hingegen ist hier nicht nutzbar, weil die Semantik von \Feld{maintitleaddon} und \Feld{booktitleaddon} bedeutsam ist.
 
 Die Kurzformeln habe ich freihändig als \Englisch{titlenotes} bezeichnet. Leider ist die Form sehr fusselig, weswegen ich ziemlich viele Felder definieren mußte, um sie komplett abzubilden. I.\,d.\,R. stehen aber sämtliche relevanten Angaben in den \Feld{titleaddon}-Feldern, so daß diese bei der Datenerfassung erst einmal ausreichen. Erst wenn man einen Eintrag tatsächlich mit Kurzform ausdruckt, muß man die entsprechenden Angaben nachtragen.
@@ -1267,6 +1283,9 @@ Die geehrte Person oder Institution gehört in das Feld \Feld{festschrift}. Da e
 \paragraph{Auktionen}
 Auktionskataloge werden in den von \archbib{} implementierten Richtlinien nirgendwo erwähnt, weswegen ich mich diesbezüglich bei den Kunsthistorikern umgesehen habe. Sie sollten normalerweise den Typ \Typ{booklet} haben. International üblich ist es, das Auktionshaus als korporativen Autor und den Bearbeiter ggf. als sekundären Herausgeber zu nennen. \Feld{eventtype} sollte einen der Lokalisierungsschlüssel \Lokalisierung{auction}, \Lokalisierung{auctions}, \Lokalisierung{specialauction}, \Lokalisierung{specialauctions} beinhalten. \Feld{venue} und taggenaues \Feld{eventdate} sollten angeben werden und möglichst auch die \Feld{eventnumber} (Auktionen werden normalerweise durchnummeriert).
 
+\paragraph{Titelübersetzungen}
+Mitunter soll bei Literatur in unüblichen Sprachen entweder eine Übersetzung des Titels oder der Titel eines Resumés in einer geläufigeren Sprache angegeben werden. Diese Funktion läßt sich mit der Option \Option{summarytitle} anschalten. Die Übersetzung geht in das Feld \Feld{summarytitle}. Das Feld verhälkt sich ebenfalls wie eine \Feld{titlenote}
+
 \paragraph{Und sonst?}
 Wenn nichts von den Vorgenannten paßt, kann man im Feld \Feld{titlenote} auch einen wörtlich auszudruckenden Inhalt übergeben.
 
@@ -1275,7 +1294,7 @@ Wenn nichts von den Vorgenannten paßt, kann man im Feld \Feld{titlenote} auch e
 \paragraph{Formatierung}
 
 \paragraph{Bearbeiter von Quelleneditionen}
-Normalerweise sind Autoren und Herausgeber von selbstständigen Werken sich gegenseitig ausschließende Angaben, wobei der Autor ggf. gewinnt. Ich habe es auch außerhalb des fachlichen Spektrums von \archbib{} noch nie gesehen, daß Herausgeber wissenschaftlicher Serien im Apparat genannt werden. Es ist auf jeden Fall überflüssig, sie in den Datenbanken zu erfassen. Zwei Ausnahmen sind mir davon bekannt: Auktionskataloge (\cref{kap_events}) und Quelleneditionen. Bei letzteren wird üblicherweise der Name des Originalautors zitiert. Bearbeiter, Übersetzer und Kommentatoren werden bei den vollständigen Angaben genannt. Dafür gibt es in \archbib{} die boolsche Option \Option{usesourceeditor}. Das globale Anschalten sollte normalerweise kein Problem sein. Man kann sie aber auch im \Feld{options}-Feld für Einträge einzeln angeben. \blx{} hat Lokalisationsschlüssel für kombinierte Rollen. Dabei wird die erste Rolle ausgeschrieben und weitere mit den zwei Anfangsbuchstaben angehängt: \Lokalisation{editortrco} ist also ein Herausgeber, Übersetzer und Kommentator (Vorsicht: eigene Pluralformen!). Wenn die Namen für alle Rollen identisch sind, kann man das so im Feld \Feld{editortype}. Wenn nicht, müssen die Namensfelder \Feld{translator}, \Feld{annotator}, \Feld{comment}
+Normalerweise sind Autoren und Herausgeber von selbstständigen Werken sich gegenseitig ausschließende Angaben, wobei der Autor ggf. gewinnt. Ich habe es auch außerhalb des fachlichen Spektrums von \archbib{} noch nie gesehen, daß Herausgeber wissenschaftlicher Serien im Apparat genannt werden. Es ist auf jeden Fall überflüssig, sie in den Datenbanken zu erfassen. Zwei Ausnahmen sind mir davon bekannt: Auktionskataloge (\cref{kap_events}) und Quelleneditionen. Bei letzteren wird üblicherweise der Name des Originalautors zitiert. Bearbeiter, Übersetzer und Kommentatoren werden bei den vollständigen Angaben genannt. Dafür gibt es in \archbib{} die boolsche Option \Option{usesourceeditor}. Das globale Anschalten sollte normalerweise kein Problem sein. Man kann sie aber auch im \Feld{options}-Feld für Einträge einzeln angeben. \blx{} hat Lokalisationsschlüssel für kombinierte Rollen. Dabei wird die erste Rolle ausgeschrieben und weitere mit den zwei Anfangsbuchstaben angehängt: \Lokalisierung{editortrco} ist also ein Herausgeber, Übersetzer und Kommentator (Vorsicht: eigene Pluralformen!). Wenn die Namen für alle Rollen identisch sind, kann man das so im Feld \Feld{editortype}. Man kann sie aber auch in die Namensfelder \Feld{translator}, \Feld{annotator}, \Feld{commentator} schreiben und \blx{} ist das Zusammenbauen der Rollen überlassen. Rollen, für die es keine eigenen Felder gibt, kann man als \Feld{editora}, \Feld{editorb} und \Feld{editorc} erfassen und dann mit \Feld{editoratype}, \Feld{editorbtype} und \Feld{editorctype} zuordnen (\Lokalisierung{collaborator}, \Lokalisierung{compiler}, \Lokalisierung{continuator}, \Lokalisierung{founder}, \Lokalisierung{organizer}, \Lokalisierung{redactor}, \Lokalisierung{revisor})
 
 \paragraph{Ligaturen der Initialen}
 
@@ -1283,7 +1302,7 @@ Manche Stile verlangen in bestimmten Fällen Ligaturen der Initialen der Vorname
 \begin{lstlisting}
 author = {Müller, {Th}\relax omas}
 \end{lstlisting}
-Das hat den Vorteil, daß es sortiert wird, aber den Nachteil, daß man es händisch in die Datenbanken eintragen muß. \archbib{} hat eine Option \Option{giveninitligatures}, der man eine Liste solcher Ligaturen übergeben kann, die dann bis zum ersten Treffer automatisch abgearbeitet wird. Allerdings geschieht dies erst auf der \LaTeX-Seite, wenn die Sortierung schon stattgefunden hat. T(rude) Meier müßte hier alphabetisch vor Th(orsten) Meier kommen, \Biber{} sortiert aber noch nach den vollständigen Vornamen. Solche Fälle sind selten und können mit dem \Feld{sortname}-Feld leicht repariert werden. Man muß aber beim Korrekturlesen wissen, daß so etwas passieren kann.
+Das hat den Vorteil, daß es sortiert wird, aber den Nachteil, daß man es händisch in die Datenbanken eintragen muß. \archbib{} hat eine Option \Option{giveninitligatures}, der man eine Liste solcher Ligaturen übergeben kann, die dann bis zum ersten Treffer automatisch abgearbeitet wird (deshalb \enquote{Chr} vor \enquote{Ch}). Allerdings geschieht dies erst auf der \LaTeX-Seite, wenn die Sortierung schon stattgefunden hat. T(rude) Meier müßte hier alphabetisch  vor vor Th(orsten) Meier kommen, \Biber{} sortiert aber noch nach den vollständigen Vornamen. Solche Fälle sind selten und können mit dem \Feld{sortname}-Feld leicht repariert werden. Man muß aber beim Korrekturlesen wissen, daß so etwas passieren kann.
 
 \paragraph{Trunkierung von Listen}
 Wenn die Option \Option{preservelastauthor} wahr ist, dann werden Namenslisten wie \Kbd{Müller AND Meier AND Schneider AND Schulze} statt mit \enquote{Müller, Meier u.\,a.} mit \enquote{Müller \textellipsis{} Schulze} trunkiert. Die Werte für \Option{maxnames} und \Option{minnames} gelten genauso.
@@ -1328,22 +1347,36 @@ Wenn die Option boolsche \Option{origfields} wahr ist, behandelt \archbib{} Werk
 
 Für die Examensschriften gibt es jeweils Varianten, die sie als ungedruckt markieren. Diese sind \emph{nicht} dafür gedacht, in das \Feld{type}-Feld geschrieben zu werden, sondern ausschließlich für automatische Entscheidungen. Deutsche Examensschriften werden nach der Aufnahme in wissenschaftliche Serien nicht mehr als Hochschulschriften ausgewiesen. Insoweit erübrigt sich die Unterscheidung von gedruckt und ungedruckt hier. Bei ausländischen kann das durchaus anders sein. Niederländische Dissertationen werden schon vor dem Rigorosum als Verlagsdruck veröffentlicht. Datum und Adresse der Verteidigung sind hinter dem Schmutztitel eingedruckt. Es wäre falsch, diese als ungedruckt zu bezeichnen. Deshalb erlaubt \archbib das \Feld{publisher} auch bei Hochschulschriften. Auf dessen Vorhandensein kann geprüft werden, um gedruckte von ungedruckten Hoschulschriften zu unterscheiden.
 
+\subsection{Reihen}
+
+\paragraph{Welche Reihen sollen erfaßt werden?}
+Es gibt in den selbstständigen Schriften verschiedene Arten von Reihen. Im fachlichen Bereich von \archbib sollten nur wissenschaftliche Reihen mit Nummerierung ausgeben werden. Man erkennt sie meist daran, daß sie von Fachinstitutionen wie Denkmalpflegeämtern, Museen, Universitätsinstituten oder selbstständigen Forschungseinrichtungen herausgeben werden, die für die fachliche Qualitätssicherung innerhalb ihres Kompetenzrahmens haften. Nichtnummerierte Reihen sind bei den angelsächsischen Universitätsverlagen üblich, z.\,B. \Englisch{Approaches to Anthropological Archaeology} der \Englisch{Cambridge University Press}. \archbib{} ignoriert solche Reihen wegen des fehlenden \Feld{number}-Feldes. Da Serien im \archbib{}-Kosmos meistens nicht speziell ausgezeichnet sind, könnte man sie von Untertiteln gar nicht unterscheiden. Auch die Verlage fassen Teile ihres Programms gerne in Reihen zusammen (\enquote{Rowohlts Monographien}, \enquote{Zaberns Bildbände zur Archäologie}). Das dient einem einheitlichen Marketing und ganz gewiß nicht einer Qualitätssicherung unter wissenschaftlichen Gesichtspunkten, auch wenn man sich manchmal mit prominenten Herausgebern schmückt. So etwas wird in akademischen Literaturapparaten meistens ignoriert, und sie sind auch nicht im Abkürzungsverzeichnis der RGK gelistet. Wenn sie durchnummeriert sind, kann \archbib{} sie allerdings nicht selbstständig erkennen. Bei den \enquote{Universitätstaschenbüchern} (UTB) scheinen da latente Unsicherheiten zu bestehen, dabei ist das ziemlich eindeutig eine Verlagsreihe.
+
+\paragraph{Unterreihen}
+Unterreihen kommen typischerweise vor, wenn vielbändige Publikationen von Großprojekten innerhalb bereits bestehender wissenschaftlicher Reihen publiziert werden sollen.
+
 \subsection{Sonstiges}
 
 \paragraph{Sprachen}
-Wie oben beschreiben, ist es nachgerade ein Charaktristikum RGK-artiger Stile, keine Angaben über die Sprache von Werken zu machen. Nichtsdestotrotz wertet \archbib{} das \Feld{language} u.\,U. aus. Manchmal wird nämlich verlangt, daß nur deutschsprachige Werke deutsch lokalisert werden. Werke in anderen Sprachen sollen englische Lokalisation aufweisen (eds., p.). Dann braucht man diese Information bei nichtdeutschen Werken. Der Mechnismus dafür ist in den Stilen hardcodiert und läßt sich nicht einfach per Oprion ändern.
-
-\paragraph{Titelübersetzungen}
-Mitunter soll bei Literatur in unüblichen Sprachen entweder eine Übersetzung des Titels oder der Titel eines Resumés in einer geläufigeren Sprache angegeben werden. Diese Funktion läßt sich mit der Option \Option{summarytitle} anschalten. Die Übersetzung geht in das Feld \Feld{summarytitle}.
+Wie oben beschreiben, ist es nachgerade ein Charakteristikum RGK-artiger Stile, keine Angaben über die Sprache von Werken zu machen. Nichtsdestotrotz wertet \archbib{} das \Feld{language} u.\,U. aus. Manchmal wird nämlich verlangt, daß nur deutschsprachige Werke deutsch lokalisert werden. Werke in anderen Sprachen sollen englische Lokalisation aufweisen (eds., p.). Dann braucht man diese Information bei nichtdeutschen Werken. Der Mechnismus dafür ist in den Stilen hardcodiert und läßt sich nicht einfach per Oprion ändern.
 
 \paragraph{Auflagen}
 \archbib{} kennt nur numerische Auflagen. Es ist aber möglich, so etwas wie \enquote{revidierte 22. Jubiläumsauflage} in das \Feld{edition zu schreiben}. \archbib{} extrahiert dann die erste Zahl, die es findet, und verwirft den Rest.
 
 Auflagennummern kann man an verschiedenen Positionen als hochgestellte Zahl anheften. Das regelt die Option \Option{editionsuperscript}.
 
+\paragraph{Starke Trennungen in Multizitaten}
+Manche Stile unterscheide in Zitaten von mehreren Werken zwischen starken und schwachen Trennungen, wobei erstere ein Ersatz für die in Anmerkungen nicht vorhandenen Absätze ist. Die starke Trennung der RGK-Regeln ist \enquote{.~--~}. \Befehl{multilistdelim} gibt immer die schwache Trennung an. Die starke Trennung findet sich in \Befehl{strongcitedelim} und sollte zwischen zwei Zitierkommandos gestellt werden:
+\begin{lstlisting}
+\footnote{\cite{key1}\strongcitedelim\cites{key2,key3}}
+\end{lstlisting}
+
+\paragraph{\enquote{Titelschlagworte}}
+Unter diesem Label wird in den RGK-Richtlinien ein Verzeichnis der häufig zitierten Literatur verstanden, die meist nach einem Autor/Kurztitel-Schema, evtl. auch nach Autor/Jahr-Schema (bei Zeitschriften mit Jahrgang) erzeugt. Dafür ist keine spezielle Programmierung nötig. Das kann man einfach mit \blx' Abkürzungsverzeichnis realisieren. Schreiben Sie die Label in das \Feld{shorthand}-Feld und geben sie das Verzeichnis mit \Befehl{printshorthands} aus. Sinnvoll ist das nur in \Englisch{verbose}-Stilen, wo man kein allgemeines Literaturverzeichnis hat.
+
 \chapter{Die Ökologie von \archbib}
 
-In einer Serie von Blogposts auf meiner privaten Homepage habe ich \archbib{} in Zusammenarbeit mit verschiedenen Hilfsmitteln ausprobiert. Dies insbesondere, um zu erfahren, ob ich dies von der \archbib{} -Seite aus unterstützen kann. Meine Erkenntnisse sind hier zusammengefaßt. Ein bißchen Mißtrauen ist geboten, denn mit Ausnahme von \Paket{tex4ht} habe ich keines dieser Programme vorher im Produktiveinsatz gehabt.
+In einer Serie von Blogposts auf meiner privaten Homepage habe ich \archbib{} in Zusammenarbeit mit verschiedenen Hilfsmitteln ausprobiert. Dies insbesondere, um zu erfahren, ob ich dies von der \archbib{}-Seite aus unterstützen kann. Meine Erkenntnisse sind hier zusammengefaßt. Ein bißchen Mißtrauen ist geboten, denn mit Ausnahme von \Paket{tex4ht} habe ich keines dieser Programme vorher im Produktiveinsatz gehabt.
 
 \section{Editoren}
 
