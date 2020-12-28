@@ -3,38 +3,74 @@
 \ReplacePackage{scrpage2}{scrlayer-scrpage}
 \documentclass[a4paper,12pt]{scrartcl}
 % no fontenc support by tex4ht:
-\ifdefined\HCode% detect tex4ht
-    \usepackage[T1]{fontenc}
-    \usepackage[utf8]{inputenc} 
-    %\usepackage[ansinew]{inputenc}
-    \usepackage[USenglish,nswissgerman,german,british]{babel}
-    \usepackage{lmodern}
-    \usepackage[osf,sc]{mathpazo}
-    \makeatletter
-        \def\hshchr{\expandafter\@gobble\string\#}
-        \def\ampchr{\expandafter\@gobble\string\&}
-        \def\entity#1{\HCode{\ampchr\hshchr#1;}}
-    \makeatother
-    \raggedright
-\else 
-	\usepackage{fontspec}
-	%\usepackage[T1]{fontenc}
-	\usepackage{noto}%\setmonofont{NotoSansMono}[HyphenChar=None]
-	\usepackage[french,dutch,danish,swedish,english,german,ngerman]{babel}
-	%\setmainfont[Ligatures=TeX]{NotoSerif}
-    %\usepackage{polyglossia}\setdefaultlanguage{english}\setotherlanguage{german}
-    %\usepackage{polyglossia}\setdefaultlanguage{german}\setotherlanguage{english}
-% command is missing in some fonts:
-%    \DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\} 
+\newcommand{\IfTeXforHt}[2]{\ifdefined\HCode#1\else#2\fi} % detect tex4ht
+\usepackage{iftex}
+\IfTeXforHt{
+	% missing hyperref
+	\usepackage{xcolor}
+	\providecommand*{\href}[2]{\HCode{<a class="href" href="\detokenize{#1}">#2</a>}}
+}{}
+\ifpdftex % pdfLaTeX
+	\usepackage[T1]{fontenc}
+	%\usepackage[utf8]{inputenc} % loaded by default with up-to-date installs
+	\usepackage[
+		protrusion=true,
+		expansion=true,
+		verbose=true,
+		babel=true,
+		tracking=true
+	]{microtype}
+	\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
+	\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
+			% dass alle Passagen in Kapitälchen automatisch leicht
+			% gesperrt werden.
+\else
+	\ifluatex % LuaLaTeX
+		%\usepackage{fontspec} % loaded by default with up-to-date installs
+		\usepackage[
+			protrusion=true,
+			expansion=true,
+			verbose=true,
+			babel=true,
+			tracking=true
+		]{microtype}
+		\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
+		\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
+			% dass alle Passagen in Kapitälchen automatisch leicht
+			% gesperrt werden.
+	\else
+		\ifxetex % XeLaTeX
+			%\usepackage{fontspec} % loaded by default with up-to-date installs
+			% microtype: no tracking and font expansion
+			\usepackage[
+				protrusion=true,
+				expansion=false,
+				verbose=true,
+				babel=true,
+				tracking=false
+			]{microtype}
+		\else
+		\fi
+	\fi
 \fi
+
+%%% Fonts
+\IfTeXforHt{}{\usepackage[osf]{noto}  % Noto, NotoSans, NotoSansMono optimized for screens; osf = old style figures ("Mediävalziffern")
+%\setmonofont{Noto Mono}[Scale=MatchLowercase] % This is already done by noto package but we need it to get rid of the default Ligatures=TeX
+}                                             % option for monospaced font which urges listings to format quotes. The ususal upquote package
+                                  			  % does not work with Noto fonts.
 %\usepackage[logonly]{trace}\traceon
 %\tracingpatches % write \patchcmd log
-\usepackage[protrusion=true,expansion=true,verbose=true,babel=true,tracking=true]{microtype}
-\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
-\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
+%\usepackage[protrusion=true,expansion=true,verbose=true,babel=true,tracking=true]{microtype}
+%\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
+%\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
             % dass alle Passagen in Kapitälchen automatisch leicht
             % gesperrt werden.
-\usepackage{csquotes}
+%%% Babel works with lualatex and xelatex with up-to-date installs.
+%%% Last language in list is set as document main.
+\usepackage[english,latin,french,dutch,danish,ngerman,german]{babel}
+\usepackage[german=quotes]{csquotes} % context sensitive quotatation
+\usepackage{ellipsis} % better typesetting of ... (must load after babel)
 \usepackage[
     %style=debug,
     %style=archaeologie,
@@ -86,12 +122,14 @@
     %style=rgk-verbose-old,
     %style=ufg-muenster-inline,
     %style=ufg-muenster-numeric,
-    style=ufg-muenster-verbose,
+    %style=ufg-muenster-verbose,
     %style=volkskunde,
-    %style=zaak,
-    style=zaes,
+    style=zaak,
+    %style=zaes,
     %bibencoding=utf8, % necessary if *.tex file is in other encoding
 	%autolang=none,
+	%citestyle=zaak,
+	%bibstyle=zaak
 ]{biblatex}
 \providetoggle{archbool:shortseries}
 \providetoggle{archbool:shortjournal}

@@ -12864,7 +12864,9 @@
 % Prints the list from \Option{giveninitligatures}.
 %    \begin{macrocode}
 \newrobustcmd*{\SuppressAdditiveLbxSuffixes}{%
-    \let\blx@lng@suff\@empty}
+    \@ifpackagelater{biblatex}{2020/10/01}
+		{}
+		{\let\blx@lng@suff\@empty}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -19813,23 +19815,25 @@
 %
 % \begin{macro}{\volumenumberdelim}
 % \begin{format}{number}
+% \changes{2.3}{2020/12/27}{\Befehl{volumedatedelim} fixed.
 %    \begin{macrocode}
 \renewcommand*{\volumenumberdelim}{\addspace}
-\DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+\renewcommand*{\volumedatedelim}{\addcolon\addspace}
 %    \end{macrocode}
 % \end{format}
 % \end{macro}
 %
 % \begin{format}{volume}
+% \changes{2.3}{2020/12/27}{\Feld{volume}/\Feld{date} block fixed.
 %    \begin{macrocode}
-\DeclareFieldFormat*{volume}{\addcomma\space\bibstring{volume}\space#1}
-\DeclareFieldFormat[article]{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{\addcomma\space\bibstring{volume}\addspace#1}
+\DeclareFieldFormat[article,periodical,review,suppperiodical]{volume}{\addspace#1}
 %    \end{macrocode}
 % \end{format}
 %
 % \begin{format}{number}
 %    \begin{macrocode}
-\DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+\DeclareFieldFormat[article,periodical,review,suppperiodical]{number}{\mkbibparens{#1}}
 %    \end{macrocode}
 % \end{format}
 %
@@ -19838,12 +19842,6 @@
 \DeclareFieldFormat*{urldate}{\mkbibparens{#1}}
 %    \end{macrocode}
 % \end{format}
-%
-% \begin{macro}{\volumedatedelim}
-%    \begin{macrocode}
-\renewcommand*{\volumedatedelim}{}
-%    \end{macrocode} 
-% \end{macro}
 %
 % \begin{macro}{\bibpagespunct}
 % Colon ahead of \Feld{volume} groups.
