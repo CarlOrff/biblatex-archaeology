@@ -13591,7 +13591,7 @@
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
 \DeclareFieldFormat*{volume}{\addspace\ifinteger{#1}{\RN{#1}}{#1}}
-\DeclareFieldFormat[article,review,suppperiodical]{volume}{\addspace#1}
+\DeclareFieldFormat[article,periodical,review,suppperiodical]{volume}{\addspace#1}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -14999,7 +14999,7 @@
 %
 % \begin{format}{number}
 %    \begin{macrocode}
-\DeclareFieldFormat[article,review,suppperiodical]{number}{\mkbibparens{#1}}
+\DeclareFieldFormat[article,periodical,review,suppperiodical]{number}{\mkbibparens{#1}}
 %    \end{macrocode}
 % \end{format}
 %
@@ -15034,7 +15034,7 @@
         {\biblstring{volume}\addspace#1}%
     \bibcloseparen%
 }
-\DeclareFieldFormat[article,review,suppperiodical]{volume}{\addspace#1}
+\DeclareFieldFormat[article,periodical,review,suppperiodical]{volume}{\addspace#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -15049,7 +15049,7 @@
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{%
     \mkbibparens{\mkpageprefix[bookpagination]{#1}}}
-\DeclareFieldFormat[article,review,suppperiodical]{pages}{#1}
+\DeclareFieldFormat[article,periodical,review,suppperiodical]{pages}{#1}
 \renewcommand*{\bibpagespunct}{%
     \iffieldundef{journaltitle}
         {\addspace}
@@ -18452,7 +18452,7 @@
 %
 % \begin{macro}{\booklabelnamepunct}
 %    \begin{macrocode}
-\renewcommand*{\volumenumberdelim}{\addcomma\space}
+\renewcommand*{\volumenumberdelim}{\addcomma}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -18467,10 +18467,13 @@
 %
 % \begin{format}{pages}
 % \begin{format}{volume}
+% \begin{format}{number}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
 \DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat[article,periodical,review,suppperiodical]{number}{#1\addcomma\addspace}
 %    \end{macrocode}
+% \end{format}
 % \end{format}
 % \end{format}
 %
@@ -18780,10 +18783,13 @@
 %
 % \begin{format}{pages}
 % \begin{format}{volume}
+% \begin{format}{number}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
 \DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat[article,periodical,review,suppperiodical]{number}{#1\addcomma\addspace}
 %    \end{macrocode}
+% \end{format}
 % \end{format}
 % \end{format}
 %
@@ -19638,7 +19644,7 @@
 %    \begin{macrocode}
 \DeclareFieldFormat*{number}{\addcomma\space#1}
 \DeclareFieldFormat*{subnumber}{\addcomma\space#1}
-\DeclareFieldFormat[article,review,suppperiodical]{number}{#1}
+\DeclareFieldFormat[article,periodical,review,suppperiodical]{number}{#1}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -19666,6 +19672,13 @@
             \step[fieldsource=language,notmatch=\regexp{german|austrian},final]
             \step[fieldset=langid,fieldvalue=english]
             \step[fieldset=langidopts,fieldvalue={variant=british}]
+        }
+%    \end{macrocode}
+% \changes{2.3}{2020/12/29}{suppress \Befehl{bibpagespunct} in electronic \Typ{thesis}.
+% This is needed to suppress \Befehl{bibpagespunct} in electronic \Typ{thesis}.
+%    \begin{macrocode}
+		\map[overwrite=true]{
+            \step[fieldset=pagetotal,fieldvalue={}]
         }
     }
 }
