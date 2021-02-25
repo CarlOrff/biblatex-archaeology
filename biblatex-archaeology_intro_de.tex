@@ -1,7 +1,7 @@
-% arara: lualatex
+% arara: pdflatex
 % arara: biber
 % arara: makeindex
-% arara: lualatex until !found('log', '\\(?(R|r)e\\)?run (to get|LaTeX)')
+% arara: pdflatex until !found('log', '\\(?(R|r)e\\)?run (to get|LaTeX)')
 % arara: clean: { extensions: [aux,log,out,toc,bbl,bcf,bgl,run.xml,idx,ind,ilg] }
 \documentclass[
 	11pt,        % font size
@@ -64,15 +64,17 @@
 \fi
 
 %%% Fonts
-\IfTeXforHt{}{\usepackage[osf]{noto}}  % Noto, NotoSans, NotoSansMono optimized for screens; osf = old style figures ("Mediävalziffern")
-\ifpdftex % pdfLaTeX
-	\relax
-\else
-	\setmonofont{Noto Mono}[Scale=MatchLowercase] % \setmonofont from fontspec package
-	% This is already done by noto package but we need it to get rid of the default Ligatures=TeX
-	% option for monospaced font which urges listings to format quotes. The ususal upquote package
-	% does not work with Noto font.
-\fi												  
+\IfTeXforHt
+	{}
+	{\usepackage[osf]{noto}  % Noto, NotoSans, NotoSansMono optimized for screens; osf = old style figures ("Mediävalziffern")
+	\ifpdftex % pdfLaTeX
+\relax
+	\else
+		\setmonofont{Noto Mono}[Scale=MatchLowercase] % \setmonofont from fontspec package
+		% This is already done by noto package but we need it to get rid of the default Ligatures=TeX
+		% option for monospaced font which urges listings to format quotes. The ususal upquote package
+		% does not work with Noto font.
+	\fi}
 \usepackage{fontawesome} % a collection of icons (primarily intended for websites)
 
 %%% Bibliography
@@ -233,22 +235,31 @@
 \newrobustcmd*{\archbib}{\Paket{\blxarch@name@hyph}}
 \newrobustcmd*{\Biber}{\Paket{Biber}}
 \makeatother
-\newrobustcmd*{\Befehl}[1]{\texttt{\textbackslash#1}\index{Kommando (TeX)!\textbackslash#1}}
-\newrobustcmd*{\Typ}[1]{\texttt{\symbol{64}#1}\index{Dokumententyp!#1}}
+\newrobustcmd*{\Befehl}[1]{\texttt{\textbackslash#1}\index{Kommandos (TeX)!\textbackslash#1}}
+\newrobustcmd*{\Typ}[1]{\texttt{\symbol{64}#1}\index{Dokumententypen!#1}}
 % no hyphenation within tt fonts:
-\newrobustcmd*{\Paket}[1]{\textsf{#1}\index{Paket (\TeX)!\textsf{#1}}}
-\newrobustcmd*{\App}[1]{\textsf{#1}\index{Paket (kein \TeX)!\textsf{#1}}}
-\newrobustcmd*{\Feld}[1]{\texttt{#1}\index{Feld (TeX)!\texttt{#1}}}
-\newrobustcmd*{\Option}[1]{\texttt{\detokenize{#1}}\index{Option!placeholder}}
-\newrobustcmd*{\Umgebung}[1]{\texttt{#1}\index{Umgebung!\texttt{#1}}}
+\newcommand*{\TeXPaket}{Paket (\protect\texlogo)!}
+\newrobustcmd*{\Paket}[1]{\textsf{#1}\index{\TeXPaket#1@\textsf{#1}}}
+\newrobustcmd*{\App}[1]{\textsf{#1}\index{Paket (kein \protect\TeX)!\textsf{#1}}}
+\newrobustcmd*{\Feld}[1]{\texttt{#1}\index{Felder!\texttt{#1}}}
+\newrobustcmd*{\Option}[1]{\texttt{\detokenize{#1}}\index{Optionen!\texttt{\protect\detokenize{#1}}}}
+\newrobustcmd*{\Umgebung}[1]{\texttt{#1}\index{Umgebungen!\texttt{#1}}}
 \newrobustcmd*{\Lokalisierung}[1]{\texttt{#1}\index{Lokalisierung!\texttt{#1}}}
 \newrobustcmd*{\Kbd}[1]{\texttt{#1}}
-\newrobustcmd*{\Stil}[1]{\texttt{#1}\index{Stil!\texttt{#1}}}
-\newrobustcmd*{\Datei}[1]{\texttt{\detokenize{#1}}\index{Datei!placeholder}}
+\newrobustcmd*{\Stil}[1]{\texttt{#1}\index{Stile!\texttt{#1}}}
+\newrobustcmd*{\Datei}[1]{\texttt{\detokenize{#1}}\index{Dateien!\texttt{\protect\detokenize{#1}}}}
 \newrobustcmd*{\Englisch}[1]{\foreignlanguage{english}{\emph{#1}}}
 \newrobustcmd*{\Latein}[1]{\foreignlanguage{latin}{\emph{#1}}}
 \newcommand*{\Wichtig}{\IfTeXforHt{!}{\faExclamationCircle}}
-
+% logos to index
+\let\bibtexlogo\BibTeX
+\renewcommand*{\BibTeX}{\bibtexlogo\index{\TeXPaket BibTeX@\protect\bibtexlogo}}
+\let\latexlogo\LaTeX
+\renewcommand*{\LaTeX}{\latexlogo\index{\TeXPaket LaTeX@\protect\latexlogo}}
+\let\lyxlogo\LyX
+\renewcommand*{\LyX}{\lyxlogo\index{\TeXPaket LyX@\protect\lyxlogo}}
+\let\texlogo\TeX
+\renewcommand*{\TeX}{\texlogo\index{\TeXPaket TeX@\protect\texlogo}}
 
 %%% Allow for fixed floating environments (this is often a bad idea!). Usually you want them to float
 %%% and to refer to them through labels like "fig. 3" or "tab. 9").
