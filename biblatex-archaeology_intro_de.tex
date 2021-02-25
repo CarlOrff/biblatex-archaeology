@@ -235,8 +235,8 @@
 \newrobustcmd*{\archbib}{\Paket{\blxarch@name@hyph}}
 \newrobustcmd*{\Biber}{\Paket{Biber}}
 \makeatother
-\newrobustcmd*{\Befehl}[1]{\texttt{\textbackslash#1}\index{Kommandos (TeX)!\textbackslash#1}}
-\newrobustcmd*{\Typ}[1]{\texttt{\symbol{64}#1}\index{Dokumententypen!#1}}
+\newrobustcmd*{\Befehl}[1]{\texttt{\textbackslash#1}\index{Kommandos (TeX)!\texttt{\textbackslash#1}}}
+\newrobustcmd*{\Typ}[1]{\texttt{\symbol{64}#1}\index{Dokumententypen!\texttt{#1}}}
 % no hyphenation within tt fonts:
 \newcommand*{\TeXPaket}{Paket (\protect\texlogo)!}
 \newrobustcmd*{\Paket}[1]{\textsf{#1}\index{\TeXPaket#1@\textsf{#1}}}
@@ -361,9 +361,9 @@ z.\,B. gibt die Versionsnummer des aktuellen \LaTeX-Programms zurück.
 \end{itemize}
 
 \paragraph{standardisierte Pfade}
-Wenn man \TeX-Quellen zitiert, macht man dies üblicherweise nach dem folgenden Muster: \Kbd{CTAN:path/to/package}. Das Protokoll CTAN verweist auf das gleichnamige Softwarearchiv der \TeX-Welt \Englisch{Comprehensive \TeX{} Archive Network}. Es ist aus Kapazitätsgründen unerwünscht, auf seine physikalische Adresse zu verlinken. \Kbd{CTAN:} ist gegen die physikalische Adresse eines möglichst nahegelegenen Spiegels zu ersetzen. Einer Liste solcher Spiegelserver findet sich auf \url{https://www.ctan.org/mirrors/}.
+Wenn man \TeX-Quellen zitiert, macht man dies üblicherweise nach dem folgenden Muster: \Kbd{CTAN:path/to/package}. Das Protokoll CTAN verweist auf das gleichnamige Softwarearchiv der \TeX-Welt \Englisch{Comprehensive \TeX{} Archive Network\index{CTAN}}. Es ist aus Kapazitätsgründen unerwünscht, auf seine physikalische Adresse zu verlinken. \Kbd{CTAN:} ist gegen die physikalische Adresse eines möglichst nahegelegenen Spiegels zu ersetzen. Einer Liste solcher Spiegelserver findet sich auf \url{https://www.ctan.org/mirrors/}.
 
-Auch die \TeX-Distributionen haben einen standardisierten Aufbau. Als \Datei{\%TEXMF} bezeichnet man den Wurzelordner einer \TeX-Installation, also bei \TeX{} Live unter dem Ordner mit der Jahreszahl. In \Datei{\%TEXMFLOCAL} kann man lokale Dateien unterbringen, die beim Updaten nicht überschrieben werden sollen. \Datei{\%TEXMFHOME} ist ein Ordner für Dateien, die dem aktuellen Benutzerkonto zugeordent sind. Wenn \LaTeX{} eine Datei sucht, z. B. weil sie mit \Befehl{usepackage} in ein Dokument eingebunden wurde, tut es das in der Reihenfolge \Datei{Dokumentenordner} – \Datei{\%TEXMFHOME} – \Datei{\%TEXMFLOCAL} – \Datei{\%TEXMF}. Außerhalb des Dokumentenordners sucht es allerdings nicht im Dateisystem, sondern in der Paketdatenbank, die man entsprechend updaten muß, wenn man neue Dateien installiert oder entfernt. Private Einstellungen wie z. B. Briefköpfe kann man in \Datei{\%TEXMFHOME/tex/latex/myconfig/myconfig.sty} ablegen. Ebenso kann man dort Entwicklerversionen von Paketen installieren. Wenn man sie nicht mehr braucht, löscht man sie einfach wieder, denn die aktuelle Produktivversion findet sich ja immer noch unangetastet in \Datei{\%TEXMF}.
+Auch die \TeX-Distributionen haben einen standardisierten Aufbau. Als \Datei{\%TEXMF} bezeichnet man den Wurzelordner einer \TeX-Installation, also bei \TeX{} Live unter dem Ordner mit der Jahreszahl. In \Datei{\%TEXMFLOCAL} kann man lokale Dateien unterbringen, die beim Updaten nicht überschrieben werden sollen. \Datei{\%TEXMFHOME} ist ein Ordner für Dateien, die dem aktuellen Benutzerkonto zugeordent sind. Wenn \LaTeX{} eine Datei sucht, z. B. weil sie mit \Befehl{usepackage} in ein Dokument eingebunden wurde, tut es das in der Reihenfolge \Kbd{Dokumentenordner} – \Datei{\%TEXMFHOME} – \Datei{\%TEXMFLOCAL} – \Datei{\%TEXMF}. Außerhalb des Dokumentenordners sucht es allerdings nicht im Dateisystem, sondern in der Paketdatenbank, die man entsprechend updaten muß, wenn man neue Dateien installiert oder entfernt. Private Einstellungen wie z. B. Briefköpfe kann man in \Datei{\%TEXMFHOME/tex/latex/myconfig/myconfig.sty} ablegen. Ebenso kann man dort Entwicklerversionen von Paketen installieren. Wenn man sie nicht mehr braucht, löscht man sie einfach wieder, denn die aktuelle Produktivversion findet sich ja immer noch unangetastet in \Datei{\%TEXMF}.
 
 Die Dateien finden sich an folgenden Ablageorten
 
