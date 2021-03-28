@@ -157,9 +157,11 @@
 		}
 	}
 }
-\DeclareFieldFormat*{userd}{\texttt{\detokenize{#1}}}
+% Employ \scantokens instead of \detokenize in order to keep Umlauts in PDFLaTeX. Beware: removes braces
+\DeclareFieldFormat*{userd}{\texttt{\scantokens{#1\relax}}}
+\DeclareFieldFormat*{userc}{\texttt{\detokenize{#1}}}
 \DeclareCiteCommand{\citeorigdate}{\printorigdate}{}{}{}{}
-\newcommand{\DatumDemo}[1]{\citefield{#1}[userd]{userd} & \citeorigdate{#1}\\}
+\newcommand{\DatumDemo}[1]{\citefield{#1}{userd} & \citeorigdate{#1}\\}
 \newcommand{\NamenDemo}[1]{\citefield{#1}[userd]{userc} & \citename{#1}[family-given]{namec}\\}
 	
 %%% code listings
@@ -197,13 +199,13 @@
     title=\vspace{0.7ex}Beispiel,
     halign=flush left,
 ]%
-\texttt{\detokenize{#1}}
+\small\texttt{\detokenize{#1}}
 \tcblower#1%
 \end{tcolorbox}}
  
  
 %%% Babel works with lualatex and xelatex with up-to-date installs.
-%%% Last language in list is set as document main.
+%%% Last language in list acts as document main.
 \usepackage[english,latin,french,dutch,danish,ngerman,german]{babel}
 \usepackage[german=quotes]{csquotes} % context sensitive quotatation
 \usepackage{ellipsis} % better typesetting of ... (must load after babel)
@@ -238,7 +240,7 @@
 \newrobustcmd*{\Befehl}[1]{\texttt{\textbackslash#1}\index{Kommandos (TeX)!\texttt{\textbackslash#1}}}
 \newrobustcmd*{\Typ}[1]{\texttt{\symbol{64}#1}\index{Dokumententypen!\texttt{#1}}}
 % no hyphenation within tt fonts:
-\newcommand*{\TeXPaket}{Paket (\protect\texlogo)!}
+\newcommand*{\TeXPaket}{Paket (\protect\TeX)!}
 \newrobustcmd*{\Paket}[1]{\textsf{#1}\index{\TeXPaket#1@\textsf{#1}}}
 \newrobustcmd*{\App}[1]{\textsf{#1}\index{Paket (kein \protect\TeX)!\textsf{#1}}}
 \newrobustcmd*{\Feld}[1]{\texttt{#1}\index{Felder!\texttt{#1}}}
@@ -251,15 +253,25 @@
 \newrobustcmd*{\Englisch}[1]{\foreignlanguage{english}{\emph{#1}}}
 \newrobustcmd*{\Latein}[1]{\foreignlanguage{latin}{\emph{#1}}}
 \newcommand*{\Wichtig}{\IfTeXforHt{!}{\faExclamationCircle}}
-% logos to index
+% logos to index (the generic \TeX and \LaTeX are not renewable)
+\newrobustcmd*{\LaTeXi}{\LaTeX\index{\TeXPaket LaTeX@\protect\LaTeX}}
+\newrobustcmd*{\TeXi}{\TeX\index{\TeXPaket TeX@\protect\TeX}}
 \let\bibtexlogo\BibTeX
-\renewcommand*{\BibTeX}{\bibtexlogo\index{\TeXPaket BibTeX@\protect\bibtexlogo}}
-\let\latexlogo\LaTeX
-\renewcommand*{\LaTeX}{\latexlogo\index{\TeXPaket LaTeX@\protect\latexlogo}}
+\renewrobustcmd*{\BibTeX}{\bibtexlogo\index{\TeXPaket BibTeX@\protect\bibtexlogo}}
+\renewrobustcmd*{\LaTeX}{\latexlogo\index{\TeXPaket LaTeX@\protect\latexlogo}}
+\let\latexmllogo\LaTeXML
+\renewrobustcmd*{\LaTeXML}{\latexmllogo\index{\TeXPaket LaTeXML@\protect\latexmllogo}}
+\let\xelatexlogo\XeLaTeX
 \let\lyxlogo\LyX
-\renewcommand*{\LyX}{\lyxlogo\index{\TeXPaket LyX@\protect\lyxlogo}}
-\let\texlogo\TeX
-\renewcommand*{\TeX}{\texlogo\index{\TeXPaket TeX@\protect\texlogo}}
+\renewrobustcmd*{\LyX}{\lyxlogo\index{\TeXPaket LyX@\protect\lyxlogo}}
+\let\lualatexlogo\LuaLaTeX
+\renewrobustcmd*{\LuaLaTeX}{\lualatexlogo\index{\TeXPaket LuaLaTeX@\protect\lualatexlogo}}
+\let\pdflatexlogo\pdfLaTeX
+\renewrobustcmd*{\pdfLaTeX}{\pdflatexlogo\index{\TeXPaket pdfLaTeX@\protect\pdflatexlogo}}
+\let\xelatexlogo\XeLaTeX
+\renewrobustcmd*{\XeLaTeX}{\xelatexlogo\index{\TeXPaket XeLaTeX@\protect\xelatexlogo}}
+
+
 
 %%% Allow for fixed floating environments (this is often a bad idea!). Usually you want them to float
 %%% and to refer to them through labels like "fig. 3" or "tab. 9").
@@ -305,7 +317,7 @@
 \Crefname{tab}{Tabelle}{Tabellen}
 
 % The following code was borrowed from https://tex.stackexchange.com/questions/376763/incomplete-iffalse-all-text-was-ignored-after-line-x-with-lstlisting
-% Tt patches a hard-to-track-down error with page breaks in listings only happening in PDFLaTeX.
+% This patches a hard-to-track-down error with page breaks in listings only happening in PDFLaTeX.
 \makeatletter
 \expandafter\let\csname active@char\string?\endcsname\relax
 \expandafter\let\csname active@char\string!\endcsname\relax
@@ -324,7 +336,7 @@
 Dieses Dokument bietet eine Einführung in \blx{} und \archbib{} unter dem Aspekt strikter Anwendungsorientierung. Es geht also um Ausfüllen der
 Datenbanken und das Zitieren in Dokumenten; dazu die Zusammenarbeit mit anderer Software. Athematisch sind die technischen Interna und
 das Entwickeln von Stilen.
-Vermutlich liegt bei den meisten Lesern der Erstkontakt mit \LaTeX{} noch nicht lange zurück. Und wahrscheinlich war \blx{} bzw. \archbib{} einer der wesentlichen Gründe für das Interesse. Deswegen werden in \cref{kap_intro} zuerst einige konzeptionelle Probleme angesprochen, die ein gewisses Verständnis dafür wecken sollen, warum \blx{} so ist, wie es ist. Dann folgt in \cref{kap_blx} eine Vorstellung der Eigenschaften von \blx. Im Prinzip sollte man nach der Lektüre \blx{} benutzen können, soweit man es bei den \Englisch{out of box}-Einstellungen beläßt. Sobald man Einstellungen ändern oder Befehle neu definieren möchte, wird man schwerlich umhinkommen, in das Handbuch zu schauen. In dem \blx-Teil gibt es nur wenige Bezüge zu \archbib. Es sollte also auch für Interessenten anderer Stile nützlich sein. Im \cref{kap_blxarch} werden die von \archbib{} zur Verfügung gestellten Features etwas ausführlicher besprochen. Aber auch hier gilt, daß es sich um eine Einführung handelt, die die Handbuchlektüre auf Dauer nicht ersetzen kann.
+Vermutlich liegt bei den meisten Lesern der Erstkontakt mit \LaTeXi{} noch nicht lange zurück. Und wahrscheinlich war \blx{} bzw. \archbib{} einer der wesentlichen Gründe für das Interesse. Deswegen werden in \cref{kap_intro} zuerst einige konzeptionelle Probleme angesprochen, die ein gewisses Verständnis dafür wecken sollen, warum \blx{} so ist, wie es ist. Dann folgt in \cref{kap_blx} eine Vorstellung der Eigenschaften von \blx. Im Prinzip sollte man nach der Lektüre \blx{} benutzen können, soweit man es bei den \Englisch{out of box}-Einstellungen beläßt. Sobald man Einstellungen ändern oder Befehle neu definieren möchte, wird man schwerlich umhinkommen, in das Handbuch zu schauen. In dem \blx-Teil gibt es nur wenige Bezüge zu \archbib. Es sollte also auch für Interessenten anderer Stile nützlich sein. Im \cref{kap_blxarch} werden die von \archbib{} zur Verfügung gestellten Features etwas ausführlicher besprochen. Aber auch hier gilt, daß es sich um eine Einführung handelt, die die Handbuchlektüre auf Dauer nicht ersetzen kann.
 \end{abstract}
  
 \tableofcontents
@@ -336,15 +348,15 @@ Vermutlich liegt bei den meisten Lesern der Erstkontakt mit \LaTeX{} noch nicht 
 \paragraph{Sprachökonomie} Ich benutzte hier aus sprachökonomischen Gründen das generische Maskulinum. Selbstverständlich sind Frauen und dritte Geschlechter jedweder Observanz ebenso angesprochen.
 
 \paragraph{Was man schon wissen sollte}
-Ich gehe davon aus, daß schon minimale \LaTeX-Kenntnisse vorhanden sind. Sie sollten also wissen, daß \textellipsis
+Ich gehe davon aus, daß schon minimale \LaTeXi-Kenntnisse vorhanden sind. Sie sollten also wissen, daß \textellipsis
 \begin{itemize}
 \item \textellipsis Quelldateien die Extension \Datei{*.tex} haben.
 \item \textellipsis Dokumententypen als Klassen definiert sind-
 \item \textellipsis Dokumente einen Header haben, in dem man mit \Befehl{usepackage} Pakete laden kann und ihnen mit \Kbd{[key=value]} Optionen übergeben kann.
 \item \textellipsis man Kommandos mit \Befehl{newcommand} selbst erstellen und mit \Befehl{renewcommand} verändern kann.
-\item \textellipsis bei \LaTeX-Läufen Hilfsdateien produziert werden, die man gefahrlos löschen kann.
-\item \textellipsis man u.\,U. mehr als einen \LaTeX-Lauf braucht, um eine komplette Ausgabe (meist PDF) herzustellen.
-\item \textellipsis es verschiedene \LaTeX-Engines gibt.
+\item \textellipsis bei \LaTeXi-Läufen Hilfsdateien produziert werden, die man gefahrlos löschen kann.
+\item \textellipsis man u.\,U. mehr als einen \LaTeXi-Lauf braucht, um eine komplette Ausgabe (meist PDF) herzustellen.
+\item \textellipsis es verschiedene \LaTeXi-Engines gibt.
 \item \textellipsis Quellcodekommentare mit einem Prozentzeichen beginnen.
 \item \textellipsis man mit den Paketen \Paket{babel} oder \Paket{polyglossia} Unterstützungen für zahlreiche Sprachen laden kann.
 \end{itemize}
@@ -352,22 +364,22 @@ Ich gehe davon aus, daß schon minimale \LaTeX-Kenntnisse vorhanden sind. Sie so
 \paragraph{Schriftarten}
 \begin{itemize}
 \item In Antiqua (proportionale Schrift mit Serifen, also die kleinen Fortsätze am Strichende zur Verstärkung des Linieneindrucks) steht der Fließtext.
-\item In \Datei{Grotesk (proportionale serifenlose Schrift)} stehen die Namen von Programmen (vulgo \enquote{Apps}) und Paketen. Für einige bekannte Systeme der \TeX-Welt gibt es Logos, z. B. \LaTeX. Auch gezählte wie ungezählte Überschriften werden so geschrieben, weil Serifen bei großer Schrift klobig wirken.
+\item In \textsf{Grotesk} (proportionale serifenlose Schrift) stehen die Namen von Programmen (vulgo \enquote{Apps}) und Paketen. Für einige bekannte Systeme der \TeXi-Welt gibt es Logos, z. B. \LaTeXi. Auch gezählte wie ungezählte Überschriften werden so geschrieben, weil Serifen bei großer Schrift klobig wirken.
 \item In \texttt{nichtproportionaler Schrift} stehen Ein- und Ausgaben von Computern, Dateinamen, URLs und Code(fragmente). Ein Dollarzeichen am Zeilenanfang symbolisiert das Prompt eines Terminals, also z. B. \Kbd{C:\textbackslash{}Benutzer\textbackslash{}USERNAME>} der \Datei{cmd.exe} bzw. \Kbd{PS C:\textbackslash{}Benutzer\textbackslash{}\%USERNAME\%>} der PowerShell von Windows oder \Kbd{[<USERNAME>]<DIR>\#} auf der Bash eines \App{Linux}systems.
 \begin{lstlisting}
 $ latex -v
 \end{lstlisting}
-z.\,B. gibt die Versionsnummer des aktuellen \LaTeX-Programms zurück.
+z.\,B. gibt die Versionsnummer des aktuellen \LaTeXi-Programms zurück.
 \end{itemize}
 
 \paragraph{standardisierte Pfade}
-Wenn man \TeX-Quellen zitiert, macht man dies üblicherweise nach dem folgenden Muster: \Kbd{CTAN:path/to/package}. Das Protokoll CTAN verweist auf das gleichnamige Softwarearchiv der \TeX-Welt \Englisch{Comprehensive \TeX{} Archive Network\index{CTAN}}. Es ist aus Kapazitätsgründen unerwünscht, auf seine physikalische Adresse zu verlinken. \Kbd{CTAN:} ist gegen die physikalische Adresse eines möglichst nahegelegenen Spiegels zu ersetzen. Einer Liste solcher Spiegelserver findet sich auf \url{https://www.ctan.org/mirrors/}.
+Wenn man \TeXi-Quellen zitiert, macht man dies üblicherweise nach dem folgenden Muster: \Kbd{CTAN:path/to/package}. Das Protokoll CTAN verweist auf das gleichnamige Softwarearchiv der \TeXi-Welt \Englisch{Comprehensive \TeXi{} Archive Network\index{CTAN}}. Es ist aus Kapazitätsgründen unerwünscht, auf seine physikalische Adresse zu verlinken. \Kbd{CTAN:} ist gegen die physikalische Adresse eines möglichst nahegelegenen Spiegels zu ersetzen. Einer Liste solcher Spiegelserver findet sich auf \url{https://www.ctan.org/mirrors/}.
 
-Auch die \TeX-Distributionen haben einen standardisierten Aufbau. Als \Datei{\%TEXMF} bezeichnet man den Wurzelordner einer \TeX-Installation, also bei \TeX{} Live unter dem Ordner mit der Jahreszahl. In \Datei{\%TEXMFLOCAL} kann man lokale Dateien unterbringen, die beim Updaten nicht überschrieben werden sollen. \Datei{\%TEXMFHOME} ist ein Ordner für Dateien, die dem aktuellen Benutzerkonto zugeordent sind. Wenn \LaTeX{} eine Datei sucht, z. B. weil sie mit \Befehl{usepackage} in ein Dokument eingebunden wurde, tut es das in der Reihenfolge \Kbd{Dokumentenordner} – \Datei{\%TEXMFHOME} – \Datei{\%TEXMFLOCAL} – \Datei{\%TEXMF}. Außerhalb des Dokumentenordners sucht es allerdings nicht im Dateisystem, sondern in der Paketdatenbank, die man entsprechend updaten muß, wenn man neue Dateien installiert oder entfernt. Private Einstellungen wie z. B. Briefköpfe kann man in \Datei{\%TEXMFHOME/tex/latex/myconfig/myconfig.sty} ablegen. Ebenso kann man dort Entwicklerversionen von Paketen installieren. Wenn man sie nicht mehr braucht, löscht man sie einfach wieder, denn die aktuelle Produktivversion findet sich ja immer noch unangetastet in \Datei{\%TEXMF}.
+Auch die \TeXi-Distributionen haben einen standardisierten Aufbau. Als \Datei{\%TEXMF} bezeichnet man den Wurzelordner einer \TeXi-Installation, also bei \TeXi{} Live unter dem Ordner mit der Jahreszahl. In \Datei{\%TEXMFLOCAL} kann man lokale Dateien unterbringen, die beim Updaten nicht überschrieben werden sollen. \Datei{\%TEXMFHOME} ist ein Ordner für Dateien, die dem aktuellen Benutzerkonto zugeordent sind. Wenn \LaTeXi{} eine Datei sucht, z. B. weil sie mit \Befehl{usepackage} in ein Dokument eingebunden wurde, tut es das in der Reihenfolge \Kbd{Dokumentenordner} – \Datei{\%TEXMFHOME} – \Datei{\%TEXMFLOCAL} – \Datei{\%TEXMF}. Außerhalb des Dokumentenordners sucht es allerdings nicht im Dateisystem, sondern in der Paketdatenbank, die man entsprechend updaten muß, wenn man neue Dateien installiert oder entfernt. Private Einstellungen wie z. B. Briefköpfe kann man in \Datei{\%TEXMFHOME/tex/latex/myconfig/myconfig.sty} ablegen. Ebenso kann man dort Entwicklerversionen von Paketen installieren. Wenn man sie nicht mehr braucht, löscht man sie einfach wieder, denn die aktuelle Produktivversion findet sich ja immer noch unangetastet in \Datei{\%TEXMF}.
 
 Die Dateien finden sich an folgenden Ablageorten
 
-Bei den \BibTeX-Datenbanken sind die Administratoren der Distributionen sehr zurückhaltend. Die von \archbib{} mitgelieferten Datenbanken finden sich nur in MiK\TeX{} im Standardpfad und werden ohne Pfadangabe gefunden. Auf \TeX{} Live sind sie im Quellcode-Verzeichnis, wo nicht gesucht wird. Wenn man Pakete in \Datei{\%TEXMFLOCAL} oder \Datei{\%TEXMFHOME} installiert, muß man dieselben Hierarchien verwenden. Manche Pakete, so auch \blx{} und \archbib{} ab Version 2.2, liefern ein Archiv \Datei{<package>.tds.zip} mit. Darin sind die Dateien alle bereits in die richtigen Ordner einsortiert. Man kann sie einfach in einen der Wurzelordner entpacken, und alle Dateien sind dort, wo sie hingehören.
+Bei den \BibTeX-Datenbanken sind die Administratoren der Distributionen sehr zurückhaltend. Die von \archbib{} mitgelieferten Datenbanken finden sich nur in MiK\TeXi{} im Standardpfad und werden ohne Pfadangabe gefunden. Auf \TeXi{} Live sind sie im Quellcode-Verzeichnis, wo nicht gesucht wird. Wenn man Pakete in \Datei{\%TEXMFLOCAL} oder \Datei{\%TEXMFHOME} installiert, muß man dieselben Hierarchien verwenden. Manche Pakete, so auch \blx{} und \archbib{} ab Version 2.2, liefern ein Archiv \Datei{<package>.tds.zip} mit. Darin sind die Dateien alle bereits in die richtigen Ordner einsortiert. Man kann sie einfach in einen der Wurzelordner entpacken, und alle Dateien sind dort, wo sie hingehören.
 
 Die Handbücher braucht man nicht im Dateisystem zu suchen. Folgender Konsolenbefehl tut es auch:
 \begin{lstlisting}
@@ -381,40 +393,40 @@ $ \kommando{verpflichtend 1}[optional 1][optional 2]{verpflichtend 2}
 \end{lstlisting}
 Leider kann man sich nicht hundertprozentig darauf verlassen, aber in diesem Dokument ist das so.
 
-\section{Soll man \LaTeX{} überhaupt in den deutschsprachigen Geisteswissenschaften verwenden?}
+\section{Soll man \LaTeXi{} überhaupt in den deutschsprachigen Geisteswissenschaften verwenden?}
 
-Da vermutlich so mancher in dieses Dokument sieht, um sich zu fragen, ob eine Beschäftigung mit \LaTeX{} überhaupt aussichtsreich ist, will ich versuchen, hierzu ein paar Entscheidungshilfen zu geben.
+Da vermutlich so mancher in dieses Dokument sieht, um sich zu fragen, ob eine Beschäftigung mit \LaTeXi{} überhaupt aussichtsreich ist, will ich versuchen, hierzu ein paar Entscheidungshilfen zu geben.
 
-\LaTeX{} (Sprich \enquote{Lahtech} -- das vermeintliche X ist ein griechisches Chi) ist eigentlich nur eine Makrosprache für \TeX{}. \TeX{} wurde 197x von dem bedeutenden Informatiker Donald Knuth entwickelt, weil er sich über den armseligen Mathematiksatz in den Fachzeitschriften geärgert hatte. Seine Popularität verdankt es neben dem Umstand, daß es typographisch ein Riesenfortschritt war, auch der Lizenz, die es auch zur kommerziellen Nutzung freigab. Da reines \TeX{} schwer zu schreiben ist, entwickelte Leslie \textbf{La}mport die Makrosprache \LaTeX{} -- nicht die einzige, aber die populärste und mit den meisten Erweiterungen gesegnete. Später ging er übrigens zu Microsoft und war einer der wesentlichen Entwickler von \App{MS~Word}.
+\LaTeXi{} (Sprich \enquote{Lahtech} -- das vermeintliche X ist ein griechisches Chi) ist eigentlich nur eine Makrosprache für \TeXi{}. \TeXi{} wurde 197x von dem bedeutenden Informatiker Donald Knuth entwickelt, weil er sich über den armseligen Mathematiksatz in den Fachzeitschriften geärgert hatte. Seine Popularität verdankt es neben dem Umstand, daß es typographisch ein Riesenfortschritt war, auch der Lizenz, die es auch zur kommerziellen Nutzung freigab. Da reines \TeXi{} schwer zu schreiben ist, entwickelte Leslie \textbf{La}mport die Makrosprache \LaTeXi{} -- nicht die einzige, aber die populärste und mit den meisten Erweiterungen gesegnete. Später ging er übrigens zu Microsoft und war einer der wesentlichen Entwickler von \App{MS~Word}.
 
-Die Frage nach der besten Software ist für gewöhnlich sehr ideologielastig -- vermutlich hat jeder schon  einmal solche ebenso ermüdenden wie fruchtlosen Debatten in den sozialen Medien gesehen. Für \LaTeX{} gibt es offensichtlich zwei schwere Hypotheken:
+Die Frage nach der besten Software ist für gewöhnlich sehr ideologielastig -- vermutlich hat jeder schon  einmal solche ebenso ermüdenden wie fruchtlosen Debatten in den sozialen Medien gesehen. Für \LaTeXi{} gibt es offensichtlich zwei schwere Hypotheken:
 \begin{enumerate}
-\item \LaTeX{} hat eine sehr steile Lernkurve, die bei Anfängern erheblich Frust erzeugen kann, wenn viel Zeit für die Suche nach den Ursachen von Fehlermeldungen aufgewendet wird.
-\item Geisteswissenschaftliche Zeitschriften aus dem deutschen Sprachraum akzeptieren in aller Regel keine \LaTeX-Quellen.
+\item \LaTeXi{} hat eine sehr steile Lernkurve, die bei Anfängern erheblich Frust erzeugen kann, wenn viel Zeit für die Suche nach den Ursachen von Fehlermeldungen aufgewendet wird.
+\item Geisteswissenschaftliche Zeitschriften aus dem deutschen Sprachraum akzeptieren in aller Regel keine \LaTeXi-Quellen.
 \end{enumerate}
-Es ist absolut verständlich, wenn man deshalb \LaTeX{} nicht verwenden möchte. Die Vorteile von \LaTeX{} erschließen sich desto besser, je komplexer Dokumente werden.
+Es ist absolut verständlich, wenn man deshalb \LaTeXi{} nicht verwenden möchte. Die Vorteile von \LaTeXi{} erschließen sich desto besser, je komplexer Dokumente werden.
 \begin{enumerate}
-\item Es gibt ein riesiges Archiv von Erweiterungen (CTAN = \Englisch{Comprehensive \TeX{} Archive Network})
+\item Es gibt ein riesiges Archiv von Erweiterungen (CTAN = \Englisch{Comprehensive \TeXi{} Archive Network})
 \item Der Satz ist erheblich präziser als bei Textverarbeitungsprogrammen.
 \item Das Automatisierungspotential ist sehr viel höher als bei Textverarbeitungsprogrammen. Zudem ist es als Konsolenprogramm sehr gut zu \Englisch{social engineering} fähig, also zur Kommunikation mit anderen Programmen und Programmiersprachen.
 \item Es ist kostenlos beziehbar. Daß die Lizenz den kommerziellen Einsatz uneingeschränkt erlaubt, wurde oben schon erwähnt.
-\item Es ist mittlerweile ziemlich gut möglich, \LaTeX-Dokumente in HTML oder XML-basierte Formate wie ODT oder DOCX zu konvertieren.
-\item \LaTeX{} ist nebenbei auch ein enorm mächtiges Grafikprogramm.
+\item Es ist mittlerweile ziemlich gut möglich, \LaTeXi-Dokumente in HTML oder XML-basierte Formate wie ODT oder DOCX zu konvertieren.
+\item \LaTeXi{} ist nebenbei auch ein enorm mächtiges Grafikprogramm.
 \end{enumerate}
 
-Mit \LaTeX{} kann man nicht nur die üblichen Aufgaben des Textsatzes erledigen, sondern auch Bibliographien, Indices und Glossare automatisiert erstellen, Atommodelle und Landkarten zeichnen, Noten in Partituren stechen, Schachpartien direkt aus Datenbanken ausdrucken, Funktionsgraphen plotten, ausführbaren Code in anderen Programmiersprachen einbetten etc. pp.
+Mit \LaTeXi{} kann man nicht nur die üblichen Aufgaben des Textsatzes erledigen, sondern auch Bibliographien, Indices und Glossare automatisiert erstellen, Atommodelle und Landkarten zeichnen, Noten in Partituren stechen, Schachpartien direkt aus Datenbanken ausdrucken, Funktionsgraphen plotten, ausführbaren Code in anderen Programmiersprachen einbetten etc. pp.
 
-Als ich begann, mich mit \LaTeX{} zu befassen, hörte man noch gruselige Geschichten von Diplomarbeiten in \App{MS~Word}, die nach ihrem finalen Wachstum kurz vor Abgabe abstürzten. Damals erreichten die Bürocomputer allerdings auch nur einen Bruchteil ihrer heutigen Performanz und waren mit großen, grafikreichen Dokumenten tatsächlich stark belastet. Ich weiß nicht, ob das Problem wirklich je so groß war, wie gerne kolportiert wird, aber diese Geschichten haben sich längst verflüchtigt. Mittlerweile kann man auch PDF exportieren (das gab es noch nicht, als ich es das letztemal benutzt habe). Die Satzqualität ist deutlich geringer als mit \LaTeX. Trotzdem werden heute Bücher (etwa in den \Englisch{Print on demand}-Verlagen) direkt von \App{MS~Word}-Vorlagen gedruckt, und die Satzqualität ist auch nicht so schlecht, daß man sie überhaupt nicht mehr in die Hand nehmen mag. Daß die Satzqualität schlechter ist, ist konzeptbedingt. Textverarbeitungsprogramme wie \App{MS~Word}, \App{LibreOffice} und dergleichen verfahren nach dem WYSIWYG-Prinzip: \Englisch{What You See Is What You Get}. Das funktioniert nur, wenn die sehr komplexen Satzberechnungen in Echtzeit ausgeführt werden, weil sonst der Bildschirm während des Renderns einfrieren würde. In \LaTeX{} hingegen wird nur auf ausdrückliche Benutzeranweisung gerendert, und man kann auf das Ergebnis warten.
+Als ich begann, mich mit \LaTeXi{} zu befassen, hörte man noch gruselige Geschichten von Diplomarbeiten in \App{MS~Word}, die nach ihrem finalen Wachstum kurz vor Abgabe abstürzten. Damals erreichten die Bürocomputer allerdings auch nur einen Bruchteil ihrer heutigen Performanz und waren mit großen, grafikreichen Dokumenten tatsächlich stark belastet. Ich weiß nicht, ob das Problem wirklich je so groß war, wie gerne kolportiert wird, aber diese Geschichten haben sich längst verflüchtigt. Mittlerweile kann man auch PDF exportieren (das gab es noch nicht, als ich es das letztemal benutzt habe). Die Satzqualität ist deutlich geringer als mit \LaTeXi. Trotzdem werden heute Bücher (etwa in den \Englisch{Print on demand}-Verlagen) direkt von \App{MS~Word}-Vorlagen gedruckt, und die Satzqualität ist auch nicht so schlecht, daß man sie überhaupt nicht mehr in die Hand nehmen mag. Daß die Satzqualität schlechter ist, ist konzeptbedingt. Textverarbeitungsprogramme wie \App{MS~Word}, \App{LibreOffice} und dergleichen verfahren nach dem WYSIWYG-Prinzip: \Englisch{What You See Is What You Get}. Das funktioniert nur, wenn die sehr komplexen Satzberechnungen in Echtzeit ausgeführt werden, weil sonst der Bildschirm während des Renderns einfrieren würde. In \LaTeXi{} hingegen wird nur auf ausdrückliche Benutzeranweisung gerendert, und man kann auf das Ergebnis warten.
 
-Ein weiterer Nachteil von \LaTeX{} war lange Zeit die fehlende Konvertierbarkeit seiner Ausgabeformate. Es wird normalerweise PDF erzeugt; andere Optionen sind PS und DVI. Das sind alles Grafikformate, die keine Informationen zur Textgliederung (Überschrift, Absatz, Fußnote, Seitenzahl etc.) enthalten. Zudem ist nicht alles, was beim Nutzer als Text ankommt, in der Datei überhaupt als solcher codiert. Zwar gibt es viele PDF zu DOC/RTF-Konverter, aber die erstellen kein gegliedertes Dokument, sondern äffen die Positonierungen des Originals nach. Man emuliert also praktisch eine Grafikdatei im Zielformat. Da es aber immer notwendiger wurde, \LaTeX{}-Dokumente vor allem für Webservices und Screenreader zu konfektionieren, wurden zahlreiche  Konverter entwickelt. Zwei Projekte sind heutzutage interessant und zeigen auch mit \archbib{} ordentliche Resultate:
-\Paket{\LaTeXML{}} für HTML und \Paket{tex4ht} für HTML und allerlei XML-basierte Formate (EPUB für E-Books z.\,B.). Mit letzterem kann man ODT-Dateien erzeugen, die auch \App{MS~Word} lesen kann. Der Vorgang ist wie alles an \LaTeX{} nicht so ganz einfach, aber er funktioniert soweit, daß man ihn nicht meiden muß. Wir widmen der Konvertierung noch ein eigenes Kapitel.
+Ein weiterer Nachteil von \LaTeXi{} war lange Zeit die fehlende Konvertierbarkeit seiner Ausgabeformate. Es wird normalerweise PDF erzeugt; andere Optionen sind PS und DVI. Das sind alles Grafikformate, die keine Informationen zur Textgliederung (Überschrift, Absatz, Fußnote, Seitenzahl etc.) enthalten. Zudem ist nicht alles, was beim Nutzer als Text ankommt, in der Datei überhaupt als solcher codiert. Zwar gibt es viele PDF zu DOC/RTF-Konverter, aber die erstellen kein gegliedertes Dokument, sondern äffen die Positonierungen des Originals nach. Man emuliert also praktisch eine Grafikdatei im Zielformat. Da es aber immer notwendiger wurde, \LaTeXi{}-Dokumente vor allem für Webservices und Screenreader zu konfektionieren, wurden zahlreiche  Konverter entwickelt. Zwei Projekte sind heutzutage interessant und zeigen auch mit \archbib{} ordentliche Resultate:
+\Paket{\LaTeXML{}} für HTML und \Paket{tex4ht} für HTML und allerlei XML-basierte Formate (EPUB für E-Books z.\,B.). Mit letzterem kann man ODT-Dateien erzeugen, die auch \App{MS~Word} lesen kann. Der Vorgang ist wie alles an \LaTeXi{} nicht so ganz einfach, aber er funktioniert soweit, daß man ihn nicht meiden muß. Wir widmen der Konvertierung noch ein eigenes Kapitel.
 
-Der wesentliche Unterschied von \TeX{}basierten Satzsystemen und WYSIWYG-Editoren besteht darin, daß bei \TeX{} eine Quellcode-Datei zu einer Grafikdatei kompiliert wird. Die Quelldatei bleibt dabei unangetastet; man hat nach der Kompilierung zwei Dateien (i.\,d\,R. \Datei{jobname.tex} und \Datei{jobname.pdf}). Im Gegensatz dazu erzeugen WYSIWYG-Textverarbeiter die grafische Anzeige direkt aus der Quelle. Die Quelldatei (DOC, DOCX, RTF, RTFX, ODT etc.) ist auch gleichzeitig Ausgabedatei. Das hat Folgen auch für die Entwicklung von Zitier- und Bibliographiersoftware. Daß kommerzielle Bibliographierprogramme wie \App{Endnote} und {Citavi} verglichen mit dem kostenlosen \blx{} fast schon primitiv wirken, hat sicherlich nichts mit fehlender Kompetenz ihrer Schöpfer zu tun, sondern mit den Einschränkungen der Grundsysteme, auf die sie aufsetzen.
+Der wesentliche Unterschied von \TeXi{}basierten Satzsystemen und WYSIWYG-Editoren besteht darin, daß bei \TeXi{} eine Quellcode-Datei zu einer Grafikdatei kompiliert wird. Die Quelldatei bleibt dabei unangetastet; man hat nach der Kompilierung zwei Dateien (i.\,d\,R. \Datei{jobname.tex} und \Datei{jobname.pdf}). Im Gegensatz dazu erzeugen WYSIWYG-Textverarbeiter die grafische Anzeige direkt aus der Quelle. Die Quelldatei (DOC, DOCX, RTF, RTFX, ODT etc.) ist auch gleichzeitig Ausgabedatei. Das hat Folgen auch für die Entwicklung von Zitier- und Bibliographiersoftware. Daß kommerzielle Bibliographierprogramme wie \App{Endnote} und {Citavi} verglichen mit dem kostenlosen \blx{} fast schon primitiv wirken, hat sicherlich nichts mit fehlender Kompetenz ihrer Schöpfer zu tun, sondern mit den Einschränkungen der Grundsysteme, auf die sie aufsetzen.
 
 Es mag nun jeder für sich selbst entscheiden, ob ihm das den Lernaufwand wert ist. Eine geplante Dissertation dürfte es wohl sein, denn \blx{} ist ganz erheblich mächtiger als die \App{MS~Word}-Addons von \App{Citavi} oder \App{Zotero} und spart allein beim Korrekturlesen mehrere Tage Zeit.
 
 \section{Semantische statt lokaler Auszeichnungen}
-In \LaTeX{} ist es meist falsch, Textauszeichnungen direkt in den Text zu setzen. Stellen sie sich folgendes Beispiel eines Textes vor, in dem fremdsprachige Ausdrücke und Werktitel kursiv gesetzt werden sollen:
+In \LaTeXi{} ist es meist falsch, Textauszeichnungen direkt in den Text zu setzen. Stellen sie sich folgendes Beispiel eines Textes vor, in dem fremdsprachige Ausdrücke und Werktitel kursiv gesetzt werden sollen:
 \subsection*{FALSCH: lokale Auszeichnung}
 \begin{lstlisting}
 \documentclass[12pt]{scrartcl}
@@ -432,7 +444,7 @@ Wenn man jetzt bei der Endredaktion auf den Gedanken kommt, daß die Werktitel d
 Ein gutes Beispiel für einen \Fremdsprache{locus amoenus} findet sich in den \Werktitel{Metamorphosen} von Ovid.
 \end{document}
 \end{lstlisting}
-Hier würde man im selben Fall nur das \Befehl{Werktitel}-Kommando ändern. In WYSIWYG-Editoren sind semantische Auszeichnungen nur sehr eingeschränkt möglich. Die Nutzer greifen die zu formatierenden Stellen üblicherweise mit der Maus und ändern sie lokal. Es gibt zwar auch dort die Möglichkeit, Marken in den Text zu setzen und dann mit Makros zu formatieren, aber dieser Vorgang läßt sich nicht rückgängig machen, weil man keine vor Interpretereingriffen geschützte Quelldatei hat, die vor den Eingriffen des Renderns der Grafik geschützt wäre. Für das Bibliographieren hat das auch Folgen, denn ein Bibliographierprogramm braucht Informationen über die Gestalt des Haupttextes. Manche Stile z.\,B. setzen das Literaturverzeichnis in eine geringere Schriftgröße als den Fließtext, weil Verzeichnisse nicht dessen hohen Lesbarkeitsanforderungen genügen müssen. In \LaTeX{} gibt man die Schriftgröße normalerweise nur einmal absolut als Parameter der Dokumentenklasse an und beschreibt lokale Änderungen dann nur noch relativ (\Befehl{HUGE}, \Befehl{footnotesize} etc.). Die für die Berechnungen relevante Normgröße wäre selbst dann bekannt, wenn sie im Text immer geändert worden ist. In den Dokumentenformaten der WYSIWYG-Editoren fehlt eine solche Norm, weil alles nur lokal ausgezeichnet ist.
+Hier würde man im selben Fall nur das \Befehl{Werktitel}-Kommando ändern. In WYSIWYG-Editoren sind semantische Auszeichnungen nur sehr eingeschränkt möglich. Die Nutzer greifen die zu formatierenden Stellen üblicherweise mit der Maus und ändern sie lokal. Es gibt zwar auch dort die Möglichkeit, Marken in den Text zu setzen und dann mit Makros zu formatieren, aber dieser Vorgang läßt sich nicht rückgängig machen, weil man keine vor Interpretereingriffen geschützte Quelldatei hat, die vor den Eingriffen des Renderns der Grafik geschützt wäre. Für das Bibliographieren hat das auch Folgen, denn ein Bibliographierprogramm braucht Informationen über die Gestalt des Haupttextes. Manche Stile z.\,B. setzen das Literaturverzeichnis in eine geringere Schriftgröße als den Fließtext, weil Verzeichnisse nicht dessen hohen Lesbarkeitsanforderungen genügen müssen. In \LaTeXi{} gibt man die Schriftgröße normalerweise nur einmal absolut als Parameter der Dokumentenklasse an und beschreibt lokale Änderungen dann nur noch relativ (\Befehl{HUGE}, \Befehl{footnotesize} etc.). Die für die Berechnungen relevante Normgröße wäre selbst dann bekannt, wenn sie im Text immer geändert worden ist. In den Dokumentenformaten der WYSIWYG-Editoren fehlt eine solche Norm, weil alles nur lokal ausgezeichnet ist.
 
 \section{Seitenaufbau}
 Beim Zitieren und Bibliographieren braucht man Kenntnisse des konkreten Seitenaufbaus, darunter leicht veränderlicher Werte wie Seiten- und Fußnotenzähler. Es gibt z. B. Regeln, die besagen, daß man komprimierte Wiederholungszitate auf jeder neuen Seite erst einmal wieder voll ausschreiben soll. Dafür muß man wissen, ob sich der Seitenzähler seit dem letzten Zitat desselben Werkes geändert hat. Das geht schlecht, wenn man das Zitat beim Einsetzen direkt formatiert und damit seinen maschinenlesbaren Code vernichtet -- es sei denn, man kann wie der späte Mozart auch komplexere Werke ganz ohne Korrekturen niederschreiben. Mit den Fußnoten ergibt sich das Problem ganz konkret im geisteswissenschaftlichen RGK-Stil: ob man Wiederholungszitate mit \enquote{aao.}, \enquote{Ebd.} oder \enquote{(Anm.~15)} markiert, hängt davon ab, ob die Differenz des Fußnotenzählers zum letzten Zitat desselben Werkes 0, 1 oder viele beträgt.
@@ -441,10 +453,10 @@ Beim Zitieren und Bibliographieren braucht man Kenntnisse des konkreten Seitenau
 Bei Textrevisionen müssen die Zitate verändert werden können. Wenn man ein Zitat entfernt, muß geprüft werden, ob es auch aus dem Literaturverzeichnis entfernt werden muß oder ob es nochmal vorkommt. Man muß aus dem Zitat eines einzelnen Werkes das mehrerer machen können. Zitatformen können sich ändern, wenn der Satzbau umgestellt wird, z.\,B. \enquote{lorem ipsum (Müller \& Meier 2019, 56)} zu \enquote{Müller und Meier (2019, 56) behaupten, dass lorem ipsum}. Und nicht zuletzt müssen auch Korrekturen in der Literaturdatenbank in den Text eingepflegt werden. Dafür ist es notwendig, daß im Quelltext die maschinenlesbaren Marken erhalten bleiben. Das ist wahrscheinlich der größte Vorteil einer separaten Quellcodedatei, die beim Rendern unangetastet bleibt.
 
 \section{Noch ein Hinweis zu den Distributionen}
-Da das Problem mit verschiedenen \TeX-Distributionen in einer Nutzerreaktion zu \archbib{} auftauchte: Es ist egal, ob man \TeX{} Live oder MiK\TeX{} verwendet (andere wie z.\,B. Mac\TeX{} satteln auf einer von diesen beiden auf). \TeX{} Live ist etwas größer, während MiK\TeX{} eine für Windowsnutzer gewohntere Benutzerführung hat. Wenn man an mehreren Computern arbeitet, muß man allerdings sehr darauf achten, daß man immer denselben Zustand der Distribution hat. \TeX{} Live kann man täglich updaten, MiK\TeX{} wöchentlich. Onlinedienste wie Overleaf oder ArXiv können das nicht. Es kann immer mal passieren, daß es in der Ladekette eines Paketes zu inkompatiblen Änderungen kommt. Onlinedienste brauchen aber langfristige Stabilität. Ähnliches gilt für die über Paketmanager wie \App{yum}, \App{APT}, \App{RPM} oder \App{dpkg} ausgelieferten Versionen \footnote{Die im Februar 2021 aktuelle \App{Linux}distribution \App{Debian}~10.8 z.\,B. arbeitete damals immer noch mit \TeX{} 2018 und \archbib 2.1 vom Novemver 2018}. Auch die werden für gewöhnlich nur in längeren Abständen erneuert und sind mitunter auch nur Minimalinstallationen bzw. in mehrere thematische Pakete aufgeteilt. Wenn man auf mehreren Computern des gleichen Betriebssystems arbeitet, lassen sich beide Distributionen portabel auf USB-Sticks installieren. Da kann man dann auch gleich ein Backup der Distribution machen, falls nach einem Update etwas nicht mehr funktioniert.
+Da das Problem mit verschiedenen \TeXi-Distributionen in einer Nutzerreaktion zu \archbib{} auftauchte: Es ist egal, ob man \TeXi{} Live oder MiK\TeXi{} verwendet (andere wie z.\,B. Mac\TeXi{} satteln auf einer von diesen beiden auf). \TeXi{} Live ist etwas größer, während MiK\TeXi{} eine für Windowsnutzer gewohntere Benutzerführung hat. Wenn man an mehreren Computern arbeitet, muß man allerdings sehr darauf achten, daß man immer denselben Zustand der Distribution hat. \TeXi{} Live kann man täglich updaten, MiK\TeXi{} wöchentlich. Onlinedienste wie Overleaf oder ArXiv können das nicht. Es kann immer mal passieren, daß es in der Ladekette eines Paketes zu inkompatiblen Änderungen kommt. Onlinedienste brauchen aber langfristige Stabilität. Ähnliches gilt für die über Paketmanager wie \App{yum}, \App{APT}, \App{RPM} oder \App{dpkg} ausgelieferten Versionen \footnote{Die im Februar 2021 aktuelle \App{Linux}distribution \App{Debian}~10.8 z.\,B. arbeitete damals immer noch mit \TeXi{} 2018 und \archbib 2.1 vom Novemver 2018}. Auch die werden für gewöhnlich nur in längeren Abständen erneuert und sind mitunter auch nur Minimalinstallationen bzw. in mehrere thematische Pakete aufgeteilt. Wenn man auf mehreren Computern des gleichen Betriebssystems arbeitet, lassen sich beide Distributionen portabel auf USB-Sticks installieren. Da kann man dann auch gleich ein Backup der Distribution machen, falls nach einem Update etwas nicht mehr funktioniert.
 
 \section{Unerläßlich für den Support: das Minimalbeispiel}\label{kap_mwe}
-Im Internet gibt es sehr viele Orte, wo man Probleme mit \LaTeX-Code besprechen kann. Der meistfrequentierte ist wohl die englischsprachige Internetseite \url{https://tex.stackexchange.com/}. Dort trifft man auf viele bekannte Experten. Deutschsprachige Foren sind \url{https://golatex.de/} und \url{https://texwelt.de/}. Ansonsten hilft häufig auch Googeln -- man ist selten der Erste, der das Problem hat oder eine bestimmte Fehlermeldung sieht.
+Im Internet gibt es sehr viele Orte, wo man Probleme mit \LaTeXi-Code besprechen kann. Der meistfrequentierte ist wohl die englischsprachige Internetseite \url{https://tex.stackexchange.com/}. Dort trifft man auf viele bekannte Experten. Deutschsprachige Foren sind \url{https://golatex.de/} und \url{https://texwelt.de/}. Ansonsten hilft häufig auch Googeln -- man ist selten der Erste, der das Problem hat oder eine bestimmte Fehlermeldung sieht.
 
 \paragraph{Wichtig! Wichtig! Wichtig!} Wenn man Fragen auf diesen Seiten postet, sollte man unbedingt ein Minimalbeispiel (\url{https://minimalbeispiel.de/}) beifügen. Ein solches Minimalbeispiel oder MWE (\Englisch{minimal working example}) versucht, das Problem mit \textbf{so wenig Code wie möglich} zu reproduzieren. Man lädt vor allem nur die Pakete, die man unbedingt dazu braucht. Lauffähig muß es allerdings sein. Häufig führt alleine das Herstellen eines MWE dazu, daß man das Problem löst. Ein Minimalbeispiel für \blx{} oder \archbib{} sieht so aus:
 \begin{lstlisting}
@@ -459,7 +471,7 @@ Das ist ein Zitat\autocite{nietzsche:ksa1}.
 
 Wenn man jetzt den Verdacht hat, daß \blx{} oder \archbib{} mit einem anderen Paket nicht korrekt zusammenwirkt, dann lädt man es und paßt den Ausgabetext entsprechend an. Nach dem kompilieren weiß man, ob der Verdacht richtig war.
 
-Die Beispieldatenbank von \blx{} \Datei{biblatex-examples.bib} wird auch ohne Pfadangabe gefunden. Für die entsprechende \Datei{biblatex-archaeology-example.bib} gilt das leider nur auf MiK\TeX. Will man eigene bibliographische Daten für das MWE bereitstellen, bietet sich die \Umgebung{filecontents} an\footnote{Vor September 2019 mußte man dafür noch das gleichnamige Paket laden.}. Damit kann man im Header Dateien einfügen, die bei der Kompilierung ausgegeben werden:
+Die Beispieldatenbank von \blx{} \Datei{biblatex-examples.bib} wird auch ohne Pfadangabe gefunden. Für die entsprechende \Datei{biblatex-archaeology-example.bib} gilt das leider nur auf MiK\TeXi. Will man eigene bibliographische Daten für das MWE bereitstellen, bietet sich die \Umgebung{filecontents} an\footnote{Vor September 2019 mußte man dafür noch das gleichnamige Paket laden.}. Damit kann man im Header Dateien einfügen, die bei der Kompilierung ausgegeben werden:
 \begin{lstlisting}
 \begin{filecontents}[overwrite]{\jobname.bib} 
 @MISC{mwe,
@@ -483,9 +495,9 @@ MWEs kann man auch benutzen, wenn man komplizierte Aufbauten (unregelmäßige Ta
 
 \section{Konzept}\label{kap_concept}
 
-Als Oren Patashnik 198x \BibTeX{} entwarf, stand er vor dem Problem, daß man mit \LaTeX{} nicht gut sortieren kann. Deshalb schrieb er ein Hilfsprogramm in C, das mit Dateien \Datei{<style>.bst} konfiguriert werden kann. Der Ablauf war so, daß in einem erstem \LaTeX-Lauf alle Zitationsschlüssel in der ohnehin vorhandenen Hilfsdatei \Datei{<jobname>.aux} gesammelt wurden. \BibTeX{} las sie aus und erstellte eine Datei \Datei{<jobname>.bbl}, in der die Zitate fertig mit \LaTeX-Markup vorlagen. Ein zweiter \LaTeX-Lauf fügte diese dann in das Dokument ein. Meistens war dann noch ein dritter \LaTeX-Lauf nötig, um die in dem \Feld{crossreference}-Feld gefundenen Verweise aufzulösen. Im Laufe der Zeit enstanden viele Stile für spezielle Zwecke. Es zeigten sich aber auch immer mehr die Grenzen des Konzepts. Daß ich dasselbe Werk in verschiedenen Kontexten verschieden formatiert haben will, ist nicht vorgesehen -- das \LaTeX-Markup in der bbl-Datei ist nicht mehr veränderlich. Die polnische Notation der bst-Dateien war mit bloßen \TeX-kenntnissen nicht zu verstehen. Es gab zwar viele Stile für alle nur erdenklichen Zwecke, aber man konnte immer nur einen davon laden. Es ist deshalb z. B. nicht möglich, das Paket für kapitelweise Literaturverzeichnisse in einem beliebigen Stil ablaufen zu lassen.
+Als Oren Patashnik 198x \BibTeX{} entwarf, stand er vor dem Problem, daß man mit \LaTeXi{} nicht gut sortieren kann. Deshalb schrieb er ein Hilfsprogramm in C, das mit Dateien \Datei{<style>.bst} konfiguriert werden kann. Der Ablauf war so, daß in einem erstem \LaTeXi-Lauf alle Zitationsschlüssel in der ohnehin vorhandenen Hilfsdatei \Datei{<jobname>.aux} gesammelt wurden. \BibTeX{} las sie aus und erstellte eine Datei \Datei{<jobname>.bbl}, in der die Zitate fertig mit \LaTeXi-Markup vorlagen. Ein zweiter \LaTeXi-Lauf fügte diese dann in das Dokument ein. Meistens war dann noch ein dritter \LaTeXi-Lauf nötig, um die in dem \Feld{crossreference}-Feld gefundenen Verweise aufzulösen. Im Laufe der Zeit enstanden viele Stile für spezielle Zwecke. Es zeigten sich aber auch immer mehr die Grenzen des Konzepts. Daß ich dasselbe Werk in verschiedenen Kontexten verschieden formatiert haben will, ist nicht vorgesehen -- das \LaTeXi-Markup in der bbl-Datei ist nicht mehr veränderlich. Die polnische Notation der bst-Dateien war mit bloßen \TeXi-kenntnissen nicht zu verstehen. Es gab zwar viele Stile für alle nur erdenklichen Zwecke, aber man konnte immer nur einen davon laden. Es ist deshalb z. B. nicht möglich, das Paket für kapitelweise Literaturverzeichnisse in einem beliebigen Stil ablaufen zu lassen.
 
-Um 2005 herum beschloß Philip Lehman deshalb, einen weithehend frei programmierbaren Universalstil namens \blx{} zu entwickeln. Die Grundidee dabei: \BibTeX{} sollte nur noch die Sortierung erledigen. Alles andere sollte in \LaTeX-Makros vorliegen, damit Nutzer mit durchschnittlichen \LaTeX-Kenntnissen auf gewohnte Weise durch Definition neuer Makros oder Veränderung bestehender ihre Bedürfnisse umsetzen konnten. \blx{} kommt mit einer Sammlung verschiedener Varianten aller wesentlichen Stilfamilien (Numerisch, Autor/Jahr, Autor/Title, Fußnoten). Zudem vereinigte \blx{} zahlreiche Aufgaben, für die es vorher spezielle bst-Dateien gab, so daß sie mit jedem beliebigen \blx{} -Stil kombinierbar sind. Da in der bbl-Datei kein \LaTeX-Markup mehr steht (es sei denn, es befand sich schon in der Datenbank), sind verschiedene Zitationen desselben Werks frei formatierbar. Bezahlt wurde das mit einer riesigen, schwer zu wartenden Codebasis, die trotz eines 400-Seiten-Handbuches auch deutliche Lücken in der Dokumentation aufweist. Zumal sein Schöpfer Philip Lehman -- offenbar ein Pseudonym -- seit 2012 wie vom Erdboden verschluckt ist. Zum Glück fanden sich immer wieder Freiwillige, die das Paket weiter gepflegt haben. Philipp Kime hat mit \Biber einen wesentlich leistungsstärkeren Ersatz für das in die Jahre gekommene \BibTeX{} erstellt. \blx{} wird z. Zt. hauptsächlich von Moritz Wemheuer gepflegt. \blx{} funktioniert grundsätzlich noch mit \BibTeX, allerdings sind viele Features nur mit \Biber nutzbar. 
+Um 2005 herum beschloß Philip Lehman deshalb, einen weithehend frei programmierbaren Universalstil namens \blx{} zu entwickeln. Die Grundidee dabei: \BibTeX{} sollte nur noch die Sortierung erledigen. Alles andere sollte in \LaTeXi-Makros vorliegen, damit Nutzer mit durchschnittlichen \LaTeXi-Kenntnissen auf gewohnte Weise durch Definition neuer Makros oder Veränderung bestehender ihre Bedürfnisse umsetzen konnten. \blx{} kommt mit einer Sammlung verschiedener Varianten aller wesentlichen Stilfamilien (Numerisch, Autor/Jahr, Autor/Title, Fußnoten). Zudem vereinigte \blx{} zahlreiche Aufgaben, für die es vorher spezielle bst-Dateien gab, so daß sie mit jedem beliebigen \blx{} -Stil kombinierbar sind. Da in der bbl-Datei kein \LaTeXi-Markup mehr steht (es sei denn, es befand sich schon in der Datenbank), sind verschiedene Zitationen desselben Werks frei formatierbar. Bezahlt wurde das mit einer riesigen, schwer zu wartenden Codebasis, die trotz eines 400-Seiten-Handbuches auch deutliche Lücken in der Dokumentation aufweist. Zumal sein Schöpfer Philip Lehman -- offenbar ein Pseudonym -- seit 2012 wie vom Erdboden verschluckt ist. Zum Glück fanden sich immer wieder Freiwillige, die das Paket weiter gepflegt haben. Philipp Kime hat mit \Biber einen wesentlich leistungsstärkeren Ersatz für das in die Jahre gekommene \BibTeX{} erstellt. \blx{} wird z. Zt. hauptsächlich von Moritz Wemheuer gepflegt. \blx{} funktioniert grundsätzlich noch mit \BibTeX, allerdings sind viele Features nur mit \Biber nutzbar. 
 
 Stellen Sie sich vor, Sie haben einen Text mit \blx{} -Zitaten in einer Datei \Datei{<jobname>.tex} geschrieben. Der grundlegende Workflow sieht so aus:
 \begin{lstlisting}
@@ -493,7 +505,7 @@ $ pdflatex <jobname>
 $ biber <jobname>
 $ pdflatex <jobname>
 \end{lstlisting}
-Beim ersten \LaTeX-Lauf werden alle Zitationsschlüssel gesammelt und mit \Biber-Konfigurationen in die Datei \Datei{<jobname>.bcf} geschrieben. Es warnt vor nichtaufgelösten Referenzen und erstellt ein dementsprechend unvollständiges PDF-Dokument. \Biber liest die relevanten Einträge anhand der Schlüssel in der \Datei{<jobname>.bcf} aus den bib-Dateien aus, bearbeitet sie gegebenfalls und schreibt sie sortiert in einem etwas abweichenden Format in eine Datei \Datei{<jobname>.bbl}. Beim zweiten \LaTeX-Lauf werden die Zitiermarken und gegebenfalls die Literaturverzeichnisse anhand der Einträge aus der \Datei{<jobname>.bbl} erstellt und formatiert und dann das vollständige \Datei{<jobname>.pdf} erstellt. In dem Dokumentenverzeichnis finden sich noch mehr Hilfsdateien (mindestens \Datei{<jobname>.aux}, \Datei{<jobname>.log} und die Logdatei von \Biber \Datei{<jobname>.blg}). Aufbewahren muß man immer nur die Quelldateien (also ".tex und *.bib und ggf. Mediendateien); alles andere kann gefahrlos gelöscht werden. Oft muß es das: wenn ich im Dokument ein neues Zitat hinzufüge, ist das nicht in der \Datei{<jobname>.bbl} aufgelöst. Deshalb muß der erste \LaTeX-Lauf wiederholt werden, indem man die Hilfsdateien löscht.
+Beim ersten \LaTeXi-Lauf werden alle Zitationsschlüssel gesammelt und mit \Biber-Konfigurationen in die Datei \Datei{<jobname>.bcf} geschrieben. Es warnt vor nichtaufgelösten Referenzen und erstellt ein dementsprechend unvollständiges PDF-Dokument. \Biber liest die relevanten Einträge anhand der Schlüssel in der \Datei{<jobname>.bcf} aus den bib-Dateien aus, bearbeitet sie gegebenfalls und schreibt sie sortiert in einem etwas abweichenden Format in eine Datei \Datei{<jobname>.bbl}. Beim zweiten \LaTeXi-Lauf werden die Zitiermarken und gegebenfalls die Literaturverzeichnisse anhand der Einträge aus der \Datei{<jobname>.bbl} erstellt und formatiert und dann das vollständige \Datei{<jobname>.pdf} erstellt. In dem Dokumentenverzeichnis finden sich noch mehr Hilfsdateien (mindestens \Datei{<jobname>.aux}, \Datei{<jobname>.log} und die Logdatei von \Biber \Datei{<jobname>.blg}). Aufbewahren muß man immer nur die Quelldateien (also ".tex und *.bib und ggf. Mediendateien); alles andere kann gefahrlos gelöscht werden. Oft muß es das: wenn ich im Dokument ein neues Zitat hinzufüge, ist das nicht in der \Datei{<jobname>.bbl} aufgelöst. Deshalb muß der erste \LaTeXi-Lauf wiederholt werden, indem man die Hilfsdateien löscht.
 
 \subsection{Stile}\label{kap_stile}
 
@@ -538,7 +550,7 @@ Wenn man sich informieren will, welche zusätzlichen Stile es gibt, ist das Verz
 \item \Option{refsection} und \Option{refsegment} werden in \cref{kap_biblio} erklärt.
 \item \Option{abbreviate} wird in \cref{kap_local} erklärt.
 \item Mit \Option{abbreviate} wird in \cref{kap_local} erklärt.
-\item Mit \Option{backend} kann man das Sortierprogramm auswählen. \Biber ist voreingestellt, nur für die beiden \BibTeX-Varianten muß sie angegeben werden. \Option{bibwarn} gibt an, ob \Biber-Warnungen al \LaTeX-Warnungen ausgegeben werden.
+\item Mit \Option{backend} kann man das Sortierprogramm auswählen. \Biber ist voreingestellt, nur für die beiden \BibTeX-Varianten muß sie angegeben werden. \Option{bibwarn} gibt an, ob \Biber-Warnungen al \LaTeXi-Warnungen ausgegeben werden.
 \item \Option{mcite} und \Option{natbib} laden Module für die Zitierkommandos zweier wichtiger \BibTeX-Stile.
 \item Mit \Option{notetype} kann man steuern, ob Fußnotenzitate als Fußnoten, Endnoten oder beides ausgegeben werden.
 \item Mit \Option{texencoding}, \Option{bibencoding} braucht man für unterschiedliches Encoding von \Datei{*.tex} und \Datei{*.bib}. Wenn beides UTF-8 ist, sind sie unnötig. \Option{safeinputenc} weist \Biber an, Unicode-Zeichen in ASCII-Notierung zu übersetzen. Das kann unter \pdfLaTeX{} nötig sein, weil \Paket{inputenc} nicht alle Unicode-Zeichen kennt.
@@ -548,7 +560,7 @@ Wenn man sich informieren will, welche zusätzlichen Stile es gibt, ist das Verz
 \subsection{Grenzen von \blx{} }
 Natürlich sind den Fähigkeiten auch von \blx{} gewisse Grenzen gesetzt. Beim Laden von Stilen werden viele interne Makros des \blx{} -Kerns angepaßt, die dann so nicht mehr mit anderen Stilen verwendet werden können. Deshalb ist es nicht möglich, Dokumente mit verschiedenen Stilen in einer Datei zu schreiben. Das betrifft z. B. Zeitschriften, die sowohl Autor/Jahr- als auch Fußnotenstile nebeneinander verwenden. Der Workaround wäre hier, die einzelnen Artikel separat zu erstellen und den Seitenähler manuell anzupassen. Dann kann man sie mit einem Paket wie \Paket{pdfpages} zusammenkleben. Vermutlich ist das bei Zeitschriften und Sammelwerken ohnehin eine übliche Vorgehensweise, um Sonderdrucke mit eigener Titelei zu erstellen.
 
-Schwierig ist auch alles, was mit Mustererkennung zu tun hat. Das in Perl geschriebene Biber ist dafür eigentlich wunderbar ausgestattet, kann aber kein \LaTeX{} parsen. \LaTeX{} selbst hingegen hat nur sehr eingeschränkt Werkzeuge dafür, insbesondere hat es keine Regulären Ausdrücke zur Erkennung von Textmustern. Bemerkbar macht sich das z. B. im Falle der Sequentes, also Seitenzahlen wie 21f. oder 23ff. Um die zu erzeugen, muß man sehen, ob ein Ausdruck als Differenz von Start- und Endseite interpretierbar ist. So etwas ist überraschend kompliziert, denn die Seiten können z,\,B. als römische Zahlen codiert sein, die wiederum in Unicode in verschiedenen Varianten vorliegen. Das Trennzeichen kann ein Binde-, Halbgeviert- oder Geviertstrich sein, mit oder ohne Leerzeichen. Die Nicht-ASCII-Zeichen können als \LaTeX-Makros oder Unicodepoints codiert sein etc. Tatsächlich rechnet Biber -- soweit möglich -- die Differenz für das \Feld{pages} aus. Die meisten Seitenzahlen stehen aber in den Postnoten der Zitationskommandos -- und die sieht Biber nicht. Es hat diese Funktion früher mal auch in \blx{} gegeben; sie wurde aber wegen ihrer Fehleranfälligkeit wieder gestrichen.
+Schwierig ist auch alles, was mit Mustererkennung zu tun hat. Das in Perl geschriebene Biber ist dafür eigentlich wunderbar ausgestattet, kann aber kein \LaTeXi{} parsen. \LaTeXi{} selbst hingegen hat nur sehr eingeschränkt Werkzeuge dafür, insbesondere hat es keine Regulären Ausdrücke zur Erkennung von Textmustern. Bemerkbar macht sich das z. B. im Falle der Sequentes, also Seitenzahlen wie 21f. oder 23ff. Um die zu erzeugen, muß man sehen, ob ein Ausdruck als Differenz von Start- und Endseite interpretierbar ist. So etwas ist überraschend kompliziert, denn die Seiten können z,\,B. als römische Zahlen codiert sein, die wiederum in Unicode in verschiedenen Varianten vorliegen. Das Trennzeichen kann ein Binde-, Halbgeviert- oder Geviertstrich sein, mit oder ohne Leerzeichen. Die Nicht-ASCII-Zeichen können als \LaTeXi-Makros oder Unicodepoints codiert sein etc. Tatsächlich rechnet Biber -- soweit möglich -- die Differenz für das \Feld{pages} aus. Die meisten Seitenzahlen stehen aber in den Postnoten der Zitationskommandos -- und die sieht Biber nicht. Es hat diese Funktion früher mal auch in \blx{} gegeben; sie wurde aber wegen ihrer Fehleranfälligkeit wieder gestrichen.
 
 \subsection{Funktionen von \Biber}\label{kap_biber}
 
@@ -568,7 +580,7 @@ verrät, wo die aktuell in Gebrauch befindliche \Datei{bibertool.conf} abgelegt 
 \begin{lstlisting}
 $ biber --tool --output-encoding=ascii <file>.bib
 \end{lstlisting}
-Das erstellt aus einer UTF-8-codierten Datenbank eine \Datei{<file>_bibertool.bib}, in der alle Zeichen höher als US-ASCII in \LaTeX-Makros umgewandelt sind, soweit \Biber{} dafür Makros kennt -- unbekannte Zeichen werden markiert. Für den umgekehrten Vorgang gibt man \Kbd{UTF-8} an (oder nur \Option{-U}). Es gibt auch noch weitere Encodings, die man auch mit \Option{--input_encoding} angeben kann, falls man eine Datenbank konvertieren will. Das ist vor allem interessant, wenn man Datenbanken aus OPACs oder Google Books etc. pp. importieren will, da deren Implementierung meist noch aus Zeiten stammt, wo UTF-8 noch kein ubiquitärer Standard war. Es gibt noch eine ganze Reihe von Optionen, mit denen man Datenbanken formatieren und validieren kann. Das Sortieren erfordert weitere Anpassungen der Konfigurationsdatei, ist aber bei Quelldatenbanken im Allgemeinen auch nicht sinnvoll.
+Das erstellt aus einer UTF-8-codierten Datenbank eine \Datei{<file>_bibertool.bib}, in der alle Zeichen höher als US-ASCII in \LaTeXi-Makros umgewandelt sind, soweit \Biber{} dafür Makros kennt -- unbekannte Zeichen werden markiert. Für den umgekehrten Vorgang gibt man \Kbd{UTF-8} an (oder nur \Option{-U}). Es gibt auch noch weitere Encodings, die man auch mit \Option{--input_encoding} angeben kann, falls man eine Datenbank konvertieren will. Das ist vor allem interessant, wenn man Datenbanken aus OPACs oder Google Books etc. pp. importieren will, da deren Implementierung meist noch aus Zeiten stammt, wo UTF-8 noch kein ubiquitärer Standard war. Es gibt noch eine ganze Reihe von Optionen, mit denen man Datenbanken formatieren und validieren kann. Das Sortieren erfordert weitere Anpassungen der Konfigurationsdatei, ist aber bei Quelldatenbanken im Allgemeinen auch nicht sinnvoll.
 
 Diese Abhängigkeit des Toolmodus von dem Datenmodell ist nicht ganz unproblematisch. In der Datenbank könnten sich Eigenschaften verschiedener Stile befinden, die sich vielleicht sogar gegenseitig ausschließen. Und auch Drittanbietersoftware wie Literaturverwaltungen könnten eigene Felder für den internen Gebrauch setzen. Insofern eignet sich \Biber auch im Toolmodus nicht zur Datenbankverwaltung, sondern nur für begrenzte Aufgaben wie etwa das Erstellen dokumentenspezifischer Datenbanken zur Weitergabe mit den Quellen. Dafür kommt man wahrscheinlich häufig besser weg, wenn man ein MWE mit \Befehl{nocite}\Kbd{\detokenize{{*}}} macht und das wie oben als \Datei{*.bib} ausgeben läßt, weil dann die Konfiguration im Hintergrund erstellt wird. Allerdings werden dann auch die Eingabefilter (Sourcemaps) der Stile ausgeführt.
 
@@ -586,7 +598,7 @@ Datenbanken im \BibTeX-Format hat vermutlich jeder schon einmal gesehen. Sie hab
     publisher = "Titelmühle Press and Hansen und Hartmann",
     date = "1988",)
 \end{lstlisting}
-In der ersten Zeile stehen der Dokumententyp (nach dem \symbol{64}) und zwischen der geschweiften Klammer und dem Komma der eindeutige Schlüssel, den man den Zitierkommandos von \blx{} übergeben muß. Man kann in die Felder beliebigen \LaTeX-Code schreiben, sollte aber daran denken, daß einige Felder von einem externen Sortierprogramm gelesen werden müssen, das kein \LaTeX{} versteht. Man kann auch beliebig neue Dokumententypen und Felder erfinden, allerdings werden die von den vorhandenen Stilen nicht verstanden und ignoriert, sofern man keine Aliase definiert. \BibTeX{} kennt drei Datentypen: Felder, Listen und Namen. Das Trennzeichen in Listen und Namen ist \Kbd{and}. Dokumententypen, Feldnamen und Trennzeichen können groß oder klein geschreiben werden. Als Feldbegrenzer sind auch geschweifte Klammern zulässig. Ganzzahlen brauchen keine Feldbegrenzer. Den obigen Eintrag kann man auch so schreiben, ohne daß sich etwas ändert:
+In der ersten Zeile stehen der Dokumententyp (nach dem \symbol{64}) und zwischen der geschweiften Klammer und dem Komma der eindeutige Schlüssel, den man den Zitierkommandos von \blx{} übergeben muß. Man kann in die Felder beliebigen \LaTeXi-Code schreiben, sollte aber daran denken, daß einige Felder von einem externen Sortierprogramm gelesen werden müssen, das kein \LaTeXi{} versteht. Man kann auch beliebig neue Dokumententypen und Felder erfinden, allerdings werden die von den vorhandenen Stilen nicht verstanden und ignoriert, sofern man keine Aliase definiert. \BibTeX{} kennt drei Datentypen: Felder, Listen und Namen. Das Trennzeichen in Listen und Namen ist \Kbd{and}. Dokumententypen, Feldnamen und Trennzeichen können groß oder klein geschreiben werden. Als Feldbegrenzer sind auch geschweifte Klammern zulässig. Ganzzahlen brauchen keine Feldbegrenzer. Den obigen Eintrag kann man auch so schreiben, ohne daß sich etwas ändert:
 \begin{lstlisting}
 @MISC{ example1,
     AUTHOR = {Schneider, Thomas AND Schulze, Barbara},
@@ -668,7 +680,7 @@ LL}
 
 Es gibt noch drei besondere Datentypen von technischer Bedeutung:
 \begin{itemize}
-\item \Typ{comment} Um Kommentare in die Datenbank zu schreiben. Ich habe diesen Typ noch nie in freier Wildbahn angetroffen. Üblicherweise macht man das mit dem \%-Zeichen wie in \LaTeX{} auch. Man muß sich ohnehin vergegenwärtigen, daß bei der Verarbeitung die Position solcher Kommentare geändert werden kann. Wer Anmerkungen zu bestimmten Einträgen aufbewahren will, muß die dafür vorgesehenen Felder (\Feld{abstract}, \Feld{note}, \Feld{addendum}, \Feld{howpublished}) benutzen.
+\item \Typ{comment} Um Kommentare in die Datenbank zu schreiben. Ich habe diesen Typ noch nie in freier Wildbahn angetroffen. Üblicherweise macht man das mit dem \%-Zeichen wie in \LaTeXi{} auch. Man muß sich ohnehin vergegenwärtigen, daß bei der Verarbeitung die Position solcher Kommentare geändert werden kann. Wer Anmerkungen zu bestimmten Einträgen aufbewahren will, muß die dafür vorgesehenen Felder (\Feld{abstract}, \Feld{note}, \Feld{addendum}, \Feld{howpublished}) benutzen.
 \item \Typ{string} deklariert Ersetzungstext -- z.\,B. Zeitschriften- und Serientitel, die voll oder abgekürzt zitiert werden können.
 \begin{lstlisting}
 @STRING(ZAngewString = {Zeitschrift für Angewandte Stringtheorie})
@@ -700,7 +712,7 @@ In \cref{kap_fileformat} wurde schon angedeutet, daß es vier Datentypen für Fe
 \item \Kbd{Textfelder}\footnote{In der \blx{} -Dokumentation werden Textfelder als \Englisch{literal} bezeichnet. Da es auch noch den Datentyp \Englisch{verbatim} gibt, was beides zu \enquote{wörtlich} übersetzt, verwende ich hier die Übersetzung \enquote{Text}.}\label{fn:literal} werden meistens wörtlich ausgedruckt.
 \item \Kbd{Schlüssel} enthält den Schlüssel eines anderen Datenbankeintrags.
 \item \Kbd{Schlüsselliste} wie \Kbd{Schlüssel}, aber als kommaseparierte Liste mehrerer Einträge.
-\item \Kbd{Wörtlich}\footref{fn:literal} In diesen Feldern müssen auch geschützte \TeX-Zeichen wörtlich ausgegeben werden. Daher werden in diesen Feldern keine Makros expandiert. Das trifft vor allem auf Identifier zu (\Feld{url}, \Feld{doi} etc.), wo man \Kbd{\detokenize{\~@\#}} o.\,ä. braucht.
+\item \Kbd{Wörtlich}\footref{fn:literal} In diesen Feldern müssen auch geschützte \TeXi-Zeichen wörtlich ausgegeben werden. Daher werden in diesen Feldern keine Makros expandiert. Das trifft vor allem auf Identifier zu (\Feld{url}, \Feld{doi} etc.), wo man \Kbd{\detokenize{\~@\#}} o.\,ä. braucht.
 \item \Kbd{Datum} für Felder mit Datum nach ISO8601-2. \Biber teilt diese Felder in ihre Bestandteile auf, die dann jeweils eine Ganzzahl beinhalten. Näheres s.~\cref{kap_datum}.
 \item {Zahlenbereiche} \Biber parst diese Felder als \Kbd{von - bis} und ersetzt das Trennzeichen durch \Befehl{bibrangedash}. Typisch vor allem für das \Feld{pages}-Feld unselbstständiger Dokumententypen.
 \item \Kbd{Muster}: hier wird ein Wert aus einer Reihe vorgegebener Muster verlangt. Ein Beispiel ist \Feld{gender}, mit dem Numerus und Genus von Pronomen gesteuert werden.
@@ -883,7 +895,7 @@ Spezielle Felder enthalten keine druckbaren Daten. Sie sind grundsätzlich in al
 
 \Wichtig & \Feld{crossref} & Schlüssel & Der Verweis eines Kindeintrages auf seinen Elterneintrag \\
  & \Feld{entryset } & Schlüsselliste & Einträge eines \Typ{set} \\
- & \Feld{execute} & Text & ausführbarer \LaTeX-code \\
+ & \Feld{execute} & Text & ausführbarer \LaTeXi-code \\
 \Wichtig & \Feld{gender} & Muster & Genus und Numerus von Pronomen (\Kbd{sf}, \Kbd{sm}, \Kbd{sn}, \Kbd{pf}, \Kbd{pm}, \Kbd{pn} oder \Kbd{pp}) \\
  & \Feld{langid} & Muster & eine dem \Paket{babel}- oder \Paket{polyglossia}-Paket bekannte Sprache, um die Sprache des Eintrags festzulegen \\
  & \Feld{langidopts} & CSV & Liste von \Kbd{key=value}-Ausdrücken, um \Feld{langid} näher zu bestimmen \\
@@ -906,7 +918,7 @@ Spezielle Felder enthalten keine druckbaren Daten. Sie sind grundsätzlich in al
 \end{xltabular}
 \end{Zebratabelle}
 
-Die Codierung der \BibTeX-Datenbanken sollte heutzutage unbedingt in UTF-8 erfolgen. Das war lange Zeit ein Problem, denn die hinreichende Unterstützung von Unicode schleppte sich in der \TeX-Welt lange dahin. Mittlerweile sollten damit kaum noch Schwierigkeiten entstehen. Überhaupt ist das ein universeller Ratschlag: Egal, ob \LaTeX-Quellen, Datenbanken, Webseiten etc. pp., alles sollte in UTF-8 codiert sein, sofern man keine wirklich zwingenden Gründe hat, etwas anderes zu nehmen.
+Die Codierung der \BibTeX-Datenbanken sollte heutzutage unbedingt in UTF-8 erfolgen. Das war lange Zeit ein Problem, denn die hinreichende Unterstützung von Unicode schleppte sich in der \TeXi-Welt lange dahin. Mittlerweile sollten damit kaum noch Schwierigkeiten entstehen. Überhaupt ist das ein universeller Ratschlag: Egal, ob \LaTeXi-Quellen, Datenbanken, Webseiten etc. pp., alles sollte in UTF-8 codiert sein, sofern man keine wirklich zwingenden Gründe hat, etwas anderes zu nehmen.
 
 \subsection{Das Namensformat}\label{kap_names}
 \BibTeX{} setzt Namen aus vier Bestandteilen zusammen: \Kbd{first}, \Kbd{last}, \Kbd{prefix} (\enquote{von part}) und \Kbd{suffix} (\enquote{Jr part}). Damit man die Namen per Copy\&Paste aus anderen Quellen übernehmen kann, kennt \BibTeX drei Formate:
@@ -947,7 +959,7 @@ Korporative Autoren und solche ohne Familien bestehen nur aus dem Nachnamen:
 \end{figure}
 Diese Formate werden natürlich weiterhin verstanden. Das Problem war aber, daß es nur für westliche Sprachen funktioniert. Deswegen gibt es mittlerweile die Möglichkeit, die Namensbestandteile als Liste von \Kbd{key=value}-Ausdrücken zu übergeben:
 \begin{figure}[H]
-\citefield{intro:name:13}[userd]{userc}\\\citename{intro:name:13}[family-given]{namec}
+\citefield{intro:name:13}[userc]{userc}\\\citename{intro:name:13}[family-given]{namec}
 \end{figure}
 Das erlaubt jetzt auch die Definition neuer Namensbestandteile wie z. B. Patronyme bei russischen Namen oder Ordenskürzel von Klerikern. Allerdings müßte das dann auch von den jeweiligen Stilen unterstützt werden.
 
@@ -1164,7 +1176,7 @@ Das hier beabsichtigt keine Befehlsreferenz. Für die Implementation mußten auc
 
 \subsection{Rationale}
 
-\archbib{} wurde erstellt, in dem zahlreiche Zitiervorschriften deutscher, zumeist archäologischer Publikationsorgane verglichen wurden, um die Anforderungen an ein universale Software für diesen Interessentenkreis zu ermitteln. Keine einzige der betreffenden Zeitschriften akzeptiert derzeit \LaTeX-Quellen. Paradoxerweise ist das nachgerade die Voraussetzung für die Arbeit an \archbib, da nur so der Eindruck vermieden wird, hierbei handle es sich um offizielle Regeln der Redaktionen. Grundsätzlich sind alle ausführlichen Zitiervorschriften erheblich unvollständig, meist widersprüchlich und merklich ohne Gedanken an automatisiertes Zitieren verfaßt worden.
+\archbib{} wurde erstellt, in dem zahlreiche Zitiervorschriften deutscher, zumeist archäologischer Publikationsorgane verglichen wurden, um die Anforderungen an ein universale Software für diesen Interessentenkreis zu ermitteln. Keine einzige der betreffenden Zeitschriften akzeptiert derzeit \LaTeXi-Quellen. Paradoxerweise ist das nachgerade die Voraussetzung für die Arbeit an \archbib, da nur so der Eindruck vermieden wird, hierbei handle es sich um offizielle Regeln der Redaktionen. Grundsätzlich sind alle ausführlichen Zitiervorschriften erheblich unvollständig, meist widersprüchlich und merklich ohne Gedanken an automatisiertes Zitieren verfaßt worden.
 
 Ausgangspunkt waren natürlich die ausführlichen Zitier- und Bibliographiervorschriften der Römisch-Germanischen Kommission (RGK) \autocite{rgk::}, die für die deutschsprachige (Ur- und Frühgeschichte\textbar Vor- und Frühgeschichte\textbar Prähistorische Archäologie) autoritativ sind. Viele Richtlinien aus diesem Bereich nehmen nur unwesentliche Änderungen vor und verweisen für den Rest auf die RGK. Eher zufällig habe ich entdeckt, daß die deutschsprachige Ägyptologie auch häufig RGK-artige Regeln benutzt, was bei einem so stark philologisch geprägten Fach nicht selbstverständlich ist. Möglicherweise waren für beide die Klassischen Archäologen des Deutschen Archäologischen Instituts (DAI) Vorlagengeber, aber das hat zunächst nur den Status einer informierten Spekulation.
 
@@ -1323,14 +1335,14 @@ Manche Stile verlangen in bestimmten Fällen Ligaturen der Initialen der Vorname
 \begin{lstlisting}
 author = {Müller, {Th}\relax omas}
 \end{lstlisting}
-Das hat den Vorteil, daß es sortiert wird, aber den Nachteil, daß man es händisch in die Datenbanken eintragen muß. \archbib{} hat eine Option \Option{giveninitligatures}, der man eine Liste solcher Ligaturen übergeben kann, die dann bis zum ersten Treffer automatisch abgearbeitet wird (deshalb \enquote{Chr} vor \enquote{Ch}). Allerdings geschieht dies erst auf der \LaTeX-Seite, wenn die Sortierung schon stattgefunden hat. T(rude) Meier müßte hier alphabetisch  vor vor Th(orsten) Meier kommen, \Biber{} sortiert aber noch nach den vollständigen Vornamen. Solche Fälle sind selten und können mit dem \Feld{sortname}-Feld leicht repariert werden. Man muß aber beim Korrekturlesen wissen, daß so etwas passieren kann.
+Das hat den Vorteil, daß es sortiert wird, aber den Nachteil, daß man es händisch in die Datenbanken eintragen muß. \archbib{} hat eine Option \Option{giveninitligatures}, der man eine Liste solcher Ligaturen übergeben kann, die dann bis zum ersten Treffer automatisch abgearbeitet wird (deshalb \enquote{Chr} vor \enquote{Ch}). Allerdings geschieht dies erst auf der \LaTeXi-Seite, wenn die Sortierung schon stattgefunden hat. T(rude) Meier müßte hier alphabetisch vor Th(orsten) Meier kommen, \Biber{} sortiert aber noch nach den vollständigen Vornamen. Solche Fälle sind selten und können mit dem \Feld{sortname}-Feld leicht repariert werden. Man muß aber beim Korrekturlesen wissen, daß so etwas passieren kann.
 
 \paragraph{Trunkierung von Listen}
-Wenn die Option \Option{preservelastauthor} wahr ist, dann werden Namenslisten wie \Kbd{Müller AND Meier AND Schneider AND Schulze} statt mit \enquote{Müller, Meier u.\,a.} mit \enquote{Müller \textellipsis{} Schulze} trunkiert. Die Werte für \Option{maxnames} und \Option{minnames} gelten genauso.
+Wenn die Option \Option{preservelastauthor} wahr ist, dann werden Namenslisten wie \Kbd{Müller AND Meier AND Schneider AND Schulze} statt mit \enquote{Müller, Meier u.\,a.} mit \enquote{Müller \textellipsis{} Schulze} trunkiert. Die Werte für \Option{maxnames} und \Option{minnames} gelten entsprechend.
 
 \paragraph{Anonyme Werke in Autor/Jahr-Stilen}
 
-In Autor/Jahr-Stilen fehlen in anonymen Werken der oder die Autorennamen für die Erzeugung des Labels. \blx{} nimmt dann Titel, denn man meist als \Feld{shorttitle} abkürzt. \archbib{} hingegen kennt ein Feld \Feld{anonstring}, in dem man einen Namen für einen Anonymus unterbringen kann (von Haus aus ist es leer, so daß auch hier der Titel greift). Das kann automatisch geschehen.  Da \Biber es lesen können muß, kann man hier keine \LaTeX-Makros verwenden. Weil \Feld{anonstring} in der Liste der möglichen Namensfelder von Labelnamen als letztes kommt, kann es nur gewählt werden, wenn nichts anderes trifft. Man kann es deshalb mit einem Filter an jeden Eintrag setzen. Obacht! Das Feld wird als Name geparst.
+In Autor/Jahr-Stilen fehlen in anonymen Werken der oder die Autorennamen für die Erzeugung des Labels. \blx{} nimmt dann Titel, denn man meist als \Feld{shorttitle} abkürzt. \archbib{} hingegen kennt ein Feld \Feld{anonstring}, in dem man einen Namen für einen Anonymus unterbringen kann (von Haus aus ist es leer, so daß auch hier der Titel greift). Das kann automatisch geschehen.  Da \Biber es lesen können muß, kann man hier keine \LaTeXi-Makros verwenden. Weil \Feld{anonstring} in der Liste der möglichen Namensfelder von Labelnamen als letztes kommt, kann es nur gewählt werden, wenn nichts anderes trifft. Man kann es deshalb mit einem Filter an jeden Eintrag setzen. Obacht! Das Feld wird als Name geparst.
 \begin{lstlisting}
 \DeclareSourcemap{
 	\maps[datatype=bibtex]{
@@ -1402,11 +1414,15 @@ In einer Serie von Blogposts auf meiner privaten Homepage habe ich \archbib{} in
 \section{Editoren}
 
 \subsection{\LyX}
-\LyX{} ist ein graphischer Editor á la MS~Word für \LaTeX. Er benutzt eine eigene Makrosprache, die für die Bildschirmausgabe nach HTML und für druckbare Dokumente nach \LaTeX{} übersetzt wird. Das funktioniert aber nur für eine Teilmenge von \LaTeX, für die entsprechende HTML-Formate vorliegen. Man kann beliebige \LaTeX-Kommandos eingeben oder neue \LyX-Makros für sie schreiben. Seit Version 2.3.0 wird \blx{} nativ unterstützt, allerdings nur für Autor-Jahr- und numerische Stile. Schwierig wird es allerdings dann, wenn man Pakete wie \archbib{} nutzen will, die \blx{} wesentlich erweitern und insbesondere neue Zitierkommandos einführen. Hier muß man dann damit leben, daß dies in der HTML-Ausgabe nicht oder nur sehr unzureichend unterstützt wird.
+\LyX{} ist ein graphischer Editor á la \App{MS~Word} für \LaTeXi. Er benutzt eine eigene Makrosprache, die für die Bildschirmausgabe nach HTML und für druckbare Dokumente nach \LaTeXi{} übersetzt wird. Das funktioniert aber nur für eine Teilmenge von \LaTeXi, für die entsprechende HTML-Formate vorliegen. Man kann beliebige \LaTeXi-Kommandos eingeben oder neue \LyX-Makros für sie schreiben. Seit Version 2.3.0 wird \blx{} nativ unterstützt, allerdings nur für Autor-Jahr- und numerische Stile. Schwierig wird es allerdings dann, wenn man Pakete wie \archbib{} nutzen will, die \blx{} wesentlich erweitern und insbesondere neue Zitierkommandos einführen. Hier muß man dann damit leben, daß dies in der HTML-Ausgabe nicht oder nur sehr unzureichend unterstützt wird.
 
-Alles in allem ist das ein ziemlich cleverer Ansatz. Warum ich \LyX{} dennoch für größere Dokumente nicht in Betracht ziehen würde, hängt vor allem damit zusammen, daß die graphische Eingabe wieder lokales Markup erzeugt. Je größer die Dokumente werden, desto mehr hilft mir aber ein kluges semantisches Markup bei der Schlußredaktion. Auf diesen Vorteil würde ich bei Dokumenten von der Größe einer Abschlußarbeit nicht verzichten wollen. Überhaupt finde ich die Möglichkeit, \LaTeX-Dokumente ohne \LaTeX-Kenntnisse zu schreiben, ziemlich problematisch. Ein Gutteil seiner hohen Skalierbarkeit liegt doch gerade darin, eigene Makros zur Strukturierung und Automatisierung schreiben zu können.
+Alles in allem ist das ein ziemlich cleverer Ansatz. Warum ich \LyX{} dennoch für größere Dokumente nicht in Betracht ziehen würde, hängt vor allem damit zusammen, daß die graphische Eingabe wieder lokales Markup erzeugt. Je größer die Dokumente werden, desto mehr hilft mir aber ein kluges semantisches Markup bei der Schlußredaktion. Auf diesen Vorteil würde ich bei Dokumenten von der Größe einer Abschlußarbeit nicht verzichten wollen. Überhaupt finde ich die Möglichkeit, \LaTeXi-Dokumente ohne \LaTeXi-Kenntnisse zu schreiben, ziemlich problematisch. Ein Gutteil seiner hohen Skalierbarkeit liegt doch gerade darin, eigene Makros zur Strukturierung und Automatisierung schreiben zu können. Neben dem Verlust an Feinsteuerung des Literaturapparates wiegt meines Erachtens der Verlust an sematischem Markup schwer, der desto wichtiger Wird, je größer das Dokument ist.
 
-\subsection{Pandoc}
+\subsection{\App{Pandoc} und R Markdown}
+
+Über \App{Pandoc} läßt sich Ähnliches sagen wie über \LyX. Es ist ein universaler Konverter für Dokumentenformate. Als intermediäres Format benutzt es eine stark erweiterte Markdownsyntax (Fußnoten, Bibliographien, Mathematiksatz, Diashows etc.). Es ist möglich, Literaturreferenzen einzufügen, die nach \LaTeXi{} mit \blx{} oder \BibTeX und in andere Formate mit CSL (Citation Style Language) bearbeitet werden können. Für die speziellen Zwecke, wie sie von \archbib{} implementiert werden, stehen aber natürlich keine Ausdrücke zu Verfügung. Zudem wiegt hier weider der verlust an semantischem Markup schwer. Umfangreiche Texte möchte man damit eigentlich nicht schreiben.
+
+In der Archäologie ist \App{Pandoc} als Bestandteil von \App{RStudio} verbreitet, denn R Markdown ist nichts anderes als \App{Pandoc} Markdown.
 
 
 \section{Datenbanken}
@@ -1414,11 +1430,22 @@ Alles in allem ist das ein ziemlich cleverer Ansatz. Warum ich \LyX{} dennoch f�
 \subsection{\App{Zotero}}
 
 \subsection{\Paket{JabRef}}
-\Paket{JabRef} ist ein in der \TeX-Welt sehr verbreiteter Manager für \BibTeX-Datenbanken. Da er in Java geschrieben ist, läuft er auf allen relevanten Betriebssystemen. Die Integration von \archbib{} ist ziemlich leicht. Da das \BibTeX-Format keine abgeschlossene Menge an Feldern oder Dokumententypen hat, wurden entsprechende Editoren vorgesehen. Einzelheiten finden sich in einem \href{https://ingram-braun.net/erga/2020/02/biblatex-archaeology-in-its-environment-%e2%85%b0-jabref/#ib_campaign=biblatex-archaeology-2.2&ib_medium=github&ib_source=german_short_intro}{Blogpost}.
+\Paket{JabRef} ist ein in der \TeXi-Welt sehr verbreiteter Manager für \BibTeX-Datenbanken. Da er in Java geschrieben ist, läuft er auf allen relevanten Betriebssystemen. Die Integration von \archbib{} ist ziemlich leicht. Da das \BibTeX-Format keine abgeschlossene Menge an Feldern oder Dokumententypen hat, wurden entsprechende Editoren vorgesehen. Einzelheiten finden sich in einem \href{https://ingram-braun.net/erga/2020/02/biblatex-archaeology-in-its-environment-%e2%85%b0-jabref/#ib_campaign=biblatex-archaeology-2.2&ib_medium=github&ib_source=german_short_intro}{Blogpost}.
 
-\section{Konverter}
-%\subsection{\LaTeXML}
-\subsection{\Paket{tex4ht}}
+\section{\Paket{tex4ht}}
+
+\Paket{tex4ht} ist ein Konverter, um \LaTeXi-Dokumente in XML-Formate zu konvertieren. Unter anderen auch HTML und ODT. letzeres ist interessant, weil es sich mit \App{LibreOffice} nahezu verlustfrei in in das \App{MS~Word}-Format DOC(X)  (oder auch RTF) konvertieren läßt, das in der Regel von archäologischen Zeitschriften gefordert wird. Jetzt ist es so, daß \LaTeXi{} ein sehr viel reichhaltigeres Format als diese ist. Vieles läßt sich kaum konvertieren oder nur mit Tricks (mathematische Formeln z\,B. werden als Grafiken ausgegeben). Wenn man allerdings ein Manuskript für einen Zeitschriftenaufsatz erstellt, braucht man auch nur ganz wenige Formate.
+
+\Paket{tex4ht} konvertiert \blx{} mittlerweile ziemlich gut. Früher mußte es nach jeder neuen \blx-Version erstmal neu angepaßt werden, weswegen man unbedingt ein Backup einer funktionierenden Version behalten sollte, wenn man auf diesen Workflow angewiesen ist. Zuletzt war das allerdings nicht mehr der Fall. Die besten Ergebnisse habe bei der Konvertierung des Beispieltextes von \archbib{} habe ich mit folgendem Workflow erzielt:
+\begin{lstlisting}
+$ lualatex biblatex-archaeology_example
+$ biber biblatex-archaeology_example
+$ make4ht -ulf odt biblatex-archaeology_example.tex
+\end{lstlisting}
+
+Zuerst wird eine \Datei{*.bbl}-Datei erstellt. Dann wird \Paket{tex4ht} mit dem Batchskript \Paket{make4ht} aufgerufen. Heraus kommt eine \Datei{biblatex-archaeology_example.odt}, die man mit \App{LibreOffice} oder \App{MS~Word} öffnen und dann als DOC(X) oder RTF speichern kann. Dabei tritt vor allem ein Problem zu Tage: Manchmal fehlen (nur!) im Literaturapparat Lehrzeichen oder sind zuviel. Das ist beim Korrekturlesen leicht zu entdecken, denn die Muster fallen deutlich ins Auge. Zudemm kommen sie in natürlichsprachlichen Zusammenhängen normalerweise nicht vor, weswegen man an automatisierte Korrekturmakros denken könnte, bis das -- ziemlich hartnäckige -- Problem auf der \LaTeXi-Seite gelöst worden ist.
+
+Ansonsten sollte man auch Tabellen Bildunterschriften in der Quelldatei anlegen, selbst wenn man sie später in separaten Dateien ausliefern will, damit die guten Referenzierungsmöglichkeiten von \LaTeXi{} genutzt werden können. ich habe tatsächlich so schon Artikel erstellt, ohne daß die Redaktion gemerkt hätte, daß hier \LaTeXi{} benutzt wurde.
 
 \printbibliography
 \printindex

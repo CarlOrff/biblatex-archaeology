@@ -1,3 +1,7 @@
+% arara: clean: { extensions: [aux,log,out,toc,bbl,bcf,bgl,run.xml,idx,ind,ilg] }
+% arara: lualatex
+% arara: biber
+% arara: lualatex
 \listfiles
 \RequirePackage{scrlfile}
 \ReplacePackage{scrpage2}{scrlayer-scrpage}
@@ -101,7 +105,7 @@
     %style=dguf-apa,
     %style=eaz,
     %style=eaz-alt,
-    %style=foe,
+    style=foe,
     %style=jb-halle,
     %style=jb-kreis-neuss,
     %style=karl,
@@ -117,7 +121,7 @@
     %style=rgzm-inline,
     %style=rgzm-numeric,
     %style=rgzm-verbose,
-	style=rgk-inline-old,
+	%style=rgk-inline-old,
     %style=rgk-numeric-old,
     %style=rgk-verbose-old,
     %style=ufg-muenster-inline,
@@ -149,15 +153,19 @@
     {\addbibresource{biblatex-archaeology-example.bib}}
     \usepackage{xcolor}
 % heading (after biblatex!)
-\usepackage{scrpage2}
-\pagestyle{scrheadings}
-\clearscrheadings
-\ihead{\explhead}
-\usepackage[useregional]{datetime2}
-\let\today\DTMnow
 \ifcsdef{archaeobibstyletitle}
-    {\def\explhead{\scriptsize{\texttt{bibstyle}: \archaeobibstyletitle\\\texttt{citestyle}: \archaeocitestyletitle}}}
-    {\def\explhead{no biblatex-archaeology style}}
+		{\def\explhead{\scriptsize{\texttt{bibstyle}: \archaeobibstyletitle\\\texttt{citestyle}: \archaeocitestyletitle}}}
+		{\edef\explhead{no biblatex-archaeology style}}
+\IfTeXforHt % no page header in HTML
+	{}
+	{\usepackage{scrpage2}
+	\pagestyle{scrheadings}
+	\clearscrheadings
+	\ihead{\explhead}}
+\IfTeXforHt
+	{}
+	{\usepackage[useregional]{datetime2}
+	\let\today\DTMnow}
 \title{biblatex-archaeology [v2.3] sample document}
 \subtitle{\explhead}
 \author{Ingram Braun}
@@ -220,15 +228,15 @@
         {\supercite[433]{bauchhenss:et:al:1978}}
         {\textbf{undefined!}}%
     \item[\footnotesize\Befehl{footcite}] \footcite[159--187]{auler:hiller:2015}
-    \item[\footnotesize\Befehl{footcitetext}] \footcitetext[159--187]{auler:hiller:2015}
+	\item[\footnotesize\Befehl{footcitetext}] \footcitetext[159--187]{auler:hiller:2015}
     \item[\footnotesize\Befehl{smartcite}] \smartcite[159--187]{auler:hiller:2015}
     \item[\footnotesize\Befehl{Smartcite}] \smartcite[159--187]{auler:hiller:2015}
     \item[\footnotesize\Befehl{cites}] \cites[159--187]{auler:hiller:2015}
     \item[\footnotesize\Befehl{Cites}] \Cites[159--187]{auler:hiller:2015}
     \item[\footnotesize\Befehl{autocites}] \autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
     \item[\footnotesize\Befehl{Autocites}] \Autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
-    \item[\footnotesize\Befehl{footcites}] \footcites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
-    \item[\footnotesize\Befehl{footcitetexts}] \footcitetexts[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
+	\item[\footnotesize\Befehl{footcites}] \footcites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
+	\item[\footnotesize\Befehl{footcitetexts}] \footcitetexts[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
     \item[\footnotesize\Befehl{parencites}] \parencites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
     \item[\footnotesize\Befehl{Parencites}] \Parencites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
     \item[\footnotesize\Befehl{textcites}] \textcites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}

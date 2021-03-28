@@ -14,7 +14,7 @@
 # these rules might exclude image files for figures etc.
 *.ps
 *.eps
-*.pdf
+#*.pdf
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
@@ -24,9 +24,6 @@
 *-blx.bib
 *.brf
 *.run.xml
-*.save
-_biber.
-_bibertool.
 
 ## Build tool auxiliary files:
 *.fdb_latexmk
@@ -227,14 +224,5 @@ biblatex-archaeology_example-ent.*
 # hyperref
 *.out
 
-# LyX
-*.lyx
-*.lyx~
-
 # Nextcloud
 *_conflict-*
-
-#
-*.htm
-*.html
-*.xml
