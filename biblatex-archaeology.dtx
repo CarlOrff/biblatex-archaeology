@@ -124,6 +124,9 @@
 \newenvironment{optkeys}[1]
     {\begin{enumerate}[align=parleft, labelsep=#1,itemsep=0.0ex,]}
     {\end{enumerate}}
+\usepackage{bxtexlogo}
+\bxtexlogoimport{*}
+\bxtexlogoimport{**}
 \usepackage{hypdoc,hyperxmp}
 \hypersetup{
     linktocpage=true,       % only page numbers are clickable
@@ -1657,13 +1660,20 @@
 %
 % \subsection{language issues}
 %
+% \subsection{The \Feld{language} field}
+%
+% \archbib styles never print languages. But in some cases the \Feld{language} field influences the localization of a particular entry.
+% Therefore it is useful to provide it, especially if it differs from the main document language.
+%
 % \subsubsection{The \Paket{polyglossia} package and option \Option{autolang}}
 %
 % \blx' \Paket{polyglossia} interface is described as buggy. I have observed some spurious spaces in conjunction with \Option{autolang}\Kbd{=other}.
-% Therefore it is preferable to employ the \Paket{babel} package instead, even with Lua\LaTeX. Or try \Option{autolang}\Kbd{=hyphen}, but then
+% Therefore it is preferable to employ the \Paket{babel} package instead, even with \LuaLaTeX. Or try \Option{autolang}\Kbd{=hyphen}, but then
 % all localization keys will be translated to the main document language, not to the language of the entry. The casual rule \enquote{entry localization
 % is English if entry language is non-German} is wiped out then.
-% \subsection{The \Feld{gender} field}
+% \subsubsection{The \Feld{gender} field}
+%
+% TO DO
 %
 % \subsubsection{Missing \Kbd{*.lbx} files}
 %
@@ -1707,20 +1717,15 @@
 % cases it proves useful to know wether they are available, e.\,g. in order to check wether a \Typ{thesis} was published or not.
 % Therefore always provide these data even if you do not expect to print them.
 %
-% \subsection{The \Feld{language} field}
-%
-% \archbib styles never print languages. But in some cases the \Feld{language} field influences the localization of a particular entry.
-% Therefore it is useful to provide it, especially if it differs from the main document language.
-%
 % \subsection{Formatting of the \Feld{title} field in \Typ{review}}\label{kap:review}
 %
 % It can happen that text formattings with \Befehl{textit} and friends cause fatal errors if the \Feld{title} field was composed from \Feld{related}
 % entries. The remedy here is to employ formatting environments instead:
 % \begin{Beispiel}
-% \Befehl{DeclareFieldFormat}\Kbd{[review]\{title\}\{\itshape\#1\normalfont\}}
+% \Befehl{DeclareFieldFormat}\Kbd{[review]\{title\}\{\Befehl{itshape}\#1\Befehl{\normalfont\}}}
 % \end{Beispiel}
 %
-% \subsubsection{Additional fields in \Biber's tool mode}\label{kap:bibertool}
+% \subsection{Additional fields in \Biber's tool mode}\label{kap:bibertool}
 %
 % \Biber does not see any data model file (\Kbd{*.dbx}) when in tool mode (with option \Kbd{--}\Option{tool} instead of job name)
 % and therefore omits all fields unknown to the standard styles. In order to avoid this we must provide our extended data model
@@ -2331,11 +2336,11 @@
 }
 @BOOK{molleson:cox:1993,
   AUTHOR = {Molleson, Theya AND Cox, Margaret},
-  MAINTITLE = {The Spitalfields Project Volume},
+  MAINTITLE = {The Spitalfields Project},
   VOLUME = 2,
   TITLE = {The anthropology},
   DATE = {1993},
-  SUBTITLE = {The Middling Sort},
+  TITLE = {The Middling Sort},
   PUBLISHER = {Council for British Archaeology},
   SERIES = ufg-CBAResearchReport,
   NUMBER = {86},
@@ -2343,6 +2348,8 @@
   KEYWORDS = {Anthropologie, Osteologie, Paläodemographie, Paläopathologie,
     Kirchenarchäologie, Bestattung, Frühneuzeit, England, Spitalfields,
     Hugenotten},
+  GENDER = {pf},
+  LANGUAGE = {english},
 }
 @PROCEEDINGS{oberlechner:1999,
   EDITOR = {Oberlechner, Manfred},
@@ -19674,7 +19681,7 @@
             \step[fieldset=langidopts,fieldvalue={variant=british}]
         }
 %    \end{macrocode}
-% \changes{2.3}{2020/12/29}{suppress \Befehl{bibpagespunct} in electronic \Typ{thesis}.
+% \changes{2.3}{2020/12/29}{suppress \Befehl{bibpagespunct} in electronic \Typ{thesis}}
 % This is needed to suppress \Befehl{bibpagespunct} in electronic \Typ{thesis}.
 %    \begin{macrocode}
 		\map[overwrite=true]{
@@ -19828,7 +19835,7 @@
 %
 % \begin{macro}{\volumenumberdelim}
 % \begin{format}{number}
-% \changes{2.3}{2020/12/27}{\Befehl{volumedatedelim} fixed.
+% \changes{2.3}{2020/12/27}{\Befehl{volumedatedelim} fixed}
 %    \begin{macrocode}
 \renewcommand*{\volumenumberdelim}{\addspace}
 \renewcommand*{\volumedatedelim}{\addcolon\addspace}
@@ -19837,7 +19844,7 @@
 % \end{macro}
 %
 % \begin{format}{volume}
-% \changes{2.3}{2020/12/27}{\Feld{volume}/\Feld{date} block fixed.
+% \changes{2.3}{2020/12/27}{\Feld{volume}/\Feld{date} block fixed}
 %    \begin{macrocode}
 \DeclareFieldFormat*{volume}{\addcomma\space\bibstring{volume}\addspace#1}
 \DeclareFieldFormat[article,periodical,review,suppperiodical]{volume}{\addspace#1}
@@ -26804,7 +26811,7 @@ proceedings,reference,inreference,mvreference,suppbook,suppcollection]{fullevent
 %    \begin{macrocode}
 \DeclareDatamodelFields[type=list,datatype=name]{anonstring}
 %    \end{macrocode}
-% \end{anonstring}
+% \end{format}
 %
 % \iffalse
 %</DBX>
