@@ -1,6 +1,6 @@
 % arara: pdflatex
 % arara: biber
-% arara: makeindex
+% arara: makeindex: { german: 1}
 % arara: pdflatex until !found('log', '\\(?(R|r)e\\)?run (to get|LaTeX)')
 % arara: clean: { extensions: [aux,log,out,toc,bbl,bcf,bgl,run.xml,idx,ind,ilg] }
 \documentclass[
@@ -163,6 +163,13 @@
 \DeclareCiteCommand{\citeorigdate}{\printorigdate}{}{}{}{}
 \newcommand{\DatumDemo}[1]{\citefield{#1}{userd} & \citeorigdate{#1}\\}
 \newcommand{\NamenDemo}[1]{\citefield{#1}[userd]{userc} & \citename{#1}[family-given]{namec}\\}
+% use a category to separate examples from secondary literature
+\DeclareBibliographyCategory{examples}
+\addtocategory{examples}{
+	steinmetz:strahl:wilbers:1979,
+	cossel:1933-35,
+	ib:domino:europa,
+}
 	
 %%% code listings
 \usepackage{listings}\lstloadlanguages{[LaTeX]TeX} % pretty-print code
@@ -317,7 +324,7 @@
 \Crefname{tab}{Tabelle}{Tabellen}
 
 % The following code was borrowed from https://tex.stackexchange.com/questions/376763/incomplete-iffalse-all-text-was-ignored-after-line-x-with-lstlisting
-% This patches a hard-to-track-down error with page breaks in listings only happening in PDFLaTeX.
+% This patches a hard-to-track-down error with page breaks in listings only observed in PDFLaTeX.
 \makeatletter
 \expandafter\let\csname active@char\string?\endcsname\relax
 \expandafter\let\csname active@char\string!\endcsname\relax
@@ -689,7 +696,7 @@ Es gibt noch drei besondere Datentypen von technischer Bedeutung:
 @BOOK(example-string2,
     series = "Beihefte zur " # ZAngewString # { und ihrer Vorgänger},)
 \end{lstlisting}
-Soll der String ein komplettes Feld ersetzen, verzichtet man auf Feldbegrenzer. das zweite beispiel zeigt, wie Ersetzungstext mit Hilfe des Trennzeichen \Kbd{and} in Text hineingestzt werden kann.
+Soll der String ein komplettes Feld ersetzen, verzichtet man auf Feldbegrenzer. das zweite Beispiel zeigt, wie Ersetzungstext mit Hilfe des Trennzeichen \Kbd{and} in Text hineingestzt werden kann.
 \item \Typ{preamble} kann Anweisungen für den Dokumentenheader aufnehmen. Ein typisches Szenario ist folgendes: Im Titel eines Werkes kommen Anführungsstriche vor. Die würde man natürlich gerne kontext- und sprachsensitiv mit dem \Paket{csquotes}-Paket setzen(\Befehl{enquote}). Andererseits ist in einer gemeinsam genutzten Projektdatenbank nicht klar, ob jeder dieses Paket wirklich laden will. Jetzt kann man so etwas tun:
 \begin{lstlisting}
 @PREAMBLE(\providecommand*{\enquote}[1]{"#1"})
@@ -1038,7 +1045,7 @@ Jetzt können folgende Spezialfälle auftreten:
 \item Der Name soll Bestandteil des Satzes sein, aber nicht weitere Bestandteile der Zitiermarke. Dafür stelle ich dem Zitierbefehl ein \texttt{text} voran: \Beispiel{\textcite{steinmetz:strahl:wilbers:1979} behaupten \textellipsis}
 \item Wenn das Zitat komplett ausgedruckt werden soll, stellt man dem Zitierbefehl ein \texttt{full} voran: \Beispiel{\fullcite{steinmetz:strahl:wilbers:1979}}
 \Befehl{smartcite} verhält sich innerhalb von Fußnoten wie \Befehl{parencite} und ansonsten wie \Befehl{footcite}: \Beispiel{\smartcite{steinmetz:strahl:wilbers:1979}\textellipsis\footnote{\smartcite{steinmetz:strahl:wilbers:1979}}}
-\item Man kann in jedem Stil ein Standardkommando einstellen, das dann mit \Befehl{autocite} aufgerufen werden kann. Bei einem Autor/Jahr-Stil führt es \Befehl{parencite} aus, bei einem Fußnotenstil \Befehl{footcite}. Vor allem guckt es aber, ob hinter ihm ein Satzzeichen folgt. Man kann dann im Stil einstellen, ob das Label vor oder hinter dem Satzzeichen angelegt werden soll. Das folgende Beispiel \Beispiel{Lorem ipsum \autocite{steinmetz:strahl:wilbers:1979}.} würde in den geisteswissenschaftlichen Stilen die Fußnote \emph{hinter} den Schlußpunkt setzen. Das kann man mit den Minimalbeispielen aus \cref{kap_mwe} ausprobieren.
+\item Wenn man noch nicht weiß, ob, inline, verbose oder numerisch zitiert werden soll, kann man den Befehl \Befehl{autocite} verwenden. Der wird dann, je nach dem, als \Befehl{parencite} oder \Befehl{footcite} übersetzt. Wenn als Fußnote eingestellt, guckt er außerdem, ob hinter sich ein Interpunktionszeichen folgt. Dann setzt er nämlich die Fußnote hinter dieses Zeichen -- probiert es mit dem Minimalbeispiel oben aus! Das funktioniert auch, wenn nicht-verbose-Stile ihre Label mit der Option \Option{notetype} in Fußnoten setzen. So praktisch das ist, unterliegt es doch engen Einschränkungen. In Autor/Jahr-Stilen kommt es häufig zu Verschränkungen des Labels mit dem Text. In Fußnoten hingegen gibt es mitunter ziemlich lange Prä- und Postnoten. Auf beides muß man weitgehend verzichten. Im Prinzip ergibt \Befehl{autocite} nur als zusatzloses Zitat am Satzende vor dem Interpunktionszeichen Sinn. Man beachte, daß es durchaus verschiedene Sichtweisen darauf gibt, wo die Fußnotenmarke stehen soll (\cref{kap_autopunct}).
 \end{itemize}
 
 Wenn man jetzt alle möglichen Kombinationen aus diesen Regeln erstellt, erhält man den wesentlichen Satz der Zitierkommandos von \blx{} :
@@ -1140,10 +1147,10 @@ In gleicher Weise als Umgebung wie als Kommando gibt es noch den \Kbd{refcontext
 Ein anderer häufiger Anwendungsfall sind thematisch geordnete Literaturverzeichnisse; in historischen Zusammenhängen typischerweise nach Quellen und Sekundärliteratur. Eine Möglichkeit wäre, die Quellen mit einem entsprechenden Schlagwort zu versehen und dann die Bibliographien nach diesem Schlagwort zu filtern. Das folgende Beispiel erstellt auch noch ein Softwareverzeichnis.
 \begin{lstlisting}
 \printbibliography[type=software,title=Softwareverzeichnis]
-\printbibliography[keyword=source,title={Verzeichnis der Primärquellen]
+\printbibliography[keyword=source,title={Verzeichnis der Primärquellen}]
 \printbibliography[notkeyword=source,nottype=software,heading=bibliography]
 \end{lstlisting}
-Die Filteroptionen \Option{type} und \Option{subtype} dürfen nur einmal, \Option{keyword}, \Option{category} und sämtliche Verneinungen auch mehrmals verwendet werden. Grund dafür ist, daß es sich um \enquote{und}-Verknüpfungen handelt.
+Die Filteroptionen \Option{type} und \Option{subtype} dürfen nur einmal, \Option{keyword}, \Option{category} und sämtliche Verneinungen auch mehrmals verwendet werden. Grund dafür ist, daß es sich um \enquote{und}-Verknüpfungen handelt. Mit Kategorien wurden in diesem Dokument das Verzeichnis der Beispiele von dem der Sekundärliteratur getrennt, weil sie räumlich durchmischt sind. Dafür deklariert man sie mit \Befehl{DeclareBibliographyCategory} und fügt ihr mit \Befehl{addtocategory} Einträge zu.
 
 Es gibt eine ganze Reihe weitere Optionen für das Feintuning der Literaturverzeichnisse, die wir hier nicht alle besprechen können. Daneben gibt es noch den Befehl \Befehl{printshorthands} für alle Einträge, die ein Feld \Feld{shorthand} haben. Grundsätzlich kann man sich auch eigene Verzeichnistypen bauen.
 
@@ -1335,7 +1342,7 @@ Manche Stile verlangen in bestimmten Fällen Ligaturen der Initialen der Vorname
 \begin{lstlisting}
 author = {Müller, {Th}\relax omas}
 \end{lstlisting}
-Das hat den Vorteil, daß es sortiert wird, aber den Nachteil, daß man es händisch in die Datenbanken eintragen muß. \archbib{} hat eine Option \Option{giveninitligatures}, der man eine Liste solcher Ligaturen übergeben kann, die dann bis zum ersten Treffer automatisch abgearbeitet wird (deshalb \enquote{Chr} vor \enquote{Ch}). Allerdings geschieht dies erst auf der \LaTeXi-Seite, wenn die Sortierung schon stattgefunden hat. T(rude) Meier müßte hier alphabetisch vor Th(orsten) Meier kommen, \Biber{} sortiert aber noch nach den vollständigen Vornamen. Solche Fälle sind selten und können mit dem \Feld{sortname}-Feld leicht repariert werden. Man muß aber beim Korrekturlesen wissen, daß so etwas passieren kann.
+Das hat den Vorteil, daß es sortiert wird, aber den Nachteil, daß man es händisch in die Datenbanken eintragen muß. \archbib{} hat eine Option \Option{giveninitligatures}, der man eine Liste solcher Ligaturen übergeben kann, die dann bis zum ersten Treffer automatisch abgearbeitet wird (deshalb \enquote{Chr} vor \enquote{Ch}). Allerdings geschieht dies erst auf der \LaTeXi-Seite, wenn die Sortierung schon stattgefunden hat. T[rude] Meier müßte hier alphabetisch vor Th[orsten] Meier kommen, \Biber{} sortiert aber noch nach den vollständigen Vornamen. Solche Fälle sind selten und können mit dem \Feld{sortname}-Feld leicht repariert werden. Man muß aber beim Korrekturlesen wissen, daß so etwas passieren kann.
 
 \paragraph{Trunkierung von Listen}
 Wenn die Option \Option{preservelastauthor} wahr ist, dann werden Namenslisten wie \Kbd{Müller AND Meier AND Schneider AND Schulze} statt mit \enquote{Müller, Meier u.\,a.} mit \enquote{Müller \textellipsis{} Schulze} trunkiert. Die Werte für \Option{maxnames} und \Option{minnames} gelten entsprechend.
@@ -1386,7 +1393,14 @@ Für die Examensschriften gibt es jeweils Varianten, die sie als ungedruckt mark
 Es gibt in den selbstständigen Schriften verschiedene Arten von Reihen. Im fachlichen Bereich von \archbib sollten nur wissenschaftliche Reihen mit Nummerierung ausgeben werden. Man erkennt sie meist daran, daß sie von Fachinstitutionen wie Denkmalpflegeämtern, Museen, Universitätsinstituten oder selbstständigen Forschungseinrichtungen herausgeben werden, die für die fachliche Qualitätssicherung innerhalb ihres Kompetenzrahmens haften. Nichtnummerierte Reihen sind bei den angelsächsischen Universitätsverlagen üblich, z.\,B. \Englisch{Approaches to Anthropological Archaeology} der \Englisch{Cambridge University Press}. \archbib{} ignoriert solche Reihen wegen des fehlenden \Feld{number}-Feldes. Da Serien im \archbib{}-Kosmos meistens nicht speziell ausgezeichnet sind, könnte man sie von Untertiteln gar nicht unterscheiden. Auch die Verlage fassen Teile ihres Programms gerne in Reihen zusammen (\enquote{Rowohlts Monographien}, \enquote{Zaberns Bildbände zur Archäologie}). Das dient einem einheitlichen Marketing und ganz gewiß nicht einer Qualitätssicherung unter wissenschaftlichen Gesichtspunkten, auch wenn man sich manchmal mit prominenten Herausgebern schmückt. So etwas wird in akademischen Literaturapparaten meistens ignoriert, und sie sind auch nicht im Abkürzungsverzeichnis der RGK gelistet. Wenn sie durchnummeriert sind, kann \archbib{} sie allerdings nicht selbstständig erkennen. Bei den \enquote{Universitätstaschenbüchern} (UTB) scheinen da latente Unsicherheiten zu bestehen, dabei ist das ziemlich eindeutig eine Verlagsreihe.
 
 \paragraph{Unterreihen}
+
 Unterreihen kommen typischerweise vor, wenn vielbändige Publikationen von Langzeitprojekten innerhalb bereits bestehender wissenschaftlicher Reihen publiziert werden sollen. Die \enquote{Römische-Germanischen Forschungen} z.\,B. haben die Subserien \enquote{Heuneburgstudien} und \enquote{Studien zur Küstenarchäologie Schleswig-Holsteins}. \archbib stellt dafür die Felder \Feld{subseries} und \Feld{subnumber} bereit.
+
+\subsection{Position der Fußnotenmarke}\label{kap_autopunct}
+
+Einige archäologische Stile haben die Regel, daß Fußnotenlabel im Text \emph{immer vor} dem Satzzeichen zu stehen haben. Das ist insoweit bemerkenswert, als der Duden hier eine sematische Differenzierung vornimmt: Demnach stehen Fußnoten hinter dem schließenden Satzzeichen, wenn sie sich auf den gesamten Satz beziehen, aber davor, wenn sie sich nur auf das letzte Wort bzw. die letzte Wortgruppe beziehen \autocite[108]{duden:25}. Sie können aber durchaus auch an beliebigen Worten stehen, insbesondere, wenn bei Aufzählungen die Elemente jeweils eigene Nachweise benötigen.
+
+Bei einigen Stilen von \archbib{} mußte deshalb der Positionstausch des Fußnotenlabels bei Verwendung von \Befehl{autocite} (vgl. \cref{kap_zitat}) aufgehoben werden. Mit der Option \Option{autopunct}\Kbd{=true} kann man das wieder anschalten.
 
 \subsection{Sonstiges}
 
@@ -1447,7 +1461,8 @@ Zuerst wird eine \Datei{*.bbl}-Datei erstellt. Dann wird \Paket{tex4ht} mit dem 
 
 Ansonsten sollte man auch Tabellen Bildunterschriften in der Quelldatei anlegen, selbst wenn man sie später in separaten Dateien ausliefern will, damit die guten Referenzierungsmöglichkeiten von \LaTeXi{} genutzt werden können. ich habe tatsächlich so schon Artikel erstellt, ohne daß die Redaktion gemerkt hätte, daß hier \LaTeXi{} benutzt wurde.
 
-\printbibliography
+\printbibliography[notcategory=examples,title=Sekundärliteratur]
+\printbibliography[category=examples,title=Zitierbeispiele]
 \printindex
 
 \end{document}

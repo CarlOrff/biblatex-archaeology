@@ -221,6 +221,7 @@
 % \changes{2.2}{2019/11/13}{Added new style \Stil{rgk-verbose-old}}
 % \changes{2.2}{2019/12/27}{\Datei{ctanify.pl} now TDS capable (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/4}{issue \#4})}
 % \changes{2.3}{2020/06/14}{Log complete \Datei{ctanify.pl} shell output (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/25}{issue \#25})}
+% \changes{2.3}{2021/04/04}{Option \Option{autopunct} switches off in some styles}
 %
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -1658,9 +1659,9 @@
 % The same disambiguition problems with truncated given names arise in verbose styles on two occasions. \Option{idemincitation} is in fact dashing in citations. The same advice applies here: restrict
 % the corresponding database entries to initials. The other case are back references in Stil{verbose-trad2note-archaeology}. Use the \Option{labeltitle} entry option here.
 %
-% \subsection{language issues}
+% \subsection{Language issues}
 %
-% \subsection{The \Feld{language} field}
+% \subsubsection{The \Feld{language} field}
 %
 % \archbib styles never print languages. But in some cases the \Feld{language} field influences the localization of a particular entry.
 % Therefore it is useful to provide it, especially if it differs from the main document language.
@@ -1733,6 +1734,13 @@
 % \Kbd{<datamodel>\textellipsis</datamodel>} group in \Biber's \Kbd{*.conf} file by it. If you do not know where it is located, you
 % can retrieve the path by calling \Biber with the single option \Kbd{--}\Option{tool-config}. If you do not want to manipulate 
 % the original file, copy it to a new one and call \Biber with option \Kbd{--}\Option{configfile}\Kbd{ /path/to/custom/biber.conf}.
+%
+% \subsection{Autopunctuation with \Befehl{autocite}}
+%
+% \Befehl{autocite} is an alias for \Befehl{parencite} or \Befehl{footcite}, depending upon the style. By default it reverses footnote marks and immediate punctuation marks.
+% This even works if non-verbose styles wrap their labels into footnotes through option \Option{notetype}.
+% Some of the \archbib' verbose styles prefer the footnote mark ahead of punctuation marks, although this is questionable in the light of German standard rules
+% \autocite[108]{duden:25}. In order to restore \blx' default behaviour, set option \Option{autopunct}\Kbd{=true}.
 %
 % \PrintChanges\pagestyle{fancy}
 % %\nocite{guidelines:ethno:ffm,guidelines:ethno:goe:2014,guidelines:aaa:2009,guidelines:rlm:trier,guidelines:kunstgeschichte:goettingen,guidelines:kunstgeschichte:freiburg,guidelines:aja,guidelines:schlagworte:dai,guidelines:egypt:goe,grando:bernhard:2003,schopf:oJ,schwarz:2004,spycher:2017,guidelines:mediaevistik:oldenburg,rak-wb:2007}
@@ -20620,6 +20628,7 @@
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
     autocite=footnote,
+	autopunct=false,
     uniquename=false,
     uniquelist=false,
 }
@@ -21363,6 +21372,7 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
+	autopunct=false,
     citepages=omit, % permit|suppress|omit|separate
 }
 %    \end{macrocode}
@@ -21468,6 +21478,7 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
+	autopunct=false,
     citepages=omit, % permit|suppress|omit|separate
 }
 %    \end{macrocode}
@@ -21496,6 +21507,7 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
+	autopunct=false,
     citepages=omit, % permit|suppress|omit|separate
 }
 %    \end{macrocode}
