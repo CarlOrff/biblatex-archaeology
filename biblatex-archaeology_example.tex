@@ -6,6 +6,8 @@
 \RequirePackage{scrlfile}
 \ReplacePackage{scrpage2}{scrlayer-scrpage}
 \documentclass[a4paper,12pt]{scrartcl}
+% check if it is a biblatex-archaeology style:
+\newcommand{\ifblxarch}[2]{\ifcsdef{strongcitedelim}{#1}{#2}}
 % no fontenc support by tex4ht:
 \newcommand{\IfTeXforHt}[2]{\ifdefined\HCode#1\else#2\fi} % detect tex4ht
 \usepackage{iftex}
@@ -83,7 +85,7 @@
     %style=historian,
     %style=historische-zeitschrift,
     %style=ijsra,
-    %style=musuos,
+    style=musuos,
     %style=numeric-comp,
     %style=verbose-trad1,
     %style=verbose-trad2,
@@ -105,7 +107,7 @@
     %style=dguf-apa,
     %style=eaz,
     %style=eaz-alt,
-    style=foe,
+    %style=foe,
     %style=jb-halle,
     %style=jb-kreis-neuss,
     %style=karl,
@@ -199,15 +201,7 @@
 
 \section{Blindtext}
 
-\ifcsdef{blxarch@fork@authordate}
-    {Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat \autocite{auler:hiller:2015}. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi \autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}[69]{auler:hiller:2011}. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit \tvolcite{1}[156]{linnaeus:2003} lobortis nisl ut aliquip ex ea commodo consequat \autocite{kenmore}. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat \autocites[73--75]{mueller:f:1991}[105--108]{mueller:a:1991}[68--70]{mueller:h:1900}[61]{mueller:har:1988}, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi \autocite{kenmore}. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum \autocite[145--146]{todorova:et:al:1981}.}
-    {\ifcsdef{blxarch@fork@verbose}
-        {Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.\autocite{auler:hiller:2015} Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}[69]{auler:hiller:2011} Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam\autocites[103]{ib:2016}[266--268]{boppert:1998}[108]{ib:2016}, quis nostrud exerci tation ullamcorper suscipit\fvolcite{1}[156]{linnaeus:2003} lobortis nisl ut aliquip ex ea commodo consequat.\autocite{kenmore} Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum\autocite[103]{ib:2016} zzril delenit augue duis dolore te feugait nulla facilisi.\autocite{kenmore} Nam liber tempor cum soluta nobis eleifend\autocite[41--43]{auler:hiller:2015} option congue nihil imperdiet\autocite[19]{de:neck:yoder:1978} doming id quod mazim placerat facer possim assum.\autocite[145--146]{todorova:et:al:1981}}
-        {\ifcsdef{blxarch@fork@numeric}
-            {Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat \autocite{auler:hiller:2015}. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi \autocite{auler:hiller:2011,auler:hiller:2015a,auler:hiller:2015,auler:hiller:2016,tacitus:1981,de:neck:yoder:1978}. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit  lobortis nisl ut aliquip ex ea commodo consequat \autocite{kenmore}. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat \autocites[73--75]{mueller:f:1991}[105--108]{mueller:a:1991}[68--70]{mueller:h:1900}[61]{mueller:har:1988}, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi \autocite{kenmore}. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum \autocite{todorova:et:al:1981}.}
-            {}%
-        }%
-    }%
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat \autocite{auler:hiller:2015}. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi \autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}[69]{auler:hiller:2011}. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit \tvolcite{1}[156]{linnaeus:2003} lobortis nisl ut aliquip ex ea commodo consequat \autocite{kenmore}. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat \autocites[73--75]{mueller:f:1991}[105--108]{mueller:a:1991}[68--70]{mueller:h:1900}[61]{mueller:har:1988}, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi \autocite{kenmore}. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum \autocite[145--146]{todorova:et:al:1981}.
 
 \section{Citation commands}
 
@@ -272,94 +266,94 @@
     \item[\footnotesize\Befehl{citeurl}] \citeurl{kenmore}
     \item[\footnotesize\Befehl{fullcite}] \fullcite{auler:hiller:2015}
     \item[\footnotesize\Befehl{footfullcite}] \footfullcite[159--187]{auler:hiller:2015}
-    \item[\footnotesize\Befehl{shortformcite}] \ifcsdef{shortformcite}
+    \item[\footnotesize\Befehl{shortformcite}] \ifblxarch
         {\shortformcite[433]{bauchhenss:et:al:1978}}
         {\textbf{undefined!}}%
-    \item[\footnotesize\Befehl{shortformcites}] \ifcsdef{shortformcites}
+    \item[\footnotesize\Befehl{shortformcites}] \ifblxarch
         {\shortformcites[433]{bauchhenss:et:al:1978}[501]{authen-blom:1989}}
         {\textbf{undefined!}}%
-    \item[\footnotesize\Befehl{sfcite}] \ifcsdef{sfcite}
+    \item[\footnotesize\Befehl{sfcite}] \ifblxarch
         {\sfcite[433]{bauchhenss:et:al:1978}}
         {\textbf{undefined!}}%
-    \item[\footnotesize\Befehl{sfcites}] \ifcsdef{sfcites}
+    \item[\footnotesize\Befehl{sfcites}] \ifblxarch
         {\sfcites[433]{bauchhenss:et:al:1978}[501]{authen-blom:1989}}
         {\textbf{undefined!}}%
-    \item[\footnotesize\Befehl{posscite}] \ifcsdef{posscite}
+    \item[\footnotesize\Befehl{posscite}] \ifblxarch
         {\posscite[48]{auler:hiller:2015a}}
         {\textbf{undefined!}}%
-    \item[\footnotesize\Befehl{posscites}] \ifcsdef{posscites}
+    \item[\footnotesize\Befehl{posscites}] \ifblxarch
         {\posscites[48]{auler:hiller:2015a}[19]{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
         {\textbf{undefined!}}%
-    \item[\footnotesize\Befehl{Posscite}] \ifcsdef{Posscite}
+    \item[\footnotesize\Befehl{Posscite}] \ifblxarch
         {\Posscite[48]{auler:hiller:2015a}}
         {\textbf{undefined!}}%
-    \item[\footnotesize\Befehl{Posscites}] \ifcsdef{Posscites}
+    \item[\footnotesize\Befehl{Posscites}] \ifblxarch
         {\Posscites[48]{auler:hiller:2015a}[19]{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{possvolcite}] \ifcsdef{possvolcite}
+	\item[\footnotesize\Befehl{possvolcite}] \ifblxarch
         {\possvolcite{2}[34--36]{van:der:linde:1874}}
         {\textbf{undefined!}}%
-    \item[\footnotesize\Befehl{possvolcites}] \ifcsdef{possvolcites}
+    \item[\footnotesize\Befehl{possvolcites}] \ifblxarch
         {\possvolcites{2}[34--36]{van:der:linde:1874}{1}[156]{linnaeus:2003}}
         {\textbf{undefined!}}%
-    \item[\footnotesize\Befehl{Possvolcite}] \ifcsdef{Possvolcite}
+    \item[\footnotesize\Befehl{Possvolcite}] \ifblxarch
         {\Possvolcite{2}[34--36]{van:der:linde:1874}}
         {\textbf{undefined!}}%
-    \item[\footnotesize\Befehl{Possvolcites}] \ifcsdef{Possvolcites}
+    \item[\footnotesize\Befehl{Possvolcites}] \ifblxarch
         {\Possvolcites{2}[34--36]{van:der:linde:1874}{1}[156]{linnaeus:2003}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{citeissue}] \ifcsdef{citeissue}
+	\item[\footnotesize\Befehl{citeissue}] \ifblxarch
         {\citeissue[48]{bericht:rgk:1988}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{fciteissue}] \ifcsdef{fciteissue}
+	\item[\footnotesize\Befehl{fciteissue}] \ifblxarch
         {\fciteissue[48]{bericht:rgk:1988}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{pciteissue}] \ifcsdef{pciteissue}
+	\item[\footnotesize\Befehl{pciteissue}] \ifblxarch
         {\pciteissue[48]{bericht:rgk:1988}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{citeissues}] \ifcsdef{citeissues}
+	\item[\footnotesize\Befehl{citeissues}] \ifblxarch
         {\citeissues[48]{bericht:rgk:1988}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{fciteissues}] \ifcsdef{fciteissues}
+	\item[\footnotesize\Befehl{fciteissues}] \ifblxarch
         {\fciteissues[48]{bericht:rgk:1988}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{pciteissues}] \ifcsdef{pciteissues}
+	\item[\footnotesize\Befehl{pciteissues}] \ifblxarch
         {\pciteissues[48]{bericht:rgk:1988}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{reviewcite}] \ifcsdef{reviewcite}
+	\item[\footnotesize\Befehl{reviewcite}] \ifblxarch
         {\reviewcite[19]{de:neck:yoder:1978}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{previewcite}] \ifcsdef{previewcite}
+	\item[\footnotesize\Befehl{previewcite}] \ifblxarch
         {\previewcite[48]{auler:hiller:2015a}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{textreviewcite}] \ifcsdef{textreviewcite}
+	\item[\footnotesize\Befehl{textreviewcite}] \ifblxarch
         {\textreviewcite{buss:2004}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{Reviewcite}] \ifcsdef{Reviewcite}
+	\item[\footnotesize\Befehl{Reviewcite}] \ifblxarch
         {\Reviewcite[19]{de:neck:yoder:1978}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{Previewcite}] \ifcsdef{Previewcite}
+	\item[\footnotesize\Befehl{Previewcite}] \ifblxarch
         {\previewcite[48]{de:neck:yoder:1978}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{Textreviewcite}] \ifcsdef{Textreviewcite}
+	\item[\footnotesize\Befehl{Textreviewcite}] \ifblxarch
         {\textreviewcite{de:neck:yoder:1978}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{reviewcites}] \ifcsdef{reviewcites}
+	\item[\footnotesize\Befehl{reviewcites}] \ifblxarch
         {\reviewcites[19]{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{previewcites}] \ifcsdef{previewcites}
+	\item[\footnotesize\Befehl{previewcites}] \ifblxarch
         {\previewcites[48]{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{textreviewcites}] \ifcsdef{textreviewcites}
+	\item[\footnotesize\Befehl{textreviewcites}] \ifblxarch
         {\textreviewcites{de:neck:yoder:1978}[123]{buss:2004}{nass:1938}[123]{sterk:1777}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{Reviewcites}] \ifcsdef{Reviewcites}
+	\item[\footnotesize\Befehl{Reviewcites}] \ifblxarch
         {\Reviewcites[19]{de:neck:yoder:1978}[123]{sterk:1777}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{Previewcites}] \ifcsdef{Previewcites}
+	\item[\footnotesize\Befehl{Previewcites}] \ifblxarch
         {\Previewcites[48]{de:neck:yoder:1978}[123]{sterk:1777}{nass:1938}{caselitz:1980a}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
         {\textbf{undefined!}}%
-	\item[\footnotesize\Befehl{Textreviewcites}] \ifcsdef{Textreviewcites}
+	\item[\footnotesize\Befehl{Textreviewcites}] \ifblxarch
         {\Textreviewcites{de:neck:yoder:1978}[123]{sterk:1777}{nass:1938}[123]{sterk:1777}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
         {\textbf{undefined!}}%
 \end{enumerate}
@@ -559,14 +553,16 @@
 \subsection{\Typ{Periodical}}
 \begin{itemize}
 	\item\fullcite{bericht:rgk:1988}%
-    \item\citeissue{bericht:rgk:1988}%
-	\item\pciteissue{bericht:rgk:1988}%
-	\item\fciteissue{bericht:rgk:1988}%
+	\ifblxarch{
+		\item\citeissue{bericht:rgk:1988}%
+		\item\pciteissue{bericht:rgk:1988}%
+		\item\fciteissue{bericht:rgk:1988}%
+	}{}
 \end{itemize}
 
 %\printshorthands
-\printbibliography
-%\printbibliography[env=leftmarginbibliography]
+\printbibliography[title=Standardliteraturverzeichnis]
+\ifblxarch{\printbibliography[env=leftmarginbibliography,title={Verzeichnis im alten RGK-Stil}]}{}
 
 %\xshowbibdriver{inbook}
 %\xshowbibmacro{title}
