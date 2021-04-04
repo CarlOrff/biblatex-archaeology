@@ -1448,7 +1448,7 @@ In der Archäologie ist \App{Pandoc} als Bestandteil von \App{RStudio} verbreite
 
 \section{\Paket{tex4ht}}
 
-\Paket{tex4ht} ist ein Konverter, um \LaTeXi-Dokumente in XML-Formate zu konvertieren. Unter anderen auch HTML und ODT. letzeres ist interessant, weil es sich mit \App{LibreOffice} nahezu verlustfrei in in das \App{MS~Word}-Format DOC(X)  (oder auch RTF) konvertieren läßt, das in der Regel von archäologischen Zeitschriften gefordert wird. Jetzt ist es so, daß \LaTeXi{} ein sehr viel reichhaltigeres Format als diese ist. Vieles läßt sich kaum konvertieren oder nur mit Tricks (mathematische Formeln z\,B. werden als Grafiken ausgegeben). Wenn man allerdings ein Manuskript für einen Zeitschriftenaufsatz erstellt, braucht man auch nur ganz wenige Formate.
+\Paket{tex4ht} ist ein Konverter, um \LaTeXi-Dokumente in XML-Formate zu konvertieren. Unter anderen auch HTML und ODT. Letzeres ist interessant, weil es sich mit \App{LibreOffice} nahezu verlustfrei in in das \App{MS~Word}-Format DOC(X) oder auch RTF(X) konvertieren läßt, das in der Regel von archäologischen Zeitschriften gefordert wird. Jetzt ist es so, daß \LaTeXi{} ein sehr viel reichhaltigeres Format als diese ist. Vieles läßt sich kaum konvertieren oder nur mit Tricks (mathematische Formeln z\,B. werden als Grafiken ausgegeben). Wenn man allerdings ein Manuskript für einen Zeitschriftenaufsatz erstellt, braucht man auch nur ganz wenige Formate.
 
 \Paket{tex4ht} konvertiert \blx{} mittlerweile ziemlich gut. Früher mußte es nach jeder neuen \blx-Version erstmal neu angepaßt werden, weswegen man unbedingt ein Backup einer funktionierenden Version behalten sollte, wenn man auf diesen Workflow angewiesen ist. Zuletzt war das allerdings nicht mehr der Fall. Die besten Ergebnisse habe bei der Konvertierung des Beispieltextes von \archbib{} habe ich mit folgendem Workflow erzielt:
 \begin{lstlisting}
@@ -1459,7 +1459,7 @@ $ make4ht -ulf odt biblatex-archaeology_example.tex
 
 Zuerst wird eine \Datei{*.bbl}-Datei erstellt. Dann wird \Paket{tex4ht} mit dem Batchskript \Paket{make4ht} aufgerufen. Heraus kommt eine \Datei{biblatex-archaeology_example.odt}, die man mit \App{LibreOffice} oder \App{MS~Word} öffnen und dann als DOC(X) oder RTF speichern kann. Dabei tritt vor allem ein Problem zu Tage: Manchmal fehlen (nur!) im Literaturapparat Lehrzeichen oder sind zuviel. Das ist beim Korrekturlesen leicht zu entdecken, denn die Muster fallen deutlich ins Auge. Zudemm kommen sie in natürlichsprachlichen Zusammenhängen normalerweise nicht vor, weswegen man an automatisierte Korrekturmakros denken könnte, bis das -- ziemlich hartnäckige -- Problem auf der \LaTeXi-Seite gelöst worden ist.
 
-Ansonsten sollte man auch Tabellen Bildunterschriften in der Quelldatei anlegen, selbst wenn man sie später in separaten Dateien ausliefern will, damit die guten Referenzierungsmöglichkeiten von \LaTeXi{} genutzt werden können. ich habe tatsächlich so schon Artikel erstellt, ohne daß die Redaktion gemerkt hätte, daß hier \LaTeXi{} benutzt wurde.
+Ansonsten sollte man auch Tabellen in der Quelldatei anlegen, selbst wenn man sie später in separaten Dateien ausliefern will, damit die guten Referenzierungsmöglichkeiten von \LaTeXi{} genutzt werden können. Ich habe tatsächlich so schon Artikel erstellt, ohne daß die Redaktion gemerkt hätte, daß hier \LaTeXi{} genutzt wurde.
 
 \printbibliography[notcategory=examples,title=Sekundärliteratur]
 \printbibliography[category=examples,title=Zitierbeispiele]
