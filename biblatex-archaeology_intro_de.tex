@@ -538,7 +538,15 @@ Mit Hilfe der Optionen \Option{citestyle} und \Option{bibstyle} kann man theoret
 
 Wenn man sich informieren will, welche zusätzlichen Stile es gibt, ist das Verzeichnis \href{https://www.ctan.org/tex-archive/macros/latex/contrib/biblatex-contrib/}{\Kbd{CTAN:macros/latex/contrib/biblatex-contrib/}} der geeignete Anlaufpunkt. Stand November 2020 sind dort 67 Stilpakete gelistet, von denen einige aber vermutlich mangels aktiver Pflege nicht mehr funktionieren. Man sieht aber schon beim Überfliegen, daß deutsche Geisteswissenschaften gut vertreten sind; vermutlich, weil diese vergleichsweise hohe typographische Ansprüche haben.
 
+\subsection{Datenquellen}
 
+\BibTeX-Datenbanken fügt man einem Dokument hinzu, indem man im Header den \Befehl{addbibresource} beliebig oft aufruft. Datenbanken im Dokumentenordner oder im Pfad \Datei{\%TEXMF/bibtex/bib/<Paket>/} kann man ohne Pfadangabe angeben. Es ist sogar möglich, URLs anzugeben, auch wenn es schwierig ist, sich dafür neine sinnvolle Anwendung vorzustellen.
+
+\begin{lstlisting}
+\addbibresource{biblatex-examples.bib}
+\addbibresource{/path/to/references.bib}
+\addbibresource{https://example.com/references.bib}
+\end{lstlisting}
 
 \subsection{Optionen}
 \blx{} hat eine Unmenge von Paketoptionen. Vermutlich werden die wenigsten davon von Endanwendern benutzt werden, weswegen es wohl keinen Sinn ergibt, hier alle aufzulisten. Ich fasse sie in Funktionsgruppen zusammen, damit man weiß, welche Möglichkeiten man hat.
