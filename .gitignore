@@ -226,3 +226,8 @@ biblatex-archaeology_example-ent.*
 
 # Nextcloud
 *_conflict-*
+
+# back up
+*.bat~
+*.log~
+*.tex~

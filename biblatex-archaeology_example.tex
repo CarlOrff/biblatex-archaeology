@@ -85,7 +85,7 @@
     %style=historian,
     %style=historische-zeitschrift,
     %style=ijsra,
-    style=musuos,
+    %style=musuos,
     %style=numeric-comp,
     %style=verbose-trad1,
     %style=verbose-trad2,
@@ -123,7 +123,7 @@
     %style=rgzm-inline,
     %style=rgzm-numeric,
     %style=rgzm-verbose,
-	%style=rgk-inline-old,
+	style=rgk-inline-old,
     %style=rgk-numeric-old,
     %style=rgk-verbose-old,
     %style=ufg-muenster-inline,
@@ -182,6 +182,24 @@
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
+% \begin{environment}{leftmarginbibliography}
+% Sets labels into an extra column.
+%    \begin{macrocode}
+\defbibenvironment{leftmarginbibliography}
+    {\list
+        {\printtext[labelnamedatewidth]{%
+            \begingroup\parbox[t]{\labelnamedatewidth}{\raggedright\usebibmacro{repeatlabel}}\endgroup}}
+        {\setlength{\labelwidth}{\labelnamedatewidth}%
+            \setlength{\leftmargin}{\labelwidth}%
+            \setlength{\labelsep}{\biblabelsep}%
+            \addtolength{\leftmargin}{\labelsep}%
+            \setlength{\itemsep}{\bibitemsep}%
+            \setlength{\parsep}{\bibparsep}}%
+            \renewcommand*{\makelabel}[1]{##1\hss}}
+    {\endlist}
+    {\item\renewbibmacro{repeatlabel}{}\renewcommand*{\repeatlabeldelim}{}}%
+%    \end{macrocode}
+% \end{environment}
 
 %%% END EXPERIMENTAL CODE
 \makeatother
@@ -205,7 +223,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
 
 \section{Citation commands}
 
-\begin{enumerate}
+\begin{description}
     \item[\footnotesize\Befehl{cite}] \cite[159--187]{auler:hiller:2015}
     \item[\footnotesize\Befehl{Cite}] \Cite[159--187]{auler:hiller:2015}
     \item[\footnotesize\Befehl{cite*}] \cite*[159--187]{auler:hiller:2015}
@@ -222,7 +240,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
         {\supercite[433]{bauchhenss:et:al:1978}}
         {\textbf{undefined!}}%
     \item[\footnotesize\Befehl{footcite}] \footcite[159--187]{auler:hiller:2015}
-	\item[\footnotesize\Befehl{footcitetext}] \footcitetext[159--187]{auler:hiller:2015}
+	\item[\footnotesize\Befehl{footcitetext}] Does not increment footnote counter!\footcitetext[159--187]{auler:hiller:2015}
     \item[\footnotesize\Befehl{smartcite}] \smartcite[159--187]{auler:hiller:2015}
     \item[\footnotesize\Befehl{Smartcite}] \smartcite[159--187]{auler:hiller:2015}
     \item[\footnotesize\Befehl{cites}] \cites[159--187]{auler:hiller:2015}
@@ -230,7 +248,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
     \item[\footnotesize\Befehl{autocites}] \autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
     \item[\footnotesize\Befehl{Autocites}] \Autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
 	\item[\footnotesize\Befehl{footcites}] \footcites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
-	\item[\footnotesize\Befehl{footcitetexts}] \footcitetexts[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
+	\item[\footnotesize\Befehl{footcitetexts}] Does not increment footnote counter!\footcitetexts[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
     \item[\footnotesize\Befehl{parencites}] \parencites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
     \item[\footnotesize\Befehl{Parencites}] \Parencites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
     \item[\footnotesize\Befehl{textcites}] \textcites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}
@@ -356,7 +374,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
 	\item[\footnotesize\Befehl{Textreviewcites}] \ifblxarch
         {\Textreviewcites{de:neck:yoder:1978}[123]{sterk:1777}{nass:1938}[123]{sterk:1777}[187--190]{molleson:cox:1993}[11--12]{steinmetz:strahl:wilbers:1979}{domino:1780}}
         {\textbf{undefined!}}%
-\end{enumerate}
+\end{description}
 
 
 \section{Ligatures}
@@ -562,7 +580,11 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
 
 %\printshorthands
 \printbibliography[title=Standardliteraturverzeichnis]
-\ifblxarch{\printbibliography[env=leftmarginbibliography,title={Verzeichnis im alten RGK-Stil}]}{}
+\ifblxarch
+	{\ifcsdef{blxarch@fork@authordate}
+		{\printbibliography[env=leftmarginbibliography,title={Verzeichnis im alten RGK-Stil}]}
+		{}}
+	{}%
 
 %\xshowbibdriver{inbook}
 %\xshowbibmacro{title}

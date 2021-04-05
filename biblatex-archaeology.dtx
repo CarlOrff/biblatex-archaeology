@@ -79,6 +79,7 @@
 \renewcommand{\appendixpagename}{\textcolor{\headingscolor}{\appendixtocname}}
 \doxitem{Option}{option}{options}
 \doxitem{Format}{format}{formats}
+\doxitem{Environment}{environment}{environments}
 \doxitem{Bibliographydriver}{bibliographydriver}{bibliographydrivers}
 \doxitem{Bibmacro}{bibmacro}{bibmacros}
 \doxitem{Localization}{localization}{localizations}
@@ -983,6 +984,21 @@
 %
 % \item[]\DescribeFormat{lnyvt}
 % The same as in \blx, but considers the \Feld{anonstring} field.
+%
+% \end{itemize}
+% 
+% \subsection{New bibliography environment}
+%
+% \begin{itemize}
+%
+% \item[]\DescribeEnvironment{leftmarginbibliography}
+% The 1991 RGK guidelines display a bibliography for their author/year style where labels reside in a a left column. This is quite usual with
+% alphabetic or numeric styles where labels are utterly short. It is not recommendable in author/year schemes. However, with \Environment{leftmarginbibliography}
+% it is possible to do so (it will throw an error in other style families). Use \Befehl{labelnamedatewidth} to set the width of the left column.
+% \begin{Beispiel}
+%   \Kbd{\detokenize{\setlength{\labelnamedatewidth}{0.5\linewidth}}\\
+%   \detokenize{\printbibliography[env=leftmarginbibliography,title={RGK old style bibliography}]}}
+% \end{Beispiel}
 %
 % \end{itemize}
 % 
@@ -8533,21 +8549,12 @@
 % \end{format}
 %
 % \begin{environment}{leftmarginbibliography}
-% Sets labels into an extra column.
+% \changes{2.3}{2021/04/05}{\Kbd{leftmarginbibliography} only in authordate styles}
 %    \begin{macrocode}
 \defbibenvironment{leftmarginbibliography}
-    {\list
-        {\printtext[labelnamedatewidth]{%
-            \usebibmacro{repeatlabel}}}
-        {\setlength{\labelwidth}{\labelnamedatewidth}%
-            \setlength{\leftmargin}{\labelwidth}%
-            \setlength{\labelsep}{\biblabelsep}%
-            \addtolength{\leftmargin}{\labelsep}%
-            \setlength{\itemsep}{\bibitemsep}%
-            \setlength{\parsep}{\bibparsep}}%
-            \renewcommand*{\makelabel}[1]{##1\hss}}
-    {\endlist}
-    {\item}%
+    {}
+    {}
+    {\blxarch@errmsg{\MessageBreak env=leftmarginbibliography only in author/date styles!}}%
 %    \end{macrocode}
 % \end{environment}
 %
@@ -13319,6 +13326,25 @@
 % \end{bibmacro}
 % \end{bibmacro}
 % \end{bibmacro}
+%
+% \begin{environment}{leftmarginbibliography}
+% Sets labels into an extra column.
+%    \begin{macrocode}
+\defbibenvironment{leftmarginbibliography}
+    {\list
+        {\printtext[labelnamedatewidth]{%
+            \usebibmacro{repeatlabel}}}
+        {\setlength{\labelwidth}{\labelnamedatewidth}%
+            \setlength{\leftmargin}{\labelwidth}%
+            \setlength{\labelsep}{\biblabelsep}%
+            \addtolength{\leftmargin}{\labelsep}%
+            \setlength{\itemsep}{\bibitemsep}%
+            \setlength{\parsep}{\bibparsep}}%
+            \renewcommand*{\makelabel}[1]{##1\hss}}
+    {\endlist}
+    {\item\renewbibmacro{repeatlabel}{}\renewcommand*{\repeatlabeldelim}{}}%
+%    \end{macrocode}
+% \end{environment}
 %
 % \iffalse
 %</authoryearsharedBBX>
