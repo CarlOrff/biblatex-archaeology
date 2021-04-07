@@ -11,7 +11,6 @@ SET engine=lualatex
 %engine% -file-line-error -halt-on-error biblatex-archaeology_example
 %biber% --trace biblatex-archaeology_example
 %engine% -file-line-error -halt-on-error biblatex-archaeology_example
-makeindex -c biblatex-archaeology_example.idx
 %engine% -file-line-error -halt-on-error biblatex-archaeology_example
 texworks biblatex-archaeology_example.pdf
 pause>nul

@@ -231,3 +231,5 @@ biblatex-archaeology_example-ent.*
 *.bat~
 *.log~
 *.tex~
+
+*.4ht

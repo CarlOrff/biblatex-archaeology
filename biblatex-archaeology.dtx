@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 % !TEX program = pdfLaTeX
 %
-% Copyright (C) 2005-2020 by Ingram Braun
+% Copyright (C) 2005-2021 by Ingram Braun
 %
 % This file may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either
@@ -9812,7 +9812,7 @@
 % \begin{bibmacro}{finentry}
 % End of an entry.
 %    \begin{macrocode}
-\xpretobibmacro{finentry}{%
+\xapptobibmacro{finentry}{%
    \let\mkbibnamegiven\blxarch@buffer@list@namegiven%
    \let\mkbibnamefamily\blxarch@buffer@list@nameprefix%
    \let\mkbibnameprefix\blxarch@buffer@list@namefamily%
@@ -12327,7 +12327,6 @@
 % is appended to \Format{finentry}).
 %    \begin{macrocode}
 \newbibmacro*{labeldate+edition}{%
-    \begin{tabbedlabeldate}%
     \ifpositionlabeldate{location}
         {}
         {\printtext[labeldateparens]{%
@@ -12634,12 +12633,6 @@
 %
 % \subsubsubsection{Tabbed bibliography list}
 %
-%    \begin{macrocode}
-\RequirePackage{array}
-\RequirePackage{calc}
-\RequirePackage{tabulary}
-%    \end{macrocode}
-%
 % \begin{option}{tabbedlabeldate}
 % =\meta{bool}\\
 % if \Kbd{true}, the bibliography is set in a tabbed environment.
@@ -12669,21 +12662,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{environment}{tabbedlabeldate}
-% There remains a small indentation if if we use \LaTeX' inbuild \Environment{tabular} environment.
-%    \begin{macrocode}
-\newenvironment{tabbedlabeldate}
-    {\iftabbedlabeldate
-        {\newline%
-         \tabulary{\textwidth}
-            {@{\hspace{0em}}p{\tabbedlabeldatewidth}@{\hspace{0em}}p{\textwidth-\tabbedlabeldatewidth}@{\hspace{0em}}}%
-         \midsentence}
-        {}%
-    }
-    {\iftabbedlabeldate{\endtabulary}{}}
-%    \end{macrocode}
-% \end{environment}
-%
 % \begin{macro}{\tabbedlabeldatewidth}
 % Tab length in \Environment{tabbedlabeldate} environment.
 %    \begin{macrocode}
@@ -12691,6 +12669,49 @@
 \setlength{\tabbedlabeldatewidth}{3em}
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{environment}{blxarch@bibitembox}
+% This is a wrapper around bibitems in order to put them into \Befehl{parbox}-like structures.
+%    \begin{macrocode}
+\newenvironment{blxarch@bibitembox}
+	{}
+	{}
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{bibliographydriver}{article}
+% \begin{bibliographydriver}{book}
+% \begin{bibliographydriver}{inbook}
+% \begin{bibliographydriver}{inreference}
+% \begin{bibliographydriver}{misc}
+% \begin{bibliographydriver}{online}
+% \begin{bibliographydriver}{periodical}
+% \begin{bibliographydriver}{thesis}
+% \begin{bibliographydriver}{unpublished}
+%    \begin{macrocode}
+\def\blxarch@set@bibitembox#1{%
+	\xpretobibdriver{#1}{\begin{blxarch@bibitembox}}{}{Prepending bibitembox to driver #1 failed!}%
+	\xapptobibdriver{#1}{\end{blxarch@bibitembox}}{}{Appending bibitembox to driver #1 failed!}%
+}
+\blxarch@set@bibitembox{article}
+\blxarch@set@bibitembox{book}
+\blxarch@set@bibitembox{inbook}
+\blxarch@set@bibitembox{inreference}
+\blxarch@set@bibitembox{misc}
+\blxarch@set@bibitembox{online}
+\blxarch@set@bibitembox{periodical}
+\blxarch@set@bibitembox{thesis}
+\blxarch@set@bibitembox{unpublished}
+%    \end{macrocode}
+% \end{bibliographydriver}
+% \end{bibliographydriver}
+% \end{bibliographydriver}
+% \end{bibliographydriver}
+% \end{bibliographydriver}
+% \end{bibliographydriver}
+% \end{bibliographydriver}
+% \end{bibliographydriver}
+% \end{bibliographydriver}
 %
 % \subsubsubsection{Publication serieses}
 %
@@ -13193,46 +13214,6 @@
 % \end{option}
 % \end{option}
 %
-% \begin{bibliographydriver}{article}
-% \begin{bibliographydriver}{book}
-% \begin{bibliographydriver}{inbook}
-% \begin{bibliographydriver}{inreference}
-% \begin{bibliographydriver}{misc}
-% \begin{bibliographydriver}{online}
-% \begin{bibliographydriver}{periodical}
-% \begin{bibliographydriver}{thesis}
-% \begin{bibliographydriver}{unpublished}
-% We are going to reimplement \Feld{volume} formatting.
-%    \begin{macrocode}
-\def\blxarch@settabbedlabeldate#1{%
-    \xpatchbibdriver{#1}{\setunit{\printdelim{nametitledelim}}\newblock}
-        {\setunit{\printdelim{nametitledelim}}%
-            \iftabbedlabeldate{&}{\newblock}}
-            {}{Patching driver '#1' failed (a)}
-    \xapptobibdriver{#1}{\end{tabbedlabeldate}}
-    {}{Patching driver '#1' failed (b)}
-}
-\blxarch@settabbedlabeldate{article}
-\blxarch@settabbedlabeldate{book}
-\blxarch@settabbedlabeldate{inbook}
-\blxarch@settabbedlabeldate{misc}
-\blxarch@settabbedlabeldate{online}
-\blxarch@settabbedlabeldate{periodical}
-\blxarch@settabbedlabeldate{thesis}
-\blxarch@settabbedlabeldate{unpublished}
-\xpatchbibdriver{inreference}{{finentry}}{{finentry}\end{tabbedlabeldate}}
-  {}{Patching driver 'inreference' failed (1)}
-%    \end{macrocode}
-% \end{bibliographydriver}
-% \end{bibliographydriver}
-% \end{bibliographydriver}
-% \end{bibliographydriver}
-% \end{bibliographydriver}
-% \end{bibliographydriver}
-% \end{bibliographydriver}
-% \end{bibliographydriver}
-% \end{bibliographydriver}
-%
 % \begin{format}{sortname}
 %    \begin{macrocode}
 \DeclareNameAlias{sortname}{family-given/given-family}
@@ -13327,17 +13308,34 @@
 % \end{bibmacro}
 % \end{bibmacro}
 %
+% \begin{macro}{\blxarch@bibitemboxwidth}
+% Width of the right column in tabbed bibliographies
+%    \begin{macrocode}
+\newlength{\blxarch@bibitemboxwidth}
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{environment}{leftmarginbibliography}
 % Sets labels into an extra column.
 %    \begin{macrocode}
 \defbibenvironment{leftmarginbibliography}
-    {\list
-        {\printtext[labelnamedatewidth]{%
-            \usebibmacro{repeatlabel}}}
+    {			\renewenvironment{blxarch@bibitembox}
+				{\begin{minipage}[t]{\blxarch@bibitemboxwidth}}
+				{\end{minipage}}
+	\list
+        {\parbox[t]{\labelnamedatewidth}{\raggedright\printtext[labelnamedatewidth]{%
+%    \end{macrocode}
+% The zero width space fixes long names sicnce TeX doesn't hyphenate the first word of a paragraph\\
+% \url{https://tex.stackexchange.com/questions/229026/hyphenation-text-wrapping-in-parbox}
+            \hspace{0pt}\usebibmacro{repeatlabel}}}}
+%    \begin{macrocode}
         {\setlength{\labelwidth}{\labelnamedatewidth}%
             \setlength{\leftmargin}{\labelwidth}%
             \setlength{\labelsep}{\biblabelsep}%
             \addtolength{\leftmargin}{\labelsep}%
+			\setlength{\blxarch@bibitemboxwidth}{\textwidth}
+			\addtolength{\blxarch@bibitemboxwidth}{-\biblabelsep}
+			\addtolength{\blxarch@bibitemboxwidth}{-\labelnamedatewidth}
             \setlength{\itemsep}{\bibitemsep}%
             \setlength{\parsep}{\bibparsep}}%
             \renewcommand*{\makelabel}[1]{##1\hss}}

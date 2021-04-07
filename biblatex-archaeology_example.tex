@@ -181,25 +181,8 @@
 
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
+		
 
-% \begin{environment}{leftmarginbibliography}
-% Sets labels into an extra column.
-%    \begin{macrocode}
-\defbibenvironment{leftmarginbibliography}
-    {\list
-        {\printtext[labelnamedatewidth]{%
-            \begingroup\parbox[t]{\labelnamedatewidth}{\raggedright\usebibmacro{repeatlabel}}\endgroup}}
-        {\setlength{\labelwidth}{\labelnamedatewidth}%
-            \setlength{\leftmargin}{\labelwidth}%
-            \setlength{\labelsep}{\biblabelsep}%
-            \addtolength{\leftmargin}{\labelsep}%
-            \setlength{\itemsep}{\bibitemsep}%
-            \setlength{\parsep}{\bibparsep}}%
-            \renewcommand*{\makelabel}[1]{##1\hss}}
-    {\endlist}
-    {\item\renewbibmacro{repeatlabel}{}\renewcommand*{\repeatlabeldelim}{}}%
-%    \end{macrocode}
-% \end{environment}
 
 %%% END EXPERIMENTAL CODE
 \makeatother
@@ -580,12 +563,11 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
 
 %\printshorthands
 \printbibliography[title=Standardliteraturverzeichnis]
-\ifblxarch
-	{\ifcsdef{blxarch@fork@authordate}
-		{\printbibliography[env=leftmarginbibliography,title={Verzeichnis im alten RGK-Stil}]}
-		{}}
-	{}%
 
+\ifcsdef{blxarch@fork@authordate}
+		{\printbibliography[env=leftmarginbibliography,title={Verzeichnis im alten RGK-Stil}]}
+		{}%
+\printbibliography[title=Standardliteraturverzeichnis]
 %\xshowbibdriver{inbook}
 %\xshowbibmacro{title}
 
