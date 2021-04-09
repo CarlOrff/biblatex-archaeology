@@ -1286,6 +1286,9 @@
 % Does \meta{true} if \meta{name} is one of the keys of option \Option{uselocation} (see \cref{kap:pkgopt})
 % and \meta{false} otherwise. Issues an error if \marg{name} does not exist.
 %
+% \item[]\DescribeMacro{\ifxmlconversion}\marg{true}\marg{false}\\
+% Does \meta{true} if the document is processed through \Paket{tex4ht}.
+%
 % \end{itemize}
 % 
 % \subsubsection{Punctuation}
@@ -8164,6 +8167,15 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsubsubsection{\Paket{tex4ht}}
+%
+% \begin{macro}{\ifxmlconversion}
+% Check for package \Paket{tex4ht}.
+%    \begin{macrocode}
+\newcommand{\ifxmlconversion}[2]{\ifdefined\HCode#1\else#2\fi}
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsubsection{Author interface}
 %
 % \subsubsubsection{Settings}
@@ -12323,24 +12335,24 @@
 % \end{bibmacro}
 %
 % \begin{bibmacro}{labeldate+edition}
-% prints labeldate and starts \Environment{tabbedlabeldate} environment (its end  
-% is appended to \Format{finentry}).
+% Prints labeldate.
 %    \begin{macrocode}
 \newbibmacro*{labeldate+edition}{%
-    \ifpositionlabeldate{location}
-        {}
-        {\printtext[labeldateparens]{%
-            \ifeditionsuperscript{predate}
-                {\usebibmacro{editionsuperscript}}%
-                {}%
-            \usebibmacro{date+extradate}%
-            \ifeditionsuperscript{postdate}
-                {\usebibmacro{editionsuperscript}}%
-                {}%
-            \ifpositionlabeldate{label}
-                {\setunit{\daterealdatedelim}%
-                 \usebibmacro{extendeddate}{real}{}}
-                {}}}}
+	\blxarch@tabbedlabeldate@begin%
+	\ifpositionlabeldate{location}
+		{}
+		{\printtext[labeldateparens]{%
+			\ifeditionsuperscript{predate}
+				{\usebibmacro{editionsuperscript}}%
+				{}%
+			\usebibmacro{date+extradate}%
+			\ifeditionsuperscript{postdate}
+				{\usebibmacro{editionsuperscript}}%
+				{}%
+			\ifpositionlabeldate{label}
+				{\setunit{\daterealdatedelim}%
+				 \usebibmacro{extendeddate}{real}{}}
+				{}}}}
 %    \end{macrocode}
 % \end{bibmacro}
 %
@@ -12663,11 +12675,56 @@
 % \end{macro}
 %
 % \begin{macro}{\tabbedlabeldatewidth}
-% Tab length in \Environment{tabbedlabeldate} environment.
+% Tab length in \Environment{blxarch@tabbedlabeldate} environment.
 %    \begin{macrocode}
 \newlength{\tabbedlabeldatewidth}
 \setlength{\tabbedlabeldatewidth}{3em}
 %    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\tabbedlabeldateindent}
+% \changes{2.3.0}{2021/04/07}{New length \Befehl{\tabbedlabeldateindent}}
+% Tab indentation in \Environment{blxarch@tabbedlabeldate} environment.
+%    \begin{macrocode}
+\newlength{\tabbedlabeldateindent}
+\setlength{\tabbedlabeldateindent}{0em}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\blxarch@tabbedlabeldate@begin}
+% \begin{macro}{\blxarch@tabbedlabeldate@end}
+% This is a wrapper around bibitems in order to put them into \Befehl{parbox}-like structures.
+%    \begin{macrocode}
+\newcommand{\blxarch@tabbedlabeldate@begin}{%
+	\iftabbedlabeldate
+		{\setlength{\blxarch@bibitemboxwidth}{\textwidth}%
+		 \addtolength{\blxarch@bibitemboxwidth}{-\tabbedlabeldatewidth}%
+		 \DeclareDelimFormat[bib]{nameyeardelim}{}%
+		 \\\tabular[t]{@{}p{\tabbedlabeldatewidth}@{}p{\blxarch@bibitemboxwidth}}\raggedright\midsentence}
+		{}}
+\newcommand{\blxarch@tabbedlabeldate@end}{%
+	\iftabbedlabeldate
+		{\endtabular}
+		{}}
+%    \end{macrocode}
+% ODT output is much better with \Paket{tabulary}.
+%    \begin{macrocode}
+\ifxmlconversion{
+	\RequirePackage{tabulary}
+	\renewcommand{\blxarch@tabbedlabeldate@begin}{%
+	\iftabbedlabeldate
+		{\setlength{\blxarch@bibitemboxwidth}{\textwidth}%
+		 \addtolength{\blxarch@bibitemboxwidth}{-\tabbedlabeldatewidth}%
+		 \DeclareDelimFormat[bib]{nameyeardelim}{}%
+		 \\\tabulary{\textwidth}{@{}p{\tabbedlabeldatewidth}@{}p{\blxarch@bibitemboxwidth}@{\hspace{0em}}}%
+		 \raggedright\midsentence}
+		{}}
+	\newcommand{\blxarch@tabbedlabeldate@end}{%
+		\iftabbedlabeldate
+			{\endtabulary}
+			{}}}{}
+%    \end{macrocode}
+% \end{macro}
 % \end{macro}
 %
 % \begin{environment}{blxarch@bibitembox}
@@ -12682,7 +12739,6 @@
 % \begin{bibliographydriver}{article}
 % \begin{bibliographydriver}{book}
 % \begin{bibliographydriver}{inbook}
-% \begin{bibliographydriver}{inreference}
 % \begin{bibliographydriver}{misc}
 % \begin{bibliographydriver}{online}
 % \begin{bibliographydriver}{periodical}
@@ -12690,20 +12746,29 @@
 % \begin{bibliographydriver}{unpublished}
 %    \begin{macrocode}
 \def\blxarch@set@bibitembox#1{%
-	\xpretobibdriver{#1}{\begin{blxarch@bibitembox}}{}{Prepending bibitembox to driver #1 failed!}%
-	\xapptobibdriver{#1}{\end{blxarch@bibitembox}}{}{Appending bibitembox to driver #1 failed!}%
+	\xpretobibdriver{#1}
+		{\begin{blxarch@bibitembox}}
+		{}
+		{Prepending bibitembox to driver #1 failed!}%
+	\xpatchbibdriver{#1}
+		{\setunit{\printdelim{nametitledelim}}\newblock}
+		{\setunit{\printdelim{nametitledelim}}\iftabbedlabeldate{&}{\newblock}}
+		{}
+		{Prepending tabbedlabeldate to driver #1 failed!}%
+	\xapptobibdriver{#1}
+		{\blxarch@tabbedlabeldate@end\end{blxarch@bibitembox}}
+		{}
+		{Appending bibitembox to driver #1 failed!}%
 }
 \blxarch@set@bibitembox{article}
 \blxarch@set@bibitembox{book}
 \blxarch@set@bibitembox{inbook}
-\blxarch@set@bibitembox{inreference}
 \blxarch@set@bibitembox{misc}
 \blxarch@set@bibitembox{online}
 \blxarch@set@bibitembox{periodical}
 \blxarch@set@bibitembox{thesis}
 \blxarch@set@bibitembox{unpublished}
 %    \end{macrocode}
-% \end{bibliographydriver}
 % \end{bibliographydriver}
 % \end{bibliographydriver}
 % \end{bibliographydriver}
@@ -13082,6 +13147,7 @@
 % \end{macro}
 % \end{macro}
 % \end{macro}
+%
 % \iffalse
 %</sty>
 % \fi
@@ -13325,10 +13391,10 @@
 	\list
         {\parbox[t]{\labelnamedatewidth}{\raggedright\printtext[labelnamedatewidth]{%
 %    \end{macrocode}
-% The zero width space fixes long names sicnce TeX doesn't hyphenate the first word of a paragraph\\
+% The zero width space fixes long names since TeX doesn't hyphenate the first word of a paragraph\\
 % \url{https://tex.stackexchange.com/questions/229026/hyphenation-text-wrapping-in-parbox}
-            \hspace{0pt}\usebibmacro{repeatlabel}}}}
 %    \begin{macrocode}
+            \hspace{0pt}\usebibmacro{repeatlabel}}}}
         {\setlength{\labelwidth}{\labelnamedatewidth}%
             \setlength{\leftmargin}{\labelwidth}%
             \setlength{\labelsep}{\biblabelsep}%

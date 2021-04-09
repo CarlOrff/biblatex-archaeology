@@ -123,14 +123,14 @@
     %style=rgzm-inline,
     %style=rgzm-numeric,
     %style=rgzm-verbose,
-	style=rgk-inline-old,
+	%style=rgk-inline-old,
     %style=rgk-numeric-old,
     %style=rgk-verbose-old,
     %style=ufg-muenster-inline,
     %style=ufg-muenster-numeric,
     %style=ufg-muenster-verbose,
     %style=volkskunde,
-    %style=zaak,
+    style=zaak,
     %style=zaes,
     %bibencoding=utf8, % necessary if *.tex file is in other encoding
 	%autolang=none,
@@ -171,7 +171,7 @@
 \title{biblatex-archaeology [v2.3] sample document}
 \subtitle{\explhead}
 \author{Ingram Braun}
-      
+
 % technical expressions
 \newcommand*{\Befehl}[1]{\texttt{\textbackslash#1}}
 \newcommand*{\Typ}[1]{\texttt{\symbol{64}#1}}
@@ -181,7 +181,7 @@
 
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
-		
+
 
 
 %%% END EXPERIMENTAL CODE
@@ -564,10 +564,10 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
 %\printshorthands
 \printbibliography[title=Standardliteraturverzeichnis]
 
-\ifcsdef{blxarch@fork@authordate}
-		{\printbibliography[env=leftmarginbibliography,title={Verzeichnis im alten RGK-Stil}]}
-		{}%
-\printbibliography[title=Standardliteraturverzeichnis]
+%\ifcsdef{blxarch@fork@authordate}
+		%{\printbibliography[env=leftmarginbibliography,title={Verzeichnis im alten RGK-Stil}]}
+		%{}%
+%\printbibliography[title=Standardliteraturverzeichnis]
 %\xshowbibdriver{inbook}
 %\xshowbibmacro{title}
 
