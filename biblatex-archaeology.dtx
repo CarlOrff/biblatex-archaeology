@@ -10886,25 +10886,25 @@
     \clearfield{titleaddon}%
     \clearfield{booktitleaddon}%
     \clearfield{maintitleaddon}%
-    \clearfield{shorttitle}{}%
-    \clearlist{publisher}{}%
-    \clearlist{origlocation}{}%
-    \clearlist{origpublisher}{}%
-    \clearname{shortauthor}{}%
-    \clearfield{label}{}%
-    \clearfield{origdate}{}%
-    \clearfield{origlanguage}{}%
-    \clearfield{realyear}{}%
-    \clearfield{realmonth}{}%
-    \clearfield{realday}{}%
-    \clearfield{addendum}{}%
-    \clearfield{note}{}%
-    \clearfield{language}{}%
-    \clearfield{series}{}%
-    \clearfield{number}{}%
-    \clearfield{subseries}{}%
-    \clearfield{subnumber}{}%
-    \clearfield{pagetotal}{}%
+    \clearfield{shorttitle}%
+    \clearlist{publisher}%
+    \clearlist{origlocation}%
+    \clearlist{origpublisher}%
+    \clearname{shortauthor}%
+    \clearfield{label}%
+    \clearfield{origdate}%
+    \clearfield{origlanguage}%
+    \clearfield{realyear}%
+    \clearfield{realmonth}%
+    \clearfield{realday}%
+    \clearfield{addendum}%
+    \clearfield{note}%
+    \clearfield{language}%
+    \clearfield{series}%
+    \clearfield{number}%
+    \clearfield{subseries}%
+    \clearfield{subnumber}%
+    \clearfield{pagetotal}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -12716,7 +12716,7 @@
 		{\setlength{\blxarch@bibitemboxwidth}{\textwidth}%
 		 \addtolength{\blxarch@bibitemboxwidth}{-\tabbedlabeldatewidth}%
 		 \DeclareDelimFormat[bib]{nameyeardelim}{}%
-		 \\\tabulary{\textwidth}{@{}p{\tabbedlabeldatewidth}@{}p{\blxarch@bibitemboxwidth}@{\hspace{0em}}}%
+		 \\\tabulary{\textwidth}{@{}p{\tabbedlabeldatewidth}@{}p{\blxarch@bibitemboxwidth}@{}}%
 		 \raggedright\midsentence}
 		{}}
 	\renewcommand{\blxarch@tabbedlabeldate@end}{%
@@ -12727,14 +12727,15 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{environment}{blxarch@bibitembox}
+% \begin{macro}{\blxarch@bibitembox@begin}
+% \begin{macro}{\blxarch@bibitembox@end}
 % This is a wrapper around bibitems in order to put them into \Befehl{parbox}-like structures.
 %    \begin{macrocode}
-\newenvironment{blxarch@bibitembox}
-	{}
-	{}
+\newcommand{\blxarch@bibitembox@begin}{}
+\newcommand{\blxarch@bibitembox@end}{}
 %    \end{macrocode}
-% \end{environment}
+% \end{macro}
+% \end{macro}
 %
 % \begin{bibliographydriver}{article}
 % \begin{bibliographydriver}{book}
@@ -12747,7 +12748,7 @@
 %    \begin{macrocode}
 \def\blxarch@set@bibitembox#1{%
 	\xpretobibdriver{#1}
-		{\begin{blxarch@bibitembox}}
+		{\blxarch@bibitembox@begin}
 		{}
 		{Prepending bibitembox to driver #1 failed!}%
 	\xpatchbibdriver{#1}
@@ -12756,7 +12757,7 @@
 		{}
 		{Prepending tabbedlabeldate to driver #1 failed!}%
 	\xapptobibdriver{#1}
-		{\blxarch@tabbedlabeldate@end\end{blxarch@bibitembox}}
+		{\blxarch@tabbedlabeldate@end\blxarch@bibitembox@end}
 		{}
 		{Appending bibitembox to driver #1 failed!}%
 }
@@ -13385,9 +13386,8 @@
 % Sets labels into an extra column.
 %    \begin{macrocode}
 \defbibenvironment{leftmarginbibliography}
-    {			\renewenvironment{blxarch@bibitembox}
-				{\begin{minipage}[t]{\blxarch@bibitemboxwidth}}
-				{\end{minipage}}
+    {			\renewcommand{\blxarch@bibitembox@begin}{\begin{minipage}[t]{\blxarch@bibitemboxwidth}}
+				\renewcommand{\blxarch@bibitembox@end}{\end{minipage}}
 	\list
         {\parbox[t]{\labelnamedatewidth}{\raggedright\printtext[labelnamedatewidth]{%
 %    \end{macrocode}
