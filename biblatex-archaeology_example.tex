@@ -182,6 +182,9 @@
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
+\ifxmlconversion
+	{\renewcommand*{\bibstring}[1]{\textbf{#1}}}
+	{}
 
 %%% END EXPERIMENTAL CODE
 \makeatother
