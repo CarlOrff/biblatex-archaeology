@@ -12457,9 +12457,23 @@
 %    \end{macrocode}
 % \end{bibmacro}
 %
+% \begin{option}{genitiveall}
+% =\meta{bool}\\
+% If this option is enabled, all label names of a \Befehl{posscite}-like command are in genitive
+% case. Otherwise only the last name. After my feeling for language this is possible in German.
+% \changes{2.3}{2021/04/17}{New option \Option{genitiveall}}
+%    \begin{macrocode}
+\newtoggle{archbool:genitiveall}
+\DeclareBibliographyOption{genitiveall}[true]{%
+    \settoggle{archbool:genitiveall}{#1}}
+\ExecuteBibliographyOptions{genitiveall}
+%    \end{macrocode}
+% \end{option}
+%
 % \begin{format}{labelname:poss}
 %    \begin{macrocode}
 % Based on labelname from biblatex.def
+% \changes{2.3}{2021/04/17}{sensitive to option \Option{genitiveall}}
 \DeclareNameFormat{labelname:poss}{
     \let\blxarch@namepartfamily\namepartfamily%
     \ifcase\value{uniquename}%
@@ -12472,7 +12486,9 @@
         \usebibmacro{name:given-family}{\namepartfamily}{\namepartgiven}{\namepartprefix}{\namepartsuffix}%
     \fi
     \usebibmacro{name:andothersgenitive}%
-    \ifnumequal{\value{listcount}}{\value{liststop}}{\usebibmacro{genitive}{\blxarch@namepartfamily}}{}}
+	\iftoggle{archbool:genitiveall}
+		{\usebibmacro{genitive}{\blxarch@namepartfamily}}
+		{\ifnumequal{\value{listcount}}{\value{liststop}}{\usebibmacro{genitive}{\blxarch@namepartfamily}}{}}}
 %    \end{macrocode}
 % \end{format}
 %

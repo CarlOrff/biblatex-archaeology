@@ -136,6 +136,7 @@
 	%autolang=none,
 	%citestyle=zaak,
 	%bibstyle=zaak,
+	%genitiveall=false,
 ]{biblatex}
 \providetoggle{archbool:shortseries}
 \providetoggle{archbool:shortjournal}
@@ -182,9 +183,6 @@
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
-\ifxmlconversion
-	{\renewcommand*{\bibstring}[1]{\textbf{#1}}}
-	{}
 
 %%% END EXPERIMENTAL CODE
 \makeatother
