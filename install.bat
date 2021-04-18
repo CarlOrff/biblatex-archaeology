@@ -4,7 +4,7 @@ chcp 65001
 
 REM remove outdated files
 call cleanup.bat
-del *.bbx *.cbx *.dbx *.lbx *.sty *.bib
+del *.4ht *.bbx *.cbx *.dbx *.lbx *.sty *.bib
 
 REM install from .dtx
 pdftex -8bit -halt-on-error biblatex-archaeology.ins

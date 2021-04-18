@@ -190,6 +190,7 @@ TSWLatexianTemp*
 # archives
 *.7z
 *.gz
+*.lzma
 *.zip
 
 # archive
@@ -200,6 +201,7 @@ campaigns
 guidelines
 abbreviation
 non-LaTeX
+testsuite
 
 # test files
 biblatex-archaeology_example.pdf
@@ -207,6 +209,7 @@ biblatex-archaeology_example-ent.*
 *-example.*
 
 # DocStrip generated files
+*.4ht
 *.bbx
 *.cbx
 *.dbx
@@ -228,8 +231,7 @@ biblatex-archaeology_example-ent.*
 *_conflict-*
 
 # back up
-*.bat~
-*.log~
-*.tex~
+*~
 
-*.4ht
+# lock
+.~lock.*

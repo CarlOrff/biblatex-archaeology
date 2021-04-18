@@ -541,6 +541,9 @@
 % \end{optkeys}
 % Except \Kbd{none}, the content of the edition field is copied into the \Feld{usere} field.
 %
+% \item[]\DescribeOption{genitiveall}=\meta{bool}\\
+% If  \meta{true}, \Befehl{posscite} and friends do all label names in genitive case. Otherwise only the last one. 
+%
 % \item[]\DescribeOption{giveninitligatures}=\meta{csv}\\
 % This option takes a list of ligatures to be preserved in first name abbrevations. Looping through
 % the list stops after the first hit. If you want to have Christian abbreviated Chr. and Cheryl
@@ -1285,9 +1288,6 @@
 % \item[]\DescribeMacro{\ifuselocation}\marg{name}\marg{true}\marg{false}\\
 % Does \meta{true} if \meta{name} is one of the keys of option \Option{uselocation} (see \cref{kap:pkgopt})
 % and \meta{false} otherwise. Issues an error if \marg{name} does not exist.
-%
-% \item[]\DescribeMacro{\ifxmlconversion}\marg{true}\marg{false}\\
-% Does \meta{true} if the document is processed through \Paket{tex4ht}.
 %
 % \end{itemize}
 % 
@@ -8167,15 +8167,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsubsection{\Paket{tex4ht}}
-%
-% \begin{macro}{\ifxmlconversion}
-% Check for package \Paket{tex4ht}.
-%    \begin{macrocode}
-\newcommand{\ifxmlconversion}[2]{\ifdefined\HCode#1\else#2\fi}
-%    \end{macrocode}
-% \end{macro}
-%
 % \subsubsection{Author interface}
 %
 % \subsubsubsection{Settings}
@@ -12723,23 +12714,6 @@
 		{\endtabular}
 		{}}
 %    \end{macrocode}
-% ODT output is much better with \Paket{tabulary}.
-%    \begin{macrocode}
-\ifxmlconversion{
-	\RequirePackage{tabulary}
-	\renewcommand{\blxarch@tabbedlabeldate@begin}{%
-	\iftabbedlabeldate
-		{\setlength{\blxarch@bibitemboxwidth}{\textwidth}%
-		 \addtolength{\blxarch@bibitemboxwidth}{-\tabbedlabeldatewidth}%
-		 \DeclareDelimFormat[bib]{nameyeardelim}{}%
-		 \\\tabulary{\textwidth}{@{}p{\tabbedlabeldatewidth}@{}p{\blxarch@bibitemboxwidth}@{}}%
-		 \raggedright\midsentence}
-		{}}
-	\renewcommand{\blxarch@tabbedlabeldate@end}{%
-		\iftabbedlabeldate
-			{\endtabulary}
-			{}}}{}
-%    \end{macrocode}
 % \end{macro}
 % \end{macro}
 %
@@ -13167,6 +13141,23 @@
 %
 % \iffalse
 %</sty>
+% \fi
+%
+% \subsection{\Paket{tex4ht} adaptions}
+%
+% \iffalse
+%<*4ht>
+% \fi
+%
+% \begin{format}{\archaeobibstyletitle}
+% For some reason no spaces in front of field\Feld{volume}.
+%    \begin{macrocode}
+\DeclareFieldFormat*{volume}{\space#1}
+%    \end{format}
+% \end{format}
+%
+% \iffalse
+%</4ht>
 % \fi
 %
 % \subsection{Bibliography style files}
