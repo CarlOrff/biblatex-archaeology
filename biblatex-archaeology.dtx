@@ -13596,6 +13596,21 @@
 \DeclareLanguageMappingSuffix{-aefkw}
 %    \end{macrocode}
 %
+% \begin{format}{bibtex}
+%    \begin{macrocode}
+\DeclareStyleSourcemap{
+    \maps[datatype=bibtex]{
+%    \end{macrocode}
+% Remove field \Feld{pagetotal} since it leads to spurious punctuation in linnaeus:2003.
+%    \begin{macrocode}
+        \map[overwrite=true]{
+            \step[fieldset=pagetotal,fieldvalue={}]
+        }
+    }
+}
+%    \end{macrocode}
+% \end{format}
+%
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
 %    \end{macrocode}
