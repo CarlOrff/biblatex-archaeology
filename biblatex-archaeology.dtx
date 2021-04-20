@@ -12699,6 +12699,7 @@
 % \end{macro}
 %
 % \begin{macro}{\blxarch@tabbedlabeldate@begin}
+% \begin{macro}{\blxarch@tabbedlabeldate@middle}
 % \begin{macro}{\blxarch@tabbedlabeldate@end}
 % This is a wrapper around bibitems in order to put them into \Befehl{parbox}-like structures.
 %    \begin{macrocode}
@@ -12709,11 +12710,16 @@
 		 \DeclareDelimFormat[bib]{nameyeardelim}{}%
 		 \\\tabular[t]{@{}p{\tabbedlabeldatewidth}@{}p{\blxarch@bibitemboxwidth}}\raggedright\midsentence}
 		{}}
+\newcommand{\blxarch@tabbedlabeldate@middle}{%
+	\iftabbedlabeldate
+		{&}
+		{\newblock}}
 \newcommand{\blxarch@tabbedlabeldate@end}{%
 	\iftabbedlabeldate
 		{\endtabular}
 		{}}
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 %
@@ -12743,7 +12749,7 @@
 		{Prepending bibitembox to driver #1 failed!}%
 	\xpatchbibdriver{#1}
 		{\setunit{\printdelim{nametitledelim}}\newblock}
-		{\setunit{\printdelim{nametitledelim}}\iftabbedlabeldate{&}{\newblock}}
+		{\setunit{\printdelim{nametitledelim}}\blxarch@tabbedlabeldate@middle}
 		{}
 		{Prepending tabbedlabeldate to driver #1 failed!}%
 	\xapptobibdriver{#1}

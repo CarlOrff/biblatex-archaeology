@@ -180,8 +180,11 @@ TSWLatexianTemp*
 *.4ct
 *.4tc
 *.css
+*,epub
 *.html
+*.ncx
 *.odt
+*.opf
 *.idv
 *.lg
 *.tmp
@@ -195,6 +198,7 @@ TSWLatexianTemp*
 
 # archive
 biblatex-archaeology
+biblatex-archaeology_example
 
 # folders containing possibly copyrighted materials
 campaigns
@@ -235,3 +239,5 @@ biblatex-archaeology_example-ent.*
 
 # lock
 .~lock.*
+
+'.conf
