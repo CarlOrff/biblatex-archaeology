@@ -241,3 +241,4 @@ biblatex-archaeology_example-ent.*
 .~lock.*
 
 '.conf
+*.xml
