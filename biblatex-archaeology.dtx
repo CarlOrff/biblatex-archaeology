@@ -10929,6 +10929,7 @@
       {\thefield{entrytype}}}%
     {\multicitedelim}
     {\usebibmacro{postnote}}
+\DeclareFieldFormat*{textreviewcitedate}{#1}
 \DeclareCiteCommand{\textreviewcite}[]
     {\blxarch@reviewcite@removefields\usebibmacro{prenote}}
     {\ifboolexpr{
@@ -10952,6 +10953,11 @@
           \setunit*{\addspace}}
           {\DeclareDelimAlias{nametitledelim}{}}%
 		\printtext{%
+%    \end{macrocode}
+% We must double check for spurious spaces here!
+% \changes{2.3}{2021/04/21}{\Befehl{textreviewcite} and friends fixed}
+%    \begin{macrocode}
+			\DeclareFieldAlias{parens}{textreviewcitedate}%
 			\bibopenparen%
 			\printunit{\nopunct}%
 			\usedriver
