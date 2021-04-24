@@ -10023,7 +10023,7 @@
            {\usebibmacro{maintitle}%
             \iffieldundef{volume}
                 {\newunit\newblock}
-                {\printfield{volume}%
+                {\setunit{\addspace}\printfield{volume}%
                  \printfield{part}%
                  \clearfield{volume}%
                  \setunit{\addcolon\space}}}}%
@@ -10039,7 +10039,7 @@
            {\usebibmacro{maintitle}%
             \iffieldundef{volume}
                 {\newunit\newblock}
-                {\printfield{volume}%
+                {\setunit{\addspace}\printfield{volume}%
                  \printfield{part}%
                  \clearfield{volume}%
                  \setunit{\addcolon\space}}}}%
@@ -12913,7 +12913,7 @@
 % \begin{format}{volume}
 % No bibstring ahead of \Feld{volume}.
 %    \begin{macrocode}
-\DeclareFieldFormat[book,inbook]{volume}{\addspace#1}
+\DeclareFieldFormat[book,inbook]{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -13161,12 +13161,12 @@
 %<*4ht>
 % \fi
 %
-% \begin{format}{\archaeobibstyletitle}
-% For some reason no spaces in front of field\Feld{volume}.
+% \begin{macro}{\archaeobibstyletitle}
+% This fixes an issue with reprints caused by \Paket{csquotes}.
 %    \begin{macrocode}
-\DeclareFieldFormat*{volume}{\space#1}
+\renewcommand*{\addspace}{\addthinspace}
 %    \end{macrocode}
-% \end{format}
+% \end{macro}
 %
 % \iffalse
 %</4ht>
@@ -13729,8 +13729,8 @@
 % \begin{format}{pages}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
-\DeclareFieldFormat*{volume}{\addspace\ifinteger{#1}{\RN{#1}}{#1}}
-\DeclareFieldFormat[article,periodical,review,suppperiodical]{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{\ifinteger{#1}{\RN{#1}}{#1}}
+\DeclareFieldFormat[article,periodical,review,suppperiodical]{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -13938,7 +13938,7 @@
 % \begin{format}{volume}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -14126,7 +14126,7 @@
 % \begin{format}{volume}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -14398,7 +14398,7 @@
 % \begin{format}{volume}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -15166,14 +15166,13 @@
 % \begin{format}{volume}
 %    \begin{macrocode}
 \DeclareFieldFormat*{volume}{%
-    \addspace%
     \bibopenparen%
     \ifinteger{#1}
         {\mkbibordinal{#1}\space\biblstring{volume}}
         {\biblstring{volume}\addspace#1}%
     \bibcloseparen%
 }
-\DeclareFieldFormat[article,periodical,review,suppperiodical]{volume}{\addspace#1}
+\DeclareFieldFormat[article,periodical,review,suppperiodical]{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -15373,7 +15372,7 @@
 %
 % \begin{format}{volume}
 %    \begin{macrocode}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -15620,7 +15619,7 @@
 %
 % \begin{format}{volume}
 %    \begin{macrocode}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -15925,7 +15924,7 @@
 % \begin{format}{volume}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -16092,7 +16091,7 @@
 % \begin{format}{volume}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -16771,7 +16770,7 @@
 %
 % \begin{format}{volume}
 %    \begin{macrocode}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -16965,8 +16964,8 @@
 % \begin{format}{pages}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
-\DeclareFieldFormat*{volume}{\addspace#1}
-\DeclareFieldFormat[inreference]{volume}{\addspace\RN{#1}}
+\DeclareFieldFormat*{volume}{#1}
+\DeclareFieldFormat[inreference]{volume}{\RN{#1}}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -17269,7 +17268,7 @@
 % \begin{format}{volume}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -17517,7 +17516,7 @@
 %
 % \begin{format}{volume}
 %    \begin{macrocode}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -17802,7 +17801,7 @@
 %
 % \begin{format}{volume}
 %    \begin{macrocode}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -18029,7 +18028,7 @@
 % \begin{format}{volume}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -18267,7 +18266,7 @@
 %
 % \begin{format}{volume}
 %    \begin{macrocode}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -18609,7 +18608,7 @@
 % \begin{format}{number}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 \DeclareFieldFormat[article,periodical,review,suppperiodical]{number}{#1\addcomma\addspace}
 %    \end{macrocode}
 % \end{format}
@@ -18925,7 +18924,7 @@
 % \begin{format}{number}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 \DeclareFieldFormat[article,periodical,review,suppperiodical]{number}{#1\addcomma\addspace}
 %    \end{macrocode}
 % \end{format}
@@ -19259,7 +19258,7 @@
 % \begin{format}{volume}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
@@ -19553,7 +19552,7 @@
 %
 % \begin{format}{volume}
 %    \begin{macrocode}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 %
@@ -20197,7 +20196,7 @@
 % \begin{format}{pages}
 %    \begin{macrocode}
 \DeclareFieldFormat*{pages}{#1}
-\DeclareFieldFormat*{volume}{\addspace#1}
+\DeclareFieldFormat*{volume}{#1}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
