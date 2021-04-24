@@ -1784,12 +1784,12 @@
   date         = {1997},
   number       = {3},
   pages        = {6--11},
-  abstract     = {Kursorische Übersicht über die Tätigkeit der \mkbibquote{Außenstelle Titz} im rheinischen Braunkohlerevier.},
+  abstract     = {Kursorische Übersicht über die Tätigkeit der \enquote{Außenstelle Titz} im rheinischen Braunkohlerevier.},
   keywords     = {Bergbau, Braunkohle, Bodendenkmalpflege, Nordrhein-Westfalen, Ur- und Frühgeschichte, Mittelalterarchäologie, Elsbachtal, Wasserleitung},
 }
 @Article{asmus:1938,
   author       = {Asmus, Gisela},
-  title        = {Reihengräberschädel des karolingerzeitlichen Grabfeldes Holle, Kr. Marienburg \mkbibquote{Hannover}},
+  title        = {Reihengräberschädel des karolingerzeitlichen Grabfeldes Holle, Kr. Marienburg \enquote{Hannover}},
   JOURNALTITLE = {Niedersächsisches Jahrbuch für Landesgeschichte},
   date         = {1938},
   number       = {12},
@@ -10946,7 +10946,11 @@
             {}%
           \DeclareNameAlias{sortname}{gfull-family}%
           \printnames{labelname}%
-          \DeclareNameFormat{\thefield{labelnamefield}}{}%
+%    \end{macrocode}
+% Zero width space to pretend \Paket{tex4ht} something was printed.
+%    \begin{macrocode}
+		  \DeclareNameFormat*{\thefield{labelnamefield}}{\hspace{0pt}}%
+		  \clearname{\thefield{labelnamefield}}%
           \DeclareDelimAlias{authortypedelim}{}%
           \DeclareDelimAlias{editortypedelim}{}%
           \DeclareDelimAlias{translatortypedelim}{}%
@@ -10961,7 +10965,7 @@
 			\bibopenparen%
 			\printunit{\nopunct}%
 			\usedriver
-				{}
+				{\clearname{\thefield{labelnamefield}}}
 				{\thefield{entrytype}}%
 		}%
 	}%
@@ -12634,7 +12638,7 @@
 %
 % \begin{macro}{\labelnamepunct}
 %    \begin{macrocode}
-\renewcommand*{\labelnamepunct}{\unspace\addcolon\space}
+\renewcommand*{\labelnamepunct}{\addcolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
