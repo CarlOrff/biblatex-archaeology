@@ -3,7 +3,7 @@
 ########################################################
 #
 # This script is part of the biblatex-archaeology
-# package by Ingram Braun. It sole purpose is to
+# package by Ingram Braun. Its sole purpose is to
 # build a zip file for CTAN out of the development
 # sources.
 #
@@ -180,7 +180,7 @@ while (my $codefile = readdir $dh) {
     
 	push( @styles, $1 ) if $codefile =~ /(.+?)\.bbx$/;
 	push( @bibliographies, $& )  if $codefile =~ /.+?\.bib$/;
-	push( @codefiles, $& )  if $codefile =~ /.+?\.([bcdl]bx|sty)$/;
+	push( @codefiles, $& )  if $codefile =~ /.+?\.([bcdl]bx|sty|4ht)$/;
 }
 closedir $dh;
 
@@ -293,7 +293,7 @@ sub add_zip {
 			add_log("Number of characters: ", length $text, "\n");
 			finish( "FATAL ERROR: empty file $filename" ) if length $text  < 1;
         
-            # Ensure proper UTF-8 encoding and UNIX-like linebreaks.
+            # Ensure proper UTF-8 encoding and Linux-like line breaks.
             $text =~ s/\n/$newline/gs;
         
             my @lines = split( $newline, $text );

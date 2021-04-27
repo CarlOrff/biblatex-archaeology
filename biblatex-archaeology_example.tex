@@ -3,19 +3,14 @@
 % arara: biber
 % arara: lualatex
 \listfiles
-\RequirePackage{scrlfile}
-\ReplacePackage{scrpage2}{scrlayer-scrpage}
-\documentclass[a4paper,12pt]{scrartcl}
+%\RequirePackage{scrlfile}
+%\ReplacePackage{scrpage2}{scrlayer-scrpage}
+\documentclass[a4paper,12pt,twoside]{scrartcl}
 % check if it is a biblatex-archaeology style:
 \newcommand{\ifblxarch}[2]{\ifcsdef{strongcitedelim}{#1}{#2}}
 % no fontenc support by tex4ht:
 \newcommand{\IfTeXforHt}[2]{\ifdefined\HCode#1\else#2\fi} % detect tex4ht
 \usepackage{iftex}
-\IfTeXforHt{
-	% missing hyperref
-	\usepackage{xcolor}
-	\providecommand*{\href}[2]{\HCode{<a class="href" href="\detokenize{#1}">#2</a>}}
-}{}
 \ifpdftex % pdfLaTeX
 	\usepackage[T1]{fontenc}
 	%\usepackage[utf8]{inputenc} % loaded by default with up-to-date installs
@@ -61,10 +56,9 @@
 \fi
 
 %%% Fonts
-\IfTeXforHt{}{\usepackage[osf]{noto}  % Noto, NotoSans, NotoSansMono optimized for screens; osf = old style figures ("Mediävalziffern")
-%\setmonofont{Noto Mono}[Scale=MatchLowercase] % This is already done by noto package but we need it to get rid of the default Ligatures=TeX
-}                                             % option for monospaced font which urges listings to format quotes. The ususal upquote package
-                                  			  % does not work with Noto fonts.
+\usepackage[osf]{noto}  % Noto, NotoSans, NotoSansMono optimized for screens; osf = old style figures ("Mediävalziffern")
+\usepackage{fontawesome} % a collection of icons (primarily intended for websites)
+
 %\usepackage[logonly]{trace}\traceon
 %\tracingpatches % write \patchcmd log
 %\usepackage[protrusion=true,expansion=true,verbose=true,babel=true,tracking=true]{microtype}
@@ -157,28 +151,31 @@
     \usepackage{xcolor}
 % heading (after biblatex!)
 \ifcsdef{archaeobibstyletitle}
-		{\def\explhead{\scriptsize{\texttt{bibstyle}: \archaeobibstyletitle\\\texttt{citestyle}: \archaeocitestyletitle}}}
-		{\edef\explhead{no biblatex-archaeology style}}
-\IfTeXforHt % no page header in HTML
-	{}
-	{\usepackage{scrpage2}
-	\pagestyle{scrheadings}
-	\clearscrheadings
-	\ihead{\explhead}}
-\IfTeXforHt
-	{}
-	{\usepackage[useregional]{datetime2}
-	\let\today\DTMnow}
+	{\def\explhead{\texttt{bibstyle}: \archaeobibstyletitle\\\texttt{citestyle}: \archaeocitestyletitle}}
+	{\edef\explhead{no \textsf{biblatex-archaeology} style}}
+	
+	
+\ifdefined\HCode\relax\else
+% no page header in HTML
+	\usepackage{scrlayer-scrpage}
+	\setkomafont{pagehead}{\footnotesize}
+	\ohead{Ingram Braun}
+	\cehead{\textsf{biblatex-archaeology} sample document}
+	\cohead{\explhead}
+% datetime2 calls \pdffeedback
+	\usepackage[useregional]{datetime2}
+	\let\today\DTMnow
+\fi
 \title{biblatex-archaeology [v2.3] sample document}
 \subtitle{\explhead}
 \author{Ingram Braun}
 
-% technical expressions
+% technical terms
 \newcommand*{\Befehl}[1]{\texttt{\textbackslash#1}}
 \newcommand*{\Typ}[1]{\texttt{\symbol{64}#1}}
 \newcommand*{\Feld}[1]{\texttt{#1}}
 
-\newcommand{\exmplwarn}[1]{\textcolor{red}{\Huge!} #1\\}
+\newcommand{\exmplwarn}[1]{\textcolor{red}{\faExclamationTriangle} #1\\}
 
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
