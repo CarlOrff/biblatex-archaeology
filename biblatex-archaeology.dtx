@@ -19,7 +19,7 @@
 %<package>\ProvidesPackage{biblatex-archaeology}
 %<package>[2019/12/31 v2.3 biblatex-archaeology (Ingram Braun) based on biblatex]
 %
-%<*driver>
+%<*driver> 
 \listfiles
 \documentclass[10pt]{ltxdoc}
 \usepackage{fontspec}
@@ -8437,6 +8437,17 @@
             ]
         }
 %    \end{macrocode}
+% Four-digit years in the old \Feld{year} field go to \Feld{date}
+%    \begin{macrocode}
+        \map{
+			\step[
+				notfield=date,
+				fieldsource=year, 
+				match=\regexp{\A\d{4}\Z},
+				fieldtarget=date,
+			]
+		}
+%    \end{macrocode}
 % If there are words (e.\,g. \enquote{revised}) in field \Feld{edition}, we extract the number.
 %    \begin{macrocode}
         \map[
@@ -13026,6 +13037,21 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\blxarch@style@egypthd@info}
+% \begin{macro}{\blxarch@style@egypthdinline}
+% \begin{macro}{\blxarch@style@egypthdnumeric}
+% \begin{macro}{\blxarch@style@egypthdverbose}
+%    \begin{macrocode}
+\edef\blxarch@style@egypthd@info{\"Agyptologie Heidelberg}
+\edef\blxarch@style@egypthdinline{\blxarch@style@egypthd@info\space(naturwissenschaftlich)}
+\edef\blxarch@style@egypthdnumeric{\blxarch@style@egypthd@info\space(numerisch)}
+\edef\blxarch@style@egypthdverbose{\blxarch@style@egypthd@info\space(geisteswissenschaftlich)}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 % \begin{macro}{\blxarch@style@mpk@info}
 % \begin{macro}{\blxarch@style@mpk}
 % \begin{macro}{\blxarch@style@mpkoeaw}
@@ -14518,7 +14544,7 @@
 %
 % \begin{macro}{\multilistdelim}
 %    \begin{macrocode}
-\renewcommand*{\multilistdelim}{\slash}
+\renewcommand*{\multilistdelim}{\addslash}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -15684,8 +15710,203 @@
 %
 % \iffalse
 %</eazaltBBX>
+%<*egypthdinlineBBX>
+% \fi
+%
+% \subsubsection{File \Datei{egypthd-inline.bbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{egypthd-inline.bbx}
+[2019/12/31 v2.3 biblatex-archaeology bibliography style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireBibliographyStyle{authoryear-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeobibstyletitle}
+%    \begin{macrocode}
+\def\archaeobibstyletitle{\blxarch@style@egypthdinline}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+    dashed=true,
+    repeatlabel=false,
+    mergedate=false,
+    sorting=lnyvc,
+}
+%    \end{macrocode}
+%
+% \iffalse
+%</egypthdinlineBBX>
+%<*egypthdnumericBBX>
+% \fi
+%
+% \subsubsection{File \Datei{egypthd-numeric.bbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{egypthd-numeric.bbx}
+[2019/12/31 v2.3 biblatex-archaeology bibliography style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireBibliographyStyle{numeric-comp-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeobibstyletitle}
+%    \begin{macrocode}
+\def\archaeobibstyletitle{\blxarch@style@egypthdnumeric}
+%    \end{macrocode}
+% \end{macro}
+%
+% \iffalse
+%</egypthdnumericBBX>
+%<*egypthdverboseBBX>
+% \fi
+%
+% \subsubsection{File \Datei{egypthd-verbose.bbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{egypthd-verbose.bbx}
+[2019/12/31 v2.3 biblatex-archaeology bibliography style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireBibliographyStyle{verbose-ibid-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeobibstyletitle}
+%    \begin{macrocode}
+\def\archaeobibstyletitle{\blxarch@style@egypthdverbose}
+%    \end{macrocode}
+% \end{macro}
+%
+% \iffalse
+%</egypthdverboseBBX>
+%<*egypthdsharedBBX>
+% \fi
+%
+% \subsubsection{Shared by \Datei{egypthd-*.bbx}}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+%    \end{macrocode}
+% \blx options:
+%    \begin{macrocode}
+    doi=false,       
+    eprint=false,
+    giveninits=true,
+	loccittracker=true,    
+    maxbibnames=500,
+    maxcitenames=2,
+    maxitems=3,
+    mincitenames=1,                  
+    minitems=3,
+    notetype=foot+end,
+	opcittracker=true,
+    url=false,
+%    \end{macrocode}
+% \archbib options:
+%    \begin{macrocode}
+    editionsuperscript=predate,
+    giveninitligatures={},
+    idemincitation=true,
+    injournal=true,
+    journallocation=false,
+    maxbooknames=3,
+    minbooknames=1,
+    minrealdatediff=\blxarch@maxnumber,
+    nothesistitlepunct=true,
+    notitlepunct=true,
+    origfields=true,
+    pagesfirst=false,
+    positionlabeldate=location,
+    preservelastauthor=false,
+    shortform=true,
+    shortjournal=true,
+    shortseries=true,
+    subseries=true,
+    summarytitle=false,
+    tabbedlabeldate=false,
+    titlebrackets=false,
+    titlenote=false,
+    useeventdate=false,
+    useeventnumber=true,
+    usefestschriftaddon=false,
+    useinstitution=false,
+    uselocation=true,
+    usemultivenue=false,
+    usesourceeditor=true,
+    usepublisher=false,
+    useunpublishedthesis=true,
+    volumeafterseries=false,
+}
+%    \end{macrocode}
+%
+% \begin{format}{bookauthor}
+% \begin{format}{sortname}
+%    \begin{macrocode}
+\DeclareNameAlias{bookauthor}{given-family}
+\DeclareNameAlias{sortname}{given-family}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+%
+%    \begin{macrocode}
+\DeclareLanguageMappingSuffix{-egypthd}
+%    \end{macrocode}
+%
+% \begin{macro}{\labelnamepunct}
+% \begin{macro}{\booklabelpunct}
+% \begin{macro}{\newunitpunct}
+%    \begin{macrocode}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
+\renewcommand*{\newunitpunct}{\addcomma\space}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\subtitlepunct}
+%    \begin{macrocode}
+\renewcommand*{\subtitlepunct}{\addcolon\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{volume}
+% \begin{format}{volumes}
+%    \begin{macrocode}
+\DeclareFieldFormat*{volume}{\addcomma\space\bibstring{volume}\space#1}
+\DeclareFieldFormat[article,periodical,review,suppperiodical]{volume}{#1}
+\DeclareFieldFormat*{volume}{#1\space\bibstring{volumes}}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+%
+% \begin{macro}{\multilistdelim}
+%    \begin{macrocode}
+\renewcommand*{\multilistdelim}{\addslash}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\multinamedelim}
+% \begin{macro}{\finalnamedelim}
+%    \begin{macrocode}
+\renewcommand*{\multinamedelim}{\addslash}
+\renewcommand*{\finalnamedelim}{\addslash}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \iffalse
+%</egypthdsharedBBX>
 %<*foeBBX>
 % \fi
+%
+% \subsubsection{File \Datei{foe.bbx}}
 %
 % \subsubsection{File \Datei{foe.bbx}}
 %
@@ -16106,7 +16327,7 @@
 %    \end{macrocode}
 % \end{format}
 %
-% \begin{format}{journaldateparens}
+% \begin{format}{volume}
 %    \begin{macrocode}
 \DeclareFieldFormat[article,periodical,review,suppperiodical]{volume}{%
     \ifinteger{#1}
@@ -18336,7 +18557,7 @@
 % \subsubsection{File \Datei{rgk-numeric.bbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{rgk-verbose.bbx}
+\ProvidesFile{rgk-numeric.bbx}
 [2019/12/31 v2.3 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
@@ -20960,6 +21181,85 @@
 %
 % \iffalse
 %</eazaltCBX>
+%<*egypthdnumericCBX>
+% \fi
+%
+% \subsubsection{File \Datei{egypthd-numeric.cbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{egypthd-numeric.cbx}
+[2019/12/31 v2.3 biblatex-archaeology citation style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireCitationStyle{numeric-comp-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeocitestyletitle}
+%    \begin{macrocode}
+\def\archaeocitestyletitle{\blxarch@style@egypthdnumeric}
+%    \end{macrocode}
+% \end{macro}
+%
+% \iffalse
+%</egypthdnumericCBX>
+%<*egypthdverboseCBX>
+% \fi
+%
+% \subsubsection{File \Datei{egypthd-verbose.cbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{egypthd-verbose.cbx}
+[2019/12/31 v2.3 biblatex-archaeology citation style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireCitationStyle{verbose-ibid-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeocitestyletitle}
+%    \begin{macrocode}
+\def\archaeocitestyletitle{\blxarch@style@egypthdverbose}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+	autopunct=false,
+    citepages=omit, % permit|suppress|omit|separate
+}
+%    \end{macrocode}
+%
+% \iffalse
+%</egypthdverboseCBX>
+%<*egypthdinlineCBX>
+% \fi
+%
+% \subsubsection{File \Datei{egypthd-inline.cbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{egypthd-inline.cbx}
+[2019/12/31 v2.3 biblatex-archaeology citation style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireCitationStyle{authoryear-comp-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeocitestyletitle}
+%    \begin{macrocode}
+\def\archaeocitestyletitle{\blxarch@style@egypthdinline}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+    uniquename=false,
+    uniquelist=false,
+}
+%
+% \iffalse
+%</egypthdinlineCBX>
 %<*foeCBX>
 % \fi
 %
@@ -24618,7 +24918,7 @@
 % \subsubsection{File \Datei{german-aefkw.lbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{zaas-german.lbx}
+\ProvidesFile{german-aefkw.lbx}
 [2019/12/31 v2.3 biblatex-archaeology (Ingram Braun) based on biblatex]
 %    \end{macrocode}
 %
@@ -24705,7 +25005,7 @@
                     {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
   editor = {{Herausgeber}{Hg\adddot}},
   editors = {{Herausgeber}{Hgg\adddot}},
-  nodate = {{ohne Jahr}{o.J\adddot}},
+  nodate = {{ohne Jahr}{o\adddot J\adddot}},
 }
 %    \end{macrocode}
 % \end{localization}
@@ -25104,6 +25404,184 @@
 %
 % \iffalse
 %</PgermaneazLBX>
+%<*egypthdenglishLBX>
+% \fi
+%
+% \subsubsection{File \Datei{english-egypthd.lbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{english-egypthd.lbx}
+[2019/12/31 v2.3 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
+%    \end{macrocode}
+%
+% \begin{localization}{nodate}
+%    \begin{macrocode}
+\InheritBibliographyExtras{german-archaeology}
+\DeclareBibliographyStrings{%
+    inherit  = {german-archaeology},
+    nodate   = {{no date}{n.d\adddot}},
+}
+%    \end{macrocode}
+% \end{localization}
+%
+% \iffalse
+%</egypthdenglishLBX>
+%<*egypthdgermanLBX>
+% \fi
+%
+% \subsubsection{File \Datei{german-egypthd.lbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{german-egypthd.lbx}
+[2019/12/31 v2.3 biblatex-archaeology (Ingram Braun) based on biblatex]
+%    \end{macrocode}
+%
+% \begin{localization}{byeditor}
+% \begin{localization}{byeditortr}
+% \begin{localization}{byeditorco}
+% \begin{localization}{byeditoran}
+% \begin{localization}{byeditorin}
+% \begin{localization}{byeditorfo}
+% \begin{localization}{byeditoraf}
+% \begin{localization}{byeditortrco}
+% \begin{localization}{byeditortran}
+% \begin{localization}{byeditortrin}
+% \begin{localization}{byeditortrfo}
+% \begin{localization}{byeditorcoaf}
+% \begin{localization}{byeditoranin}
+% \begin{localization}{byeditoranfo}
+% \begin{localization}{byeditorcoaf}
+% \begin{localization}{byeditoranin}
+% \begin{localization}{byeditoranfo}
+% \begin{localization}{byeditoranaf}
+% \begin{localization}{byeditortrcoin}
+% \begin{localization}{byeditortrcofo}
+% \begin{localization}{byeditortrcoaf}
+% \begin{localization}{byeditortranin}
+% \begin{localization}{byeditortranfo}
+% \begin{localization}{byeditortranaf}
+% \begin{localization}{byeditortr}
+% \begin{localization}{editor}
+% \begin{localization}{editors}
+% \begin{localization}{nodate}
+%    \begin{macrocode}
+\InheritBibliographyExtras{german-archaeology}
+\DeclareBibliographyStrings{%
+  inherit = {german-archaeology},
+  byeditor       = {{herausgegeben von}{hg\adddotspace von}},
+  byeditortr     = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
+                  {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
+  byeditorco     = {{herausgegeben und kommentiert von}%
+                  {hg\adddotspace und komm\adddot\ von}},
+  byeditoran     = {{herausgegeben und erl\"autert von}%
+                    {hg\adddotspace und erl\"aut\adddot\ von}},
+  byeditorin     = {{herausgegeben und mit einer Einleitung versehen von}%
+                    {hg\adddotspace und mit einer Einl\adddot\ vers\adddot\ von}},
+  byeditorfo     = {{herausgegeben und mit einem Vorwort versehen von}%
+                    {hg\adddotspace und mit einem Vorw\adddot\ vers\adddot\ von}},
+  byeditoraf     = {{herausgegeben und mit einem Nachwort versehen von}%
+                    {hg\adddotspace und mit einem Nachw\adddot\ vers\adddot\ von}},
+  byeditortrco   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und kommentiert von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und komm\adddot\ von}},
+  byeditortran   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und erl\"autert von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und erl\"aut\adddot\ von}},
+  byeditortrin   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einer Einleitung versehen von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und Einl\adddot\ von}},
+  byeditortrfo   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Vorwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und Vorw\adddot\ von}},
+  byeditortraf   = {{herausgegeben, \lbx@lfromlang \"ubersetzt und mit einem Nachwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers\adddot\ und Nachw\adddot\ von}},
+  byeditorcoin   = {{herausgegeben, kommentiert und mit einer Einleitung versehen von}%
+                    {hg., komm\adddot\ und Einl\adddot\ von}},
+  byeditorcofo   = {{herausgegeben, kommentiert und mit einem Vorwort versehen von}%
+                    {hg., komm\adddot\ und Vorw\adddot\ von}},
+  byeditorcoaf   = {{herausgegeben, kommentiert und mit einem Nachwort versehen von}%
+                    {hg., komm\adddot\ und mit einem Nachw\adddot\ vers\adddot\ von}},
+  byeditoranin   = {{herausgegeben, erl\"autert und mit einer Einleitung versehen von}%
+                    {hg., erl\"aut\adddot\ und Einl\adddot\ von}},
+  byeditoranfo   = {{herausgegeben, erl\"autert und mit einem Vorwort versehen von}%
+                    {hg., erl\"aut\adddot\ und Vorw\adddot\ von}},
+  byeditoranaf   = {{herausgegeben, erl\"autert und mit einem Nachwort versehen von}%
+                    {hg., erl\"aut\adddot\ und Nachw\adddot\ von}},
+  byeditortrcoin = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einer Einleitung versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Einl\adddot\ von}},
+  byeditortrcofo = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Vorwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Vorw\adddot\ von}},
+  byeditortrcoaf = {{herausgegeben, \lbx@lfromlang \"ubersetzt, kommentiert und mit einem Nachwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., komm\adddot\ und Nachw\adddot\ von}},
+  byeditortranin = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einer Einleitung versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Einl\adddot\ von}},
+  byeditortranfo = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Vorwort versehen von}%
+                      {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Vorw\adddot\ von}},
+  byeditortranaf = {{herausgegeben, \lbx@lfromlang \"ubersetzt, erl\"autert und mit einem Nachwort versehen von}%
+                    {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Nachw\adddot\ von}},
+  byeditortr     = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
+                    {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
+  editor = {{Herausgeber}{Hg\adddot}},
+  editors = {{Herausgeber}{Hgg\adddot}},
+  nodate = {{ohne Jahr}{o\adddot J\adddot}},
+}
+%    \end{macrocode}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+%
+% \iffalse
+%</egypthdgermanLBX>
+%<*PenglishegypthdLBX>
+% \fi
+%
+% \subsubsection{Pointer to \Datei{english-egypthd.lbx}}
+%
+%    \begin{macrocode}
+[2019/12/31 v2.3 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
+\InheritBibliographyExtras{english-egypthd}
+\InheritBibliographyStrings{english-egypthd}
+%    \end{macrocode}
+%
+% \iffalse
+%</PenglishegypthdLBX>
+%<*PgermanegypthdLBX>
+% \fi
+%
+% \subsubsection{Pointer to \Datei{german-egypthd.lbx}}
+%
+%    \begin{macrocode}
+[2019/12/31 v2.3 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
+\InheritBibliographyExtras{german-egypthd}
+\InheritBibliographyStrings{german-egypthd}
+%    \end{macrocode}
+%
+% \iffalse
+%</PgermanegypthdLBX>
 %<*foeenglishLBX>
 % \fi
 %
@@ -26584,6 +27062,33 @@
 %
 % \iffalse
 %</eazaltDBX>
+%<*egypthdnumericDBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{egypthd-numeric.dbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</egypthdnumericDBX>
+%<*egypthdinlineDBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{egypthd-inline.dbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</egypthdinlineDBX>
+%<*egypthdverboseDBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{egypthd-verbose.dbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</egypthdverboseDBX>
 %<*foeDBX>
 % \fi
 %

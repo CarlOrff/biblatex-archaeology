@@ -43,6 +43,8 @@ my %format = (
 	'xhtml' => 'html',
 	'odt' => 'odt',
 	'epub' => 'epub',
+	'tei' => 'xml',
+	'docbook' => 'xml',
 );
 
 my @engine = (
@@ -67,6 +69,12 @@ $latex{ xhtml }{ xelatex } = "make4ht -xe mycfg.mk4 -f xhtml $jobname.tex \"fn-i
 $latex{ odt }{ lualatex } = "make4ht -le mycfg.mk4 -f odt $jobname.tex";
 $latex{ odt }{ pdflatex } = "make4ht -e mycfg.mk4 -f odt $jobname.tex";
 $latex{ odt }{ xelatex } = "make4ht -xe mycfg.mk4 -f odt $jobname.tex";
+$latex{ tei }{ lualatex } = "make4ht -le mycfg.mk4 -f tei $jobname.tex";
+$latex{ tei }{ pdflatex } = "make4ht -e mycfg.mk4 -f tei $jobname.tex";
+$latex{ tei }{ xelatex } = "make4ht -xe mycfg.mk4 -f tei $jobname.tex";
+$latex{ docbook }{ lualatex } = "make4ht -le mycfg.mk4 -f docbook $jobname.tex";
+$latex{ docbook }{ pdflatex } = "make4ht -e mycfg.mk4 -f docbook $jobname.tex";
+$latex{ docbook }{ xelatex } = "make4ht -xe mycfg.mk4 -f docbook $jobname.tex";
 
 
 system( 'latexmk -c' );
