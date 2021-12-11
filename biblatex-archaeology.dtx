@@ -8438,6 +8438,7 @@
         }
 %    \end{macrocode}
 % Four-digit years in the old \Feld{year} field go to \Feld{date}
+% \changes{2.3}{2021/12/11}{\\Feld{year} mapped to date if four digits only (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/34}{issue \#34})}
 %    \begin{macrocode}
         \map{
 			\step[
@@ -12625,11 +12626,14 @@
 %
 % \begin{format}{labeldate}
 % Changed. We only use date because it can happen that the \Feld{extradate}
-% has to be printed in the \Feld{location}/\Feld{date} block.
+% has to be printed in the \Feld{location}/\Feld{date} block. Field \Feld{year}
+% only matches if it contains something peculiar. The user should see this. 
+% \changes{2.3}{2021/12/11}{Added \Feld{year} as possible \Feld{labeldate}}
 %    \begin{macrocode}
 \DeclareLabeldate{%
     \field{date}
     \field{pubstate}
+	\field{year}
     \literal{nodate}
 }
 %    \end{macrocode}
