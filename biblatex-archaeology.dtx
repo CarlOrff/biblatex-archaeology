@@ -12387,8 +12387,11 @@
 % \begin{format}{editortypedelim}
 % \begin{format}{translatortypedelim}
 % Delimiter between name and its role.
+% \changes{2.3}{2020/12/12}{\Befehl{DeclareDelimFormat} not in list context (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/32}{issue \#32})}
 %    \begin{macrocode}
-\DeclareDelimFormat{authortypedelim,editortypedelim,translatortypedelim}{\addspace}
+\DeclareDelimFormat{authortypedelim}{\addspace}
+\DeclareDelimFormat{editortypedelim}{\addspace}
+\DeclareDelimFormat{translatortypedelim}{\addspace}
 %    \end{macrocode}
 % \end{format}
 % \end{format}
