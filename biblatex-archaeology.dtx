@@ -223,6 +223,7 @@
 % \changes{2.2}{2019/12/27}{\Datei{ctanify.pl} now TDS capable (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/4}{issue \#4})}
 % \changes{2.3}{2020/06/14}{Log complete \Datei{ctanify.pl} shell output (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/25}{issue \#25})}
 % \changes{2.3}{2021/04/04}{Option \Option{autopunct} switches off in some styles}
+% \changes{2.3}{2020/12/12}{Clear part field in \Feld{title} macros (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/33}{issue \#33})}
 %
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -10038,6 +10039,7 @@
                 {\setunit{\addspace}\printfield{volume}%
                  \printfield{part}%
                  \clearfield{volume}%
+				 \clearfield{part}%
                  \setunit{\addcolon\space}}}}%
     \usebibmacro{title}%
     \newunit}
@@ -10054,6 +10056,7 @@
                 {\setunit{\addspace}\printfield{volume}%
                  \printfield{part}%
                  \clearfield{volume}%
+				 \clearfield{part}%
                  \setunit{\addcolon\space}}}}%
     \usebibmacro{booktitle}%
     \newunit}
@@ -10154,7 +10157,8 @@
                 {}
                 {\setunit{\addspace}\printfield{volume}%
                  \printfield{part}%
-                 \clearfield{volume}}%
+                 \clearfield{volume}%
+				 \clearfield{part}}%
              \newunit%
              \iffieldundef{series}
                 {\ifpagesfirst
@@ -10211,8 +10215,11 @@
         not test {\iffieldundef{series}}
     }
         {}            
-        {\setunit{\addspace}\printfield{volume}\clearfield{volume}%   
-         \printfield{part}}%
+        {\setunit{\addspace}%
+		 \printfield{volume}%
+         \printfield{part}%
+		 \clearfield{volume}%
+		 \clearfield{part}}%
     \setunit{\addspace}%
     \iffieldundef{series}
         {\ifpagesfirst
@@ -12894,9 +12901,11 @@
             \printfield{number}%      
         }}%
         \iftoggle{archbool:volumeafterseries}
-            {\setunit{\addspace}\printfield{volume}%
-            \printfield{part}%
-            \clearfield{volume}}
+            {\setunit{\addspace}%
+			 \printfield{volume}%
+             \printfield{part}%
+             \clearfield{volume}%
+			 \clearfield{part}}
             {}%
         \ifpagesfirst
             {\usebibmacro{chapter+pages}%
