@@ -1790,7 +1790,7 @@
 }
 @Article{asmus:1938,
   author       = {Asmus, Gisela},
-  title        = {Reihengräberschädel des karolingerzeitlichen Grabfeldes Holle, Kr. Marienburg \enquote{Hannover}},
+  title        = {Reihengräberschädel des karolingerzeitlichen Grabfeldes Holle, Kr. Marienburg \mkbibparens{Hannover}},
   JOURNALTITLE = {Niedersächsisches Jahrbuch für Landesgeschichte},
   date         = {1938},
   number       = {12},
@@ -8458,13 +8458,13 @@
 % Fetch URLs from \Feld{note} or \Feld{howpublished}.
 % \changes{2.3}{2021/12/13}{Fetch URLs from \Feld{note} or \Feld{howpublished}}
 %    \begin{macrocode}
-        \map{
+		\map{
 			\step[
 				notfield=url,
 				fieldsource=note,
-				match=\regexp{\A\\url\{.+\}\Z},
-				fieldtarget=url,
+				match=\regexp{\\url\{(\S+)\}\Z},
 				replace={$1},
+				fieldtarget=url,
 				final,
 			]
 			\step[
@@ -8472,13 +8472,13 @@
                 null,
             ]
 		}
-		 \map{
+		\map{
 			\step[
 				notfield=url,
 				fieldsource=howpublished,
-				match=\regexp{\A\\url\{.+\}\Z},
-				fieldtarget=url,
+				match=\regexp{\\url\{(\S+)\}\Z},
 				replace={$1},
+				fieldtarget=url,
 				final,
 			]
 			\step[
@@ -8487,7 +8487,7 @@
             ]
 		}
 %    \end{macrocode}
-% Nap \Feld{address} to \Feld{location} because the automated \Localization{nodate}-mechanism does not work with it.
+% Nap \Feld{address} to \Feld{location} because the automated \Kbd{nodate}-mechanism does not work with it.
 % \changes{2.3}{2021/12/13}{\Feld{address} mapped to \Feld{location}}
 %    \begin{macrocode}
         \map{
