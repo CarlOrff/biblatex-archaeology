@@ -8439,7 +8439,7 @@
         }
 %    \end{macrocode}
 % Four-digit years in the old \Feld{year} field go to \Feld{date}
-% \changes{2.3}{2021/12/11}{\\Feld{year} mapped to date if four digits only (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/34}{issue \#34})}
+% \changes{2.3}{2021/12/11}{\Feld{year} mapped to \Feld{date} if four digits only (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/34}{issue \#34})}
 %    \begin{macrocode}
         \map{
 			\step[
@@ -8447,7 +8447,59 @@
 				fieldsource=year, 
 				match=\regexp{\A\d{4}\Z},
 				fieldtarget=date,
+				final,
 			]
+			\step[
+                fieldset=year,
+                null,
+            ]
+		}
+%    \end{macrocode}
+% Fetch URLs from \Feld{note} or \Feld{howpublished}.
+% \changes{2.3}{2021/12/13}{Fetch URLs from \Feld{note} or \Feld{howpublished}}
+%    \begin{macrocode}
+        \map{
+			\step[
+				notfield=url,
+				fieldsource=note,
+				match=\regexp{\A\\url\{.+\}\Z},
+				fieldtarget=url,
+				replace={$1},
+				final,
+			]
+			\step[
+                fieldset=note,
+                null,
+            ]
+		}
+		 \map{
+			\step[
+				notfield=url,
+				fieldsource=howpublished,
+				match=\regexp{\A\\url\{.+\}\Z},
+				fieldtarget=url,
+				replace={$1},
+				final,
+			]
+			\step[
+                fieldset=howpublished,
+                null,
+            ]
+		}
+%    \end{macrocode}
+% Nap \Feld{address} to \Feld{location} because the automated \Localization{nodate}-mechanism does not work with it.
+% \changes{2.3}{2021/12/13}{\Feld{address} mapped to \Feld{location}}
+%    \begin{macrocode}
+        \map{
+			\step[
+				notfield=location,
+				fieldsource=address, 
+				fieldtarget=location,
+			]
+			\step[
+                fieldset=address,
+                null,
+            ]
 		}
 %    \end{macrocode}
 % If there are words (e.\,g. \enquote{revised}) in field \Feld{edition}, we extract the number.
