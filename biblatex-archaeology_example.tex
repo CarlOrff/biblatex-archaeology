@@ -59,16 +59,15 @@
 \usepackage[osf]{noto}  % Noto, NotoSans, NotoSansMono optimized for screens; osf = old style figures ("Mediävalziffern")
 \usepackage{fontawesome} % a collection of icons (primarily intended for websites)
 
+%%% Farbe:
+\usepackage{xcolor}
+
 %\usepackage[logonly]{trace}\traceon
 %\tracingpatches % write \patchcmd log
-%\usepackage[protrusion=true,expansion=true,verbose=true,babel=true,tracking=true]{microtype}
-%\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
-%\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
-            % dass alle Passagen in Kapitälchen automatisch leicht
-            % gesperrt werden.
 %%% Babel works with lualatex and xelatex with up-to-date installs.
 %%% Last language in list is set as document main.
 \usepackage[english,latin,french,dutch,danish,ngerman,german]{babel}
+%\usepackage[latin,french,dutch,danish,ngerman,german,engl%ish]{babel}
 \usepackage[german=quotes]{csquotes} % context sensitive quotatation
 \usepackage{ellipsis} % better typesetting of ... (must load after babel)
 \usepackage[
@@ -84,6 +83,7 @@
     %style=verbose-trad1,
     %style=verbose-trad2,
     %style=verbose-trad3,
+	%style=authoryear,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %style=authoryear-archaeology,
     %style=authoryear-ibid-archaeology,
@@ -101,9 +101,7 @@
     %style=dguf-apa,
     %style=eaz,
     %style=eaz-alt,
-	style=egypthd-inline,
-    %style=egypthd-numeric,
-    %style=egypthd-verbose,
+	style=egypthd,
     %style=foe,
     %style=jb-halle,
     %style=jb-kreis-neuss,
@@ -151,12 +149,11 @@
     {\usepackage{ingram-braun-local}
      \addbibresource{\IBbibmain}}
     {\addbibresource{biblatex-archaeology-example.bib}}
-    \usepackage{xcolor}
+
 % heading (after biblatex!)
 \ifcsdef{archaeobibstyletitle}
 	{\def\explhead{\texttt{bibstyle}: \archaeobibstyletitle\\\texttt{citestyle}: \archaeocitestyletitle}}
-	{\edef\explhead{no \textsf{biblatex-archaeology} style}}
-	
+	{\edef\explhead{no biblatex-archaeology style}}
 	
 \ifdefined\HCode\relax\else
 % no page header in HTML
@@ -180,13 +177,14 @@
 
 \newcommand{\exmplwarn}[1]{\textcolor{red}{\faExclamationTriangle} #1\\}
 
+
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
-	
 %%% END EXPERIMENTAL CODE
 \makeatother
 
+\usepackage{hyperref}
  
 \begin{document}
 \maketitle
@@ -202,7 +200,7 @@
 
 \section{Blindtext + \Befehl{autocite} and friends}
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todorova:et:al:1981}, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat\autocite[145--146]{todorova:et:al:1981}. Ut wisi enim ad minim veniam\autocite[3--9]{todorova:et:al:1981}, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat \autocite{auler:hiller:2015}. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi \autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}[69]{auler:hiller:2011}. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit \avolcite{1}[156]{linnaeus:2003} lobortis nisl ut aliquip ex ea commodo consequat \autocite{kenmore}. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat \autocites[73--75]{mueller:f:1991}[105--108]{mueller:a:1991}[68--70]{mueller:h:1900}[61]{mueller:har:1988}, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi \autocite{kenmore}. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum \autocite[145--146]{todorova:et:al:1981}.
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todorova:et:al:1981}, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat\autocite[145--146]{todorova:et:al:1981}. Ut wisi enim ad minim veniam\autocite[3--9]{todorova:et:al:1981}, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat \autocite{auler:hiller:2015}. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi \autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}[69]{auler:hiller:2011}. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat\autocite[163--164]{auler:hiller:2015}. Ut wisi enim ad minim veniam\autocite[163--168]{auler:hiller:2015}, quis nostrud exerci tation ullamcorper suscipit \avolcite{1}[156]{linnaeus:2003} lobortis nisl ut aliquip ex ea commodo consequat \autocite{kenmore}. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat \autocites[73--75]{mueller:f:1991}[105--108]{mueller:a:1991}[68--70]{mueller:h:1900}[61]{mueller:har:1988}, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi \autocite{kenmore}. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum \autocite[145--146]{todorova:et:al:1981}.
 
 \section{Citation commands}
 
@@ -561,8 +559,19 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todo
 	}{}
 \end{itemize}
 
+\subsection{Publication States}
+\begin{itemize}
+    \item\cite{pubstate_test_inpreparation}%
+	\item\cite{pubstate_test_inpress}%
+	\item\cite{pubstate_test_forthcoming}%
+	\item\cite{pubstate_test_prepublished}%
+	\item\cite{pubstate_test_submitted}%
+	\item\cite{pubstate_test_submitted_2}%
+\end{itemize}
+
 %\printshorthands
 \printbibliography[title=Standardliteraturverzeichnis]
+\ifblxarch{\printleaflet{auler:hiller:2011,auler:hiller:2015a,auler:hiller:2015,auler:hiller:2016,tacitus:1981,de:neck:yoder:1978}}{}
 
 %\ifcsdef{blxarch@fork@authordate}
 		%{\printbibliography[env=leftmarginbibliography,title={Verzeichnis im alten RGK-Stil}]}

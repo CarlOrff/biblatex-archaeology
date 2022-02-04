@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 % !TEX program = pdfLaTeX
 %
-% Copyright (C) 2005-2021 by Ingram Braun
+% Copyright (C) 2005-2022 by Ingram Braun
 %
 % This file may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either
@@ -224,6 +224,7 @@
 % \changes{2.3}{2020/06/14}{Log complete \Datei{ctanify.pl} shell output (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/25}{issue \#25})}
 % \changes{2.3}{2021/04/04}{Option \Option{autopunct} switches off in some styles}
 % \changes{2.3}{2020/12/12}{Clear part field in \Feld{title} macros (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/33}{issue \#33})}
+% \changes{2.3}{2022/02/04}{New style \Stil{egypthd}}
 %
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -989,6 +990,9 @@
 % \item[]\DescribeFormat{lnyvt}
 % The same as in \blx, but considers the \Feld{anonstring} field.
 %
+% \item[]\DescribeFormat{library}
+% This is a special scheme for printing leaflets (\ref{leaflet}). The \Feld{library} field is the only sorting criteria.
+%
 % \end{itemize}
 % 
 % \subsection{New bibliography environment}
@@ -1373,6 +1377,9 @@
 %
 % \item[]\DescribeMacro{\seriespunct}\\
 % The punctuation after the \Feld{series} field.
+%
+% \item[]\DescribeMacro{\urlunitpunct}\\
+% A replacement for \Befehl{newunitpunct} ahead of the \Feld{url} field.
 %
 % \item[]\DescribeMacro{\strongcitedelim}\\
 % Some styles differentiate between the usual \Befehl{multicitedelim} and a strong version, in fact a replacement for
@@ -2407,6 +2414,48 @@
   LOCATION = {München},
   BOOKSUBTITLE = {Seefahrt und Seemacht im Deutschen Kaiserreich},
   BOOKTITLE = {Übersee}
+}
+@MISC{pubstate_test_forthcoming,
+  AUTHOR = {Author, Andrew},
+  TITLE = {Work Forthcoming},
+  PUBSTATE = {forthcoming},
+  LANGUAGE = {english},
+  GENDER = {sm},
+}
+@MISC{pubstate_test_inpreparation,
+  AUTHOR = {Author, Andrew},
+  TITLE = {Work in Preparation},
+  PUBSTATE = {inpreparation},
+  LANGUAGE = {english},
+  GENDER = {sm},
+}
+@MISC{pubstate_test_inpress,
+  AUTHOR = {Author, Andrew},
+  TITLE = {Work in Press},
+  PUBSTATE = {inpress},
+  LANGUAGE = {english},
+  GENDER = {sm},
+}
+@MISC{pubstate_test_prepublished,
+  AUTHOR = {Author, Andrew},
+  TITLE = {Work Prepublished},
+  PUBSTATE = {prepublished},
+  LANGUAGE = {english},
+  GENDER = {sm},
+}
+@MISC{pubstate_test_submitted,
+  AUTHOR = {Author, Andrew},
+  TITLE = {Work Submitted},
+  PUBSTATE = {submitted},
+  LANGUAGE = {english},
+  GENDER = {sm},
+}
+@MISC{pubstate_test_submitted_2,
+  AUTHOR = {Author, Andrew},
+  TITLE = {Another Work Submitted},
+  PUBSTATE = {submitted},
+  LANGUAGE = {english},
+  GENDER = {sm},
 }
 @COLLECTION{radmacher:kronsbein:2011,
   EDITOR = {Radmacher, Franz-Josef AND Kronsbein, Stefan},
@@ -8442,65 +8491,80 @@
 % \changes{2.3}{2021/12/11}{\Feld{year} mapped to \Feld{date} if four digits only (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/34}{issue \#34})}
 %    \begin{macrocode}
         \map{
-			\step[
-				notfield=date,
-				fieldsource=year, 
-				match=\regexp{\A\d{4}\Z},
-				fieldtarget=date,
-				final,
-			]
-			\step[
+      \step[
+        notfield=date,
+        fieldsource=year, 
+        match=\regexp{\A\d{4}\Z},
+        fieldtarget=date,
+        final,
+      ]
+      \step[
                 fieldset=year,
                 null,
             ]
-		}
+    }
 %    \end{macrocode}
 % Fetch URLs from \Feld{note} or \Feld{howpublished}.
 % \changes{2.3}{2021/12/13}{Fetch URLs from \Feld{note} or \Feld{howpublished}}
 %    \begin{macrocode}
-		\map{
-			\step[
-				notfield=url,
-				fieldsource=note,
-				match=\regexp{\\url\{(\S+)\}\Z},
-				replace={$1},
-				fieldtarget=url,
-				final,
-			]
-			\step[
+    \map{
+      \step[
+        notfield=url,
+        fieldsource=note,
+        match=\regexp{\\url\{(\S+)\}\Z},
+        replace={$1},
+        fieldtarget=url,
+        final,
+      ]
+      \step[
                 fieldset=note,
                 null,
             ]
-		}
-		\map{
-			\step[
-				notfield=url,
-				fieldsource=howpublished,
-				match=\regexp{\\url\{(\S+)\}\Z},
-				replace={$1},
-				fieldtarget=url,
-				final,
-			]
-			\step[
+    }
+    \map{
+      \step[
+        notfield=url,
+        fieldsource=howpublished,
+        match=\regexp{\\url\{(\S+)\}\Z},
+        replace={$1},
+        fieldtarget=url,
+        final,
+      ]
+      \step[
                 fieldset=howpublished,
                 null,
             ]
-		}
+    }
 %    \end{macrocode}
-% Nap \Feld{address} to \Feld{location} because the automated \Kbd{nodate}-mechanism does not work with it.
+% Map \Feld{address} to \Feld{location} because the automated \Kbd{noplace}-mechanism does not work with it.
 % \changes{2.3}{2021/12/13}{\Feld{address} mapped to \Feld{location}}
 %    \begin{macrocode}
         \map{
-			\step[
-				notfield=location,
-				fieldsource=address, 
-				fieldtarget=location,
-			]
-			\step[
+      \step[
+        notfield=location,
+        fieldsource=address, 
+        fieldtarget=location,
+      ]
+      \step[
                 fieldset=address,
                 null,
             ]
-		}
+    }
+%    \end{macrocode}
+% Map \Feld{bibsource} to \Feld{library}.
+% \changes{2.3}{2021/12/14}{\Feld{bibsource} mapped to \Feld{library}}
+%    \begin{macrocode}
+        \map{
+      \step[
+        notfield=library,
+        fieldsource=bibsource, 
+        fieldtarget=library,
+      ]
+      \step[
+                fieldset=bibsource,
+                null,
+            ]
+    }
 %    \end{macrocode}
 % If there are words (e.\,g. \enquote{revised}) in field \Feld{edition}, we extract the number.
 %    \begin{macrocode}
@@ -8626,6 +8690,67 @@
 %    \end{macrocode}
 % \end{environment}
 %
+% \subsubsubsection{Labels from \Feld{library} field}
+%
+% \begin{format}{library}
+% Formatting of \Feld{library} field.
+%    \begin{macrocode}
+\DeclareFieldFormat*{library}{\textbf{#1}}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{environment}{blxarch@leaflet}
+% \changes{2.3}{2021/12/27}{Added \Kbd{blxarch@leaflet} environment}
+%    \begin{macrocode}
+\defbibenvironment{blxarch@leaflet}
+  {\list
+    {\iffieldundef{library}
+    {\textbf{Missing \texttt{library} field!}}
+    {\printfield{library}\clearfield{library}}%
+    }
+  {}}
+  {\endlist}
+  {\item}
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{format}{blxarch@leaflet}
+% Heading for \Befehl{printleaflet}.
+%    \begin{macrocode}
+\defbibheading{blxarch@leaflet}[\leafletname]{%
+  \ifcsdef{chapter*}
+    {\chapter{#1}\markboth{#1}{#1}}
+    {\ifcsdef{section}
+      {\section*{#1}\markboth{#1}{#1}}
+      {\large\textbf{#1}\vspace{1.5ex}}}}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\leafletname}
+% Title for \Befehl{printleaflet}.
+% \changes{2.3}{2021/12/28}{Added \Befehl{leafletname}}
+%    \begin{macrocode}
+\newrobustcmd*{\leafletname}{Leaflet \today}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\printleaflet}
+% \changes{2.3}{2021/12/27}{Added \Befehl{printleaflet}}
+%    \begin{macrocode}
+\newrobustcmd{\printleaflet}[1]{%
+  \newrefsection%
+  \newrefcontext[sorting=library]%
+  \nocite{#1}%
+  \printbibliography[
+    env=blxarch@leaflet,
+    heading=blxarch@leaflet,
+  ]
+  \endrefcontext%
+  \endrefsection%
+}
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsubsubsection{Sorting}
 %
 % \begin{format}{global}
@@ -8663,9 +8788,9 @@
 %    \end{macrocode}
 % \end{format}
 %
-%    \begin{macrocode}
 % Remove all prefixes from sort names. Alas, lookaheads don't work here. The canonical way to do this would be to
-% employ \Befehl{DeclareSortingNamekeyTemplate} but we want to override \blx' default which strips Arab articles
+% employ \Befehl{DeclareSortingNamekeyTemplate} but we want to override \blx' default which strips Arab articles.
+%    \begin{macrocode}
 \DeclareNosort{
     \nosort{setnames}{\regexp{^[^\p{Lu}]+}}
 }
@@ -8917,6 +9042,48 @@
 %    \end{macrocode}
 % \end{format}
 %
+% \begin{format}{library}
+% Sorting leaflets with the \Feld{library} field.
+% \changes{2.3}{2021/12/27}{Added sorting scheme \Kbd{library}} 
+%    \begin{macrocode}
+\DeclareSortingTemplate{library}{
+  \sort{
+    \field{presort}
+  }
+  \sort[final]{
+    \field{sortkey}
+  }
+  \sort{
+    \field{sortname}
+    \field{library}
+  }
+  \sort{
+  \field{label}
+  \field{shorthand}
+    \field{shortauthor}
+    \field{author}
+    \field{editor}
+    \field{translator}
+    \field{anonstring}
+    \field{shorttitle}
+    \field{sorttitle}
+    \field{title}
+    }
+  \sort{
+    \field{sortyear}
+    \field{year}
+  }
+  \sort{
+    \field{volume}
+    \literal{0}
+  }
+    \sort{
+    \citeorder
+  }
+}
+%    \end{macrocode}
+% \end{format}
+%
 % \subsubsubsection{Entry types}
 %
 % \begin{macro}{\ifselfcontained}
@@ -9014,15 +9181,19 @@
 % \end{macro}
 %
 % \begin{bibmacro}{doi+eprint+url}
+% \begin{macro}{\urlunitpunct}
 % The boolean tests took place in \Format{begentry}.
+% \changes{2.3}{2022/01/31}{added command \Befehl{urlunitpunct}}
 %    \begin{macrocode}
 \renewbibmacro*{doi+eprint+url}{%
   \printfield{doi}%
   \newunit\newblock%
   \usebibmacro{eprint}%
-  \newunit\newblock%
+  \setunit{\urlunitpunct}\newblock%
   \usebibmacro{url+urldate}}
+  \newcommand*{\urlunitpunct}{\newunitpunct}
 %    \end{macrocode}
+% \end{macro}
 % \end{bibmacro}
 %
 % \subsubsubsection{Local name formatting}
@@ -9033,10 +9204,10 @@
 % \changes{2.3}{2020/11/12}{check for package \Paket{microtype}}
 %    \begin{macrocode}
 \newcommand*{\mkbibletterspacing}[1]{\textsc{#1}%
-	\blxarch@warnmsg{Using small caps instead of letter spacing. Load microtype package!}}
+  \blxarch@warnmsg{Using small caps instead of letter spacing. Load microtype package!}}
 \@ifpackageloaded{microtype}
-	{\renewcommand*{\mkbibletterspacing}[1]{\textls{#1}}}
-	{}
+  {\renewcommand*{\mkbibletterspacing}[1]{\textls{#1}}}
+  {}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -9570,9 +9741,9 @@
     \ifrepeatlabel{false}
         {}
         {\usebibmacro{repeatlabel}\repeatlabeldelim%
-		 \iffieldequalstr{labeltitlesource}{shorttitle}
-			{\clearfield{shorttitle}}
-			{}}%
+     \iffieldequalstr{labeltitlesource}{shorttitle}
+      {\clearfield{shorttitle}}
+      {}}%
     \let\blxarch@buffer@list@namegiven\mkbibnamegiven%
     \let\blxarch@buffer@list@namefamily\mkbibnamefamily%
     \let\blxarch@buffer@list@nameprefix\mkbibnameprefix%
@@ -9690,8 +9861,8 @@
 % \begin{format}{eventtype}
 %    \begin{macrocode}
 \DeclareFieldFormat*{eventtype}{%
-	\ifbibxstring{#1}
-		{\biblstring{#1}}
+  \ifbibxstring{#1}
+    {\biblstring{#1}}
         {#1}%
 }
 %    \end{macrocode}
@@ -9729,7 +9900,7 @@
 \newbibmacro*{exhibition/conference}[1]{%
     \iffieldsequal{eventyear}{eventendyear}{\clearfield{eventendyear}}{}%
     \printtext[#1note]{%
-		\printfield{eventtype}%
+    \printfield{eventtype}%
         \setunit*{\addspace}%
         \iftoggle{archbool:useeventnumber}
             {\printfield{eventnumber}}
@@ -10091,7 +10262,7 @@
                 {\setunit{\addspace}\printfield{volume}%
                  \printfield{part}%
                  \clearfield{volume}%
-				 \clearfield{part}%
+         \clearfield{part}%
                  \setunit{\addcolon\space}}}}%
     \usebibmacro{title}%
     \newunit}
@@ -10108,7 +10279,7 @@
                 {\setunit{\addspace}\printfield{volume}%
                  \printfield{part}%
                  \clearfield{volume}%
-				 \clearfield{part}%
+         \clearfield{part}%
                  \setunit{\addcolon\space}}}}%
     \usebibmacro{booktitle}%
     \newunit}
@@ -10210,7 +10381,7 @@
                 {\setunit{\addspace}\printfield{volume}%
                  \printfield{part}%
                  \clearfield{volume}%
-				 \clearfield{part}}%
+         \clearfield{part}}%
              \newunit%
              \iffieldundef{series}
                 {\ifpagesfirst
@@ -10268,10 +10439,10 @@
     }
         {}            
         {\setunit{\addspace}%
-		 \printfield{volume}%
+     \printfield{volume}%
          \printfield{part}%
-		 \clearfield{volume}%
-		 \clearfield{part}}%
+     \clearfield{volume}%
+     \clearfield{part}}%
     \setunit{\addspace}%
     \iffieldundef{series}
         {\ifpagesfirst
@@ -10404,6 +10575,7 @@
 % \begin{bibmacro}{byeditor:start}
 % \begin{bibmacro}{byeditor:end}
 % Prepare and reset source editors.
+% \changes{2.3}{2022/02/02}{use \Befehl{titleseriesdelim} if series available}
 %    \begin{macrocode}
 \newbibmacro*{byeditor:start}{%
     \ifsourceeditor
@@ -10441,7 +10613,7 @@
         test {\iffieldundef{series}}
     }
         {\printunit{\addspace}}
-        {}%
+        {\iffieldundef{series}{}{\printunit{\titleseriesdelim}}}%
 }
 %    \end{macrocode}
 % \end{bibmacro}
@@ -10478,9 +10650,9 @@
         {\ifnameundef{editor}
             {}
             {\printnames[bookauthor]{editor}%
-                \clearname{editor}%
                 \setunit*{\addspace}%
                 \usebibmacro{editorstrg}%
+        \clearname{editor}%
                 \printunit*{\booknametitledelim}}}%
         {\printnames[bookauthor]{bookauthor}%
             \clearname{bookauthor}%
@@ -10889,28 +11061,28 @@
 \DeclareCiteCommand{citeissue}[]
     {\usebibmacro{prenote}}
     {\toggletrue{archbool:citeissue}%
-	 \csuse{blxarch@issuedate}%
-	 \usebibmacro{title+issuetitle}%
-	 \restorebibmacro{issue+date}%
-	 \togglefalse{archbool:citeissue}}
+   \csuse{blxarch@issuedate}%
+   \usebibmacro{title+issuetitle}%
+   \restorebibmacro{issue+date}%
+   \togglefalse{archbool:citeissue}}
     {\multicitedelim}
     {\usebibmacro{postnote}}
 \DeclareCiteCommand{fciteissue}[\mkbibfootnote]
     {\usebibmacro{prenote}}
     {\toggletrue{archbool:citeissue}%
-	 \csuse{blxarch@issuedate}%
-	 \usebibmacro{title+issuetitle}%
-	 \restorebibmacro{issue+date}%
-	 \togglefalse{archbool:citeissue}}
+   \csuse{blxarch@issuedate}%
+   \usebibmacro{title+issuetitle}%
+   \restorebibmacro{issue+date}%
+   \togglefalse{archbool:citeissue}}
     {\multicitedelim}
     {\usebibmacro{postnote}}
 \DeclareCiteCommand{pciteissue}[\mkbibparens]
     {\usebibmacro{prenote}}
     {\toggletrue{archbool:citeissue}%
-	 \csuse{blxarch@issuedate}%
-	 \usebibmacro{title+issuetitle}%
-	 \restorebibmacro{issue+date}%
-	 \togglefalse{archbool:citeissue}}
+   \csuse{blxarch@issuedate}%
+   \usebibmacro{title+issuetitle}%
+   \restorebibmacro{issue+date}%
+   \togglefalse{archbool:citeissue}}
     {\multicitedelim}
     {\usebibmacro{postnote}}
 %    \end{macrocode}
@@ -11020,26 +11192,26 @@
 %    \end{macrocode}
 % Zero width space to pretend \Paket{tex4ht} something was printed.
 %    \begin{macrocode}
-		  \DeclareNameFormat*{\thefield{labelnamefield}}{\hspace{0pt}}%
-		  \clearname{\thefield{labelnamefield}}%
+      \DeclareNameFormat*{\thefield{labelnamefield}}{\hspace{0pt}}%
+      \clearname{\thefield{labelnamefield}}%
           \DeclareDelimAlias{authortypedelim}{}%
           \DeclareDelimAlias{editortypedelim}{}%
           \DeclareDelimAlias{translatortypedelim}{}%
           \setunit*{\addspace}}
           {\DeclareDelimAlias{nametitledelim}{}}%
-		\printtext{%
+    \printtext{%
 %    \end{macrocode}
 % We must double check for spurious spaces here!
 % \changes{2.3}{2021/04/21}{\Befehl{textreviewcite} and friends fixed}
 %    \begin{macrocode}
-			\DeclareFieldAlias{parens}{textreviewcitedate}%
-			\bibopenparen%
-			\printunit{\nopunct}%
-			\usedriver
-				{\clearname{\thefield{labelnamefield}}}
-				{\thefield{entrytype}}%
-		}%
-	}%
+      \DeclareFieldAlias{parens}{textreviewcitedate}%
+      \bibopenparen%
+      \printunit{\nopunct}%
+      \usedriver
+        {\clearname{\thefield{labelnamefield}}}
+        {\thefield{entrytype}}%
+    }%
+  }%
     {\multicitedelim}
     {\usebibmacro{postnote}\bibcloseparen}
 %    \end{macrocode}
@@ -11146,9 +11318,9 @@
         {\unspace}
         {}%
         \textsuperscript{#1}%
-		\ifeditionsuperscript{predate}
-			{\setunit{\nopunct}}
-			{}}
+    \ifeditionsuperscript{predate}
+      {\setunit{\nopunct}}
+      {}}
 \newbibmacro*{editionsuperscript}{%
     \iffieldundef{usere}
         {}
@@ -11275,6 +11447,7 @@
 %
 % \begin{bibmacro}{location+date}
 % \begin{bibmacro}{publisher+location+date}
+% \begin{bibmacro}{organization+location+date}
 %    \begin{macrocode}
 \renewbibmacro*{publisher+location+date}{%
     \usebibmacro{location+date}}
@@ -11282,7 +11455,12 @@
     \iforigfields
         {\usebibmacro{origfields+reprint}}
         {\usebibmacro{location+date+edition}}}%
+\renewbibmacro{organization+location+date}{%
+  \usebibmacro{publisher+location+date}%
+}
+
 %    \end{macrocode}
+% \end{bibmacro}
 % \end{bibmacro}
 % \end{bibmacro}
 %
@@ -11542,8 +11720,8 @@
         and
         test {\ifbibxstring{unpublished\thefield{type}}}
     }
-        {\printtext[type]{\bibstring{unpublished\thefield{type}}}}
-        {\printfield{type}} 
+        {\printtext[type]{unpublished\thefield{type}}}
+        {\printfield{type}}%
 }
 %    \end{macrocode}
 % \end{bibmacro}
@@ -11611,7 +11789,7 @@
 % \end{macro}
 %
 % \begin{format}{newsdate}
-% Never abbreviuate bibstring.
+% Never abbreviate bibstring.
 %    \begin{macrocode}
 \DeclareFieldFormat*{newsdate}{\biblstring{articledated}\addspace#1}%
 %    \end{macrocode}
@@ -11631,10 +11809,20 @@
 % \end{bibmacro}
 %
 % \begin{format}{extradate}
-% \changes{2.0}{2018/05/20}{Format \Feld{extradate} field instead of \Feld{extrayear}}
 % No parentheses around \Feld{extradate} if date lacks.
+% \changes{2.0}{2018/05/20}{Format \Feld{extradate} field instead of \Feld{extrayear}}
+% \changes{2.3}{2022/02/01}{fixed \Feld{extradate} for use with alphanumeric strings}
 %    \begin{macrocode}
-\DeclareFieldFormat*{extradate}{\mknumalph{#1}}%
+\DeclareFieldFormat*{extradate}{%
+  \ifboolexpr{
+    test {\iffieldequalstr{labeldatesource}{pubstate}}
+    or
+    test {\iffieldequalstr{labeldatesource}{nodate}}
+  }
+    {\addnbthinspace}
+    {}%
+  \mknumalph{#1}%
+}
 %    \end{macrocode}
 % \end{format}
 %
@@ -11666,7 +11854,6 @@
 %    \end{macrocode}
 % \end{format}
 %
-%
 % \begin{option}{minrealdatediff}
 %    \begin{macrocode}
 \blxarch@newcounter{minrealdatediff}{3}
@@ -11681,6 +11868,7 @@
 % \begin{bibmacro}{extendeddate}
 % \marg{real$\|$origreal}\marg{datetype}
 % \changes{2.2}{2019/11/07}{\Format{realdateparens}, uncertain dates and ranges with identical years fixed}
+% \changes{2.3}{2022/02/01}{need \Befehl{unspace} if nothing is printed}
 %    \begin{macrocode}
 \newbibmacro*{extendeddate}[2]{%
 %    \end{macrocode}
@@ -11703,7 +11891,7 @@
                  \addtocounter{currentrealdatediff}{-\thefield{#1year}}}
              \ifnumcomp{\value{currentrealdatediff}}{>}{\value{minrealdatediff}}
                  {\printtext[#1dateparens]{\csuse{print#1date}}}
-                 {}%
+                 {\unspace}%
             }
             {\iffieldint{#2year}
                 {\ifnumcomp{\thefield{#1year}}{>}{\thefield{#2year}}
@@ -11713,7 +11901,7 @@
                      \addtocounter{currentrealdatediff}{-\thefield{#1year}}}
                  \ifnumcomp{\value{currentrealdatediff}}{>}{\value{minrealdatediff}}
                      {\printtext[#1dateparens]{\csuse{print#1date}}}
-                     {}%
+                     {\unspace}%
                 }%
                 {\printtext[#1dateparens]{\csuse{print#1date}}}%
             }%
@@ -11722,7 +11910,7 @@
 % If one of both year arguments is not an integer, than always print the \Feld{realdate}:
 %    \begin{macrocode}
         {\iffieldundef{#1year}
-            {}
+            {\unspace}
             {\printtext[#1dateparens]{\csuse{print#1date}}}}%
 }
 %    \end{macrocode}
@@ -11735,22 +11923,29 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{format}{pubstate}
+%    \begin{macrocode}
+\DeclareFieldFormat*{pubstate}{\biblstring{#1}}
+%    \end{macrocode}
+% \end{format}
+%
 % \begin{bibmacro}{bibliographydate}
 % \changes{1.1}{2017/05/23}{Do not print \Feld{extrayear} field in verbose styles (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/3}{issue \#3})}
 % \changes{2.0}{2018/05/20}{Print \Feld{extradate} field instead of \Feld{extrayear}}
 % \changes{2.2}{2019/12/29}{Check if \Format{bibliographydate} is called by \Befehl{citeissue} and friends}
+% \changes{2.3}{2022/01/31}{Adjustment for \Feld{pubstate} fiéld}
 % We never have an empty date but a string like 'sine anno' or the \Feld{pubstate}.
 % The newsdate has always to be printed because the label contains the year only.
 %    \begin{macrocode}
 \newbibmacro*{bibliographydate}{%
-	\ifboolexpr{
-		test {\ifpositionlabeldate{label}}
-		and
+  \ifboolexpr{
+    test {\ifpositionlabeldate{label}}
+    and
 %    \end{macrocode}
 % Not in \Befehl{citeissue} and friends:
 %    \begin{macrocode}
-		not togl {archbool:citeissue}
-	}
+    not togl {archbool:citeissue}
+  }
         {\ifnewspaper
             {\usebibmacro{newsdate}}
             {}%
@@ -11762,11 +11957,15 @@
             \ifnewspaper
                 {\usebibmacro{newsdate}}
                 {\iffieldundef{year}
-                    {\iffieldundef{pubstate}
-                        {\printtext[missingfield]{\midsentence\bibstring{nodate}}}
-                        {\printtext[missingfield]{\midsentence\printfield{pubstate}}}}%
+                    {\iffieldequalstr{labeldatesource}{pubstate}
+            {\printtext[missingfield]{\midsentence\printfield{pubstate}}}
+                        {\printtext[missingfield]{\midsentence\bibstring{nodate}}}}%
                     {\printdate}%
-                 \ifbibextrayear
+         \ifboolexpr{
+          test {\ifbibextrayear}
+          and
+          test {\ifcsdef{blxarch@fork@authordate}}
+         }
                     {\printfield{extradate}}
                     {}%
                 }%
@@ -12410,21 +12609,21 @@
 % Prints labeldate.
 %    \begin{macrocode}
 \newbibmacro*{labeldate+edition}{%
-	\blxarch@tabbedlabeldate@begin%
-	\ifpositionlabeldate{location}
-		{}
-		{\printtext[labeldateparens]{%
-			\ifeditionsuperscript{predate}
-				{\usebibmacro{editionsuperscript}}%
-				{}%
-			\usebibmacro{date+extradate}%
-			\ifeditionsuperscript{postdate}
-				{\usebibmacro{editionsuperscript}}%
-				{}%
-			\ifpositionlabeldate{label}
-				{\setunit{\daterealdatedelim}%
-				 \usebibmacro{extendeddate}{real}{}}
-				{}}}}
+  \blxarch@tabbedlabeldate@begin%
+  \ifpositionlabeldate{location}
+    {}
+    {\printtext[labeldateparens]{%
+      \ifeditionsuperscript{predate}
+        {\usebibmacro{editionsuperscript}}%
+        {}%
+      \usebibmacro{date+extradate}%
+      \ifeditionsuperscript{postdate}
+        {\usebibmacro{editionsuperscript}}%
+        {}%
+      \ifpositionlabeldate{label}
+        {\setunit{\daterealdatedelim}%
+         \usebibmacro{extendeddate}{real}{}}
+        {}}}}
 %    \end{macrocode}
 % \end{bibmacro}
 %
@@ -12510,10 +12709,10 @@
 \pretocmd{\footnote}{\toggletrue{archbool:posscite}}{}{footnote patch failed!}
 \newbibmacro*{genitive}[1]{%
     \ifboolexpr{
-		test {\ifdefvoid{#1}}
-		or
-		togl {archbool:posscite}
-	}
+    test {\ifdefvoid{#1}}
+    or
+    togl {archbool:posscite}
+  }
         {}
         {\togglefalse{archbool:genitiveapostrophe}%
          \fullexpandarg%
@@ -12561,9 +12760,9 @@
         \usebibmacro{name:given-family}{\namepartfamily}{\namepartgiven}{\namepartprefix}{\namepartsuffix}%
     \fi
     \usebibmacro{name:andothersgenitive}%
-	\iftoggle{archbool:genitiveall}
-		{\usebibmacro{genitive}{\blxarch@namepartfamily}}
-		{\ifnumequal{\value{listcount}}{\value{liststop}}{\usebibmacro{genitive}{\blxarch@namepartfamily}}{}}}
+  \iftoggle{archbool:genitiveall}
+    {\usebibmacro{genitive}{\blxarch@namepartfamily}}
+    {\ifnumequal{\value{listcount}}{\value{liststop}}{\usebibmacro{genitive}{\blxarch@namepartfamily}}{}}}
 %    \end{macrocode}
 % \end{format}
 %
@@ -12695,7 +12894,7 @@
 \DeclareLabeldate{%
     \field{date}
     \field{pubstate}
-	\field{year}
+  \field{year}
     \literal{nodate}
 }
 %    \end{macrocode}
@@ -12791,20 +12990,20 @@
 % This is a wrapper around bibitems in order to put them into \Befehl{parbox}-like structures.
 %    \begin{macrocode}
 \newcommand{\blxarch@tabbedlabeldate@begin}{%
-	\iftabbedlabeldate
-		{\setlength{\blxarch@bibitemboxwidth}{\textwidth}%
-		 \addtolength{\blxarch@bibitemboxwidth}{-\tabbedlabeldatewidth}%
-		 \DeclareDelimFormat[bib]{nameyeardelim}{}%
-		 \\\tabular[t]{@{}p{\tabbedlabeldatewidth}@{}p{\blxarch@bibitemboxwidth}}\raggedright\midsentence}
-		{}}
+  \iftabbedlabeldate
+    {\setlength{\blxarch@bibitemboxwidth}{\textwidth}%
+     \addtolength{\blxarch@bibitemboxwidth}{-\tabbedlabeldatewidth}%
+     \DeclareDelimFormat[bib]{nameyeardelim}{}%
+     \\\tabular[t]{@{}p{\tabbedlabeldatewidth}@{}p{\blxarch@bibitemboxwidth}}\raggedright\midsentence}
+    {}}
 \newcommand{\blxarch@tabbedlabeldate@middle}{%
-	\iftabbedlabeldate
-		{&}
-		{\newblock}}
+  \iftabbedlabeldate
+    {&}
+    {\newblock}}
 \newcommand{\blxarch@tabbedlabeldate@end}{%
-	\iftabbedlabeldate
-		{\endtabular}
-		{}}
+  \iftabbedlabeldate
+    {\endtabular}
+    {}}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -12830,19 +13029,19 @@
 % \begin{bibliographydriver}{unpublished}
 %    \begin{macrocode}
 \def\blxarch@set@bibitembox#1{%
-	\xpretobibdriver{#1}
-		{\blxarch@bibitembox@begin}
-		{}
-		{Prepending bibitembox to driver #1 failed!}%
-	\xpatchbibdriver{#1}
-		{\setunit{\printdelim{nametitledelim}}\newblock}
-		{\setunit{\printdelim{nametitledelim}}\blxarch@tabbedlabeldate@middle}
-		{}
-		{Prepending tabbedlabeldate to driver #1 failed!}%
-	\xapptobibdriver{#1}
-		{\blxarch@tabbedlabeldate@end\blxarch@bibitembox@end}
-		{}
-		{Appending bibitembox to driver #1 failed!}%
+  \xpretobibdriver{#1}
+    {\blxarch@bibitembox@begin}
+    {}
+    {Prepending bibitembox to driver #1 failed!}%
+  \xpatchbibdriver{#1}
+    {\setunit{\printdelim{nametitledelim}}\newblock}
+    {\setunit{\printdelim{nametitledelim}}\blxarch@tabbedlabeldate@middle}
+    {}
+    {Prepending tabbedlabeldate to driver #1 failed!}%
+  \xapptobibdriver{#1}
+    {\blxarch@tabbedlabeldate@end\blxarch@bibitembox@end}
+    {}
+    {Appending bibitembox to driver #1 failed!}%
 }
 \blxarch@set@bibitembox{article}
 \blxarch@set@bibitembox{book}
@@ -12957,10 +13156,10 @@
         }}%
         \iftoggle{archbool:volumeafterseries}
             {\setunit{\addspace}%
-			 \printfield{volume}%
+       \printfield{volume}%
              \printfield{part}%
              \clearfield{volume}%
-			 \clearfield{part}}
+       \clearfield{part}}
             {}%
         \ifpagesfirst
             {\usebibmacro{chapter+pages}%
@@ -12992,6 +13191,12 @@
 % \end{bibliographydriver}
 %
 % \subsubsubsection{Other formatting}
+%
+% Recognize sequentes as page range character.
+% \changes{2.3}{2022/02/04}{Added sequentes as page range character}
+%    \begin{macrocode}
+\DeclareRangeChars*{f}
+%    \end{macrocode}
 %
 % \begin{format}{volume}
 % No bibstring ahead of \Feld{volume}.
@@ -13059,8 +13264,8 @@
 %    \begin{macrocode}
 \newrobustcmd*{\SuppressAdditiveLbxSuffixes}{%
     \@ifpackagelater{biblatex}{2020/10/01}
-		{}
-		{\let\blx@lng@suff\@empty}}
+    {}
+    {\let\blx@lng@suff\@empty}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -13105,19 +13310,10 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\blxarch@style@egypthd@info}
-% \begin{macro}{\blxarch@style@egypthdinline}
-% \begin{macro}{\blxarch@style@egypthdnumeric}
-% \begin{macro}{\blxarch@style@egypthdverbose}
+% \begin{macro}{\blxarch@style@egypthd}
 %    \begin{macrocode}
-\edef\blxarch@style@egypthd@info{\"Agyptologie Heidelberg}
-\edef\blxarch@style@egypthdinline{\blxarch@style@egypthd@info\space(naturwissenschaftlich)}
-\edef\blxarch@style@egypthdnumeric{\blxarch@style@egypthd@info\space(numerisch)}
-\edef\blxarch@style@egypthdverbose{\blxarch@style@egypthd@info\space(geisteswissenschaftlich)}
+\edef\blxarch@style@egypthd{\"Agyptologisches Institut Heidelberg}
 %    \end{macrocode}
-% \end{macro}
-% \end{macro}
-% \end{macro}
 % \end{macro}
 %
 % \begin{macro}{\blxarch@style@mpk@info}
@@ -13503,9 +13699,9 @@
 % Sets labels into an extra column.
 %    \begin{macrocode}
 \defbibenvironment{leftmarginbibliography}
-    {			\renewcommand{\blxarch@bibitembox@begin}{\begin{minipage}[t]{\blxarch@bibitemboxwidth}}
-				\renewcommand{\blxarch@bibitembox@end}{\end{minipage}}
-	\list
+    {      \renewcommand{\blxarch@bibitembox@begin}{\begin{minipage}[t]{\blxarch@bibitemboxwidth}}
+        \renewcommand{\blxarch@bibitembox@end}{\end{minipage}}
+  \list
         {\parbox[t]{\labelnamedatewidth}{\raggedright\printtext[labelnamedatewidth]{%
 %    \end{macrocode}
 % The zero width space fixes long names since TeX doesn't hyphenate the first word of a paragraph\\
@@ -13516,9 +13712,9 @@
             \setlength{\leftmargin}{\labelwidth}%
             \setlength{\labelsep}{\biblabelsep}%
             \addtolength{\leftmargin}{\labelsep}%
-			\setlength{\blxarch@bibitemboxwidth}{\textwidth}
-			\addtolength{\blxarch@bibitemboxwidth}{-\biblabelsep}
-			\addtolength{\blxarch@bibitemboxwidth}{-\labelnamedatewidth}
+      \setlength{\blxarch@bibitemboxwidth}{\textwidth}
+      \addtolength{\blxarch@bibitemboxwidth}{-\biblabelsep}
+      \addtolength{\blxarch@bibitemboxwidth}{-\labelnamedatewidth}
             \setlength{\itemsep}{\bibitemsep}%
             \setlength{\parsep}{\bibparsep}}%
             \renewcommand*{\makelabel}[1]{##1\hss}}
@@ -14963,7 +15159,7 @@
             %\step[fieldset=langidopts,fieldvalue={variant=british}]
         }
 %    \end{macrocode}
-% Remove langid field from reviews because something wrong wit reviewtitle
+% Remove langid field from reviews because something wrong with reviewtitle
 %    \begin{macrocode}
         \map[overwrite=true]{
             \pertype{review}
@@ -15778,121 +15974,64 @@
 %
 % \iffalse
 %</eazaltBBX>
-%<*egypthdinlineBBX>
+%<*egypthdBBX>
 % \fi
 %
-% \subsubsection{File \Datei{egypthd-inline.bbx}}
+% \subsubsection{File \Datei{egypthd.bbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{egypthd-inline.bbx}
+\ProvidesFile{egypthd.bbx}
 [2019/12/31 v2.3 biblatex-archaeology bibliography style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\RequireBibliographyStyle{authoryear-archaeology}
+\RequireBibliographyStyle{authoryear-ibid-archaeology}
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeobibstyletitle}
 %    \begin{macrocode}
-\def\archaeobibstyletitle{\blxarch@style@egypthdinline}
+\def\archaeobibstyletitle{\blxarch@style@egypthd}
 %    \end{macrocode}
 % \end{macro}
-%
-%    \begin{macrocode}
-\ExecuteBibliographyOptions{
-    dashed=true,
-    repeatlabel=false,
-    mergedate=false,
-    sorting=lnyvc,
-}
-%    \end{macrocode}
-%
-% \iffalse
-%</egypthdinlineBBX>
-%<*egypthdnumericBBX>
-% \fi
-%
-% \subsubsection{File \Datei{egypthd-numeric.bbx}}
-%
-%    \begin{macrocode}
-\ProvidesFile{egypthd-numeric.bbx}
-[2019/12/31 v2.3 biblatex-archaeology bibliography style (IB)]
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-\RequireBibliographyStyle{numeric-comp-archaeology}
-%    \end{macrocode}
-%
-% \begin{macro}{\archaeobibstyletitle}
-%    \begin{macrocode}
-\def\archaeobibstyletitle{\blxarch@style@egypthdnumeric}
-%    \end{macrocode}
-% \end{macro}
-%
-% \iffalse
-%</egypthdnumericBBX>
-%<*egypthdverboseBBX>
-% \fi
-%
-% \subsubsection{File \Datei{egypthd-verbose.bbx}}
-%
-%    \begin{macrocode}
-\ProvidesFile{egypthd-verbose.bbx}
-[2019/12/31 v2.3 biblatex-archaeology bibliography style (IB)]
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-\RequireBibliographyStyle{verbose-ibid-archaeology}
-%    \end{macrocode}
-%
-% \begin{macro}{\archaeobibstyletitle}
-%    \begin{macrocode}
-\def\archaeobibstyletitle{\blxarch@style@egypthdverbose}
-%    \end{macrocode}
-% \end{macro}
-%
-% \iffalse
-%</egypthdverboseBBX>
-%<*egypthdsharedBBX>
-% \fi
-%
-% \subsubsection{Shared by \Datei{egypthd-*.bbx}}
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
 %    \end{macrocode}
 % \blx options:
 %    \begin{macrocode}
+  dashed=false,
+  datezeros=true,
     doi=false,       
     eprint=false,
     giveninits=true,
-	loccittracker=true,    
     maxbibnames=500,
     maxcitenames=2,
     maxitems=3,
+  mergedate=false,
     mincitenames=1,                  
     minitems=3,
     notetype=foot+end,
-	opcittracker=true,
+  sorting=lnyvc,
     url=false,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
     editionsuperscript=predate,
     giveninitligatures={},
-    idemincitation=true,
+    idemincitation=false,
     injournal=true,
     journallocation=false,
     maxbooknames=3,
     minbooknames=1,
     minrealdatediff=\blxarch@maxnumber,
-    nothesistitlepunct=true,
-    notitlepunct=true,
+    nothesistitlepunct=false,
+    notitlepunct=false,
     origfields=true,
     pagesfirst=false,
     positionlabeldate=location,
     preservelastauthor=false,
-    shortform=true,
+  repeatlabel=false,
+    shortform=title,
     shortjournal=true,
     shortseries=true,
     subseries=true,
@@ -15906,12 +16045,18 @@
     useinstitution=false,
     uselocation=true,
     usemultivenue=false,
-    usesourceeditor=true,
+    usesourceeditor=false,
     usepublisher=false,
     useunpublishedthesis=true,
     volumeafterseries=false,
 }
 %    \end{macrocode}
+%
+% \begin{macro}{\bibhang}
+%    \begin{macrocode}
+\setlength{\bibhang}{3.5em}
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{format}{bookauthor}
 % \begin{format}{sortname}
@@ -15920,6 +16065,13 @@
 \DeclareNameAlias{sortname}{given-family}
 %    \end{macrocode}
 % \end{format}
+% \end{format}
+%
+% \begin{format}{reviewname}
+% Name format in review titles.
+%    \begin{macrocode}
+\DeclareNameAlias{reviewname}{g-family}
+%    \end{macrocode}
 % \end{format}
 %
 %    \begin{macrocode}
@@ -15938,22 +16090,6 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\subtitlepunct}
-%    \begin{macrocode}
-\renewcommand*{\subtitlepunct}{\addcolon\space}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{format}{volume}
-% \begin{format}{volumes}
-%    \begin{macrocode}
-\DeclareFieldFormat*{volume}{\addcomma\space\bibstring{volume}\space#1}
-\DeclareFieldFormat[article,periodical,review,suppperiodical]{volume}{#1}
-\DeclareFieldFormat*{volume}{#1\space\bibstring{volumes}}
-%    \end{macrocode}
-% \end{format}
-% \end{format}
-%
 % \begin{macro}{\multilistdelim}
 %    \begin{macrocode}
 \renewcommand*{\multilistdelim}{\addslash}
@@ -15969,8 +16105,125 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\subtitlepunct}
+%    \begin{macrocode}
+\renewcommand*{\subtitlepunct}{\addcolon\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\reviewofnamedelim}
+%    \begin{macrocode}
+\renewcommand*{\reviewofnamedelim}{\addspace}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\seriespunct}
+% \begin{macro}{\titleseriesdelim}
+% \begin{format}{seriesparens}
+%    \begin{macrocode}
+\renewcommand*{\seriespunct}{\newunitpunct}
+\renewcommand*{\titleseriesdelim}{\addspace}
+\DeclareFieldFormat*{seriesparens}{\mkbibparens{#1}}
+%    \end{macrocode}
+% \end{format}
+% \end{macro}
+% \end{macro}
+%
+% \begin{format}{volume}
+% \begin{format}{volumes}
+% \begin{macro}{\volumedatedelim}
+%    \begin{macrocode}
+\DeclareFieldFormat*{volume}{\addcomma\space\bibstring{volume}\space#1}
+\DeclareFieldFormat[article,periodical,review,suppperiodical]{volume}{#1}
+\DeclareFieldFormat*{volumes}{\addcomma\space#1\addnbspace\bibstring{volumes}}
+\renewcommand*{\volumedatedelim}{\addspace}
+%    \end{macrocode}
+% \end{macro}
+% \end{format}
+% \end{format}
+%
+% \begin{format}{newsparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{newsparens}{#1}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{format}{locationdateparens}
+% \begin{format}{reprintparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{locationdateparens}{#1}
+\DeclareFieldFormat*{reprintparens}{\newunitpunct#1} 
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+%
+% \begin{format}{journaldateparens}
+% \begin{format}{date}
+%    \begin{macrocode}
+\DeclareFieldFormat*{journaldateparens}{#1}
+\DeclareFieldFormat[article,review,periodical,suppperiodical]{date}{\mkbibparens{#1}}
+\DeclareFieldFormat[article,review,periodical,suppperiodical]{newsdate}{\mkbibparens{#1}}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+%
+% \begin{format}{url}
+% \begin{macro}{\urlunitpunct}
+%    \begin{macrocode}
+\DeclareFieldFormat*{url}{\url{#1}}
+\renewcommand*{\urlunitpunct}{\addsemicolon\space}
+%    \end{macrocode}
+% \end{macro}
+% \end{format}
+%
+% \begin{macro}{\sqspace}
+% Use string \Kbd{sequens} without space (only if two consecutive pages get cited!).
+%    \begin{macrocode}
+\renewcommand*{\sqspace}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{pages}
+%    \begin{macrocode}
+\DeclareFieldFormat*{pages}{%
+    \ifpages{#1}
+        {\ifnumequal{1}{\rangelen{pages}}
+            {#1}
+            {\ifnumequal{2}{\rangelen{pages}}
+                {\mkfirstpage{#1}\psq}
+                {#1}%
+            }}
+        {#1}%
+}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\bibpagespunct}
+%    \begin{macrocode}
+\renewcommand*{\bibpagespunct}{%
+  \iffieldundef{pages}
+      {\addspace}
+      {\addcomma\space}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{thesistype}
+%    \begin{macrocode}
+\DeclareFieldFormat[thesis]{type}{%
+  \ifbibxstring{#1}
+    {\biblstring{#1}}
+    {#1}}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{macro}{\urlunitpunct}
+%    \begin{macrocode}
+\renewcommand*{\typeinstitutiondelim}{\newunitpunct}
+%    \end{macrocode}
+% \end{macro}
+%
 % \iffalse
-%</egypthdsharedBBX>
+%</egypthdBBX>
 %<*foeBBX>
 % \fi
 %
@@ -20108,7 +20361,7 @@
 % \changes{2.3}{2020/12/29}{suppress \Befehl{bibpagespunct} in electronic \Typ{thesis}}
 % This is needed to suppress \Befehl{bibpagespunct} in electronic \Typ{thesis}.
 %    \begin{macrocode}
-		\map[overwrite=true]{
+    \map[overwrite=true]{
             \step[fieldset=pagetotal,fieldvalue={}]
         }
     }
@@ -21044,7 +21297,7 @@
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
     autocite=footnote,
-	autopunct=false,
+  autopunct=false,
     uniquename=false,
     uniquelist=false,
 }
@@ -21249,85 +21502,62 @@
 %
 % \iffalse
 %</eazaltCBX>
-%<*egypthdnumericCBX>
+%<*egypthdCBX>
 % \fi
 %
-% \subsubsection{File \Datei{egypthd-numeric.cbx}}
+% \subsubsection{File \Datei{egypthd.cbx}}
 %
 %    \begin{macrocode}
-\ProvidesFile{egypthd-numeric.cbx}
+\ProvidesFile{egypthd.cbx}
 [2019/12/31 v2.3 biblatex-archaeology citation style (IB)]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\RequireCitationStyle{numeric-comp-archaeology}
+\RequireCitationStyle{authoryear-ibid-archaeology}
 %    \end{macrocode}
 %
 % \begin{macro}{\archaeocitestyletitle}
 %    \begin{macrocode}
-\def\archaeocitestyletitle{\blxarch@style@egypthdnumeric}
-%    \end{macrocode}
-% \end{macro}
-%
-% \iffalse
-%</egypthdnumericCBX>
-%<*egypthdverboseCBX>
-% \fi
-%
-% \subsubsection{File \Datei{egypthd-verbose.cbx}}
-%
-%    \begin{macrocode}
-\ProvidesFile{egypthd-verbose.cbx}
-[2019/12/31 v2.3 biblatex-archaeology citation style (IB)]
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-\RequireCitationStyle{verbose-ibid-archaeology}
-%    \end{macrocode}
-%
-% \begin{macro}{\archaeocitestyletitle}
-%    \begin{macrocode}
-\def\archaeocitestyletitle{\blxarch@style@egypthdverbose}
+\def\archaeocitestyletitle{\blxarch@style@egypthd}
 %    \end{macrocode}
 % \end{macro}
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	autopunct=false,
-    citepages=omit, % permit|suppress|omit|separate
+  autocite=footnote,
+  idemtracker=false,
+  ibidtracker=context,
+  loccittracker=context,
+  opcittracker=false,
+  uniquename=false,
+  uniquelist=false,
 }
 %    \end{macrocode}
 %
-% \iffalse
-%</egypthdverboseCBX>
-%<*egypthdinlineCBX>
-% \fi
-%
-% \subsubsection{File \Datei{egypthd-inline.cbx}}
-%
+% \begin{bibmacro}{cite:ibid}
 %    \begin{macrocode}
-\ProvidesFile{egypthd-inline.cbx}
-[2019/12/31 v2.3 biblatex-archaeology citation style (IB)]
+\newbibmacro*{cite:ibid}{%
+{\ifthenelse{\ifloccit}
+  {\printtext[bibhyperref]{\bibstring[\mkibid]{ibidem}}%
+   \global\booltrue{cbx:loccit}}
+  {\printtext[bibhyperref]{\bibstring[\mkibid]{opcit}}}}}%
 %    \end{macrocode}
+% \end{bibmacro}
 %
+% \begin{format}{labeldate}
+% The bibstrings are already expanded in \Kbd{\#1}.
 %    \begin{macrocode}
-\RequireCitationStyle{authoryear-comp-archaeology}
+\DeclareFieldFormat*{labeldate}{%
+  \iffieldequalstr{labeldatesource}{pubstate}
+    {\ifbibxstring{\thefield{pubstate}}
+      {\bibxlstring{\thefield{pubstate}}}
+      {#1}}
+    {#1}}
 %    \end{macrocode}
-%
-% \begin{macro}{\archaeocitestyletitle}
-%    \begin{macrocode}
-\def\archaeocitestyletitle{\blxarch@style@egypthdinline}
-%    \end{macrocode}
-% \end{macro}
-%
-%    \begin{macrocode}
-\ExecuteBibliographyOptions{
-    uniquename=false,
-    uniquelist=false,
-}
+% \end{format}
 %
 % \iffalse
-%</egypthdinlineCBX>
+%</egypthdCBX>
 %<*foeCBX>
 % \fi
 %
@@ -21867,7 +22097,7 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	autopunct=false,
+  autopunct=false,
     citepages=omit, % permit|suppress|omit|separate
 }
 %    \end{macrocode}
@@ -21973,7 +22203,7 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	autopunct=false,
+  autopunct=false,
     citepages=omit, % permit|suppress|omit|separate
 }
 %    \end{macrocode}
@@ -22002,7 +22232,7 @@
 %
 %    \begin{macrocode}
 \ExecuteBibliographyOptions{
-	autopunct=false,
+  autopunct=false,
     citepages=omit, % permit|suppress|omit|separate
 }
 %    \end{macrocode}
@@ -24534,27 +24764,27 @@
 %    \begin{macrocode}
 \DeclareBibliographyStrings{%
     inherit                   = {english},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \begin{localization}{by}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     by                        = {{by}{by}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 %
 % \begin{localization}{articledated}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     articledated              = {{article dated}{art\adddot\addabbrvspace dated}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 %
 % \begin{localization}{genitiveandothers}
 % \begin{localization}{genitiveapostrophe}
 % \begin{localization}{genitives}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     genitiveandothers         = {{et\addabbrvspace al\adddot's}{et\addabbrvspace al\adddot's}},
     genitiveapostrophe        = {{'}{'}},
     genitives                 = {{'s}{'s}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 % \end{localization}
 % \end{localization}
@@ -24564,12 +24794,12 @@
 % \begin{localization}{specialauction}
 % \begin{localization}{specialauctions}
 % \enquote{auction}: \url{https://www.allacronyms.com/auction/abbreviated}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     auction                   = {{auction}{auc\adddot}},
     auctions                  = {{auctions}{auc\adddot}},
-	specialauction            = {{special auction}{spec\adddot\addabbrvspace auc\adddot}},
+  specialauction            = {{special auction}{spec\adddot\addabbrvspace auc\adddot}},
     specialauctions           = {{special auctions}{spec\adddot\addabbrvspace auc\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 % \end{localization}
 % \end{localization}
@@ -24579,48 +24809,48 @@
 % \begin{localization}{conference}
 % \begin{localization}{convention}
 % \begin{localization}{symposium}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     colloquium                = {{colloquium}{colloq\adddot}},
     conference                = {{conference}{conf.\adddot}},
     convention                = {{convention}{conv.\adddot}},
-	symposium                 = {{symposium}{symp\adddot}},
-	%    \end{macrocode}
+  symposium                 = {{symposium}{symp\adddot}},
+  %    \end{macrocode}
 % \end{localization}
 % \end{localization}
 % \end{localization}
 % \end{localization}
 %
 % \begin{localization}{dvd}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     dvd                       = {{DVD}{DVD}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 % \begin{localization}{catalogue}
 % \begin{localization}{exhibcat}
 % \begin{localization}{exhibition}
-	%    \begin{macrocode}
-	catalogue                 = {{catalogue}{catal\adddot}},
+  %    \begin{macrocode}
+  catalogue                 = {{catalogue}{catal\adddot}},
     exhibcat                  = {{exhibition catalogue}{exhib\adddot\addabbrvspace catal\adddot}},
     exhibition                = {{exhibition catalogue}{exhib\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 % \end{localization}
 % \end{localization}
 %
 % \begin{localization}{festschrift}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     festschrift               = {{Festschrift}{Festschr\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 %
 % \begin{localization}{diplomathesis}
 % \begin{localization}{magisterthesis}
 % \begin{localization}{postdocthesis}
-	%    \begin{macrocode}
-	diplomathesis             = {{Master's thesis}{MA\addabbrvspace thesis}},
-	magisterthesis            = {{Master's thesis}{MA\addabbrvspace thesis}},
+  %    \begin{macrocode}
+  diplomathesis             = {{Master's thesis}{MA\addabbrvspace thesis}},
+  magisterthesis            = {{Master's thesis}{MA\addabbrvspace thesis}},
     postdocthesis             = {{Habilitationsschrift}{Habil\adddot-Schr\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 % \end{localization}
 % \end{localization}
@@ -24628,32 +24858,32 @@
 % \begin{localization}{noplace}
 % \begin{localization}{noplacenodate}
 % \enquote{no place}: \url{http://www.chicagomanualofstyle.org/qanda/data/faq/topics/Abbreviations/faq0007.html}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     noplace                   = {{no\space place}{n\adddot\addabbrvspace p\adddot}},
     noplacenodate             = {{no\space place no\space date}{n\adddot\addabbrvspace p.\addabbrvspace n.\addabbrvspace d\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 % \end{localization}
 %
 % \begin{localization}{plate}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     plate                     = {{plate}{pl\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 %
 % \begin{localization}{reviewof}
 % \begin{localization}{reviewsof}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     reviewof                  = {{Review of}{Rev. \adddot}},
     reviewsof                 = {{Reviews of}{Rev.\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 % \end{localization}
 %
 % \begin{localization}{subverbum}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     subverbum                 = {{sub verbum}{\autocap{s}.\,v\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 %
 % \begin{localization}{unpublishedbathesis}
@@ -24662,7 +24892,7 @@
 % \begin{localization}{unpublishedmathesis}
 % \begin{localization}{unpublishedpostdocthesis}
 % \begin{localization}{unpublishedphdthesis}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     unpublishedbathesis       = {{unpublished bachelor thesis}{unpubl. BA\addabbrvspace thesis}},
     unpublisheddiplomathesis  = {{unpublished master's thesis}{unpubl. MA\addabbrvspace thesis}},
     unpublishedmagisterthesis = {{unpublished master's thesis}{unpubl. MA\addabbrvspace thesis}},
@@ -24681,7 +24911,7 @@
 % \begin{localization}{urlfrom}
 % Redefinitions of \blx' localization keys:
 %    \begin{macrocode}
-	nodate  = {{no\space date}{n\adddot\addabbrvspace d\adddot}},
+  nodate  = {{no\space date}{n\adddot\addabbrvspace d\adddot}},
     urlfrom  = {{Online}{Online}},
 }
 %    \end{macrocode}
@@ -24869,27 +25099,27 @@
 %    \begin{macrocode}
 \DeclareBibliographyStrings{%
     inherit                   = {german},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \begin{localization}{by}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     by                        = {{von}{v\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 %
 % \begin{localization}{articledated}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     articledated              = {{Artikel vom}{Art\adddot\,v\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 %
 % \begin{localization}{genitiveandothers}
 % \begin{localization}{genitiveapostrophe}
 % \begin{localization}{genitives}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     genitiveandothers         = {{u.\,a\adddot s}{u.\,a\adddot s}},
     genitiveapostrophe        = {{'}{'}},
     genitives                 = {{s}{s}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 % \end{localization}
 % \end{localization}
@@ -24898,12 +25128,12 @@
 % \begin{localization}{auctions}
 % \begin{localization}{specialauction}
 % \begin{localization}{specialauctions}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     auction                   = {{Auktion}{Aukt\adddot}},
     auctions                  = {{Auktionen}{Aukt\adddot}},
-	specialauction            = {{Sonderauktion}{Sonderaukt\adddot}},
+  specialauction            = {{Sonderauktion}{Sonderaukt\adddot}},
     specialauctions           = {{Sonderauktionen}{Sonderaukt\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 % \end{localization}
 % \end{localization}
@@ -24913,80 +25143,80 @@
 % \begin{localization}{conference}
 % \begin{localization}{convention}
 % \begin{localization}{symposium}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     colloquium                = {{Kolloquium}{Kolloq\adddot}},
     conference                = {{Konferenz}{Konf\adddot}},
     convention                = {{Tagung}{Tag\adddot}},
-	symposium                 = {{Symposium}{Sympos\adddot}},
-	%    \end{macrocode}
+  symposium                 = {{Symposium}{Sympos\adddot}},
+  %    \end{macrocode}
 % \end{localization}
 % \end{localization}
 % \end{localization}
 % \end{localization}
 %
 % \begin{localization}{dvd}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     dvd                       = {{DVD}{DVD}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 % \begin{localization}{catalogue}
 % \begin{localization}{exhibcat}
 % \begin{localization}{exhibition}
-	%    \begin{macrocode}
-	catalogue                 = {{Katalog}{Kat\adddot}},
+  %    \begin{macrocode}
+  catalogue                 = {{Katalog}{Kat\adddot}},
     exhibition                = {{Ausstellung}{Ausst\adddot}},
     exhibcat                  = {{Ausstellungskatalog}{Ausstellungsat\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 % \end{localization}
 % \end{localization}
 %
 % \begin{localization}{festschrift}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     festschrift               = {{Festschrift}{Festschr\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 %
 % \begin{localization}{diplomathesis}
 % \begin{localization}{magisterthesis}
 % \begin{localization}{postdocthesis}
-	%    \begin{macrocode}
-	diplomathesis             = {{Diplomarbeit}{Dipl.-Arb\adddot}},
-	magisterthesis            = {{Magisterarbeit}{MA.-Arb\adddot}},
+  %    \begin{macrocode}
+  diplomathesis             = {{Diplomarbeit}{Dipl.-Arb\adddot}},
+  magisterthesis            = {{Magisterarbeit}{MA.-Arb\adddot}},
     postdocthesis             = {{Habilitationsschrift}{Habil.-Schr\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 % \end{localization}
 % \end{localization}
 %
 % \begin{localization}{noplace}
 % \begin{localization}{noplacenodate}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     noplace                   = {{ohne\space Ort}{o.\,O\adddot}},
     noplacenodate             = {{ohne Ort und Jahr}{o.\addabbrvspace O.\addabbrvspace u.\addabbrvspace J\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 % \end{localization}
 %
 % \begin{localization}{plate}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     plate                     = {{Tafel}{Taf.}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 %
 % \begin{localization}{reviewof}
 % \begin{localization}{reviewsof}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     reviewof                  = {{Besprechung}{Besprech.\adddot}},
     reviewsof                 = {{Besprechungen}{Besprech.\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 % \end{localization}
 %
 % \begin{localization}{subverbum}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     subverbum                 = {{sub verbum}{\autocap{s}.\,v\adddot}},
-	%    \end{macrocode}
+  %    \end{macrocode}
 % \end{localization}
 %
 % \begin{localization}{unpublishedbathesis}
@@ -24995,7 +25225,7 @@
 % \begin{localization}{unpublishedmathesis}
 % \begin{localization}{unpublishedpostdocthesis}
 % \begin{localization}{unpublishedphdthesis}
-	%    \begin{macrocode}
+  %    \begin{macrocode}
     unpublishedbathesis       = {{ungedruckte Bachelorarbeit}{ungedr. BA.-Arb\adddot}},
     unpublisheddiplomathesis  = {{ungedruckte Diplomarbeit}{ungedr. Dipl.-Arb\adddot}},
     unpublishedmagisterthesis = {{ungedruckte Magisterarbeit}{ungedr. MA.-Arb\adddot}},
@@ -25021,7 +25251,7 @@
 % \begin{localization}{seenote}
 % \begin{localization}{urlfrom}
 %    \begin{macrocode}
-	bathesis         = {{Bachelorarbeit}{BA.-Arb\adddot}},
+  bathesis         = {{Bachelorarbeit}{BA.-Arb\adddot}},
     bycompiler       = {{zusammengestellt von}{zus\adddotspace von}},
     nodate           = {{ohne\space Jahr}{o.\space J\adddot}},
     compiler         = {{Zusammensteller}{Zus\adddot}},
@@ -25613,6 +25843,7 @@
 [2019/12/31 v2.3 biblatex-archaeology (Ingram Braun) based on biblatex]
 %    \end{macrocode}
 %
+% \begin{localization}{andothers}
 % \begin{localization}{byeditor}
 % \begin{localization}{byeditortr}
 % \begin{localization}{byeditorco}
@@ -25640,11 +25871,24 @@
 % \begin{localization}{byeditortr}
 % \begin{localization}{editor}
 % \begin{localization}{editors}
+% \begin{localization}{ibidem}
 % \begin{localization}{nodate}
+% \begin{localization}{opcit}
+% \begin{localization}{reviewof}
+% \begin{localization}{reviewsof}
+% \begin{localization}{unpublishedbathesis}
+% \begin{localization}{unpublisheddiplomathesis}
+% \begin{localization}{unpublishedmagisterthesis}
+% \begin{localization}{unpublishedmathesis}
+% \begin{localization}{unpublishedpostdocthesis}
+% \begin{localization}{unpublishedphdthesis}
+% \begin{localization}{urlseen}
+% \begin{localization}{volumes}
 %    \begin{macrocode}
 \InheritBibliographyExtras{german-archaeology}
 \DeclareBibliographyStrings{%
   inherit = {german-archaeology},
+  andothers      = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
   byeditor       = {{herausgegeben von}{hg\adddotspace von}},
   byeditortr     = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
                   {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
@@ -25694,11 +25938,36 @@
                     {hg., \lbx@sfromlang \"ubers., erl\"aut\adddot\ und Nachw\adddot\ von}},
   byeditortr     = {{herausgegeben und \lbx@lfromlang \"ubersetzt von}%
                     {hg\adddotspace und \lbx@sfromlang \"ubers\adddot\ von}},
-  editor = {{Herausgeber}{Hg\adddot}},
-  editors = {{Herausgeber}{Hgg\adddot}},
-  nodate = {{ohne Jahr}{o\adddot J\adddot}},
+  editor         = {{Herausgeber}{Hg\adddot}},
+  editors        = {{Herausgeber}{Hgg\adddot}},
+  ibidem         = {{ibidem}{ibid\adddot}},
+  nodate         = {{ohne Jahr}{o\adddot J\adddot}},
+  opcit          = {{op\adddotspace cit\adddot}{op\adddotspace cit\adddot}},
+  reviewof       = {{Rez\adddot}{Rez\adddot}},
+  reviewsof      = {{Rez\adddot}{Rez\adddot}},
+  unpublishedbathesis       = {{unpublizierte Bachelorarbeit}{unpubl BA.-Arb\adddot}},
+  unpublisheddiplomathesis  = {{unpublizierte Diplomarbeit}{unpubl Dipl.-Arb\adddot}},
+  unpublishedmagisterthesis = {{unpublizierte Magisterarbeit}{unpubl MA.-Arb\adddot}},
+  unpublishedmathesis       = {{unpublizierte Masterarbeit}{unpubl MA.-Arb\adddot}},
+  unpublishedpostdocthesis  = {{unpublizierte Habilitationsschrift}{unpubl Habil.-Schr\adddot}},
+  unpublishedphdthesis      = {{unpublizierte Dissertation}{unpubl Diss\adddot}},
+  urlseen       = {{Zugriff am}{Zugriff am}},
+  volumes       = {{B\"ande}{Bde}},
 }
 %    \end{macrocode}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
+% \end{localization}
 % \end{localization}
 % \end{localization}
 % \end{localization}
@@ -27238,33 +27507,15 @@
 %
 % \iffalse
 %</eazaltDBX>
-%<*egypthdnumericDBX>
+%<*egypthdDBX>
 % \fi
 %
 %    \begin{macrocode}
-\ProvidesFile{egypthd-numeric.dbx}
+\ProvidesFile{egypthd.dbx}
 %    \end{macrocode}
 %
 % \iffalse
-%</egypthdnumericDBX>
-%<*egypthdinlineDBX>
-% \fi
-%
-%    \begin{macrocode}
-\ProvidesFile{egypthd-inline.dbx}
-%    \end{macrocode}
-%
-% \iffalse
-%</egypthdinlineDBX>
-%<*egypthdverboseDBX>
-% \fi
-%
-%    \begin{macrocode}
-\ProvidesFile{egypthd-verbose.dbx}
-%    \end{macrocode}
-%
-% \iffalse
-%</egypthdverboseDBX>
+%</egypthdDBX>
 %<*foeDBX>
 % \fi
 %
