@@ -265,6 +265,7 @@
 \newrobustcmd*{\TeXi}{\TeX\index{\TeXPaket TeX@\protect\TeX}}
 \let\bibtexlogo\BibTeX
 \renewrobustcmd*{\BibTeX}{\bibtexlogo\index{\TeXPaket BibTeX@\protect\bibtexlogo}}
+\let\latexlogo\LaTeX
 \renewrobustcmd*{\LaTeX}{\latexlogo\index{\TeXPaket LaTeX@\protect\latexlogo}}
 \let\latexmllogo\LaTeXML
 \renewrobustcmd*{\LaTeXML}{\latexmllogo\index{\TeXPaket LaTeXML@\protect\latexmllogo}}
@@ -341,8 +342,7 @@
 
 \begin{abstract}
 Dieses Dokument bietet eine Einführung in \blx{} und \archbib{} unter dem Aspekt strikter Anwendungsorientierung. Es geht also um Ausfüllen der
-Datenbanken und das Zitieren in Dokumenten; dazu die Zusammenarbeit mit anderer Software. Athematisch sind die technischen Interna und
-das Entwickeln von Stilen.
+Datenbanken und das Zitieren in Dokumenten; dazu die Zusammenarbeit mit anderer Software. Athematisch sind die technischen Interna und das Entwickeln von Stilen.
 Vermutlich liegt bei den meisten Lesern der Erstkontakt mit \LaTeXi{} noch nicht lange zurück. Und wahrscheinlich war \blx{} bzw. \archbib{} einer der wesentlichen Gründe für das Interesse. Deswegen werden in \cref{kap_intro} zuerst einige konzeptionelle Probleme angesprochen, die ein gewisses Verständnis dafür wecken sollen, warum \blx{} so ist, wie es ist. Dann folgt in \cref{kap_blx} eine Vorstellung der Eigenschaften von \blx. Im Prinzip sollte man nach der Lektüre \blx{} benutzen können, soweit man es bei den \Englisch{out of box}-Einstellungen beläßt. Sobald man Einstellungen ändern oder Befehle neu definieren möchte, wird man schwerlich umhinkommen, in das Handbuch zu schauen. In dem \blx-Teil gibt es nur wenige Bezüge zu \archbib. Es sollte also auch für Interessenten anderer Stile nützlich sein. Im \cref{kap_blxarch} werden die von \archbib{} zur Verfügung gestellten Features etwas ausführlicher besprochen. Aber auch hier gilt, daß es sich um eine Einführung handelt, die die Handbuchlektüre auf Dauer nicht ersetzen kann.
 \end{abstract}
  
@@ -461,6 +461,8 @@ Bei Textrevisionen müssen die Zitate verändert werden können. Wenn man ein Zi
 
 \section{Noch ein Hinweis zu den Distributionen}
 Da das Problem mit verschiedenen \TeXi-Distributionen in einer Nutzerreaktion zu \archbib{} auftauchte: Es ist egal, ob man \TeXi{} Live oder MiK\TeXi{} verwendet (andere wie z.\,B. Mac\TeXi{} satteln auf einer von diesen beiden auf). \TeXi{} Live ist etwas größer, während MiK\TeXi{} eine für Windowsnutzer gewohntere Benutzerführung hat. Wenn man an mehreren Computern arbeitet, muß man allerdings sehr darauf achten, daß man immer denselben Zustand der Distribution hat. \TeXi{} Live kann man täglich updaten, MiK\TeXi{} wöchentlich. Onlinedienste wie Overleaf oder ArXiv können das nicht. Es kann immer mal passieren, daß es in der Ladekette eines Paketes zu inkompatiblen Änderungen kommt. Onlinedienste brauchen aber langfristige Stabilität. Ähnliches gilt für die über Paketmanager wie \App{yum}, \App{APT}, \App{RPM} oder \App{dpkg} ausgelieferten Versionen \footnote{Die im Februar 2021 aktuelle \App{Linux}distribution \App{Debian}~10.8 z.\,B. arbeitete damals immer noch mit \TeXi{} 2018 und \archbib 2.1 vom Novemver 2018}. Auch die werden für gewöhnlich nur in längeren Abständen erneuert und sind mitunter auch nur Minimalinstallationen bzw. in mehrere thematische Pakete aufgeteilt. Wenn man auf mehreren Computern des gleichen Betriebssystems arbeitet, lassen sich beide Distributionen portabel auf USB-Sticks installieren. Da kann man dann auch gleich ein Backup der Distribution machen, falls nach einem Update etwas nicht mehr funktioniert.
+
+\TeXi{} Live gibt es bis zur Version 2013 zurück auch als \App{Docker} Image.\footnote{\url{https://hub.docker.com/r/texlive/texlive}} Dabei handelt es sich um unmittelbar lauffähige Installationen auf einem \App{Linux}-Host, ähnlich einer Virtuellen Maschine, aber nicht völlig autonom vom Hostsystem. \App{Docker} läuft auch auf \App{Windows} 10 und höher. Für die Benutzung in Kombination mit graphischen Oberflächen ist \App{Docker} nicht gedacht.
 
 \section{Unerläßlich für den Support: das Minimalbeispiel}\label{kap_mwe}
 Im Internet gibt es sehr viele Orte, wo man Probleme mit \LaTeXi-Code besprechen kann. Der meistfrequentierte ist wohl die englischsprachige Internetseite \url{https://tex.stackexchange.com/}. Dort trifft man auf viele bekannte Experten. Deutschsprachige Foren sind \url{https://golatex.de/} und \url{https://texwelt.de/}. Ansonsten hilft häufig auch Googeln -- man ist selten der Erste, der das Problem hat oder eine bestimmte Fehlermeldung sieht.

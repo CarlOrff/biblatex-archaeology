@@ -13310,6 +13310,12 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\blxarch@style@bmoe}
+%    \begin{macrocode}
+\edef\blxarch@style@bmoe{Beitr\"age zur Mittelalterarch\"aologie in \"Osterreich}
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\blxarch@style@egypthd}
 %    \begin{macrocode}
 \edef\blxarch@style@egypthd{\"Agyptologisches Institut Heidelberg}
@@ -14712,6 +14718,117 @@
 %
 % \iffalse
 %</archaBBX>
+%<*bmoeBBX>
+% \fi
+%
+% \subsubsection{File \Datei{bmoe.bbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{bmoe.bbx}
+[2019/12/31 v2.3 biblatex-archaeology bibliography style (IB)]
+%    \end{macrocode}
+%
+% Load \Paket{biblatex-archaeology} after a style.
+%    \begin{macrocode}
+\RequireBibliographyStyle{authoryear-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeobibstyletitle}
+%    \begin{macrocode}
+\def\archaeobibstyletitle{\blxarch@style@bmoe}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+%    \end{macrocode}
+% \blx options:
+%    \begin{macrocode}
+    dashed=false,
+    doi=false,       
+    giveninits=false,    
+    ibidtracker=false,
+    idemtracker=false,
+    loccittracker=false,
+    maxbibnames=2,
+    maxcitenames=2,
+    maxitems=3,
+    mergedate=true,
+    mincitenames=1,                  
+    minitems=1,
+    notetype=foot+end,
+    sortcites=true,
+%    \end{macrocode}
+% \archbib options:
+%    \begin{macrocode}
+    editionsuperscript=posttitle,
+    giveninitligatures={},
+    idemincitation=false,
+    injournal=false,
+    journallocation=false,
+    maxbooknames=2,
+    minbooknames=1,
+    minrealdatediff=\blxarch@maxnumber,
+    nothesistitlepunct=false,
+    notitlepunct=true,
+    origfields=true,
+    pagesfirst=false,
+    positionlabeldate=label,
+    preservelastauthor=false,
+    repeatlabel=true,
+    shortform=false,
+    shortjournal=false,
+    shortseries=false,
+    subseries=true,
+    summarytitle=false,
+    tabbedlabeldate=false,
+    titlebrackets=false,
+    titlenote=true,
+    useeventdate=false,
+    useeventnumber=true,
+    usefestschriftaddon=false,
+    useinstitution=omitlocation,
+    uselocation=true,
+    usemultivenue=false,
+    usepublisher=false,
+    usesourceeditor=true,
+    useunpublishedthesis=true,
+    volumeafterseries=false,
+}
+%    \end{macrocode}
+%
+% \begin{macro}{\multinamedelim}
+% \begin{macro}{\finalnamedelim}
+%    \begin{macrocode}
+\renewcommand*{\multinamedelim}{\addslash}
+\renewcommand*{\finalnamedelim}{\addslash}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\multinamedelim}
+% \begin{macro}{\finalnamedelim}
+%    \begin{macrocode}
+\renewcommand*{\multinamedelim}{\addslash}
+\renewcommand*{\finalnamedelim}{\addslash}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\newunitpunct}
+%    \begin{macrocode}
+\renewcommand*{\newunitpunct}{\addcomma\space}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\typeinstitutiondelim}
+%    \begin{macrocode}
+\renewcommand*{\typeinstitutiondelim}{\addspace}
+%    \end{macrocode}
+% \end{macro}
+%
+% \iffalse
+%</bmoeBBX>
 %<*dgufBBX>
 % \fi
 %
