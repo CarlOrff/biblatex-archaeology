@@ -86,7 +86,7 @@ the news feeds of CTAN, GitHub, Academia or my personal website.
 
 ## Copyright
 
-© 2005–2020 by [Ingram Braun](https://ingram-braun.net/#ib_campaign=biblatex-archaeology-v2.3&ib_medium=readme.md&ib_source=github&ib_content=copyright)
+© 2005–2024 by [Ingram Braun](https://ingram-braun.net/#ib_campaign=biblatex-archaeology-v2.3&ib_medium=readme.md&ib_source=github&ib_content=copyright)
 
 ## License
 

@@ -1,0 +1,2310 @@
+<?xml version="1.0"?> 
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook V5.0//EN" 
+"http://www.oasis-open.org/docbook/xml/5.0/docbook.dtd" > 
+ 
+<!--translated from biblatex-archaeology_example.tex  
+by TeX4ht (https://tug.org/tex4ht/) xhtml,charset=utf-8,docbook,html,refcaption --> 
+ <?xtpipes file="docbook.4xt" ?> 
+ 
+<article
+ xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
+<info
+ role="maketitle">
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+<title
+>biblatex-archaeology [v2.3] sample
+document</title>
+<emphasis
+ role="tt">bibstyle</emphasis>: Karl. Das kulturelle Schachmagazin
+<emphasis
+ role="tt">citestyle</emphasis>: Karl. Das kulturelle Schachmagazin
+ <author
+><personname
+><othername
+>Ingram Braun</othername></personname></author>
+<date
+>December 31, 2023</date>
+</info>
+  
+<!--l. 198
+--><section
+ role="likesection"><title
+><emphasis
+ role="tt"></emphasis><anchor
+ xml:id="x1-1000"></anchor>Contents</title>
+<toc
+><tocpart
+> 
+<tocentry
+ role="sectionToc">1&#xA0;<anchor
+ xml:id="QQ2-1-2"></anchor><link
+ xlink:href="#x1-20001"></link>Preliminary                      remarks</tocentry> 
+<tocentry
+ role="sectionToc">2&#xA0;<anchor
+ xml:id="QQ2-1-3"></anchor><link
+ xlink:href="#x1-30002"></link>Blindtext</tocentry> 
+<tocentry
+ role="sectionToc">3&#xA0;<anchor
+ xml:id="QQ2-1-4"></anchor><link
+ xlink:href="#x1-40003"></link>Citation
+commands</tocentry> 
+<tocentry
+ role="sectionToc">4&#xA0;<anchor
+ xml:id="QQ2-1-5"></anchor><link
+ xlink:href="#x1-50004"></link>Ligatures</tocentry> 
+<tocentry
+ role="sectionToc">5&#xA0;<anchor
+ xml:id="QQ2-1-6"></anchor><link
+ xlink:href="#x1-60005"></link>entry                 types</tocentry> 
+<tocentry
+ role="sectionToc">6&#xA0;<anchor
+ xml:id="QQ2-1-7"></anchor><link
+ xlink:href="#x1-70006"></link>Miscellanous
+cases</tocentry> 
+<tocentry
+ role="sectionToc">&#xA0;<anchor
+ xml:id="QQ2-1-8"></anchor><link
+ xlink:href="#x1-8000"></link>Standardliteraturverzeichnis</tocentry> 
+<tocentry
+ role="sectionToc">&#xA0;<anchor
+ xml:id="QQ2-1-9"></anchor><link
+ xlink:href="#x1-9000"></link>Leaflet December 31, 2023</tocentry>
+</tocpart></toc><para/>
+<!--l. 200
+--><para/></section><!--end likesection
+--><!--l. 200
+--><section
+ role="section"><title
+><abbrev
+ role="title-mark">1</abbrev><emphasis
+ role="tt"></emphasis><anchor
+ xml:id="x1-20001"></anchor>Preliminary remarks</title>
+<!--l. 202
+--><para>  &#xF071; Localisation strings in this example document are German.<!--br 
+/
+--></para><!--l. 208
+--><para/></section><!--end section
+--><!--l. 208
+--><section
+ role="section"><title
+><abbrev
+ role="title-mark">2</abbrev><emphasis
+ role="tt"></emphasis><anchor
+ xml:id="x1-30002"></anchor>Blindtext</title>
+                                                                                     
+                                                                                     
+<!--l. 210
+--><para>  Lorem ipsum dolor sit amet, consectetuer adipiscing&#xD;
+elit,<anchor xml:id="x1-3001f1"/><footnote><para><anchor xml:id="x1-3002"/>Henrieta Todorova et al.: <emphasis>Jungsteinzeit in Bulgarien (Neolithikum und &#xC4;neolithikum)</emphasis>. Sofia 1981,&#xD;
+ pp.&#xA0;145&#x2013;146.</para></footnote>&#xD;
+sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat&#xD;
+volutpat.<anchor xml:id="x1-3003f2"/><footnote><para>Ibid.</para></footnote> Ut wisi enim&#xD;
+ad minim veniam,<anchor xml:id="x1-3004f3"/><footnote><para>Ibid., pp.&#xA0;3&#x2013;9.</para></footnote>&#xD;
+quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo&#xD;
+consequat.<anchor xml:id="x1-3005f4"/><footnote><para><anchor xml:id="x1-3006"/>Jost Auler and Petra Hiller: G&#xFC;rtelschnallen, Messerfragment und ein Dominostein &#x2013; (Boden)funde von&#xD;
+einem historischen Nebenerwerbshof in Dormagen&#x2013;St&#xFC;rzelberg, in: <emphasis>Der Niederrhein</emphasis> vol. 82, 2015,&#xD;
+pp.&#xA0;54&#x2013;60.</para></footnote>&#xD;
+Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel&#xD;
+illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim&#xD;
+qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla&#xD;
+facilisi.<anchor xml:id="x1-3007f5"/><footnote><para><anchor xml:id="x1-3008"/>Jost Auler and Petra Hiller: &#x201C;Ein Kinderschuh des 19. Jahrhunderts aus Dormagen&#x2013;St&#xFC;rzelberg, Rhein-Kreis&#xD;
+Neuss&#x201D;, in: Franz-Josef Radmacher and Stefan Kronsbein (eds.), <emphasis>Archiv und Erinnerung im Rhein-Kreis&#xD;
+Neuss</emphasis>, Festschrift f&#xFC;r Karl Emsbach. Neuss 2011, pp.&#xA0;65&#x2013;73, p.&#xA0;68; <anchor xml:id="x1-3009"/>Jost Auler and Petra Hiller: &#x201C;Buchweizen&#xD;
+und Ziegenmilch. Beobachtungen zum Alltagsleben auf einem niederrheinischen Ackererhof in&#xD;
+Dormagen&#x2013;St&#xFC;rzelberg im 19. und fr&#xFC;hen 20. Jahrhundert&#x201D;, in: Stefan Kronsbein and Margareta Siepen (eds.),&#xD;
+<emphasis>Beitr&#xE4;ge zur Arch&#xE4;ologie des Niederrheins und Westfalens</emphasis>, Festschrift f&#xFC;r Christoph Reichmann. Krefeld&#xD;
+2015, pp.&#xA0;37&#x2013;57, p.&#xA0;48; Auler and Hiller (see n.&#xA0; <link xlink:href="#x1-3005f2"><!--ref: cbx@4
+--></link>), pp.&#xA0;159&#x2013;187; <anchor xml:id="x1-3010"/>Jost Auler and Petra Hiller:&#xD;
+Buchweizenpfannkuchen, Maifischfilet und Ziegenk&#xE4;se. Zur Eigenversorgung einer kleinen d&#xF6;rflichen Hofstelle&#xD;
+in St&#xFC;rzelberg im 19. und in der ersten H&#xE4;lfte des 20. Jahrhunderts, in: <emphasis>Jahrbuch f&#xFC;r den Rhein-Kreis Neuss</emphasis>&#xD;
+2016, pp.&#xA0;30&#x2013;43, pp.&#xA0;40&#x2013;41; <anchor xml:id="x1-3011"/>P.&#xA0;Cornelius Tacitus: <emphasis>Germania. Bericht &#xFC;ber Germanien</emphasis>, ed., trans.&#xA0;&#xA0;and&#xD;
+comm.&#xA0;by Josef Lindauer. M&#xFC;nchen 1981, pp.&#xA0;15&#x2013;23; de:neck:yoder:1978; Auler and Hiller, Kinderschuh,&#xD;
+op. cit., p.&#xA0;69.</para></footnote>&#xD;
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam&#xD;
+nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat&#xD;
+volutpat.<anchor xml:id="x1-3012f6"/><footnote><para>Auler and Hiller (see n.&#xA0; <link xlink:href="#x1-3005f2"><!--ref: cbx@4
+--></link>), pp.&#xA0;163&#x2013;164.</para></footnote> Ut wisi enim ad minim&#xD;
+veniam,<anchor xml:id="x1-3013f7"/><footnote><para>Ibid., pp.&#xA0;163&#x2013;168.</para></footnote> quis nostrud exerci tation&#xD;
+ullamcorper suscipit<anchor xml:id="x1-3014f8"/><footnote><para><anchor xml:id="x1-3015"/>Carl Linn&#xE6;us: <emphasis>Iter Lapponicum. Lappl&#xE4;ndska resan 1732</emphasis>, ed. and comm.&#xA0;by Ingegerd Fries and Sigurd Fries.&#xD;
+n. p. 1732 [repr. Ume&#xE5; 2003],  vol.&#xA0;1, p.&#xA0;156.</para></footnote> lobortis nisl ut&#xD;
+aliquip ex ea commodo consequat.<anchor xml:id="x1-3016f9"/><footnote><para><anchor xml:id="x1-3017"/>The George Washington Foundation: &#x201C;Archaeology at Kenmore&#x201D;, <emphasis>http://www.kenmore.org/kenmore/kp_arch.html</emphasis>&#xD;
+.</para></footnote>&#xD;
+Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie&#xD;
+consequat,<anchor xml:id="x1-3018f10"/><footnote><para><anchor xml:id="x1-3019"/>Felix M&#xFC;ller: &#x201C;Lat&#xE8;nezeit. Die Welt ger&#xE4;t in Bewegung&#x201D;, in: Andres Furger and Felix M&#xFC;ller (eds.), <emphasis>Gold&#xD;
+der Helvetier. Keltische Kostbarkeiten aus der Schweiz</emphasis>. Einsiedeln 1991, pp.&#xA0;71&#x2013;83, pp.&#xA0;73&#x2013;75;&#xD;
+<anchor xml:id="x1-3020"/>Adriaan von M&#xFC;ller: &#x201C;Spandau im Mittelalter&#x201D;, in: Alfred Kernd&#x2019;l (ed.), <emphasis>Berlin und Umgebung</emphasis>. Stuttgart 1991,&#xD;
+pp.&#xA0;105&#x2013;117, pp.&#xA0;105&#x2013;108; <anchor xml:id="x1-3021"/>Hermann M&#xFC;ller: &#x201C;Kaiser Friedrich und das Kunstgewerbe-Museum&#x201D;, in:&#xD;
+Pestalozzi-Verein der Provinz Brandenburg (ed.), <emphasis>Die Provinz Brandenburg in Wort und Bild</emphasis>. Berlin 1900&#xD;
+[repr. Augsburg 1998], pp.&#xA0;62&#x2013;70, pp.&#xA0;68&#x2013;70; <anchor xml:id="x1-3022"/>Hartmut M&#xFC;ller: &#x201C;Wodurch die Unterweser, soweit die Fluth&#xD;
+reicht, der &#xFC;berseeischen Segel- und Dampfschiffahrt zug&#xE4;nglich gemacht werde. Die Weser-Korrektion&#x201D;, in:&#xD;
+Volker Plagemann (ed.), <emphasis>&#xDC;bersee. Seefahrt und Seemacht im Deutschen Kaiserreich</emphasis>. M&#xFC;nchen 1988, pp.&#xA0;61&#x2013;63,&#xD;
+p.&#xA0;61.</para></footnote>&#xD;
+vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim&#xD;
+qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla&#xD;
+facilisi.<anchor xml:id="x1-3023f11"/><footnote><para>George Wahington Found. (see n.&#xA0; <link xlink:href="#x1-3016f2"><!--ref: cbx@14
+--></link>).</para></footnote> Nam liber&#xD;
+tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer&#xD;
+possim assum.<anchor xml:id="x1-3024f12"/><footnote><para>Todorova et al. (see n.&#xA0; <link xlink:href="#x1-3001f2"><!--ref: cbx@1
+--></link>), pp.&#xA0;145&#x2013;146.</para></footnote></para><!--l. 212
+--><para/></section><!--end section
+--><!--l. 212
+--><section
+ role="section"><title
+><abbrev
+ role="title-mark">3</abbrev><emphasis
+ role="tt"></emphasis><anchor
+ xml:id="x1-40003"></anchor>Citation commands</title>
+<!--l. 214
+--><para/><variablelist
+><varlistentry
+><term
+>
+<emphasis
+ role="tt">\cite</emphasis> 
+</term><listitem
+>
+<!--l. 215
+--><para><anchor xml:id="x1-4001"/>Jost   Auler   and   Petra   Hiller:   G&#xFC;rtelschnallen,   Messerfragment   und   ein&#xD;
+Dominostein   &#x2013;   (Boden)funde   von   einem   historischen   Nebenerwerbshof   in&#xD;
+Dormagen&#x2013;St&#xFC;rzelberg, in: <emphasis>Der Niederrhein</emphasis> vol. 82, 2015, pp.&#xA0;54&#x2013;60, pp.&#xA0;159&#x2013;187&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Cite</emphasis> 
+</term><listitem
+>
+<!--l. 216
+--><para>Ibid.</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\cite*</emphasis> 
+</term><listitem
+>
+<!--l. 217
+--><para>Ibid.</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\autocite</emphasis> 
+</term><listitem
+>
+<!--l. 218
+--><para><anchor xml:id="x1-4002f13"/><footnote><para><anchor xml:id="x1-4003"/>Auler and Hiller: &#x201C;Ziegenmilch&#x201D; (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@6
+--></link>).</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Autocite</emphasis> 
+</term><listitem
+>
+<!--l. 219
+--><para><anchor xml:id="x1-4004f14"/><footnote><para>Ibid.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\autocite*</emphasis> 
+</term><listitem
+>
+<!--l. 220
+--><para><anchor xml:id="x1-4005f15"/><footnote><para>Ibid.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Autocite*</emphasis> 
+</term><listitem
+>
+<!--l. 221
+--><para><anchor xml:id="x1-4006f16"/><footnote><para>Ibid.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\parencite</emphasis> 
+</term><listitem
+>
+<!--l. 222
+--><para>(Ibid.)</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\parencite*</emphasis> 
+</term><listitem
+>
+<!--l. 223
+--><para>(Ibid.)</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Parencite</emphasis> 
+</term><listitem
+>
+<!--l. 224
+--><para>(Ibid.)</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\textcite</emphasis> 
+</term><listitem
+>
+<!--l. 225
+--><para><anchor xml:id="x1-4007"/>Auler and Hiller<anchor xml:id="x1-4008f17"/><footnote><para>Auler and Hiller (see n.&#xA0; <link xlink:href="#x1-3005f2"><!--ref: cbx@4
+--></link>).</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Textcite</emphasis> 
+</term><listitem
+>
+<!--l. 226
+--><para> Auler and Hiller<anchor xml:id="x1-4009f18"/><footnote><para>Ibid.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\supercite</emphasis> 
+</term><listitem
+>
+<!--l. 227
+--><para><anchor xml:id="x1-4010"/>G.  Bauchhen&#xDF;  et  al.:  &#x201C;s. v.  &#x2018;Brettspiel&#x2019;&#x201D;,  in:  <emphasis>Reallexikon  der  germanischen&#xD;
+Altertumskunde</emphasis> vol. 3, 2nd&#xA0;ed. Berlin, New York 1978, pp.&#xA0;450&#x2013;458, p.&#xA0;433&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\footcite</emphasis> 
+</term><listitem
+>
+<!--l. 230
+--><para><anchor xml:id="x1-4011f19"/><footnote><para>Ibid.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\footcitetext</emphasis> 
+</term><listitem
+>
+<!--l. 231
+--><para> Does not increment footnote counter!<anchor xml:id="x1-4012f19"/><footnote><para>Ibid.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\smartcite</emphasis> 
+</term><listitem
+>
+<!--l. 232
+--><para><anchor xml:id="x1-4013f20"/><footnote><para>Ibid.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Smartcite</emphasis> 
+</term><listitem
+>
+<!--l. 233
+--><para><anchor xml:id="x1-4014f21"/><footnote><para>Ibid.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\cites</emphasis> 
+</term><listitem
+>
+<!--l. 234
+--><para>Auler and Hiller, G&#xFC;rtelschnallen, op. cit., pp.&#xA0;159&#x2013;187</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Cites</emphasis> 
+</term><listitem
+>
+<!--l. 235
+--><para>Ibid.</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\autocites</emphasis> 
+</term><listitem
+>
+<!--l. 236
+--><para><anchor xml:id="x1-4015f22"/><footnote><para><anchor xml:id="x1-4016"/>Auler and Hiller: &#x201C;Kinderschuh&#x201D; (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@5
+--></link>); <anchor xml:id="x1-4017"/>Auler and Hiller: &#x201C;Ziegenmilch&#x201D; (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@6
+--></link>); Auler and Hiller&#xD;
+(see n.&#xA0; <link xlink:href="#x1-3005f2"><!--ref: cbx@4
+--></link>); <anchor xml:id="x1-4018"/>Auler and Hiller: Maifischfilet (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@8
+--></link>); <anchor xml:id="x1-4019"/>Tacitus (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@9
+--></link>); de:neck:yoder:1978.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Autocites</emphasis> 
+</term><listitem
+>
+<!--l. 237
+--><para><anchor xml:id="x1-4020f23"/><footnote><para><anchor xml:id="x1-4021"/>Auler and Hiller: &#x201C;Kinderschuh&#x201D; (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@5
+--></link>); <anchor xml:id="x1-4022"/>Auler and Hiller: &#x201C;Ziegenmilch&#x201D; (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@6
+--></link>); <anchor xml:id="x1-4023"/>Auler and Hiller&#xD;
+(see n.&#xA0; <link xlink:href="#x1-3005f2"><!--ref: cbx@4
+--></link>); <anchor xml:id="x1-4024"/>Auler and Hiller: Maifischfilet (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@8
+--></link>); <anchor xml:id="x1-4025"/>Tacitus (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@9
+--></link>); de:neck:yoder:1978.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\footcites</emphasis> 
+</term><listitem
+>
+<!--l. 238
+--><para><anchor xml:id="x1-4026f24"/><footnote><para>Auler and Hiller: &#x201C;Kinderschuh&#x201D; (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@5
+--></link>); Auler and Hiller: &#x201C;Ziegenmilch&#x201D; (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@6
+--></link>); Auler and Hiller&#xD;
+(see n.&#xA0; <link xlink:href="#x1-3005f2"><!--ref: cbx@4
+--></link>); Auler and Hiller: Maifischfilet (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@8
+--></link>); Tacitus (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@9
+--></link>); de:neck:yoder:1978.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\footcitetexts</emphasis> 
+</term><listitem
+>
+<!--l. 239
+--><para> Does not increment footnote counter!<anchor xml:id="x1-4027f24"/><footnote><para>Auler and Hiller, Kinderschuh, op. cit., p.&#xA0;68; eidem, Ziegenmilch, op. cit., p.&#xA0;48; eidem, G&#xFC;rtelschnallen,&#xD;
+op. cit., pp.&#xA0;159&#x2013;187; eidem, Maifischfilet, op. cit., pp.&#xA0;40&#x2013;41; Tacitus, Germania, op. cit., pp.&#xA0;15&#x2013;23;&#xD;
+de:neck:yoder:1978.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\parencites</emphasis> 
+</term><listitem
+>
+<!--l. 240
+--><para> (Jost  Auler  and  Petra  Hiller:  &#x201C;Ein  Kinderschuh  des  19.  Jahrhunderts  aus&#xD;
+Dormagen&#x2013;St&#xFC;rzelberg,  Rhein-Kreis  Neuss&#x201D;,  in:  Franz-Josef  Radmacher  and&#xD;
+Stefan Kronsbein [eds.], <emphasis>Archiv und Erinnerung im Rhein-Kreis Neuss</emphasis>, Festschrift&#xD;
+f&#xFC;r Karl Emsbach. Neuss 2011, pp.&#xA0;65&#x2013;73, p.&#xA0;68; Jost Auler and Petra Hiller:&#xD;
+&#x201C;Buchweizen  und  Ziegenmilch.  Beobachtungen  zum  Alltagsleben  auf  einem&#xD;
+niederrheinischen  Ackererhof  in  Dormagen&#x2013;St&#xFC;rzelberg  im  19.  und  fr&#xFC;hen  20.&#xD;
+Jahrhundert&#x201D;,  in:  Stefan  Kronsbein  and  Margareta  Siepen  [eds.],  <emphasis>Beitr&#xE4;ge zur&#xD;
+Arch&#xE4;ologie des Niederrheins und Westfalens</emphasis>, Festschrift f&#xFC;r Christoph Reichmann.&#xD;
+Krefeld  2015,  pp.&#xA0;37&#x2013;57,  p.&#xA0;48;  eidem,  G&#xFC;rtelschnallen,  op.  cit.,  pp.&#xA0;159&#x2013;187;&#xD;
+Jost Auler and Petra Hiller: Buchweizenpfannkuchen, Maifischfilet und Ziegenk&#xE4;se.&#xD;
+Zur Eigenversorgung einer kleinen d&#xF6;rflichen Hofstelle in St&#xFC;rzelberg im 19. und&#xD;
+in  der  ersten  H&#xE4;lfte  des  20.  Jahrhunderts,  in:  <emphasis>Jahrbuch  f&#xFC;r  den  Rhein-Kreis&#xD;
+Neuss</emphasis> 2016, pp.&#xA0;30&#x2013;43, pp.&#xA0;40&#x2013;41; P.&#xA0;Cornelius Tacitus: <emphasis>Germania. Bericht &#xFC;ber&#xD;
+Germanien</emphasis>, ed., trans.&#xA0;&#xA0;and comm.&#xA0;by Josef Lindauer. M&#xFC;nchen 1981, pp.&#xA0;15&#x2013;23;&#xD;
+de:neck:yoder:1978&#xD;
+)&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Parencites</emphasis> 
+</term><listitem
+>
+<!--l. 241
+--><para>(Auler  and  Hiller,  Kinderschuh,  op.  cit.,  p.&#xA0;68;  eidem,  Ziegenmilch,  op.  cit.,&#xD;
+p.&#xA0;48; eidem, G&#xFC;rtelschnallen, op. cit., pp.&#xA0;159&#x2013;187; eidem, Maifischfilet, op. cit.,&#xD;
+pp.&#xA0;40&#x2013;41; Tacitus, Germania, op. cit., pp.&#xA0;15&#x2013;23; de:neck:yoder:1978)</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\textcites</emphasis> 
+</term><listitem
+>
+<!--l. 242
+--><para> de:neck:yoder:1978Auler and Hiller and Tacitus<anchor xml:id="x1-4028f25"/><footnote><para>Auler and Hiller: &#x201C;Kinderschuh&#x201D; (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@5
+--></link>), p.&#xA0;68; Auler and Hiller: &#x201C;Ziegenmilch&#x201D; (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@6
+--></link>), p.&#xA0;48;&#xD;
+Auler and Hiller (see n.&#xA0; <link xlink:href="#x1-3005f2"><!--ref: cbx@4
+--></link>), pp.&#xA0;159&#x2013;187; Auler and Hiller: Maifischfilet (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@8
+--></link>), pp.&#xA0;40&#x2013;41; Tacitus&#xD;
+(see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@9
+--></link>), pp.&#xA0;15&#x2013;23.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Textcites</emphasis> 
+</term><listitem
+>
+<!--l. 243
+--><para><anchor xml:id="x1-4029"/><anchor xml:id="x1-4030"/><anchor xml:id="x1-4031"/><anchor xml:id="x1-4032"/><anchor xml:id="x1-4033"/>de:neck:yoder:1978Auler and Hiller and Tacitus<anchor xml:id="x1-4034f26"/><footnote><para>Auler and Hiller: &#x201C;Kinderschuh&#x201D; (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@5
+--></link>), p.&#xA0;68; Auler and Hiller: &#x201C;Ziegenmilch&#x201D; (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@6
+--></link>), p.&#xA0;48;&#xD;
+Auler and Hiller (see n.&#xA0; <link xlink:href="#x1-3005f2"><!--ref: cbx@4
+--></link>), pp.&#xA0;159&#x2013;187; Auler and Hiller: Maifischfilet (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@8
+--></link>), pp.&#xA0;40&#x2013;41; Tacitus&#xD;
+(see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@9
+--></link>), pp.&#xA0;15&#x2013;23.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\volcite</emphasis> 
+</term><listitem
+>
+<!--l. 244
+--><para><anchor xml:id="x1-4035"/>Carl  Linn&#xE6;us:  <emphasis>Iter  Lapponicum.  Lappl&#xE4;ndska  resan  1732</emphasis>,  ed.  and  comm.&#xA0;by&#xD;
+Ingegerd Fries and Sigurd Fries. n. p. 1732 [repr. Ume&#xE5; 2003], vol.&#xA0;1, p.&#xA0;156&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\avolcite</emphasis> 
+</term><listitem
+>
+<!--l. 245
+--><para><anchor xml:id="x1-4036f27"/><footnote><para>Linn&#xE6;us (see n.&#xA0; <link xlink:href="#x1-3014f2"><!--ref: cbx@13
+--></link>), vol.&#xA0;1, p.&#xA0;156.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\fvolcite</emphasis> 
+</term><listitem
+>
+<!--l. 246
+--><para><anchor xml:id="x1-4037f28"/><footnote><para>Ibid.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\pvolcite</emphasis> 
+</term><listitem
+>
+<!--l. 247
+--><para>(Ibid.)</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\svolcite</emphasis> 
+</term><listitem
+>
+<!--l. 248
+--><para><anchor xml:id="x1-4038f29"/><footnote><para>Ibid.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\tvolcite</emphasis> 
+</term><listitem
+>
+<!--l. 249
+--><para> Linn&#xE6;us<anchor xml:id="x1-4039f30"/><footnote><para>Ibid.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Volcite</emphasis> 
+</term><listitem
+>
+<!--l. 250
+--><para><anchor xml:id="x1-4040"/>Antonius van der Linde: <emphasis>Geschichte und Literatur des Schachspiels</emphasis>. Berlin 1874&#xD;
+[repr. Z&#xFC;rich 1981], vol.&#xA0;2, pp.&#xA0;34&#x2013;36&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Avolcite</emphasis> 
+</term><listitem
+>
+<!--l. 251
+--><para><anchor xml:id="x1-4041f31"/><footnote><para>Antonius van der Linde: <emphasis>Geschichte und Literatur des Schachspiels</emphasis>. Berlin 1874 [repr. Z&#xFC;rich 1981] ,&#xD;
+vol.&#xA0;2, pp.&#xA0;34&#x2013;36.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Pvolcite</emphasis> 
+</term><listitem
+>
+<!--l. 252
+--><para>(Ibid.)</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Svolcite</emphasis> 
+</term><listitem
+>
+<!--l. 253
+--><para><anchor xml:id="x1-4042f32"/><footnote><para>Ibid.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Tvolcite</emphasis> 
+</term><listitem
+>
+<!--l. 254
+--><para><anchor xml:id="x1-4043"/>Van der Linde<anchor xml:id="x1-4044f33"/><footnote><para>Ibid.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\volcites</emphasis> 
+</term><listitem
+>
+<!--l. 255
+--><para> Idem,  Geschichte  und  Literatur  des  Schachspiels,  op.  cit.,  vol.&#xA0;2,  pp.&#xA0;34&#x2013;36;&#xD;
+<anchor xml:id="x1-4045"/>Linn&#xE6;us, Iter Lapponicum, op. cit., vol.&#xA0;1, p.&#xA0;156&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\avolcites</emphasis> 
+</term><listitem
+>
+<!--l. 256
+--><para><anchor xml:id="x1-4046f34"/><footnote><para>Van der Linde (see n.&#xA0; <link xlink:href="#x1-4041f3"><!--ref: cbx@113
+--></link>), vol.&#xA0;2, pp.&#xA0;34&#x2013;36; Linn&#xE6;us (see n.&#xA0; <link xlink:href="#x1-3014f2"><!--ref: cbx@13
+--></link>), vol.&#xA0;1, p.&#xA0;156.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\fvolcites</emphasis> 
+</term><listitem
+>
+<!--l. 257
+--><para><anchor xml:id="x1-4047f35"/><footnote><para>Van der Linde (see n.&#xA0; <link xlink:href="#x1-4041f3"><!--ref: cbx@113
+--></link>), vol.&#xA0;2, pp.&#xA0;34&#x2013;36; Linn&#xE6;us (see n.&#xA0; <link xlink:href="#x1-3014f2"><!--ref: cbx@13
+--></link>), vol.&#xA0;1, p.&#xA0;156.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\pvolcites</emphasis> 
+</term><listitem
+>
+<!--l. 258
+--><para>(Van  der  Linde,  Geschichte  und  Literatur  des  Schachspiels,  op.  cit.,  vol.&#xA0;2,&#xD;
+pp.&#xA0;34&#x2013;36; Linn&#xE6;us, Iter Lapponicum, op. cit., vol.&#xA0;1, p.&#xA0;156)</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\svolcites</emphasis> 
+</term><listitem
+>
+<!--l. 259
+--><para><anchor xml:id="x1-4048f36"/><footnote><para>Van der Linde (see n.&#xA0; <link xlink:href="#x1-4041f3"><!--ref: cbx@113
+--></link>), vol.&#xA0;2, pp.&#xA0;34&#x2013;36; Linn&#xE6;us (see n.&#xA0; <link xlink:href="#x1-3014f2"><!--ref: cbx@13
+--></link>), vol.&#xA0;1, p.&#xA0;156.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\tvolcites</emphasis> 
+</term><listitem
+>
+<!--l. 260
+--><para> Van der Linde and Linn&#xE6;us<anchor xml:id="x1-4049f37"/><footnote><para>Van der Linde (see n.&#xA0; <link xlink:href="#x1-4041f3"><!--ref: cbx@113
+--></link>), vol.&#xA0;2, pp.&#xA0;34&#x2013;36; Linn&#xE6;us (see n.&#xA0; <link xlink:href="#x1-3014f2"><!--ref: cbx@13
+--></link>), vol.&#xA0;1, p.&#xA0;156.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Volcites</emphasis> 
+</term><listitem
+>
+<!--l. 261
+--><para>Van  der  Linde,  Geschichte  und  Literatur  des  Schachspiels,  op.  cit.,  vol.&#xA0;2,&#xD;
+pp.&#xA0;34&#x2013;36; Linn&#xE6;us, Iter Lapponicum, op. cit., vol.&#xA0;1, p.&#xA0;156</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Avolcites</emphasis> 
+</term><listitem
+>
+<!--l. 262
+--><para><anchor xml:id="x1-4050f38"/><footnote><para>Van der Linde (see n.&#xA0; <link xlink:href="#x1-4041f3"><!--ref: cbx@113
+--></link>), vol.&#xA0;2, pp.&#xA0;34&#x2013;36; Linn&#xE6;us (see n.&#xA0; <link xlink:href="#x1-3014f2"><!--ref: cbx@13
+--></link>), vol.&#xA0;1, p.&#xA0;156.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Pvolcites</emphasis> 
+</term><listitem
+>
+<!--l. 263
+--><para>(Van  der  Linde,  Geschichte  und  Literatur  des  Schachspiels,  op.  cit.,  vol.&#xA0;2,&#xD;
+pp.&#xA0;34&#x2013;36; Linn&#xE6;us, Iter Lapponicum, op. cit., vol.&#xA0;1, p.&#xA0;156)</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Svolcites</emphasis> 
+</term><listitem
+>
+<!--l. 264
+--><para><anchor xml:id="x1-4051f39"/><footnote><para><anchor xml:id="x1-4052"/>Van der Linde (see n.&#xA0; <link xlink:href="#x1-4041f3"><!--ref: cbx@113
+--></link>), vol.&#xA0;2, pp.&#xA0;34&#x2013;36; <anchor xml:id="x1-4053"/>Linn&#xE6;us (see n.&#xA0; <link xlink:href="#x1-3014f2"><!--ref: cbx@13
+--></link>), vol.&#xA0;1, p.&#xA0;156.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Tvolcites</emphasis> 
+</term><listitem
+>
+<!--l. 265
+--><para> Van der Linde and Linn&#xE6;us<anchor xml:id="x1-4054f40"/><footnote><para>Van der Linde (see n.&#xA0; <link xlink:href="#x1-4041f3"><!--ref: cbx@113
+--></link>), vol.&#xA0;2, pp.&#xA0;34&#x2013;36; Linn&#xE6;us (see n.&#xA0; <link xlink:href="#x1-3014f2"><!--ref: cbx@13
+--></link>), vol.&#xA0;1, p.&#xA0;156.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\citeauthor</emphasis> 
+</term><listitem
+>
+<!--l. 266
+--><para><anchor xml:id="x1-4055"/>Auler and Hiller&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\citeauthor</emphasis> 
+</term><listitem
+>
+<!--l. 267
+--><para>Auler and Hiller</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\citetitle</emphasis> 
+</term><listitem
+>
+<!--l. 268
+--><para>G&#xFC;rtelschnallen</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\citetitle*</emphasis> 
+</term><listitem
+>
+<!--l. 269
+--><para>G&#xFC;rtelschnallen, Messerfragment und ein Dominostein &#x2013; (Boden)funde von einem&#xD;
+historischen Nebenerwerbshof in Dormagen&#x2013;St&#xFC;rzelberg</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\citedate</emphasis> 
+</term><listitem
+>
+<!--l. 270
+--><para>2015</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\citeyear</emphasis> 
+</term><listitem
+>
+<!--l. 271
+--><para>2015</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\citeurl</emphasis> 
+</term><listitem
+>
+<!--l. 272
+--><para><anchor xml:id="x1-4056"/>http://www.kenmore.org/kenmore/kp_arch.html&#xD;
+                                                                                     &#xD;
+                                                                                     &#xD;
+      &#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\fullcite</emphasis> 
+</term><listitem
+>
+<!--l. 273
+--><para>  Jost   Auler   and   Petra   Hiller:   G&#xFC;rtelschnallen,   Messerfragment   und   ein&#xD;
+Dominostein   &#x2013;   (Boden)funde   von   einem   historischen   Nebenerwerbshof   in&#xD;
+Dormagen&#x2013;St&#xFC;rzelberg, in: <emphasis>Der Niederrhein</emphasis> vol. 82, 2015, pp.&#xA0;54&#x2013;60&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\footfullcite</emphasis> 
+</term><listitem
+>
+<!--l. 274
+--><para><anchor xml:id="x1-4057f41"/><footnote><para><anchor xml:id="x1-4058"/>Jost Auler and Petra Hiller: G&#xFC;rtelschnallen, Messerfragment und ein Dominostein &#x2013; (Boden)funde&#xD;
+von einem historischen Nebenerwerbshof in Dormagen&#x2013;St&#xFC;rzelberg, in: <emphasis>Der Niederrhein</emphasis> vol. 82, 2015,&#xD;
+pp.&#xA0;54&#x2013;60, pp.&#xA0;159&#x2013;187.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\shortformcite</emphasis> 
+</term><listitem
+>
+<!--l. 275
+--><para><anchor xml:id="x1-4059f42"/><footnote><para><anchor xml:id="x1-4060"/>RGA III, p.&#xA0;433 s. v. &#x201C;Brettspiel&#x201D; (G. Bauchhen&#xDF; et al.).</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\shortformcites</emphasis> 
+</term><listitem
+>
+<!--l. 278
+--><para><anchor xml:id="x1-4061f43"/><footnote><para>RGA III, p.&#xA0;433 s. v. &#x201C;Brettspiel&#x201D; (G. Bauchhen&#xDF; et al.); <anchor xml:id="x1-4062"/>RGA VII, p.&#xA0;501 s. v. &#x201C;Erik Blutaxt&#x201D; (Grethe&#xD;
+Auth&#xE9;n-Blom).</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\sfcite</emphasis> 
+</term><listitem
+>
+<!--l. 281
+--><para>RGA III, p.&#xA0;433 s. v. &#x201C;Brettspiel&#x201D; (G. Bauchhen&#xDF; et al.)</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\sfcites</emphasis> 
+</term><listitem
+>
+<!--l. 284
+--><para>RGA III, p.&#xA0;433 s. v. &#x201C;Brettspiel&#x201D; (G. Bauchhen&#xDF; et al.); RGA VII, p.&#xA0;501 s. v.&#xD;
+&#x201C;Erik Blutaxt&#x201D; (Grethe Auth&#xE9;n-Blom)</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\posscite</emphasis> 
+</term><listitem
+>
+<!--l. 287
+--><para><anchor xml:id="x1-4063"/> Auler&#x2019;s and Hiller&#x2019;s<anchor xml:id="x1-4064f44"/><footnote><para> Auler and Hiller: &#x201C;Ziegenmilch&#x201D; (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@6
+--></link>), p.&#xA0;48.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\posscites</emphasis> 
+</term><listitem
+>
+<!--l. 290
+--><para> de:neck:yoder:1978<anchor xml:id="x1-4065"/><anchor xml:id="x1-4066"/><anchor xml:id="x1-4067"/><anchor xml:id="x1-4068"/><anchor xml:id="x1-4069"/><anchor xml:id="x1-4070"/> Auler&#x2019;s and Hiller&#x2019;s,  Buss&#x2019;s,  Na&#xDF;&#x2019;s,  Caselitz&#x2019;s,  Molleson&#x2019;s&#xD;
+and Cox&#x2019;s, Steinmetz et al.&#x2019;s and R&#xE8;gles et principes&#x2019;s<anchor xml:id="x1-4071f45"/><footnote><para> Auler and Hiller: &#x201C;Ziegenmilch&#x201D; (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@6
+--></link>), p.&#xA0;48; David M. Buss: <emphasis>Evolution&#xE4;re Psychologie</emphasis>, 2nd&#xA0;ed.&#xD;
+M&#xFC;nchen 2004,  p.&#xA0;123; Karl Na&#xDF;: Karolingische Reihengr&#xE4;berfelder aus Hessen, in: <emphasis>Germania</emphasis> vol. 22,&#xD;
+1938, pp.&#xA0;41&#x2013;50; Peter Caselitz: Schwangerschaft im arch&#xE4;ologischen Befund, in: <emphasis>The Archaeological&#xD;
+Advertiser</emphasis> 1980, pp.&#xA0;20&#x2013;26; Theya Molleson and Margaret Cox: <emphasis>The Spitalfields Project</emphasis> vol. 2: <emphasis>The&#xD;
+Middling Sort</emphasis>. Walmgate 1993, pp.&#xA0;187&#x2013;190; Wolf-Dieter Steinmetz et al.: Vor- und fr&#xFC;hgeschichtliche&#xD;
+Ausgrabungen im Landkreis Osnabr&#xFC;ck 1978, in: <emphasis>Osnabr&#xFC;cker Mitteilungen</emphasis> vol. 85, 1979, pp.&#xA0;9&#x2013;15,&#xD;
+pp.&#xA0;11&#x2013;12;  <emphasis>R&#xE8;gles  et  principes  sur  le  jeu  de  domino,  avec  les  d&#xE9;cisions  des  meilleurs  joueurs</emphasis>.&#xD;
+Amsterdam, Paris 1780.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Posscite</emphasis> 
+</term><listitem
+>
+<!--l. 293
+--><para> Auler&#x2019;s and Hiller&#x2019;s<anchor xml:id="x1-4072f46"/><footnote><para> Auler and Hiller: &#x201C;Ziegenmilch&#x201D; (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@6
+--></link>), p.&#xA0;48.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Posscites</emphasis> 
+</term><listitem
+>
+<!--l. 296
+--><para><anchor xml:id="x1-4073"/>de:neck:yoder:1978<anchor xml:id="x1-4074"/><anchor xml:id="x1-4075"/><anchor xml:id="x1-4076"/><anchor xml:id="x1-4077"/><anchor xml:id="x1-4078"/><anchor xml:id="x1-4079"/> Auler&#x2019;s and Hiller&#x2019;s,  Buss&#x2019;s,  Na&#xDF;&#x2019;s,  Caselitz&#x2019;s,  Molleson&#x2019;s&#xD;
+and Cox&#x2019;s, Steinmetz et al.&#x2019;s and R&#xE8;gles et principes&#x2019;s<anchor xml:id="x1-4080f47"/><footnote><para> Auler and Hiller: &#x201C;Ziegenmilch&#x201D; (see n.&#xA0; <link xlink:href="#x1-3007f2"><!--ref: cbx@6
+--></link>), p.&#xA0;48;  Buss (see n.&#xA0; <link xlink:href="#x1-4071f3"><!--ref: cbx@182
+--></link>), p.&#xA0;123;  Na&#xDF; (see n.&#xA0; <link xlink:href="#x1-4071f3"><!--ref: cbx@183
+--></link>);  Caselitz&#xD;
+(see n.&#xA0; <link xlink:href="#x1-4071f3"><!--ref: cbx@184
+--></link>);  Molleson and Cox (see n.&#xA0; <link xlink:href="#x1-4071f3"><!--ref: cbx@185
+--></link>), pp.&#xA0;187&#x2013;190;  Steinmetz et al.&#x2019;s (see n.&#xA0; <link xlink:href="#x1-4071f3"><!--ref: cbx@186
+--></link>), pp.&#xA0;11&#x2013;12; (see n.&#xA0;&#xD;
+<link xlink:href="#x1-4071f3"><!--ref: cbx@187
+--></link>).</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\possvolcite</emphasis> 
+</term><listitem
+>
+<!--l. 299
+--><para><anchor xml:id="x1-4081"/> Van der Linde&#x2019;s<anchor xml:id="x1-4082f48"/><footnote><para> Van der Linde (see n.&#xA0; <link xlink:href="#x1-4041f3"><!--ref: cbx@113
+--></link>), vol.&#xA0;2, pp.&#xA0;34&#x2013;36.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\possvolcites</emphasis> 
+</term><listitem
+>
+<!--l. 302
+--><para><anchor xml:id="x1-4083"/> Van der Linde&#x2019;s and Linn&#xE6;us&#x2019;s<anchor xml:id="x1-4084f49"/><footnote><para> Van der Linde (see n.&#xA0; <link xlink:href="#x1-4041f3"><!--ref: cbx@113
+--></link>), vol.&#xA0;2, pp.&#xA0;34&#x2013;36;  Linn&#xE6;us (see n.&#xA0; <link xlink:href="#x1-3014f2"><!--ref: cbx@13
+--></link>), vol.&#xA0;1, p.&#xA0;156.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Possvolcite</emphasis> 
+</term><listitem
+>
+<!--l. 305
+--><para> Van der Linde&#x2019;s<anchor xml:id="x1-4085f50"/><footnote><para> Van der Linde (see n.&#xA0; <link xlink:href="#x1-4041f3"><!--ref: cbx@113
+--></link>), vol.&#xA0;2, pp.&#xA0;34&#x2013;36.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Possvolcites</emphasis> 
+</term><listitem
+>
+<!--l. 308
+--><para> Van der Linde&#x2019;s and Linn&#xE6;us&#x2019;s<anchor xml:id="x1-4086f51"/><footnote><para> Van der Linde (see n.&#xA0; <link xlink:href="#x1-4041f3"><!--ref: cbx@113
+--></link>), vol.&#xA0;2, pp.&#xA0;34&#x2013;36;  Linn&#xE6;us (see n.&#xA0; <link xlink:href="#x1-3014f2"><!--ref: cbx@13
+--></link>), vol.&#xA0;1, p.&#xA0;156.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\citeissue</emphasis> 
+</term><listitem
+>
+<!--l. 311
+--><para><anchor xml:id="x1-4087"/>&#x201C;Ber. RGK&#x201D; vol. 69, 1988, p.&#xA0;48&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\fciteissue</emphasis> 
+</term><listitem
+>
+<!--l. 314
+--><para><anchor xml:id="x1-4088f52"/><footnote><para>&#x201C;Ber. RGK&#x201D; vol. 69, 1988, p.&#xA0;48.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\pciteissue</emphasis> 
+</term><listitem
+>
+<!--l. 317
+--><para>(&#x201C;Ber. RGK&#x201D; vol. 69, 1988, p.&#xA0;48)</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\citeissues</emphasis> 
+</term><listitem
+>
+<!--l. 320
+--><para>&#x201C;Ber. RGK&#x201D; vol. 69, 1988, p.&#xA0;48</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\fciteissues</emphasis> 
+</term><listitem
+>
+<!--l. 323
+--><para><anchor xml:id="x1-4089f53"/><footnote><para>&#x201C;Ber. RGK&#x201D; vol. 69, 1988, p.&#xA0;48.</para></footnote></para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\pciteissues</emphasis> 
+</term><listitem
+>
+<!--l. 326
+--><para> (<anchor xml:id="x1-4090"/>&#x201C;Ber. RGK&#x201D; vol. 69, 1988, p.&#xA0;48)&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\reviewcite</emphasis> 
+</term><listitem
+>
+<!--l. 329
+--><para>de:neck:yoder:1978</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\previewcite</emphasis> 
+</term><listitem
+>
+<!--l. 332
+--><para> (<anchor xml:id="x1-4091"/>Jost Auler and Petra Hiller: &#x201C;Buchweizen und Ziegenmilch&#x201D;, in: Stefan Kronsbein&#xD;
+and  Margareta  Siepen  [eds.],  <emphasis>Beitr&#xE4;ge  zur  Arch&#xE4;ologie  des  Niederrheins  und&#xD;
+Westfalens</emphasis>. Krefeld 2015, pp.&#xA0;37&#x2013;57, p.&#xA0;48)&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\textreviewcite</emphasis> 
+</term><listitem
+>
+<!--l. 335
+--><para><anchor xml:id="x1-4092"/>Buss (<emphasis>Evolution&#xE4;re Psychologie</emphasis>, 2nd&#xA0;ed. M&#xFC;nchen 2004)&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Reviewcite</emphasis> 
+</term><listitem
+>
+<!--l. 338
+--><para>de:neck:yoder:1978</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Previewcite</emphasis> 
+</term><listitem
+>
+<!--l. 341
+--><para>(de:neck:yoder:1978)</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Textreviewcite</emphasis> 
+</term><listitem
+>
+<!--l. 344
+--><para>de:neck:yoder:1978</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\reviewcites</emphasis> 
+</term><listitem
+>
+<!--l. 347
+--><para> de:neck:yoder:1978;  <anchor xml:id="x1-4093"/>Augustus  Sterk  (trans.):  <emphasis>Plan  van  philanthropynsche&#xD;
+opvoeding  of  volledig  bericht  van  het  eerste  philantropinum  te  Marschlins</emphasis>.&#xD;
+Leeuwarden,  Franeker  1777,  p.&#xA0;123;  David  M.  Buss:  <emphasis>Evolution&#xE4;re Psychologie</emphasis>,&#xD;
+2nd&#xA0;ed. M&#xFC;nchen 2004, p.&#xA0;276; <anchor xml:id="x1-4094"/>Karl Na&#xDF;: Karolingische Reihengr&#xE4;berfelder aus&#xD;
+Hessen, in: <emphasis>Germania</emphasis> vol. 22, 1938, pp.&#xA0;41&#x2013;50; <anchor xml:id="x1-4095"/>Peter Caselitz: Schwangerschaft&#xD;
+im arch&#xE4;ologischen Befund, in: <emphasis>The Archaeological Advertiser</emphasis> 1980, pp.&#xA0;20&#x2013;26;&#xD;
+<anchor xml:id="x1-4096"/>Theya Molleson and Margaret Cox: <emphasis>The Spitalfields Project</emphasis> vol. 2: <emphasis>The Middling&#xD;
+                                                                                     &#xD;
+                                                                                     &#xD;
+      &#xD;
+Sort</emphasis>.  Walmgate  1993,  pp.&#xA0;187&#x2013;190;  <anchor xml:id="x1-4097"/>Wolf-Dieter  Steinmetz  et  al.:  Vor-  und&#xD;
+fr&#xFC;hgeschichtliche Ausgrabungen im Landkreis Osnabr&#xFC;ck 1978, in: <emphasis>Osnabr&#xFC;cker&#xD;
+Mitteilungen</emphasis> vol. 85, 1979, pp.&#xA0;9&#x2013;15, pp.&#xA0;11&#x2013;12; <anchor xml:id="x1-4098"/> <emphasis>R&#xE8;gles et principes sur le jeu de&#xD;
+domino, avec les d&#xE9;cisions des meilleurs joueurs</emphasis>. Amsterdam, Paris 1780&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\previewcites</emphasis> 
+</term><listitem
+>
+<!--l. 350
+--><para> (de:neck:yoder:1978;  <anchor xml:id="x1-4099"/>Augustus  Sterk  [trans.]:  <emphasis>Plan  van  philanthropynsche&#xD;
+opvoeding  of  volledig  bericht  van  het  eerste  philantropinum  te  Marschlins</emphasis>.&#xD;
+Leeuwarden,  Franeker  1777,  p.&#xA0;123;  <anchor xml:id="x1-4100"/>David  M.  Buss:  <emphasis>Evolution&#xE4;re Psychologie</emphasis>,&#xD;
+2nd&#xA0;ed. M&#xFC;nchen 2004, p.&#xA0;276; <anchor xml:id="x1-4101"/>Karl Na&#xDF;: Karolingische Reihengr&#xE4;berfelder aus&#xD;
+Hessen, in: <emphasis>Germania</emphasis> vol. 22, 1938, pp.&#xA0;41&#x2013;50; <anchor xml:id="x1-4102"/>Peter Caselitz: Schwangerschaft&#xD;
+im arch&#xE4;ologischen Befund, in: <emphasis>The Archaeological Advertiser</emphasis> 1980, pp.&#xA0;20&#x2013;26;&#xD;
+<anchor xml:id="x1-4103"/>Theya Molleson and Margaret Cox: <emphasis>The Spitalfields Project</emphasis> vol. 2: <emphasis>The Middling&#xD;
+Sort</emphasis>.  Walmgate  1993,  pp.&#xA0;187&#x2013;190;  <anchor xml:id="x1-4104"/>Wolf-Dieter  Steinmetz  et  al.:  Vor-  und&#xD;
+fr&#xFC;hgeschichtliche Ausgrabungen im Landkreis Osnabr&#xFC;ck 1978, in: <emphasis>Osnabr&#xFC;cker&#xD;
+Mitteilungen</emphasis> vol. 85, 1979, pp.&#xA0;9&#x2013;15, pp.&#xA0;11&#x2013;12; <anchor xml:id="x1-4105"/> <emphasis>R&#xE8;gles et principes sur le jeu de&#xD;
+domino, avec les d&#xE9;cisions des meilleurs joueurs</emphasis>. Amsterdam, Paris 1780)&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\textreviewcites</emphasis> 
+</term><listitem
+>
+<!--l. 353
+--><para> de:neck:yoder:1978;  Sterk  ([trans.]:  <emphasis>Plan  van  philanthropynsche  opvoeding&#xD;
+of  volledig  bericht  van  het  eerste  philantropinum  te  Marschlins</emphasis>.  Leeuwarden,&#xD;
+Franeker 1777, p.&#xA0;123); Buss (<emphasis>Evolution&#xE4;re Psychologie</emphasis>, 2nd&#xA0;ed. M&#xFC;nchen 2004,&#xD;
+p.&#xA0;276); Na&#xDF; (Karolingische Reihengr&#xE4;berfelder aus Hessen, in: <emphasis>Germania</emphasis> vol. 22,&#xD;
+1938, pp.&#xA0;41&#x2013;50); Caselitz (Schwangerschaft im arch&#xE4;ologischen Befund, in: <emphasis>The&#xD;
+Archaeological Advertiser</emphasis> 1980, pp.&#xA0;20&#x2013;26); Molleson and Cox (<emphasis>The Spitalfields&#xD;
+Project</emphasis> vol. 2: <emphasis>The Middling Sort</emphasis>. Walmgate 1993, pp.&#xA0;187&#x2013;190); Steinmetz et&#xD;
+al. (Vor- und fr&#xFC;hgeschichtliche Ausgrabungen im Landkreis Osnabr&#xFC;ck 1978, in:&#xD;
+<emphasis>Osnabr&#xFC;cker Mitteilungen</emphasis> vol. 85, 1979, pp.&#xA0;9&#x2013;15, pp.&#xA0;11&#x2013;12); (<emphasis>R&#xE8;gles et principes&#xD;
+sur le jeu de domino, avec les d&#xE9;cisions des meilleurs joueurs</emphasis>. Amsterdam, Paris&#xD;
+1780)&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Reviewcites</emphasis> 
+</term><listitem
+>
+<!--l. 356
+--><para> de:neck:yoder:1978;  Augustus  Sterk  (trans.):  <emphasis>Plan  van  philanthropynsche&#xD;
+opvoeding  of  volledig  bericht  van  het  eerste  philantropinum  te  Marschlins</emphasis>.&#xD;
+Leeuwarden,  Franeker  1777,  p.&#xA0;123;  David  M.  Buss:  <emphasis>Evolution&#xE4;re Psychologie</emphasis>,&#xD;
+2nd&#xA0;ed. M&#xFC;nchen 2004, p.&#xA0;276; Karl Na&#xDF;: Karolingische Reihengr&#xE4;berfelder aus&#xD;
+Hessen, in: <emphasis>Germania</emphasis> vol. 22, 1938, pp.&#xA0;41&#x2013;50; Peter Caselitz: Schwangerschaft&#xD;
+im arch&#xE4;ologischen Befund, in: <emphasis>The Archaeological Advertiser</emphasis> 1980, pp.&#xA0;20&#x2013;26;&#xD;
+Theya Molleson and Margaret Cox: <emphasis>The Spitalfields Project</emphasis> vol. 2: <emphasis>The Middling&#xD;
+Sort</emphasis>.  Walmgate  1993,  pp.&#xA0;187&#x2013;190;  Wolf-Dieter  Steinmetz  et  al.:  Vor-  und&#xD;
+fr&#xFC;hgeschichtliche Ausgrabungen im Landkreis Osnabr&#xFC;ck 1978, in: <emphasis>Osnabr&#xFC;cker&#xD;
+                                                                                     &#xD;
+                                                                                     &#xD;
+      &#xD;
+Mitteilungen</emphasis> vol. 85, 1979, pp.&#xA0;9&#x2013;15, pp.&#xA0;11&#x2013;12; <emphasis>R&#xE8;gles et principes sur le jeu de&#xD;
+domino, avec les d&#xE9;cisions des meilleurs joueurs</emphasis>. Amsterdam, Paris 1780&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Previewcites</emphasis> 
+</term><listitem
+>
+<!--l. 359
+--><para> (de:neck:yoder:1978;  <anchor xml:id="x1-4106"/>Augustus  Sterk  [trans.]:  <emphasis>Plan  van  philanthropynsche&#xD;
+opvoeding  of  volledig  bericht  van  het  eerste  philantropinum  te  Marschlins</emphasis>.&#xD;
+Leeuwarden,  Franeker  1777,  p.&#xA0;123;  <anchor xml:id="x1-4107"/>David  M.  Buss:  <emphasis>Evolution&#xE4;re Psychologie</emphasis>,&#xD;
+2nd&#xA0;ed. M&#xFC;nchen 2004, p.&#xA0;276; <anchor xml:id="x1-4108"/>Karl Na&#xDF;: Karolingische Reihengr&#xE4;berfelder aus&#xD;
+Hessen, in: <emphasis>Germania</emphasis> vol. 22, 1938, pp.&#xA0;41&#x2013;50; <anchor xml:id="x1-4109"/>Peter Caselitz: Schwangerschaft&#xD;
+im arch&#xE4;ologischen Befund, in: <emphasis>The Archaeological Advertiser</emphasis> 1980, pp.&#xA0;20&#x2013;26;&#xD;
+<anchor xml:id="x1-4110"/>Theya Molleson and Margaret Cox: <emphasis>The Spitalfields Project</emphasis> vol. 2: <emphasis>The Middling&#xD;
+Sort</emphasis>.  Walmgate  1993,  pp.&#xA0;187&#x2013;190;  <anchor xml:id="x1-4111"/>Wolf-Dieter  Steinmetz  et  al.:  Vor-  und&#xD;
+fr&#xFC;hgeschichtliche Ausgrabungen im Landkreis Osnabr&#xFC;ck 1978, in: <emphasis>Osnabr&#xFC;cker&#xD;
+Mitteilungen</emphasis> vol. 85, 1979, pp.&#xA0;9&#x2013;15, pp.&#xA0;11&#x2013;12; <anchor xml:id="x1-4112"/> <emphasis>R&#xE8;gles et principes sur le jeu de&#xD;
+domino, avec les d&#xE9;cisions des meilleurs joueurs</emphasis>. Amsterdam, Paris 1780)&#xD;
+</para></listitem></varlistentry><varlistentry
+><term
+>
+<emphasis
+ role="tt">\Textreviewcites</emphasis> 
+</term><listitem
+>
+<!--l. 362
+--><para> de:neck:yoder:1978;  Sterk  ([trans.]:  <emphasis>Plan  van  philanthropynsche  opvoeding&#xD;
+of  volledig  bericht  van  het  eerste  philantropinum  te  Marschlins</emphasis>.  Leeuwarden,&#xD;
+Franeker 1777, p.&#xA0;123); Buss (<emphasis>Evolution&#xE4;re Psychologie</emphasis>, 2nd&#xA0;ed. M&#xFC;nchen 2004,&#xD;
+p.&#xA0;276); Na&#xDF; (Karolingische Reihengr&#xE4;berfelder aus Hessen, in: <emphasis>Germania</emphasis> vol. 22,&#xD;
+1938, pp.&#xA0;41&#x2013;50); Caselitz (Schwangerschaft im arch&#xE4;ologischen Befund, in: <emphasis>The&#xD;
+Archaeological Advertiser</emphasis> 1980, pp.&#xA0;20&#x2013;26); Molleson and Cox (<emphasis>The Spitalfields&#xD;
+Project</emphasis> vol. 2: <emphasis>The Middling Sort</emphasis>. Walmgate 1993, pp.&#xA0;187&#x2013;190); Steinmetz et&#xD;
+al. (Vor- und fr&#xFC;hgeschichtliche Ausgrabungen im Landkreis Osnabr&#xFC;ck 1978, in:&#xD;
+<emphasis>Osnabr&#xFC;cker Mitteilungen</emphasis> vol. 85, 1979, pp.&#xA0;9&#x2013;15, pp.&#xA0;11&#x2013;12); (<emphasis>R&#xE8;gles et principes&#xD;
+sur le jeu de domino, avec les d&#xE9;cisions des meilleurs joueurs</emphasis>. Amsterdam, Paris&#xD;
+1780)</para></listitem></varlistentry></variablelist>
+<!--l. 368
+--><para/></section><!--end section
+--><!--l. 368
+--><section
+ role="section"><title
+><abbrev
+ role="title-mark">4</abbrev><emphasis
+ role="tt"></emphasis><anchor
+ xml:id="x1-50004"></anchor>Ligatures</title>
+<!--l. 371
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 372
+--><para><anchor xml:id="x1-5001"/>Christian Chlodwig Frank Llewellyn &#xC4;neas Philipp Stefan &#xD6;mer Thomas IJsbrand&#xD;
+&#xD3;&#xF0;inn Schorsch &#xDE;&#xF3;rr von altem Adel: <emphasis>First name test</emphasis> vol. 2, n. p. 1066&#xD;
+                                                                                     &#xD;
+                                                                                     &#xD;
+      &#xD;
+</para></listitem>
+<listitem
+>      
+<!--l. 373
+--><para><anchor xml:id="x1-5002"/>Christian Chlodwig Frank Llewellyn &#xC4;neas Philipp Stefan &#xD6;mer Thomas IJsbrand&#xD;
+&#xD3;&#xF0;inn &#xDE;&#xF3;rr Schorsch von altem Adel: <emphasis>First name test</emphasis> vol. 1, n. p. 1066&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 374
+--><para><anchor xml:id="x1-5003"/>Christian Chlodwig Frank Llewellyn &#xC4;neas Philipp Stefan &#xD6;mer Thomas IJsbrand&#xD;
+&#xD3;&#xF0;inn Schorsch &#xDE;&#xF3;rr von altem Adel: <emphasis>First name test</emphasis> vol. 2, n. p. 1066&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 375
+--><para>Christian Chlodwig Frank Llewellyn &#xC4;neas Philipp Stefan &#xD6;mer Thomas IJsbrand&#xD;
+&#xD3;&#xF0;inn &#xDE;&#xF3;rr Schorsch von altem Adel: <emphasis>First name test</emphasis> vol. 1, n. p. 1066</para></listitem></itemizedlist>
+<!--l. 379
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 380
+--><para><anchor xml:id="x1-5004"/>von und zu Hohenstein und Tiefenstein: <emphasis>Name prefix test</emphasis> vol. 1, n. p. 1066&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 381
+--><para>von und zu Hohenstein und Tiefenstein: <emphasis>Name prefix test</emphasis> vol. 1, n. p. 1066</para></listitem></itemizedlist>
+<!--l. 384
+--><para/></section><!--end section
+--><!--l. 384
+--><section
+ role="section"><title
+><abbrev
+ role="title-mark">5</abbrev><emphasis
+ role="tt"></emphasis><anchor
+ xml:id="x1-60005"></anchor>entry types</title>
+<!--l. 387
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 388
+--><para><anchor xml:id="x1-6001"/>Hauswedell &amp; Nolte: <emphasis>Schachliteratur aus f&#xFC;nf Jahrhunderten</emphasis>, red. by Christian&#xD;
+Hesse. Hamburg 1995&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 389
+--><para>Hauswedell &amp; Nolte: <emphasis>Schachliteratur aus f&#xFC;nf Jahrhunderten</emphasis>, red. by Christian&#xD;
+Hesse. Hamburg 1995</para></listitem></itemizedlist>
+<!--l. 393
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 394
+--><para><anchor xml:id="x1-6002"/>Ulrich Sch&#xE4;dler: &#x201C;Damnosa alea &#x2013; W&#xFC;rfelspiel in Griechenland und Rom&#x201D;, in:&#xD;
+Manfred  Oberlechner  (red.),  <emphasis>5000  Jahre  W&#xFC;rfelspiel</emphasis>,  Katalog  zur  Ausstellung&#xD;
+im  Schlo&#xDF;  Kle&#xDF;heim  vom  31.  August&#x2013;31.  Oktober  1999  und  im  Casino  Linz&#xD;
+(Casineum) vom 12. November&#x2013;9. Dezember 1999 sowie 2000 im Casino Baden.&#xD;
+Salzburg 1999, pp.&#xA0;39&#x2013;58&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 395
+--><para><anchor xml:id="x1-6003"/>Ulrich Sch&#xE4;dler: &#x201C;Damnosa alea &#x2013; W&#xFC;rfelspiel in Griechenland und Rom&#x201D;, in:&#xD;
+Manfred  Oberlechner  (red.),  <emphasis>5000  Jahre  W&#xFC;rfelspiel</emphasis>,  Katalog  zur  Ausstellung&#xD;
+im  Schlo&#xDF;  Kle&#xDF;heim  vom  31.  August&#x2013;31.  Oktober  1999  und  im  Casino  Linz&#xD;
+(Casineum) vom 12. November&#x2013;9. Dezember 1999 sowie 2000 im Casino Baden.&#xD;
+Salzburg 1999, pp.&#xA0;39&#x2013;58&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 396
+--><para><anchor xml:id="x1-6004"/>Manfred  Oberlechner  (red.):  <emphasis>5000  Jahre  W&#xFC;rfelspiel</emphasis>,  Katalog  zur  Ausstellung&#xD;
+im  Schlo&#xDF;  Kle&#xDF;heim  vom  31.  August&#x2013;31.  Oktober  1999  und  im  Casino  Linz&#xD;
+(Casineum) vom 12. November&#x2013;9. Dezember 1999 sowie 2000 im Casino Baden.&#xD;
+Salzburg 1999&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 397
+--><para>Manfred  Oberlechner  (red.):  <emphasis>5000  Jahre  W&#xFC;rfelspiel</emphasis>,  Katalog  zur  Ausstellung&#xD;
+im  Schlo&#xDF;  Kle&#xDF;heim  vom  31.  August&#x2013;31.  Oktober  1999  und  im  Casino  Linz&#xD;
+(Casineum) vom 12. November&#x2013;9. Dezember 1999 sowie 2000 im Casino Baden.&#xD;
+Salzburg 1999</para></listitem></itemizedlist>
+<!--l. 402
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 403
+--><para><anchor xml:id="x1-6005"/>Stefan  Kronsbein  and  Margareta  Siepen  (eds.):  <emphasis>Beitr&#xE4;ge  zur  Arch&#xE4;ologie  des&#xD;
+Niederrheins und Westfalens</emphasis>, Festschrift f&#xFC;r Christoph Reichmann. Krefeld 2015&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 404
+--><para>Stefan  Kronsbein  and  Margareta  Siepen  (eds.):  <emphasis>Beitr&#xE4;ge  zur  Arch&#xE4;ologie  des&#xD;
+Niederrheins und Westfalens</emphasis>, Festschrift f&#xFC;r Christoph Reichmann. Krefeld 2015&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 405
+--><para><anchor xml:id="x1-6006"/>Auler and Hiller, Ziegenmilch, op. cit.&#xD;
+                                                                                     &#xD;
+                                                                                     &#xD;
+      &#xD;
+</para></listitem>
+<listitem
+>      
+<!--l. 406
+--><para><anchor xml:id="x1-6007"/>Jost Auler and Petra Hiller: &#x201C;Buchweizen und Ziegenmilch. Beobachtungen zum&#xD;
+Alltagsleben auf einem niederrheinischen Ackererhof in Dormagen&#x2013;St&#xFC;rzelberg im&#xD;
+19.  und  fr&#xFC;hen  20.  Jahrhundert&#x201D;,  in:  Stefan  Kronsbein  and  Margareta  Siepen&#xD;
+(eds.), <emphasis>Beitr&#xE4;ge zur Arch&#xE4;ologie des Niederrheins und Westfalens</emphasis>, Festschrift f&#xFC;r&#xD;
+Christoph Reichmann. Krefeld 2015, pp.&#xA0;37&#x2013;57</para></listitem></itemizedlist>
+<!--l. 410
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 411
+--><para><anchor xml:id="x1-6008"/>P.&#xA0;Cornelius  Tacitus:  <emphasis>Germania.  Bericht  &#xFC;ber  Germanien</emphasis>,  ed.,  trans.&#xA0;&#xA0;and&#xD;
+comm.&#xA0;by Josef Lindauer. M&#xFC;nchen 1981&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 412
+--><para><anchor xml:id="x1-6009"/>Carl  Linn&#xE6;us:  <emphasis>Iter  Lapponicum.  Lappl&#xE4;ndska  resan  1732</emphasis>,  ed.  and  comm.&#xA0;by&#xD;
+Ingegerd Fries and Sigurd Fries. n. p. 1732 [repr. Ume&#xE5; 2003],&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 413
+--><para><anchor xml:id="x1-6010"/>Andrew Author: &#x201C;Test&#x201D;, in: Carl Linn&#xE6;us, <emphasis>Iter Lapponicum. Lappl&#xE4;ndska resan&#xD;
+1732</emphasis>, ed. and comm.&#xA0;by Ingegerd Fries and Sigurd Fries. n. p. 1732 [repr. Ume&#xE5;&#xD;
+2003], pp.&#xA0;1&#x2013;6&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 414
+--><para>Andrew Author: &#x201C;Test&#x201D;, in: Carl Linn&#xE6;us, <emphasis>Iter Lapponicum. Lappl&#xE4;ndska resan&#xD;
+1732</emphasis>, ed. and comm.&#xA0;by Ingegerd Fries and Sigurd Fries. n. p. 1732 [repr. Ume&#xE5;&#xD;
+2003], pp.&#xA0;1&#x2013;6</para></listitem></itemizedlist>
+<!--l. 417
+--><para/></section><!--end section
+--><!--l. 417
+--><section
+ role="section"><title
+><abbrev
+ role="title-mark">6</abbrev><emphasis
+ role="tt"></emphasis><anchor
+ xml:id="x1-70006"></anchor>Miscellanous cases</title>
+<!--l. 420
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 421
+--><para><anchor xml:id="x1-7001"/>Roger Edenmo: &#x201C;Gravar som samh&#xE4;llspegel?&#x201D;, in: Peter Bratt and &#xC5;sa Lundstr&#xF6;m&#xD;
+(eds.),  <emphasis>Brons&#xE5;lder  och  &#xE4;ldre  j&#xE4;rn&#xE5;lder  i  Stockholms  l&#xE4;n.  Tv&#xE5;  seminarier  vid&#xD;
+Stockholms l&#xE4;ns museum</emphasis>. Stockholm 1997, pp.&#xA0;52&#x2013;57&#xD;
+                                                                                     &#xD;
+                                                                                     &#xD;
+      &#xD;
+</para></listitem>
+<listitem
+>      
+<!--l. 422
+--><para><anchor xml:id="x1-7002"/>Roger Edenmo: &#x201C;Gravar som samh&#xE4;llspegel?&#x201D;, in: Peter Bratt and &#xC5;sa Lundstr&#xF6;m&#xD;
+(eds.),  <emphasis>Brons&#xE5;lder  och  &#xE4;ldre  j&#xE4;rn&#xE5;lder  i  Stockholms  l&#xE4;n.  Tv&#xE5;  seminarier  vid&#xD;
+Stockholms l&#xE4;ns museum</emphasis>. Stockholm 1997, pp.&#xA0;52&#x2013;57</para></listitem></itemizedlist>
+<!--l. 426
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 427
+--><para><anchor xml:id="x1-7003"/>Ursula  Siebert  et  al.  (eds.):  <emphasis>Schachspiele.  Wandel  im  Laufe  der  Kunst-  und&#xD;
+Kulturgeschichte</emphasis>, Privatsammlung Jaeger. M&#xFC;nchen, Neu-Ulm n. d.&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 428
+--><para>Ursula  Siebert  et  al.  (eds.):  <emphasis>Schachspiele.  Wandel  im  Laufe  der  Kunst-  und&#xD;
+Kulturgeschichte</emphasis>, Privatsammlung Jaeger. M&#xFC;nchen, Neu-Ulm n. d.</para></listitem></itemizedlist>
+<!--l. 433
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 434
+--><para><anchor xml:id="x1-7004"/>Almut  Mehling:  <emphasis>Archaika  als  Grabbeigaben.  Studien  an  merowingerzeitlichen&#xD;
+Gr&#xE4;berfeldern</emphasis>. Rahden/Westf. 1998</para></listitem></itemizedlist>
+<!--l. 438
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 439
+--><para><anchor xml:id="x1-7005"/>Theo Huet: &#x201C;Een Mexikaanse Schaakpartij&#x201D;, in: Danny De Laet (comp.), <emphasis>Dageraad&#xD;
+des  duivels.  Vlaamse  fantastiek  en  science  fiction  uit  de  19de  en  20de  eeuw</emphasis>.&#xD;
+Antwerpen n. d., pp.&#xA0;150&#x2013;161&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 440
+--><para>Theo Huet: &#x201C;Een Mexikaanse Schaakpartij&#x201D;, in: Danny De Laet (comp.), <emphasis>Dageraad&#xD;
+des  duivels.  Vlaamse  fantastiek  en  science  fiction  uit  de  19de  en  20de  eeuw</emphasis>.&#xD;
+Antwerpen n. d., pp.&#xA0;150&#x2013;161&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 441
+--><para><anchor xml:id="x1-7006"/>Otto Mette: <emphasis>Affoldern</emphasis>. Arolsen n. d. [1990]&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 442
+--><para>Otto Mette: <emphasis>Affoldern</emphasis>. Arolsen n. d. [1990]</para></listitem></itemizedlist>
+                                                                                     
+                                                                                     
+<!--l. 446
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 447
+--><para><anchor xml:id="x1-7007"/>Wolfgang Fuchs: <emphasis>Die vielen Gesichter des Woody Allen</emphasis>. n. p. n. d.&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 448
+--><para>Wolfgang Fuchs: <emphasis>Die vielen Gesichter des Woody Allen</emphasis>. n. p. n. d.</para></listitem></itemizedlist>
+<!--l. 452
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 453
+--><para><anchor xml:id="x1-7008"/>Sterk, Plan van philanthropynsche opvoeding of volledig bericht van het eerste&#xD;
+philantropinum te Marschlins, op. cit.&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 454
+--><para>Augustus Sterk (trans.): <emphasis>Plan van philanthropynsche opvoeding of volledig bericht&#xD;
+van het eerste philantropinum te Marschlins</emphasis>. Leeuwarden, Franeker 1777,</para></listitem></itemizedlist>
+<!--l. 458
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 459
+--><para><anchor xml:id="x1-7009"/>R&#xE8;gles et principes, op. cit.&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 460
+--><para><emphasis>R&#xE8;gles et principes sur le jeu de domino, avec les d&#xE9;cisions des meilleurs joueurs</emphasis>.&#xD;
+Amsterdam, Paris 1780</para></listitem></itemizedlist>
+<!--l. 464
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 465
+--><para><anchor xml:id="x1-7010"/>The George Washington Foundation: &#x201C;Archaeology at Kenmore&#x201D;, <emphasis>http:// www.&#xD;
+kenmore.org/kenmore/kp_arch.html</emphasis></para></listitem>      
+<listitem
+>
+<!--l. 466
+--><para>The George Washington Foundation: &#x201C;Archaeology at Kenmore&#x201D;, <emphasis>http:// www.&#xD;
+kenmore.org/kenmore/kp_arch.html</emphasis></para></listitem></itemizedlist>
+                                                                                     
+                                                                                     
+<!--l. 470
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 471
+--><para><anchor xml:id="x1-7011"/>Karl-Heinz Fuchs et al. (Red.): <emphasis>Die Alamannen</emphasis>, 3rd&#xA0;ed. Stuttgart 1998&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 472
+--><para><anchor xml:id="x1-7012"/>Karl-Heinz Fuchs et al. (Red.): <emphasis>Die Alamannen</emphasis>, 3rd&#xA0;ed. Stuttgart 1998</para></listitem></itemizedlist>
+<!--l. 476
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 477
+--><para><anchor xml:id="x1-7013"/>N.&#xA0;N. Bhattacharyya: The King and the Dice. A Study in the Rituals of the&#xD;
+R&#x101;jas&#x16B;a, in: <emphasis>Journal of the Oriental Institute</emphasis> vol. 23, 1973/1974, pp.&#xA0;287&#x2013;307&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 478
+--><para>N.&#xA0;N. Bhattacharyya: The King and the Dice. A Study in the Rituals of the&#xD;
+R&#x101;jas&#x16B;a, in: <emphasis>Journal of the Oriental Institute</emphasis> vol. 23, 1973/1974, pp.&#xA0;287&#x2013;307&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 479
+--><para><anchor xml:id="x1-7014"/>Otto  von  Cossel:  Pfarrer  und  Schulmeister.  Ein  Beitrag  zur  Geschichte  der&#xD;
+Kirchenbuchf&#xFC;hrung, in: <emphasis>Der Deutsche Roland</emphasis> vol. 6/21&#x2013;23, 1933&#x2013;1935, p.&#xA0;121&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 480
+--><para>Otto  von  Cossel:  Pfarrer  und  Schulmeister.  Ein  Beitrag  zur  Geschichte  der&#xD;
+Kirchenbuchf&#xFC;hrung, in: <emphasis>Der Deutsche Roland</emphasis> vol. 6/21&#x2013;23, 1933&#x2013;1935, p.&#xA0;121</para></listitem></itemizedlist>
+<!--l. 484
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 485
+--><para><anchor xml:id="x1-7015"/>Surendra-Kumar Arora and Wolf-Dietrich Becker: Die gro&#xDF;e Chance, bevor der&#xD;
+Bagger kommt, in: <emphasis>Arch&#xE4;ologie in Deutschland</emphasis> 3 1997, pp.&#xA0;6&#x2013;11&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 486
+--><para>Surendra-Kumar Arora and Wolf-Dietrich Becker: Die gro&#xDF;e Chance, bevor der&#xD;
+Bagger kommt, in: <emphasis>Arch&#xE4;ologie in Deutschland</emphasis> 3 1997, pp.&#xA0;6&#x2013;11&#xD;
+                                                                                     &#xD;
+                                                                                     &#xD;
+      &#xD;
+</para></listitem>
+<listitem
+>      
+<!--l. 487
+--><para><anchor xml:id="x1-7016"/>Gisela Asmus: Reihengr&#xE4;bersch&#xE4;del des karolingerzeitlichen Grabfeldes Holle, Kr.&#xD;
+Marienburg (Hannover), in: <emphasis>Nieders&#xE4;chsisches Jahrbuch f&#xFC;r Landesgeschichte</emphasis> vol.&#xD;
+15/12, 1938, pp.&#xA0;98&#x2013;114&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 488
+--><para><anchor xml:id="x1-7017"/>Gisela Asmus: Reihengr&#xE4;bersch&#xE4;del des karolingerzeitlichen Grabfeldes Holle, Kr.&#xD;
+Marienburg (Hannover), in: <emphasis>Nieders&#xE4;chsisches Jahrbuch f&#xFC;r Landesgeschichte</emphasis> vol.&#xD;
+15/12, 1938, pp.&#xA0;98&#x2013;114</para></listitem></itemizedlist>
+<!--l. 492
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 493
+--><para><anchor xml:id="x1-7018"/>Walburg  Boppert:  &#x201C;Zwei  Grabsteinfragmente&#x201D;,  in:  G&#xFC;nther  Stanzl,  <emphasis>St. Kastor&#xD;
+in  Koblenz.  Ausgrabungen  und  Bauuntersuchungen  1985&#x2013;1990</emphasis>.  Worms  1998,&#xD;
+pp.&#xA0;265&#x2013;275&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 494
+--><para>Walburg  Boppert:  &#x201C;Zwei  Grabsteinfragmente&#x201D;,  in:  G&#xFC;nther  Stanzl,  <emphasis>St. Kastor&#xD;
+in  Koblenz.  Ausgrabungen  und  Bauuntersuchungen  1985&#x2013;1990</emphasis>.  Worms  1998,&#xD;
+pp.&#xA0;265&#x2013;275</para></listitem></itemizedlist>
+<!--l. 503
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 504
+--><para><anchor xml:id="x1-7019"/>Bauchhen&#xDF; et al., Brettspiel, op. cit.&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 505
+--><para>G.  Bauchhen&#xDF;  et  al.:  &#x201C;s. v.  &#x2018;Brettspiel&#x2019;&#x201D;,  in:  <emphasis>Reallexikon  der  germanischen&#xD;
+Altertumskunde</emphasis> vol. 3, 2nd&#xA0;ed. Berlin, New York 1978, pp.&#xA0;450&#x2013;458</para></listitem></itemizedlist>
+<!--l. 509
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 510
+--><para><anchor xml:id="x1-7020"/>V.&#xA0;A. Il&#x2019;inskaja: Nekotorye motivy ranneskifs kogo zverinogo stilja, in: <emphasis>Sovetskaja&#xD;
+Archeologija</emphasis> vol. 1, 1965, pp.&#xA0;86&#x2013;107&#xD;
+                                                                                     &#xD;
+                                                                                     &#xD;
+      &#xD;
+</para></listitem>
+<listitem
+>      
+<!--l. 511
+--><para>V.&#xA0;A. Il&#x2019;inskaja: Nekotorye motivy ranneskifs kogo zverinogo stilja, in: <emphasis>Sovetskaja&#xD;
+Archeologija</emphasis> vol. 1, 1965, pp.&#xA0;86&#x2013;107</para></listitem></itemizedlist>
+<!--l. 515
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 516
+--><para><anchor xml:id="x1-7021"/>Rotraud  Apetz:  <emphasis>Zetel,  Ketzendorf,  Maschen,  Oldendorf  &#x2013;  Gr&#xE4;berfelder  an  der&#xD;
+Peripherie des karolingischen Reiches. Grabformen und Grabsitten am &#xDC;bergang&#xD;
+zum Christentum</emphasis>, MA thesis Kiel 1989&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 517
+--><para><anchor xml:id="x1-7022"/>Alfred Czarnetzki: <emphasis>Die menschlichen Skelettreste aus vier neolithischen Steinkisten&#xD;
+Hessens und Niedersachsens</emphasis>, PhD thesis T&#xFC;bingen 1966&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 518
+--><para><anchor xml:id="x1-7023"/>Peter           Volk:            <emphasis>Medizingeschichtliche          &#xDC;berlieferung          der&#xD;
+r&#xF6;mischen Antike und moderner arch&#xE4;ologisch-pathologischer Befund am Beispiel&#xD;
+eines r&#xF6;mischen Brandgr&#xE4;berfeldes. Pal&#xE4;opathologische, pal&#xE4;odemographische und&#xD;
+medizingeschichtliche Untersuchungen</emphasis>, Habil.-Schr. Freiburg/Br. 1972&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 519
+--><para><anchor xml:id="x1-7024"/>Caroline Sanchez: <emphasis>Le livres des jeux aux XVII<superscript>e</superscript> et XVIII<superscript>e</superscript> si&#xE8;cles. Une typologie&#xD;
+des lecteurs-joueurs</emphasis>, MA thesis Lyon 2014, <emphasis>http:// www.enssib.fr/ bibliotheque-&#xD;
+numerique/ documents/ 64960-les-livres-de-jeux-aux-xviie-et-xviiie-siecles-une-&#xD;
+typologie-des-lecteurs-joueurs.pdf</emphasis></para></listitem></itemizedlist>
+<!--l. 523
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 524
+--><para><anchor xml:id="x1-7025"/>Georg Kossack et al.: <emphasis>Archsum auf Sylt</emphasis> vol. 1: <emphasis>Einf&#xFC;hrung in Forschungsverlauf&#xD;
+und Landschaftsgeschichte</emphasis>. Mainz 1980&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 525
+--><para>Georg Kossack et al.: <emphasis>Archsum auf Sylt</emphasis> vol. 1: <emphasis>Einf&#xFC;hrung in Forschungsverlauf&#xD;
+und Landschaftsgeschichte</emphasis>. Mainz 1980&#xD;
+                                                                                     &#xD;
+                                                                                     &#xD;
+      &#xD;
+</para></listitem>
+<listitem
+>      
+<!--l. 526
+--><para><anchor xml:id="x1-7026"/>Ole Harck: &#x201C;Landschaftsgeschichte und Arch&#xE4;ologie an der Westk&#xFC;ste der j&#xFC;tischen&#xD;
+Halbinsel&#x201D;,  in:  Georg  Kossack,  Ole  Harck,  J&#xFC;rgen  Newig,  Dietrich  Hoffmann,&#xD;
+Horst Willkomm, Fritz-Rudolf Averdieck and Joachim Reichstein, <emphasis>Archsum auf&#xD;
+Sylt</emphasis> vol. 1: <emphasis>Einf&#xFC;hrung in Forschungsverlauf und Landschaftsgeschichte</emphasis>. Mainz&#xD;
+1980, pp.&#xA0;32&#x2013;63&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 527
+--><para><anchor xml:id="x1-7027"/>Ole Harck: &#x201C;Landschaftsgeschichte und Arch&#xE4;ologie an der Westk&#xFC;ste der j&#xFC;tischen&#xD;
+Halbinsel&#x201D;,  in:  Georg  Kossack,  Ole  Harck,  J&#xFC;rgen  Newig,  Dietrich  Hoffmann,&#xD;
+Horst Willkomm, Fritz-Rudolf Averdieck and Joachim Reichstein, <emphasis>Archsum auf&#xD;
+Sylt</emphasis> vol. 1: <emphasis>Einf&#xFC;hrung in Forschungsverlauf und Landschaftsgeschichte</emphasis>. Mainz&#xD;
+1980, pp.&#xA0;32&#x2013;63</para></listitem></itemizedlist>
+<!--l. 531
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 532
+--><para><anchor xml:id="x1-7028"/>Joseph  Lindauer:  <emphasis>Bey  Heinrich  Friedrich  M&#xFC;ller,  Kunsth&#xE4;ndler  in  Wien,  am&#xD;
+Kohlmarkt  Nr.  1150  sind  folgende  neue  Spiele  erschienen,  und  bey  Joseph&#xD;
+Lindauer, Buchh&#xE4;ndler in M&#xFC;nchen zu haben</emphasis>. M&#xFC;nchen n. d. [ca. 1825], Bayerische&#xD;
+Staatsbibliothek: urn:nbn:de:bvb:12-bsb11002233-6&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 533
+--><para>Joseph  Lindauer:  <emphasis>Bey  Heinrich  Friedrich  M&#xFC;ller,  Kunsth&#xE4;ndler  in  Wien,  am&#xD;
+Kohlmarkt  Nr.  1150  sind  folgende  neue  Spiele  erschienen,  und  bey  Joseph&#xD;
+Lindauer, Buchh&#xE4;ndler in M&#xFC;nchen zu haben</emphasis>. M&#xFC;nchen n. d. [ca. 1825], Bayerische&#xD;
+Staatsbibliothek: urn:nbn:de:bvb:12-bsb11002233-6</para></listitem></itemizedlist>
+<!--l. 537
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 538
+--><para><anchor xml:id="x1-7029"/>G.&#xA0;R.  Summerhayes  et  al.:  &#x201C;West  New  Britain  obsidian.  Production  and&#xD;
+consumption  patterns&#x201D;,  in:  Barry  L.  Fankhauser  and  J.&#xA0;Roger  Bird  (eds.),&#xD;
+<emphasis>Archaeometry. Current Australasian Research</emphasis>. Canberra 1993, pp.&#xA0;57&#x2013;68&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 539
+--><para>G.&#xA0;R.  Summerhayes  et  al.:  &#x201C;West  New  Britain  obsidian.  Production  and&#xD;
+consumption  patterns&#x201D;,  in:  Barry  L.  Fankhauser  and  J.&#xA0;Roger  Bird  (eds.),&#xD;
+<emphasis>Archaeometry. Current Australasian Research</emphasis>. Canberra 1993, pp.&#xA0;57&#x2013;68</para></listitem></itemizedlist>
+                                                                                     
+                                                                                     
+<!--l. 543
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 544
+--><para><anchor xml:id="x1-7030"/>Pauline  Stafford:  All  the  moves,  in:  <emphasis>Times Literary Supplement</emphasis>,  article  dated&#xD;
+17th&#xA0;Dec. 2004, p.&#xA0;32&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 545
+--><para>Pauline  Stafford:  All  the  moves,  in:  <emphasis>Times Literary Supplement</emphasis>,  article  dated&#xD;
+17th&#xA0;Dec. 2004, p.&#xA0;32</para></listitem></itemizedlist>
+<!--l. 549
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 550
+--><para><anchor xml:id="x1-7031"/>Ingram                                          Braun:                                          Der&#xD;
+arch&#xE4;ologische Fund eines Dominosteins aus Dormagen&#x2013;St&#xFC;rzelberg, in: <emphasis>Jahrbuch&#xD;
+f&#xFC;r den Rhein-Kreis Neuss</emphasis> 2018, pp.&#xA0;96&#x2013;109&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 551
+--><para><anchor xml:id="x1-7032"/>K. Michaelsen: Die Ausgrabung der beiden H&#xFC;nenbetten von Kleinenkneten in&#xD;
+Oldenburg 1934&#x2013;39, in: <emphasis>Oldenburger Jahrbuch</emphasis> vol. 75/76, 1975/1976, pp.&#xA0;215&#x2013;249</para></listitem></itemizedlist>
+<!--l. 555
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 556
+--><para><anchor xml:id="x1-7033"/>Robert Reviewer: Reviews of: Augustus Sterk (trans.), Plan van philanthropynsche&#xD;
+opvoeding  of  volledig  bericht  van  het  eerste  philantropinum  te  Marschlins;&#xD;
+Frank  Siegmund,  Merowingerzeit  am  Niederrhein;  Danny  De  Laet  (comp.),&#xD;
+Dageraad des duivels and N&#xFC;rnberger Waaren-Kunde, oder Preisverzeichniss der&#xD;
+vorz&#xFC;glichsten N&#xFC;rnberger Manufactur-Waren mit Angabe der Sorten, Gr&#xF6;ssen&#xD;
+und Nummerirungen, in: <emphasis>Review Test Magazine</emphasis> 2019, pp.&#xA0;1&#x2013;11</para></listitem></itemizedlist>
+<!--l. 560
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 561
+--><para><anchor xml:id="x1-7034"/>&#x201C;Ber. RGK&#x201D; vol. 69, 1988&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 566
+--><para>&#x201C;Ber. RGK&#x201D; vol. 69, 1988</para></listitem>
+<listitem
+>      
+<!--l. 566
+--><para>(&#x201C;Ber. RGK&#x201D; vol. 69, 1988)</para></listitem>      
+<listitem
+>
+<!--l. 566
+--><para><anchor xml:id="x1-7035f54"/><footnote><para><anchor xml:id="x1-7036"/>&#x201C;Ber. RGK&#x201D; vol. 69, 1988.</para></footnote></para></listitem></itemizedlist>
+<!--l. 570
+--><para/><itemizedlist
+>
+<listitem
+>      
+<!--l. 571
+--><para><anchor xml:id="x1-7037"/>Andrew Author: <emphasis>Work in Preparation</emphasis>, n. p. in preparation&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 572
+--><para><anchor xml:id="x1-7038"/>Andrew Author: <emphasis>Work in Press</emphasis>, n. p. in press&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 573
+--><para><anchor xml:id="x1-7039"/>Andrew Author: <emphasis>Work Forthcoming</emphasis>, n. p. forthcoming&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 574
+--><para><anchor xml:id="x1-7040"/>Andrew Author: <emphasis>Work Prepublished</emphasis>, n. p. pre-published&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 575
+--><para><anchor xml:id="x1-7041"/>Andrew Author: <emphasis>Work Submitted</emphasis>, n. p. submitted&#xD;
+</para></listitem>      
+<listitem
+>
+<!--l. 576
+--><para><anchor xml:id="x1-7042"/>Andrew Author: <emphasis>Another Work Submitted</emphasis>, n. p. submitted</para></listitem></itemizedlist>
+<!--l. 580
+--><para/></section><!--end section
+--><!--l. 580
+--><section
+ role="section"><title
+><emphasis
+ role="tt"></emphasis><anchor
+ xml:id="x1-8000"></anchor>Standardliteraturverzeichnis</title>
+<!--l. 580
+--><para/><bibliolist
+><bibliomixed
+ xml:id="X0-test::firstnames::2"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-1">  
+<!--l. 580
+--><para>von  altem  Adel,  Christian  Chlodwig  Frank  Llewellyn  &#xC4;neas  Philipp  Stefan  &#xD6;mer&#xD;
+Thomas IJsbrand &#xD3;&#xF0;inn Schorsch &#xDE;&#xF3;rr: <emphasis>First name test</emphasis> vol. 2, n. p. 1066.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-test::firstnames::1"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-2">  
+<!--l. 580
+--><para>von  altem  Adel,  Christian  Chlodwig  Frank  Llewellyn  &#xC4;neas  Philipp  Stefan  &#xD6;mer&#xD;
+Thomas IJsbrand &#xD3;&#xF0;inn &#xDE;&#xF3;rr Schorsch: <emphasis>First name test</emphasis> vol. 1, n. p. 1066.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-apetz:1989"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-3">  
+<!--l. 580
+--><para>Apetz,  Rotraud:  <emphasis>Zetel,  Ketzendorf,  Maschen,  Oldendorf  &#x2013;  Gr&#xE4;berfelder  an  der&#xD;
+Peripherie des karolingischen Reiches. Grabformen und Grabsitten am &#xDC;bergang zum&#xD;
+Christentum</emphasis>, MA thesis Kiel 1989.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-arora:becker:1997"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-4">  
+<!--l. 580
+--><para>Arora,  Surendra-Kumar  and  Becker,  Wolf-Dietrich:  Die  gro&#xDF;e  Chance,  bevor  der&#xD;
+Bagger kommt, in: <emphasis>Arch&#xE4;ologie in Deutschland</emphasis> 3 1997, pp.&#xA0;6&#x2013;11.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-asmus:1938"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-5">  
+<!--l. 580
+--><para>Asmus,  Gisela:  Reihengr&#xE4;bersch&#xE4;del  des  karolingerzeitlichen  Grabfeldes  Holle,  Kr.&#xD;
+Marienburg  (Hannover),  in:  <emphasis>Nieders&#xE4;chsisches  Jahrbuch  f&#xFC;r  Landesgeschichte</emphasis>  vol.&#xD;
+15/12, 1938, pp.&#xA0;98&#x2013;114.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-auler:hiller:2011"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-6">  
+<!--l. 580
+--><para>Auler,  Jost  and  Hiller,  Petra:  &#x201C;Ein  Kinderschuh  des  19.   Jahrhunderts  aus&#xD;
+Dormagen&#x2013;St&#xFC;rzelberg, Rhein-Kreis Neuss&#x201D;, in: Franz-Josef Radmacher and Stefan&#xD;
+Kronsbein (eds.), <emphasis>Archiv und Erinnerung im Rhein-Kreis Neuss</emphasis>, Festschrift f&#xFC;r Karl&#xD;
+Emsbach. Neuss 2011, pp.&#xA0;65&#x2013;73.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-auler:hiller:2015a"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-7">  
+<!--l. 580
+--><para>Auler, Jost and Hiller, Petra: &#x201C;Buchweizen und Ziegenmilch. Beobachtungen zum&#xD;
+Alltagsleben auf einem niederrheinischen Ackererhof in Dormagen&#x2013;St&#xFC;rzelberg im 19.&#xD;
+und  fr&#xFC;hen  20.  Jahrhundert&#x201D;,  in:  Stefan  Kronsbein  and  Margareta  Siepen  (eds.),&#xD;
+<emphasis>Beitr&#xE4;ge zur Arch&#xE4;ologie des Niederrheins und Westfalens</emphasis>, Festschrift f&#xFC;r Christoph&#xD;
+Reichmann. Krefeld 2015, pp.&#xA0;37&#x2013;57.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-auler:hiller:2015"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-8">  
+<!--l. 580
+--><para>Auler, Jost and Hiller, Petra: G&#xFC;rtelschnallen, Messerfragment und ein Dominostein&#xD;
+&#x2013; (Boden)funde von einem historischen Nebenerwerbshof in Dormagen&#x2013;St&#xFC;rzelberg,&#xD;
+in: <emphasis>Der Niederrhein</emphasis> vol. 82, 2015, pp.&#xA0;54&#x2013;60.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-auler:hiller:2016"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-9">  
+<!--l. 580
+--><para>Auler, Jost and Hiller, Petra: Buchweizenpfannkuchen, Maifischfilet und Ziegenk&#xE4;se.&#xD;
+Zur Eigenversorgung einer kleinen d&#xF6;rflichen Hofstelle in St&#xFC;rzelberg im 19. und in&#xD;
+                                                                                     &#xD;
+                                                                                     &#xD;
+  &#xD;
+der ersten H&#xE4;lfte des 20. Jahrhunderts, in: <emphasis>Jahrbuch f&#xFC;r den Rhein-Kreis Neuss</emphasis> 2016,&#xD;
+pp.&#xA0;30&#x2013;43.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-authen-blom:1989"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-10">  
+<!--l. 580
+--><para>Auth&#xE9;n-Blom,  Grethe:  &#x201C;s. v.  &#x2018;Erik  Blutaxt&#x2019;&#x201D;,  in:  <emphasis>Reallexikon  der  Germanischen&#xD;
+Altertumskunde</emphasis> vol. 7, 2nd&#xA0;ed. Berlin, New York 1989, pp.&#xA0;501&#x2013;502.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-test::source"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-11">  
+<!--l. 580
+--><para>Author, Andrew: &#x201C;Test&#x201D;, in: Carl Linn&#xE6;us, <emphasis>Iter Lapponicum. Lappl&#xE4;ndska resan 1732</emphasis>,&#xD;
+ed. and comm.&#xA0;by Ingegerd Fries and Sigurd Fries. n. p. 1732 [repr. Ume&#xE5; 2003],&#xD;
+pp.&#xA0;1&#x2013;6.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-pubstate_test_inpreparation"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-12">  
+<!--l. 580
+--><para>Author, Andrew: <emphasis>Work in Preparation</emphasis>, n. p. in preparation.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-pubstate_test_inpress"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-13">  
+<!--l. 580
+--><para>Author, Andrew: <emphasis>Work in Press</emphasis>, n. p. in press.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-pubstate_test_forthcoming"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-14">  
+<!--l. 580
+--><para>Author, Andrew: <emphasis>Work Forthcoming</emphasis>, n. p. forthcoming.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-pubstate_test_prepublished"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-15">  
+<!--l. 580
+--><para>Author, Andrew: <emphasis>Work Prepublished</emphasis>, n. p. pre-published.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-pubstate_test_submitted"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-16">  
+<!--l. 580
+--><para>Author, Andrew: <emphasis>Work Submitted</emphasis>, n. p. submitted.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-pubstate_test_submitted_2"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-17">  
+<!--l. 580
+--><para>Author, Andrew: <emphasis>Another Work Submitted</emphasis>, n. p. submitted.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-bauchhenss:et:al:1978"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-18">  
+<!--l. 580
+--><para>Bauchhen&#xDF;, G., Beck, Heinrich, Hassel, F.&#xA0;J., Capelle, Torsten and Wilson, David M.:&#xD;
+&#x201C;s. v. &#x2018;Brettspiel&#x2019;&#x201D;, in: <emphasis>Reallexikon der germanischen Altertumskunde</emphasis> vol. 3, 2nd&#xA0;ed.&#xD;
+Berlin, New York 1978, pp.&#xA0;450&#x2013;458.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-bericht:rgk:1988"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-19">  
+<!--l. 580
+--><para>&#x201C;&#x2018;Bericht der R&#xF6;misch-Germanischen Kommission&#x2019; &#x201D; vol. 69, 1988.</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-bhattacharyya:1973"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-20">  
+<!--l. 580
+--><para>Bhattacharyya, N.&#xA0;N.: The King and the Dice. A Study in the Rituals of the R&#x101;jas&#x16B;a,&#xD;
+in: <emphasis>Journal of the Oriental Institute</emphasis> vol. 23, 1973/1974, pp.&#xA0;287&#x2013;307.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-boppert:1998"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-21">
+                                                                                     
+                                                                                     
+  
+<!--l. 580
+--><para>Boppert,  Walburg:  &#x201C;Zwei  Grabsteinfragmente&#x201D;,  in:  G&#xFC;nther  Stanzl,  <emphasis>St.  Kastor&#xD;
+in  Koblenz.  Ausgrabungen  und  Bauuntersuchungen  1985&#x2013;1990</emphasis>.   Worms   1998,&#xD;
+pp.&#xA0;265&#x2013;275.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-ib:domino:dormagen"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-22">  
+<!--l. 580
+--><para>Braun,                                            Ingram:                                            Der&#xD;
+arch&#xE4;ologische Fund eines Dominosteins aus Dormagen&#x2013;St&#xFC;rzelberg, in: <emphasis>Jahrbuch f&#xFC;r&#xD;
+den Rhein-Kreis Neuss</emphasis> 2018, pp.&#xA0;96&#x2013;109.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-buss:2004"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-23">  
+<!--l. 580
+--><para>Buss, David M.: <emphasis>Evolution&#xE4;re Psychologie</emphasis>, 2nd&#xA0;ed. M&#xFC;nchen 2004,&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-caselitz:1980a"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-24">  
+<!--l. 580
+--><para>Caselitz, Peter: Schwangerschaft im arch&#xE4;ologischen Befund, in: <emphasis>The Archaeological&#xD;
+Advertiser</emphasis> 1980, pp.&#xA0;20&#x2013;26.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-cossel:1933-35"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-25">  
+<!--l. 580
+--><para>von  Cossel,  Otto:  Pfarrer  und  Schulmeister.  Ein  Beitrag  zur  Geschichte  der&#xD;
+Kirchenbuchf&#xFC;hrung, in: <emphasis>Der Deutsche Roland</emphasis> vol. 6/21&#x2013;23, 1933&#x2013;1935, p.&#xA0;121.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-czarnetzki:1966"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-26">  
+<!--l. 580
+--><para>Czarnetzki, Alfred: <emphasis>Die menschlichen Skelettreste aus vier neolithischen Steinkisten&#xD;
+Hessens und Niedersachsens</emphasis>, PhD thesis T&#xFC;bingen 1966.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-edenmo:1997"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-27">  
+<!--l. 580
+--><para>Edenmo, Roger: &#x201C;Gravar som samh&#xE4;llspegel?&#x201D;, in: Peter Bratt and &#xC5;sa Lundstr&#xF6;m&#xD;
+(eds.), <emphasis>Brons&#xE5;lder och &#xE4;ldre j&#xE4;rn&#xE5;lder i Stockholms l&#xE4;n. Tv&#xE5; seminarier vid Stockholms&#xD;
+l&#xE4;ns museum</emphasis>. Stockholm 1997, pp.&#xA0;52&#x2013;57.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-fuchs:kh:et:al:1998"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-28">  
+<!--l. 580
+--><para>Fuchs, Karl-Heinz, Kempa, Martin, Redies, Rainer, Theune-Gro&#xDF;kopf, Claudia and&#xD;
+Wais, Andr&#xE9; (Red.): <emphasis>Die Alamannen</emphasis>, 3rd&#xA0;ed. Stuttgart 1998.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-fuchs:o:j"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-29">  
+<!--l. 580
+--><para>Fuchs, Wolfgang: <emphasis>Die vielen Gesichter des Woody Allen</emphasis>. n. p. n. d.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-harck:1980"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-30">  
+<!--l. 580
+--><para>Harck, Ole: &#x201C;Landschaftsgeschichte und Arch&#xE4;ologie an der Westk&#xFC;ste der j&#xFC;tischen&#xD;
+Halbinsel&#x201D;, in: Georg Kossack, Ole Harck, J&#xFC;rgen Newig, Dietrich Hoffmann, Horst&#xD;
+Willkomm, Fritz-Rudolf Averdieck and Joachim Reichstein, <emphasis>Archsum auf Sylt</emphasis> vol. 1:&#xD;
+<emphasis>Einf&#xFC;hrung in Forschungsverlauf und Landschaftsgeschichte</emphasis>. Mainz 1980, pp.&#xA0;32&#x2013;63.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-hesse:c:1995"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-31">
+                                                                                     
+                                                                                     
+  
+<!--l. 580
+--><para>Hauswedell &amp; Nolte: <emphasis>Schachliteratur aus f&#xFC;nf Jahrhunderten</emphasis>, red. by Christian Hesse.&#xD;
+Hamburg 1995.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-test::prefixnames::1"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-32">  
+<!--l. 580
+--><para>von und zu Hohenstein und Tiefenstein: <emphasis>Name prefix test</emphasis> vol. 1, n. p. 1066.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-huet:o:j"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-33">  
+<!--l. 580
+--><para>Huet, Theo: &#x201C;Een Mexikaanse Schaakpartij&#x201D;, in: Danny De Laet (comp.), <emphasis>Dageraad&#xD;
+des duivels. Vlaamse fantastiek en science fiction uit de 19de en 20de eeuw</emphasis>. Antwerpen&#xD;
+n. d., pp.&#xA0;150&#x2013;161.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-ilinskaja:1965"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-34">  
+<!--l. 580
+--><para>Il&#x2019;inskaja, V.&#xA0;A.: Nekotorye motivy ranneskifs kogo zverinogo stilja, in: <emphasis>Sovetskaja&#xD;
+Archeologija</emphasis> vol. 1, 1965, pp.&#xA0;86&#x2013;107.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-kossack:et:al:1980"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-35">  
+<!--l. 580
+--><para>Kossack, Georg, Harck, Ole, Newig, J&#xFC;rgen, Hoffmann, Dietrich, Willkomm, Horst,&#xD;
+Averdieck, Fritz-Rudolf and Reichstein, Joachim: <emphasis>Archsum auf Sylt</emphasis> vol. 1: <emphasis>Einf&#xFC;hrung&#xD;
+in Forschungsverlauf und Landschaftsgeschichte</emphasis>. Mainz 1980.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-kronsbein:siepen:2015"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-36">  
+<!--l. 580
+--><para>Kronsbein,  Stefan  and  Siepen,  Margareta  (eds.):  <emphasis>Beitr&#xE4;ge  zur  Arch&#xE4;ologie  des&#xD;
+Niederrheins und Westfalens</emphasis>, Festschrift f&#xFC;r Christoph Reichmann. Krefeld 2015.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-lindauer:oj"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-37">  
+<!--l. 580
+--><para>Lindauer,  Joseph:  <emphasis>Bey  Heinrich  Friedrich  M&#xFC;ller,  Kunsth&#xE4;ndler  in  Wien,  am&#xD;
+Kohlmarkt  Nr.  1150  sind  folgende  neue  Spiele  erschienen,  und  bey  Joseph&#xD;
+Lindauer, Buchh&#xE4;ndler in M&#xFC;nchen zu haben</emphasis>. M&#xFC;nchen n. d. [ca. 1825], Bayerische&#xD;
+Staatsbibliothek: urn:nbn:de:bvb:12-bsb11002233-6.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-van:der:linde:1874"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-38">  
+<!--l. 580
+--><para>van der Linde, Antonius: <emphasis>Geschichte und Literatur des Schachspiels</emphasis>. Berlin 1874 [repr.&#xD;
+Z&#xFC;rich 1981].&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-linnaeus:2003"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-39">  
+<!--l. 580
+--><para>Linn&#xE6;us, Carl: <emphasis>Iter Lapponicum. Lappl&#xE4;ndska resan 1732</emphasis>, ed. and comm.&#xA0;by Ingegerd&#xD;
+Fries and Sigurd Fries. n. p. 1732 [repr. Ume&#xE5; 2003],&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-mehling:1998"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-40">  
+<!--l. 580
+--><para>Mehling,   Almut:   <emphasis>Archaika  als  Grabbeigaben.  Studien  an  merowingerzeitlichen&#xD;
+Gr&#xE4;berfeldern</emphasis>. Rahden/Westf. 1998.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-mette:1990"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-41">  
+<!--l. 580
+--><para>Mette, Otto: <emphasis>Affoldern</emphasis>. Arolsen n. d. [1990].&#xD;
+                                                                                     &#xD;
+                                                                                     &#xD;
+  &#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-michaelsen:1978"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-42">  
+<!--l. 580
+--><para>Michaelsen,  K.:  Die  Ausgrabung  der  beiden  H&#xFC;nenbetten  von  Kleinenkneten  in&#xD;
+Oldenburg 1934&#x2013;39, in: <emphasis>Oldenburger Jahrbuch</emphasis> vol. 75/76, 1975/1976, pp.&#xA0;215&#x2013;249.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-molleson:cox:1993"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-43">  
+<!--l. 580
+--><para>Molleson, Theya and Cox, Margaret: <emphasis>The Spitalfields Project</emphasis> vol. 2: <emphasis>The Middling&#xD;
+Sort</emphasis>. Walmgate 1993.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-mueller:a:1991"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-44">  
+<!--l. 580
+--><para>von M&#xFC;ller, Adriaan: &#x201C;Spandau im Mittelalter&#x201D;, in: Alfred Kernd&#x2019;l (ed.), <emphasis>Berlin und&#xD;
+Umgebung</emphasis>. Stuttgart 1991, pp.&#xA0;105&#x2013;117.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-mueller:f:1991"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-45">  
+<!--l. 580
+--><para>M&#xFC;ller, Felix: &#x201C;Lat&#xE8;nezeit. Die Welt ger&#xE4;t in Bewegung&#x201D;, in: Andres Furger and Felix&#xD;
+M&#xFC;ller (eds.), <emphasis>Gold der Helvetier. Keltische Kostbarkeiten aus der Schweiz</emphasis>. Einsiedeln&#xD;
+1991, pp.&#xA0;71&#x2013;83.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-mueller:har:1988"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-46">  
+<!--l. 580
+--><para>M&#xFC;ller, Hartmut: &#x201C;Wodurch die Unterweser, soweit die Fluth reicht, der &#xFC;berseeischen&#xD;
+Segel- und Dampfschiffahrt zug&#xE4;nglich gemacht werde. Die Weser-Korrektion&#x201D;, in:&#xD;
+Volker Plagemann (ed.), <emphasis>&#xDC;bersee. Seefahrt und Seemacht im Deutschen Kaiserreich</emphasis>.&#xD;
+M&#xFC;nchen 1988, pp.&#xA0;61&#x2013;63.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-mueller:h:1900"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-47">  
+<!--l. 580
+--><para>M&#xFC;ller,   Hermann:   &#x201C;Kaiser   Friedrich   und   das   Kunstgewerbe-Museum&#x201D;,   in:&#xD;
+Pestalozzi-Verein der Provinz Brandenburg (ed.), <emphasis>Die Provinz Brandenburg in Wort&#xD;
+und Bild</emphasis>. Berlin 1900 [repr. Augsburg 1998], pp.&#xA0;62&#x2013;70.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-nass:1938"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-48">  
+<!--l. 580
+--><para>Na&#xDF;, Karl: Karolingische Reihengr&#xE4;berfelder aus Hessen, in: <emphasis>Germania</emphasis> vol. 22, 1938,&#xD;
+pp.&#xA0;41&#x2013;50.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-oberlechner:1999"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-49">  
+<!--l. 580
+--><para>Oberlechner,  Manfred  (red.):  <emphasis>5000 Jahre W&#xFC;rfelspiel</emphasis>,  Katalog  zur  Ausstellung  im&#xD;
+Schlo&#xDF; Kle&#xDF;heim vom 31. August&#x2013;31. Oktober 1999 und im Casino Linz (Casineum)&#xD;
+vom 12. November&#x2013;9. Dezember 1999 sowie 2000 im Casino Baden. Salzburg 1999.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-domino:1780"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-50">  
+<!--l. 580
+--><para><emphasis>R&#xE8;gles et principes sur le jeu de domino, avec les d&#xE9;cisions des meilleurs joueurs</emphasis>.&#xD;
+Amsterdam, Paris 1780.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-test::review"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-51">
+                                                                                     
+                                                                                     
+  
+<!--l. 580
+--><para>Reviewer, Robert: Reviews of: Augustus Sterk (trans.), Plan van philanthropynsche&#xD;
+opvoeding  of  volledig  bericht  van  het  eerste  philantropinum  te  Marschlins;  Frank&#xD;
+Siegmund, Merowingerzeit am Niederrhein; Danny De Laet (comp.), Dageraad des&#xD;
+duivels  and  N&#xFC;rnberger  Waaren-Kunde,  oder  Preisverzeichniss  der  vorz&#xFC;glichsten&#xD;
+N&#xFC;rnberger Manufactur-Waren mit Angabe der Sorten, Gr&#xF6;ssen und Nummerirungen,&#xD;
+in: <emphasis>Review Test Magazine</emphasis> 2019, pp.&#xA0;1&#x2013;11.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-sanchez:2014"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-52">  
+<!--l. 580
+--><para>Sanchez,  Caroline:  <emphasis>Le livres des jeux aux XVII<superscript>e</superscript> et XVIII<superscript>e</superscript> si&#xE8;cles. Une typologie&#xD;
+des lecteurs-joueurs</emphasis>,  MA  thesis  Lyon  2014,  <emphasis>http: // www.enssib.fr/ bibliotheque-&#xD;
+numerique/ documents/ 64960-les-livres-de-jeux-aux-xviie-et-xviiie-siecles-une-&#xD;
+typologie-des-lecteurs-joueurs.pdf</emphasis>.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-schaedler:1999"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-53">  
+<!--l. 580
+--><para>Sch&#xE4;dler,  Ulrich:  &#x201C;Damnosa  alea  &#x2013;  W&#xFC;rfelspiel  in  Griechenland  und  Rom&#x201D;,  in:&#xD;
+Manfred  Oberlechner  (red.),  <emphasis>5000  Jahre  W&#xFC;rfelspiel</emphasis>,  Katalog  zur  Ausstellung  im&#xD;
+Schlo&#xDF; Kle&#xDF;heim vom 31. August&#x2013;31. Oktober 1999 und im Casino Linz (Casineum)&#xD;
+vom 12. November&#x2013;9. Dezember 1999 sowie 2000 im Casino Baden. Salzburg 1999,&#xD;
+pp.&#xA0;39&#x2013;58.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-siebert:u:et:al:o:j"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-54">  
+<!--l. 580
+--><para>Siebert,  Ursula,  Rousselot,  Jean-Loup,  Jaeger,  Astrid  and  Jaeger,  Halvor  (eds.):&#xD;
+<emphasis>Schachspiele. Wandel im Laufe der Kunst- und Kulturgeschichte</emphasis>,  Privatsammlung&#xD;
+Jaeger. M&#xFC;nchen, Neu-Ulm n. d.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-stafford:2004"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-55">  
+<!--l. 580
+--><para>Stafford,  Pauline:  All  the  moves,  in:  <emphasis>Times  Literary  Supplement</emphasis>,  article  dated&#xD;
+17th&#xA0;Dec. 2004, p.&#xA0;32.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-steinmetz:strahl:wilbers:1979"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-56">  
+<!--l. 580
+--><para>Steinmetz,     Wolf-Dieter,     Strahl,     Erwin     and     Wilbers,     Susanne:     Vor-&#xD;
+und fr&#xFC;hgeschichtliche Ausgrabungen im Landkreis Osnabr&#xFC;ck 1978, in: <emphasis>Osnabr&#xFC;cker&#xD;
+Mitteilungen</emphasis> vol. 85, 1979, pp.&#xA0;9&#x2013;15.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-sterk:1777"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-57">  
+<!--l. 580
+--><para>Sterk, Augustus (trans.): <emphasis>Plan van philanthropynsche opvoeding of volledig bericht van&#xD;
+het eerste philantropinum te Marschlins</emphasis>. Leeuwarden, Franeker 1777,&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-summerhayes:et:al:1993"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-58">  
+<!--l. 580
+--><para>Summerhayes, G.&#xA0;R., Gosden, C., Fullagar, Richard, Specht, J., Torrence, R., Bird,&#xD;
+J.&#xA0;Roger, Shahgholi, N. and Katsaros, A.: &#x201C;West New Britain obsidian. Production&#xD;
+and  consumption  patterns&#x201D;,  in:  Barry  L.  Fankhauser  and  J.&#xA0;Roger  Bird  (eds.),&#xD;
+<emphasis>Archaeometry. Current Australasian Research</emphasis>. Canberra 1993, pp.&#xA0;57&#x2013;68.&#xD;
+                                                                                     &#xD;
+                                                                                     &#xD;
+  &#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-tacitus:1981"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-59">  
+<!--l. 580
+--><para>Tacitus,   P.&#xA0;Cornelius:   <emphasis>Germania.  Bericht  &#xFC;ber  Germanien</emphasis>,   ed.,   trans.&#xA0;&#xA0;and&#xD;
+comm.&#xA0;by Josef Lindauer. M&#xFC;nchen 1981.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-kenmore"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-60">  
+<!--l. 580
+--><para>The  George  Washington  Foundation:  &#x201C;Archaeology  at  Kenmore&#x201D;,  <emphasis>http : / / www .&#xD;
+kenmore.org/kenmore/kp_arch.html</emphasis>.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-todorova:et:al:1981"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-61">  
+<!--l. 580
+--><para>Todorova,  Henrieta,  Tschochadshiew,  Michael  and  Vaisow,  I.:  <emphasis>Jungsteinzeit  in&#xD;
+Bulgarien (Neolithikum und &#xC4;neolithikum)</emphasis>. Sofia 1981,&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X0-volk:1972"><bibliomisc
+>
+</bibliomisc><bibliomisc
+ xml:id="bib-62">  
+<!--l. 580
+--><para>Volk, Peter: <emphasis>Medizingeschichtliche &#xDC;berlieferung der r&#xF6;mischen Antike und moderner&#xD;
+arch&#xE4;ologisch-pathologischer Befund am Beispiel eines r&#xF6;mischen Brandgr&#xE4;berfeldes.&#xD;
+Pal&#xE4;opathologische, pal&#xE4;odemographische und medizingeschichtliche Untersuchungen</emphasis>,&#xD;
+Habil.-Schr. Freiburg/Br. 1972.</para></bibliomisc></bibliomixed></bibliolist>
+<anchor
+ xml:id="x1-8000doc"></anchor>
+<!--l. 581
+--><para/></section><!--end section
+--><!--l. 581
+--><section
+ role="section"><title
+><emphasis
+ role="tt"></emphasis><anchor
+ xml:id="x1-9000"></anchor>Leaflet December 31, 2023</title>
+<!--l. 581
+--><para/><bibliolist
+><bibliomixed
+ xml:id="X1-auler:hiller:2011"><bibliomisc
+>
+<emphasis
+ role="bf">Missing <emphasis
+ role="tt">library</emphasis> field!</emphasis> 
+</bibliomisc><bibliomisc
+ xml:id="bib-63">
+<!--l. 581
+--><para>Auler,  Jost  and  Hiller,  Petra:  &#x201C;Ein  Kinderschuh  des  19.  Jahrhunderts  aus&#xD;
+Dormagen&#x2013;St&#xFC;rzelberg,  Rhein-Kreis  Neuss&#x201D;,  in:  Franz-Josef  Radmacher  and&#xD;
+Stefan Kronsbein (eds.), <emphasis>Archiv und Erinnerung im Rhein-Kreis Neuss</emphasis>, Festschrift&#xD;
+f&#xFC;r Karl Emsbach. Neuss 2011, pp.&#xA0;65&#x2013;73.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X1-auler:hiller:2015a"><bibliomisc
+>
+<emphasis
+ role="bf">Missing <emphasis
+ role="tt">library</emphasis> field!</emphasis> 
+</bibliomisc><bibliomisc
+ xml:id="bib-64">
+<!--l. 581
+--><para>Auler, Jost and Hiller, Petra: &#x201C;Buchweizen und Ziegenmilch. Beobachtungen zum&#xD;
+Alltagsleben auf einem niederrheinischen Ackererhof in Dormagen&#x2013;St&#xFC;rzelberg im&#xD;
+19.  und  fr&#xFC;hen  20.  Jahrhundert&#x201D;,  in:  Stefan  Kronsbein  and  Margareta  Siepen&#xD;
+(eds.), <emphasis>Beitr&#xE4;ge zur Arch&#xE4;ologie des Niederrheins und Westfalens</emphasis>, Festschrift f&#xFC;r&#xD;
+Christoph Reichmann. Krefeld 2015, pp.&#xA0;37&#x2013;57.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X1-auler:hiller:2015"><bibliomisc
+>
+<emphasis
+ role="bf">Missing <emphasis
+ role="tt">library</emphasis> field!</emphasis> 
+</bibliomisc><bibliomisc
+ xml:id="bib-65">
+                                                                                     
+                                                                                     
+      
+<!--l. 581
+--><para>Auler,   Jost   and   Hiller,   Petra:   G&#xFC;rtelschnallen,   Messerfragment   und   ein&#xD;
+Dominostein   &#x2013;   (Boden)funde   von   einem   historischen   Nebenerwerbshof   in&#xD;
+Dormagen&#x2013;St&#xFC;rzelberg, in: <emphasis>Der Niederrhein</emphasis> vol. 82, 2015, pp.&#xA0;54&#x2013;60.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X1-auler:hiller:2016"><bibliomisc
+>
+<emphasis
+ role="bf">Missing <emphasis
+ role="tt">library</emphasis> field!</emphasis> 
+</bibliomisc><bibliomisc
+ xml:id="bib-66">
+<!--l. 581
+--><para>Auler,   Jost   and   Hiller,   Petra:   Buchweizenpfannkuchen,   Maifischfilet   und&#xD;
+Ziegenk&#xE4;se. Zur Eigenversorgung einer kleinen d&#xF6;rflichen Hofstelle in St&#xFC;rzelberg&#xD;
+im  19.  und  in  der  ersten  H&#xE4;lfte  des  20.  Jahrhunderts,  in:  <emphasis>Jahrbuch  f&#xFC;r  den&#xD;
+Rhein-Kreis Neuss</emphasis> 2016, pp.&#xA0;30&#x2013;43.&#xD;
+</para></bibliomisc></bibliomixed><bibliomixed
+ xml:id="X1-tacitus:1981"><bibliomisc
+>
+<emphasis
+ role="bf">Missing <emphasis
+ role="tt">library</emphasis> field!</emphasis> 
+</bibliomisc><bibliomisc
+ xml:id="bib-67">
+<!--l. 581
+--><para>Tacitus,  P.&#xA0;Cornelius:  <emphasis>Germania.  Bericht  &#xFC;ber  Germanien</emphasis>,  ed.,  trans.&#xA0;&#xA0;and&#xD;
+comm.&#xA0;by Josef Lindauer. M&#xFC;nchen 1981.</para></bibliomisc></bibliomixed></bibliolist>
+</section><!--end section
+--></article>

@@ -9,7 +9,7 @@ del *.4ht *.bbx *.cbx *.dbx *.lbx *.sty *.bib
 REM install from .dtx
 pdftex -8bit -halt-on-error biblatex-archaeology.ins
 
-REM update package database
+REM update package database 
 texhash
 
 REM make example

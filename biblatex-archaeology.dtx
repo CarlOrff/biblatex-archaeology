@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 % !TEX program = pdfLaTeX
 %
-% Copyright (C) 2005-2022 by Ingram Braun
+% Copyright (C) 2005-2024 by Ingram Braun
 %
 % This file may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either
@@ -21,24 +21,28 @@
 %
 %<*driver> 
 \listfiles
+\errorcontextlines=200
 \documentclass[10pt]{ltxdoc}
+%\usepackage[logonly]{trace}\traceon
 \usepackage{fontspec}
 % it's best to use the ltxdoc defaults for monospace.
-\setmainfont[Ligatures=TeX]{NotoSerif}
-\setsansfont{NotoSans}
-\usepackage{polyglossia}
-\setdefaultlanguage{english}
-\setotherlanguage[spelling=new]{german}
-\setotherlanguage[frenchfootnote=false]{french}
-\setotherlanguage{latin}
+\usepackage[osf]{noto}
+\usepackage[latin,french,dutch,danish,ngerman,german,english]{babel}
+%\setmainfont[Ligatures=TeX]{NotoSerif}
+%\setsansfont{NotoSans}
+%\usepackage{polyglossia}
+%\setdefaultlanguage{english}
+%\setotherlanguage[spelling=new]{german}
+%\setotherlanguage[frenchfootnote=false]{french}
+%\setotherlanguage{latin}
 \usepackage{csquotes,dox,ellipsis,fancyhdr,sectsty,xcolor,xspace}
 \usepackage[toc,page]{appendix}
 \usepackage[many]{tcolorbox}
-\usepackage[protrusion=true,expansion=true,verbose=true,babel=true,tracking=true]{microtype}
-\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
-\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
-            % dass alle Passagen in Kapitälchen automatisch leicht
-            % gesperrt werden.
+%\usepackage[protrusion=true,expansion=true,verbose=true,babel=true,tracking=true]{microtype}
+%\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
+%\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
+%            % dass alle Passagen in Kapitälchen automatisch leicht
+%            % gesperrt werden.
 \usepackage[
     style=mpkoeaw,
     sortcites=true,
@@ -128,7 +132,8 @@
 \usepackage{bxtexlogo}
 \bxtexlogoimport{*}
 \bxtexlogoimport{**}
-\usepackage{hypdoc,hyperxmp}
+\usepackage{hypdoc}
+%\usepackage{hyperxmp}
 \hypersetup{
     linktocpage=true,       % only page numbers are clickable
     colorlinks=true,        % colored links
@@ -142,19 +147,19 @@
     pdfpagemode={UseOutlines}, % show pdf bookmarks (indices) on startup; does not function all the time
     pdfdisplaydoctitle=true,
     pdfauthor={Ingram Braun},
-    pdfcaptionwriter={Ingram Braun},
-    pdflang=en,
-    pdfmenubar=true,        % make PDF viewer's menu bar visible
-    pdfkeywords={archaeology, anthropology, bibliography, typesetting, LaTeX, BibTeX, biblatex, history, Egyptology},
-    pdfapart=1,
-    pdfaconformance=B,
-    pdfmetalang=en,
-    pdfcontacturl={https://ingram-braun.net/erga/the-biblatex-archaeology-styles-for-german-cultural-anthropology/\#ib_campaign=biblatex-archaeology-v2.3\&ib_medium=manual\&ib_source=github\&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7, https://independent.academia.edu/IngramBraun},
-    pdflicenseurl = {http://www.latex-project.org/lppl.txt},
-    pdfsource={\jobname.dtx},
-    pdftype=Software,
-    pdftitle={The biblatex-archaeology styles [v2.3]},
-    baseurl={http://mirror.ctan.org/macros/latex/contrib/biblatex-contrib/biblatex-archaeology}
+%    pdfcaptionwriter={Ingram Braun},
+%    pdflang=en,
+%    pdfmenubar=true,        % make PDF viewer's menu bar visible
+%    pdfkeywords={archaeology, anthropology, bibliography, typesetting, LaTeX, BibTeX, biblatex, history, Egyptology},
+%    pdfapart=1,
+%    pdfaconformance=B,
+%    pdfmetalang=en,
+%    pdfcontacturl={https://ingram-braun.net/erga/the-biblatex-archaeology-styles-for-german-cultural-anthropology/\#ib_campaign=biblatex-archaeology-v2.3\&ib_medium=manual\&ib_source=github\&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7, https://independent.academia.edu/IngramBraun},
+%    pdflicenseurl = {http://www.latex-project.org/lppl.txt},
+%    pdfsource={\jobname.dtx},
+%    pdftype=Software,
+%    pdftitle={The biblatex-archaeology styles [v2.3]},
+%    baseurl={http://mirror.ctan.org/macros/latex/contrib/biblatex-contrib/biblatex-archaeology}
 }
 \usepackage{cleveref} % must be loaded after hyperref
 \EnableCrossrefs
@@ -460,8 +465,6 @@
 % The author date style of the
 % \Deutsch{Institut f\"ur Ur- und Fr\"uhgeschichte der Christian-Albrechts-Universit\"at zu Kiel}.\autocite{guidelines:offa:2009}
 %
-% \item[]\DescribeStyle{rgk-inline}
-% The author date style of the \Deutsch{R\"omisch-Germanische Kommission des Deutschen Arch\"aologischen Instituts}.\autocites{guidelines:rgk:1991,guidelines:rgk:2018:de,guidelines:rgk:2018:en,guidelines:rgk-review:de}
 %
 % \item[]\DescribeStyle{rgk-numeric}
 % The RGK style with numeric labels. Keep in mind that \Feld{prenote} and \Feld{postnote} fields are senseless in numeric styles.
@@ -959,7 +962,7 @@
 %
 % \end{itemize}
 % 
-% \subsection{New sorting scheme}
+% \subsection{New sorting schemes}
 %
 % \begin{itemize}
 %
@@ -991,13 +994,18 @@
 % The same as in \blx, but considers the \Feld{anonstring} field.
 %
 % \item[]\DescribeFormat{library}
-% This is a special scheme for printing leaflets (\ref{leaflet}). The \Feld{library} field is the only sorting criteria.
+% This is a special scheme for printing leaflets (\ref{kap:leaflet}). The \Feld{library}
+% field is the only sorting criteria.
 %
 % \end{itemize}
 % 
 % \subsection{New bibliography environment}
 %
 % \begin{itemize}
+%
+% \item[]\DescribeMacro{\printleaflet}\marg{key,key,\textellipsis}\label{kap:leaflet}\\
+% Prints a leaflet for searching books in library magazine. It is in fact a bibliography sorted by
+% the \Feld{library} field which is printed ahead of the respecting entry. 
 %
 % \item[]\DescribeEnvironment{leftmarginbibliography}
 % The 1991 RGK guidelines display a bibliography for their author/year style where labels reside in a a left column. This is quite usual with
@@ -1235,7 +1243,8 @@
 % \begin{itemize}
 %
 % \item[]\DescribeMacro{\ifbibextrayear}\marg{true}\marg{false}\\
-% Does \meta{true} if a letter was added toy the year (e.\,g. Doe 2017a), if in bibliography, if \Option{positionlabeldate}\Kbd{=true} and
+% Does \meta{true} if a letter was added to the year (e.\,g. Doe 2017a), if in bibliography,
+% if \Option{positionlabeldate}\Kbd{=true} and
 % if \Option{repeatlabel}\Kbd{=false}
 %
 % \item[]\DescribeMacro{\ifeditionsuperscript}\marg{name}\marg{true}\marg{false}\\
@@ -1776,6 +1785,8 @@
 % \StopEventually{}
 %
 % \setcounter{IndexColumns}{2}\PrintIndex\pagestyle{fancy}
+
+%
 %
 % \begin{appendices}
 %
@@ -2630,6 +2641,7 @@
   GENDER = {sn},
   LANGUAGE = {german},
 }
+
 %    \end{macrocode}
 %
 % \iffalse
@@ -7840,7 +7852,7 @@
 % Must be defined ahead of \Befehl{DeclareDriverSourcemap}.
 %
 % \begin{macro}{\blxarch@regex@location@match}
-% \begin{macro}{\blxarch@regex@location@match}
+% \begin{macro}{\blxarch@regex@location@replace}
 %    \begin{macrocode}
 \def\blxarch@regex@location@match{\regexp{(.+?),[\s\~]+(.+)}}
 \def\blxarch@regex@location@replace{\regexp{$1\\mkbiblocationaddon\{$2\}}}
@@ -11701,7 +11713,9 @@
 % \begin{bibmacro}{thesistype}
 % Mark thesis as unpublished if none of fields \Feld{url}, \Feld{eprint}, \Feld{doi}, publisher (\Feld{lista}), \Feld{series}
 % and \Feld{isbn} available and option \Option{useunpublishedthesis} is enabled.
+% \changes{2.3}{2024/01/01}{unpublished \Befehl{bibstring} formatted by \Format{type}}
 %    \begin{macrocode}
+\DeclareFieldInputHandler{usera}{\def\NewValue{unpublishedbathesis}}
 \newbibmacro*{thesistype}{%
     \ifboolexpr{
         togl {archbool:useunpublishedthesis}
@@ -11725,6 +11739,12 @@
 }
 %    \end{macrocode}
 % \end{bibmacro}
+%
+% \begin{format}{type}
+%    \begin{macrocode}
+\DeclareFieldFormat{type}{\ifbibxstring{#1}{\bibstring{#1}}{#1}}
+%    \end{macrocode}
+% \end{format}
 %
 % \begin{macro}{\institutionlocationdelim}
 % Delimiter between \Feld{institution} and \Feld{location}.
@@ -14709,12 +14729,11 @@
 %    \end{macrocode}
 % \end{format}
 %
-% \begin{bibmacro}{thesistype}
+% \begin{format}{type}
 %    \begin{macrocode}
-\xpatchbibmacro{thesistype}{bibstring}{biblstring}
-  {}{Patching bibmacro 'thesistype' failed (1)}
+\DeclareFieldFormat[thesis]{type}{\ifbibxstring{#1}{\biblstring{#1}}{#1}}
 %    \end{macrocode}
-% \end{bibmacro}
+% \end{format}
 %
 % \iffalse
 %</archaBBX>
@@ -14751,10 +14770,8 @@
     idemtracker=false,
     loccittracker=false,
     maxbibnames=2,
-    maxcitenames=2,
     maxitems=3,
-    mergedate=true,
-    mincitenames=1,                  
+    mergedate=true,            
     minitems=1,
     notetype=foot+end,
     sortcites=true,
@@ -14773,7 +14790,7 @@
     notitlepunct=true,
     origfields=true,
     pagesfirst=false,
-    positionlabeldate=label,
+    positionlabeldate=location,
     preservelastauthor=false,
     repeatlabel=true,
     shortform=false,
@@ -14806,15 +14823,6 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\multinamedelim}
-% \begin{macro}{\finalnamedelim}
-%    \begin{macrocode}
-\renewcommand*{\multinamedelim}{\addslash}
-\renewcommand*{\finalnamedelim}{\addslash}
-%    \end{macrocode}
-% \end{macro}
-% \end{macro}
-%
 % \begin{macro}{\newunitpunct}
 %    \begin{macrocode}
 \renewcommand*{\newunitpunct}{\addcomma\space}
@@ -14826,6 +14834,15 @@
 \renewcommand*{\typeinstitutiondelim}{\addspace}
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{format}{url}
+% \begin{format}{urldate}
+%    \begin{macrocode}
+\DeclareFieldFormat*{url}{#1}
+\DeclareFieldFormat*{urldate}{\mkbibbrackets{\biblstring{urlfrom}\addcolon\space#1}}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
 %
 % \iffalse
 %</bmoeBBX>
@@ -15634,12 +15651,11 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{bibmacro}{thesistype}
+% \begin{format}{type}
 %    \begin{macrocode}
-\xpatchbibmacro{thesistype}{bibstring}{biblstring}
-  {}{Patching driver 'thesistype' failed (2)}
+\DeclareFieldFormat[thesis]{type}{\ifbibxstring{#1}{\biblstring{#1}}{#1}}
 %    \end{macrocode}
-% \end{bibmacro}
+% \end{format}
 %
 %
 % \iffalse
@@ -17708,12 +17724,11 @@
 %    \end{macrocode}
 % \end{bibliographydriver}
 %
-% \begin{bibmacro}{thesistype}
+% \begin{format}{type}
 %    \begin{macrocode}
-\xpatchbibmacro{thesistype}{bibstring}{biblstring}
-  {}{Patching bibmacro 'thesistype' failed (3)}
+\DeclareFieldFormat[thesis]{type}{\ifbibxstring{#1}{\biblstring{#1}}{#1}}
 %    \end{macrocode}
-% \end{bibmacro}
+% \end{format}
 %
 % \begin{macro}{\volumenumberdelim}
 %    \begin{macrocode}
@@ -17949,12 +17964,11 @@
 %    \end{macrocode}
 % \end{format}
 %
-% \begin{bibmacro}{thesistype}
+% \begin{format}{type}
 %    \begin{macrocode}
-\xpatchbibmacro{thesistype}{bibstring}{biblstring}
- {}{Patching bibmacro 'thesistype' failed (4)}
+\DeclareFieldFormat[thesis]{type}{\ifbibxstring{#1}{\biblstring{#1}}{#1}}
 %    \end{macrocode}
-% \end{bibmacro}
+% \end{format}
 %
 % \begin{macro}{\finentrypunct}
 %    \begin{macrocode}
@@ -21465,6 +21479,78 @@
 %
 % \iffalse
 %</archaCBX>
+%<*bmoeCBX>
+% \fi
+%
+% \subsubsection{File \Datei{bmoe.cbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{bmoe.cbx}
+[2019/12/31 v2.3 biblatex-archaeology citation style (IB)]
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequireCitationStyle{authoryear-archaeology}
+%    \end{macrocode}
+%
+% \begin{macro}{\archaeocitestyletitle}
+%    \begin{macrocode}
+\def\archaeocitestyletitle{\blxarch@style@bmoe}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{bibtex}
+%    \begin{macrocode}
+\DeclareStyleSourcemap{
+    \maps[datatype=bibtex]{
+%    \end{macrocode}
+% Exlude \Typ{online} from bibliography.
+%    \begin{macrocode}
+        \map[overwrite=true]{
+			\pertype{online}
+            \step[
+                fieldset=options,
+                fieldvalue={skipbib=true},
+            ]
+        }
+    }
+}
+%    \end{macrocode}
+% \end{format}
+%
+% \begin{bibmacro}{cite}
+% \begin{bibmacro}{cite:saved}
+% Cite \Typ{online} as \Feld{url} plus \Feld{urldate}
+%    \begin{macrocode}
+\letbibmacro{cite:saved}{cite}
+\renewbibmacro*{cite}{%
+  \iffieldundef{shorthand}
+    {\ifentrytype{online}
+		{\usebibmacro{url+urldate}}
+		{\usebibmacro{cite:saved}}}
+    {\usebibmacro{cite:shorthand}}}
+%    \end{macrocode}
+% \end{bibmacro}
+% \end{bibmacro}
+%
+% \begin{macro}{\multicitedelim}
+%    \begin{macrocode}
+\renewcommand{\multicitedelim}{\addcolon\space}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\ExecuteBibliographyOptions{
+    autocite=footnote,
+	maxcitenames=2,
+    mincitenames=1,    
+    uniquename=false,
+    uniquelist=false,
+}
+%    \end{macrocode}
+%
+% \iffalse
+%</bmoeCBX>
 %<*dgufCBX>
 % \fi
 %
@@ -25669,8 +25755,84 @@
 \InheritBibliographyStrings{german-archa}
 %    \end{macrocode}
 %
+% \iffalse
 %</PgermanarchaLBX>
+%<*bmoeenglishLBX>
+% \fi
+%
+% \subsubsection{File \Datei{english-bmoe.lbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{english-bmoe.lbx}
+[2019/12/31 v2.3 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
+%    \end{macrocode}
+%
+% \begin{localization}{urlfrom}
+%    \begin{macrocode}
+\InheritBibliographyExtras{english-archaeology}
+\DeclareBibliographyStrings{%
+    inherit    = {english-archaeology},
+    urlfrom  = {{Access}{Access}},
+}
+%    \end{macrocode}
+% \end{localization}
+%
+% \iffalse
+%</bmoeenglishLBX>
+%<*bmoegermanLBX>
+% \fi
+%
+% \subsubsection{File \Datei{german-bmoe.lbx}}
+%
+%    \begin{macrocode}
+\ProvidesFile{german-bmoe.lbx}
+[2019/12/31 v2.3 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
+%    \end{macrocode}
+%
+% \begin{localization}{subverbum}
+%    \begin{macrocode}
+\InheritBibliographyExtras{german-archaeology}
+\DeclareBibliographyStrings{%
+    inherit    = {german-archaeology},
+    urlfrom  = {{Zugriff}{Zugriff}},
+}
+%    \end{macrocode}
+% \end{localization}
+%
+% \iffalse
+%</bmoegermanLBX>
+%<*PenglishbmoeLBX>
+% \fi
+%
+% \subsubsection{Pointer to \Datei{english-bmoe.lbx}}
+%
+%    \begin{macrocode}
+[2019/12/31 v2.3 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
+\InheritBibliographyExtras{english-bmoe}
+\InheritBibliographyStrings{english-bmoe}
+%    \end{macrocode}
+%
+% \iffalse
+%</PenglishbmoeLBX>
+%<*PgermanbmoeLBX>
+% \fi
+%
+% \subsubsection{Pointer to \Datei{german-bmoe.lbx}}
+%
+%    \begin{macrocode}
+[2019/12/31 v2.3 biblatex-archaeology localization (IB)]
+\SuppressAdditiveLbxSuffixes
+\InheritBibliographyExtras{german-bmoe}
+\InheritBibliographyStrings{german-bmoe}
+%    \end{macrocode}
+%
+% \iffalse
+%</PgermanbmoeLBX>
 %<*dgufaltgermanLBX>
+% \fi
 %
 % \subsubsection{File \Datei{german-dguf-alt.lbx}}
 %
@@ -27580,6 +27742,15 @@
 %
 % \iffalse
 %</archaDBX>
+%<*bmoeDBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{bmoe.dbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</bmoeDBX>
 %<*dgufDBX>
 % \fi
 %

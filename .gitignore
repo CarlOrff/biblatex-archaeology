@@ -90,10 +90,6 @@ acs-*.bib
 *.tikz
 *-tikzDictionary
 
-# latexmk
-*.fls
-*.fdb_latexmk
-
 # listings
 *.lol
 

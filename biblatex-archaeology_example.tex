@@ -14,21 +14,9 @@
 \ifpdftex % pdfLaTeX
 	\usepackage[T1]{fontenc}
 	%\usepackage[utf8]{inputenc} % loaded by default with up-to-date installs
-	\usepackage[
-		protrusion=true,
-		expansion=true,
-		verbose=true,
-		babel=true,
-		tracking=true
-	]{microtype}
-	\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
-	\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
-			% dass alle Passagen in Kapitälchen automatisch leicht
-			% gesperrt werden.
-\else
-	\ifluatex % LuaLaTeX
-		%\usepackage{fontspec} % loaded by default with up-to-date installs
-		\usepackage[
+	\IfTeXforHt
+		{}
+		{\usepackage[
 			protrusion=true,
 			expansion=true,
 			verbose=true,
@@ -37,20 +25,40 @@
 		]{microtype}
 		\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
 		\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
-			% dass alle Passagen in Kapitälchen automatisch leicht
-			% gesperrt werden.
+				% dass alle Passagen in Kapitälchen automatisch leicht
+				% gesperrt werden.
+		}
+\else
+	\ifluatex % LuaLaTeX
+		%\usepackage{fontspec} % loaded by default with up-to-date installs
+		\IfTeXforHt
+			{}
+			{\usepackage[
+				protrusion=true,
+				expansion=true,
+				verbose=true,
+				babel=true,
+				tracking=true
+			]{microtype}
+			\DeclareMicrotypeSet*[tracking]{my}{ font = */*/*/sc/* }% 
+			\SetTracking{ encoding = *, shape = sc }{ 45 }% Hier wird festgelegt,
+				% dass alle Passagen in Kapitälchen automatisch leicht
+				% gesperrt werden.
+			}
 	\else
 		\ifxetex % XeLaTeX
 			%\usepackage{fontspec} % loaded by default with up-to-date installs
 			% microtype: no tracking and font expansion
-			\usepackage[
-				protrusion=true,
-				expansion=false,
-				verbose=true,
-				babel=true,
-				tracking=false
-			]{microtype}
-		\else
+			\IfTeXforHt
+				{}
+				{\usepackage[
+					protrusion=true,
+					expansion=false,
+					verbose=true,
+					babel=true,
+					tracking=false
+				]{microtype}}
+			\else
 		\fi
 	\fi
 \fi
@@ -66,8 +74,8 @@
 %\tracingpatches % write \patchcmd log
 %%% Babel works with lualatex and xelatex with up-to-date installs.
 %%% Last language in list is set as document main.
-\usepackage[english,latin,french,dutch,danish,ngerman,german]{babel}
-%\usepackage[latin,french,dutch,danish,ngerman,german,engl%ish]{babel}
+\usepackage[english,latin,french,dutch,danish,german,ngerman]{babel}
+%\usepackage[latin,french,dutch,danish,ngerman,german,english]{babel}
 \usepackage[german=quotes]{csquotes} % context sensitive quotatation
 \usepackage{ellipsis} % better typesetting of ... (must load after babel)
 \usepackage[
@@ -95,8 +103,8 @@
     %style=afwl,
     %style=amit,
 	%style=niedersachsen,
-    %style=archa,
-	style=bmoe,
+    style=archa,
+	%style=bmoe,
     %style=dguf,
     %style=dguf-alt,
     %style=dguf-apa,
@@ -146,7 +154,7 @@
         {\addbibresource{biblatex-archaeology-strings-full.bib}}
 }
 \ResolveBibtexStrings
-\IfFileExists{ingram-braun-local.sty}
+\IfFileExists{ingram-braun-locals.sty}
     {\usepackage{ingram-braun-local}
      \addbibresource{\IBbibmain}}
     {\addbibresource{biblatex-archaeology-example.bib}}
@@ -156,17 +164,19 @@
 	{\def\explhead{\texttt{bibstyle}: \archaeobibstyletitle\\\texttt{citestyle}: \archaeocitestyletitle}}
 	{\edef\explhead{no biblatex-archaeology style}}
 	
-\ifdefined\HCode\relax\else
+\IfTeXforHt
+	{\empty}
 % no page header in HTML
-	\usepackage{scrlayer-scrpage}
+	{\usepackage{scrlayer-scrpage}
 	\setkomafont{pagehead}{\footnotesize}
 	\ohead{Ingram Braun}
 	\cehead{\textsf{biblatex-archaeology} sample document}
 	\cohead{\explhead}
 % datetime2 calls \pdffeedback
 	\usepackage[useregional]{datetime2}
-	\let\today\DTMnow
-\fi
+	\let\today\DTMnow}
+	
+% Title
 \title{biblatex-archaeology [v2.3] sample document}
 \subtitle{\explhead}
 \author{Ingram Braun}
@@ -182,10 +192,12 @@
 \makeatletter
 %%% PASTE EXPERIMENTAL CODE HERE:
 
+
+
 %%% END EXPERIMENTAL CODE
 \makeatother
 
-\usepackage{hyperref}
+
  
 \begin{document}
 \maketitle
@@ -199,7 +211,7 @@
     }
     {}
 
-\section{Blindtext + \Befehl{autocite} and friends}
+\section{Blindtext}
 
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todorova:et:al:1981}, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat\autocite[145--146]{todorova:et:al:1981}. Ut wisi enim ad minim veniam\autocite[3--9]{todorova:et:al:1981}, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat \autocite{auler:hiller:2015}. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi \autocites[68]{auler:hiller:2011}[48]{auler:hiller:2015a}[159--187]{auler:hiller:2015}[40--41]{auler:hiller:2016}[15--23]{tacitus:1981}[19]{de:neck:yoder:1978}[69]{auler:hiller:2011}. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat\autocite[163--164]{auler:hiller:2015}. Ut wisi enim ad minim veniam\autocite[163--168]{auler:hiller:2015}, quis nostrud exerci tation ullamcorper suscipit \avolcite{1}[156]{linnaeus:2003} lobortis nisl ut aliquip ex ea commodo consequat \autocite{kenmore}. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat \autocites[73--75]{mueller:f:1991}[105--108]{mueller:a:1991}[68--70]{mueller:h:1900}[61]{mueller:har:1988}, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi \autocite{kenmore}. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum \autocite[145--146]{todorova:et:al:1981}.
 
@@ -361,7 +373,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todo
 
 \section{Ligatures}
 
-\subsection{First name ligatures}
+%\subsection{First name ligatures}
 \begin{itemize}
     \item\cite{test::firstnames::2}%
     \item\cite{test::firstnames::1}%
@@ -369,7 +381,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todo
     \item\fullcite{test::firstnames::1}%
 \end{itemize}
 
-\subsection{Name prefixes}
+%\subsection{Name prefixes}
 \begin{itemize}
     \item\cite{test::prefixnames::1}%
     \item\fullcite{test::prefixnames::1}%
@@ -377,13 +389,13 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todo
 
 \section{entry types}
 
-\subsection{Auctions}
+%\subsection{Auctions}
 \begin{itemize}
     \item\cite{hesse:c:1995}%
     \item\fullcite{hesse:c:1995}
 \end{itemize}
 
-\subsection{Exhibitions}
+%\subsection{Exhibitions}
 \begin{itemize}
     \item\cite{schaedler:1999}%
     \item\fullcite{schaedler:1999}%
@@ -392,7 +404,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todo
 \end{itemize}
 
 
-\subsection{Festschrifts}
+%\subsection{Festschrifts}
 \begin{itemize}
     \item\cite{kronsbein:siepen:2015}%
     \item\fullcite{kronsbein:siepen:2015}%
@@ -400,7 +412,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todo
     \item\fullcite{auler:hiller:2015a}%
 \end{itemize}
 
-\subsection{Sources}
+%\subsection{Sources}
 \begin{itemize}
     \item\fullcite{tacitus:1981}
     \item\fullcite{linnaeus:2003}
@@ -410,25 +422,25 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todo
 
 \section{Miscellanous cases}
 
-\subsection{\Feld{title} field ends with question mark}
+%\subsection{\Feld{title} field ends with question mark}
 \begin{itemize}
     \item\cite{edenmo:1997}%
     \item\fullcite{edenmo:1997}
 \end{itemize}
 
-\subsection{Monograph lacking \Feld{date}}
+%\subsection{Monograph lacking \Feld{date}}
 \begin{itemize}
     \item\cite{siebert:u:et:al:o:j}%
     \item\fullcite{siebert:u:et:al:o:j}%
 \end{itemize}
 
 
-\subsection{Slash in \Feld{location}}
+%\subsection{Slash in \Feld{location}}
 \begin{itemize}
     \item\fullcite{mehling:1998}%
 \end{itemize}
 
-\subsection{\Typ{collection} lacks \Feld{date}, \Typ{incollection} has \Feld{realdate}}
+%\subsection{\Typ{collection} lacks \Feld{date}, \Typ{incollection} has \Feld{realdate}}
 \begin{itemize}
     \item\cite{huet:o:j}%
     \item\fullcite{huet:o:j}%
@@ -436,37 +448,37 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todo
     \item\fullcite{mette:1990}%
 \end{itemize}
 
-\subsection{No \Feld{date} and no \Feld{location} fields}
+%\subsection{No \Feld{date} and no \Feld{location} fields}
 \begin{itemize}
     \item\cite{fuchs:o:j}%
     \item\fullcite{fuchs:o:j}%
 \end{itemize}
 
-\subsection{No \Feld{author}, no \Feld{editor} but \Feld{translator}}
+%\subsection{No \Feld{author}, no \Feld{editor} but \Feld{translator}}
 \begin{itemize}
     \item\cite{sterk:1777}%
     \item\fullcite{sterk:1777}%
 \end{itemize}
 
-\subsection{No \Feld{author} or \Feld{editor} at all}
+%\subsection{No \Feld{author} or \Feld{editor} at all}
 \begin{itemize}
     \item\cite{domino:1780}%
     \item\fullcite{domino:1780}%
 \end{itemize}
 
-\subsection{Website with corporate \Feld{author} and \Feld{shortauthor}}
+%\subsection{Website with corporate \Feld{author} and \Feld{shortauthor}}
 \begin{itemize}
     \item\cite{kenmore}%
     \item\fullcite{kenmore}%
 \end{itemize}
 
-\subsection{Edition of a book}
+%\subsection{Edition of a book}
 \begin{itemize}
     \item\cite{fuchs:kh:et:al:1998}%
     \item\fullcite{fuchs:kh:et:al:1998}%
 \end{itemize}
 
-\subsection{Date ranges}
+%\subsection{Date ranges}
 \begin{itemize}
     \item\cite{bhattacharyya:1973}%
     \item\fullcite{bhattacharyya:1973}%
@@ -474,7 +486,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todo
     \item\fullcite{cossel:1933-35}%
 \end{itemize}
 
-\subsection{Journal with \Feld{number}}
+%\subsection{Journal with \Feld{number}}
 \begin{itemize}
     \item\cite{arora:becker:1997}%
     \item\fullcite{arora:becker:1997}%
@@ -482,30 +494,30 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todo
     \item\fullcite{asmus:1938}%
 \end{itemize}
 
-\subsection{\Typ{inbook}}
+%\subsection{\Typ{inbook}}
 \begin{itemize}
     \item\cites{boppert:1998}%
     \item\fullcite{boppert:1998}%
 \end{itemize}
 
-%\subsection{Shorthands}
+%%\subsection{Shorthands}
 %\begin{itemize}
 %    \item\cites{mueller:jh:1878}{luening:oj}%
 %\end{itemize}
 
-\subsection{\Typ{inreference}}
+%\subsection{\Typ{inreference}}
 \begin{itemize}
     \item\cite{bauchhenss:et:al:1978}%
     \item\fullcite{bauchhenss:et:al:1978}%
 \end{itemize}
 
-\subsection{\Feld{summarytitle}}
+%\subsection{\Feld{summarytitle}}
 \begin{itemize}
     \item\cite{ilinskaja:1965}%
     \item\fullcite{ilinskaja:1965}%
 \end{itemize}
 
-\subsection{\Typ{thesis}}
+%\subsection{\Typ{thesis}}
 \begin{itemize}
     \item\fullcite{apetz:1989}%
     \item\fullcite{czarnetzki:1966}%
@@ -513,7 +525,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todo
     \item\fullcite{sanchez:2014}%
 \end{itemize}
 
-\subsection{\Feld{subseries} and \Feld{subnumber}}
+%\subsection{\Feld{subseries} and \Feld{subnumber}}
 \begin{itemize}
     \item\cite{kossack:et:al:1980}%
     \item\fullcite{kossack:et:al:1980}%
@@ -521,36 +533,36 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todo
     \item\fullcite{harck:1980}%
 \end{itemize}
 
-\subsection{Literal \Feld{realdate} and \Feld{eprint}}
+%\subsection{Literal \Feld{realdate} and \Feld{eprint}}
 \begin{itemize}
     \item\cite{lindauer:oj}%
     \item\fullcite{lindauer:oj}%
 \end{itemize}
 
-\subsection{Article of eight authors}
+%\subsection{Article of eight authors}
 \begin{itemize}
     \item\cite{summerhayes:et:al:1993}%
     \item\fullcite{summerhayes:et:al:1993}%
 \end{itemize}
 
-\subsection{Newspaper article and \Typ{review}}
+%\subsection{Newspaper article and \Typ{review}}
 \begin{itemize}
     \item\cite{stafford:2004}%
     \item\fullcite{stafford:2004}%
 \end{itemize}
 
-\subsection{\Feld{realdate}}
+%\subsection{\Feld{realdate}}
 \begin{itemize}
     \item[$\Delta 1$ y.]\fullcite{ib:domino:dormagen}%
     \item[$\Delta 3$ y.]\fullcite{michaelsen:1978}%
 \end{itemize}
 
-\subsection{\Typ{review} with \Feld{related}}
+%\subsection{\Typ{review} with \Feld{related}}
 \begin{itemize}
     \item\fullcite{test::review}%
 \end{itemize}
 
-\subsection{\Typ{Periodical}}
+%\subsection{\Typ{Periodical}}
 \begin{itemize}
 	\item\fullcite{bericht:rgk:1988}%
 	\ifblxarch{
@@ -560,7 +572,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todo
 	}{}
 \end{itemize}
 
-\subsection{Publication States}
+%\subsection{Publication States}
 \begin{itemize}
     \item\cite{pubstate_test_inpreparation}%
 	\item\cite{pubstate_test_inpress}%
@@ -579,7 +591,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit\autocite[145--146]{todo
 		%{}%
 %\printbibliography[title=Standardliteraturverzeichnis]
 %\xshowbibdriver{inbook}
-%\xshowbibmacro{title}
+%\xshowbibmacro{thesistype}
 
 \end{document}
 \endinput

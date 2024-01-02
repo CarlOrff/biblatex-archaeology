@@ -54,30 +54,30 @@ my @engine = (
 );
 
 my ( %latex, $jobname );
-$latex{ pdf }{ lualatex } = "latexmk -pvc- -quiet -time -lualatex -pdf $jobname";
+$latex{ pdf }{ lualatex } = "latexmk -quiet -time -lualatex -pdf $jobname";
 $latex{ pdf }{ pdflatex } = "latexmk -quiet -time -pdflatex -pdf $jobname";
 $latex{ pdf }{ xelatex } = "latexmk -quiet -time -xelatex -pdf $jobname";
-$latex{ epub }{ lualatex } = "tex4ebook -le mycfg.mk4 $jobname.tex";
+$latex{ epub }{ lualatex } = "tex4ebook -e mycfg.mk4 -l $jobname.tex";
 $latex{ epub }{ pdflatex } = "tex4ebook -e mycfg.mk4 $jobname.tex";
-$latex{ epub }{ xelatex } = "tex4ebook -xe mycfg.mk4 $jobname.tex";
-$latex{ html5 }{ lualatex } = "make4ht -le mycfg.mk4 -f html5 $jobname.tex \"fn-in\"";
+$latex{ epub }{ xelatex } = "tex4ebook -e mycfg.mk4 -x $jobname.tex";
+$latex{ html5 }{ lualatex } = "make4ht -e mycfg.mk4 -l -f html5 $jobname.tex \"fn-in\"";
 $latex{ html5 }{ pdflatex } = "make4ht -e mycfg.mk4 -f html5 $jobname.tex \"fn-in\"";
-$latex{ html5 }{ xelatex } = "make4ht -xe mycfg.mk4 -f html5 $jobname.tex \"fn-in\"";
-$latex{ xhtml }{ lualatex } = "make4ht -le mycfg.mk4 -f xhtml $jobname.tex \"fn-in\"";
+$latex{ html5 }{ xelatex } = "make4ht -e mycfg.mk4 -x -f html5 $jobname.tex \"fn-in\"";
+$latex{ xhtml }{ lualatex } = "make4ht -e mycfg.mk4 -l -f xhtml $jobname.tex \"fn-in\"";
 $latex{ xhtml }{ pdflatex } = "make4ht -e mycfg.mk4 -f xhtml $jobname.tex \"fn-in\"";
-$latex{ xhtml }{ xelatex } = "make4ht -xe mycfg.mk4 -f xhtml $jobname.tex \"fn-in\"";
-$latex{ odt }{ lualatex } = "make4ht -le mycfg.mk4 -f odt $jobname.tex";
+$latex{ xhtml }{ xelatex } = "make4ht -e mycfg.mk4 -x -f xhtml $jobname.tex \"fn-in\"";
+$latex{ odt }{ lualatex } = "make4ht -e mycfg.mk4 -l -f odt $jobname.tex";
 $latex{ odt }{ pdflatex } = "make4ht -e mycfg.mk4 -f odt $jobname.tex";
-$latex{ odt }{ xelatex } = "make4ht -xe mycfg.mk4 -f odt $jobname.tex";
-$latex{ tei }{ lualatex } = "make4ht -le mycfg.mk4 -f tei $jobname.tex";
+$latex{ odt }{ xelatex } = "make4ht -e mycfg.mk4 -x -f odt $jobname.tex";
+$latex{ tei }{ lualatex } = "make4ht -e mycfg.mk4 -l -f tei $jobname.tex";
 $latex{ tei }{ pdflatex } = "make4ht -e mycfg.mk4 -f tei $jobname.tex";
-$latex{ tei }{ xelatex } = "make4ht -xe mycfg.mk4 -f tei $jobname.tex";
-$latex{ docbook }{ lualatex } = "make4ht -le mycfg.mk4 -f docbook $jobname.tex";
+$latex{ tei }{ xelatex } = "make4ht -e mycfg.mk4 -x -f tei $jobname.tex";
+$latex{ docbook }{ lualatex } = "make4ht -e mycfg.mk4 -l -f docbook $jobname.tex";
 $latex{ docbook }{ pdflatex } = "make4ht -e mycfg.mk4 -f docbook $jobname.tex";
-$latex{ docbook }{ xelatex } = "make4ht -xe mycfg.mk4 -f docbook $jobname.tex";
+$latex{ docbook }{ xelatex } = "make4ht -e mycfg.mk4 -x -f docbook $jobname.tex";
 
 
-system( 'latexmk -c' );
+system( 'latexmk -C' );
 
 foreach my $style ( @style ) {
 	
@@ -94,7 +94,7 @@ foreach my $style ( @style ) {
 			
 			if ( exists( $latex{ $format }{ $engine } ) ) {
 				
-				system( $latex{ $format }{ $engine } );
+				system( $latex{ $format }{ $engine } ) if $format eq "pdf" && $engine eq "pdflatex";
 				mv( "$jobname.$format{ $format }", "testsuite/$style-$format-$engine.$format{ $format }" )
 			}
 			else { say "No command found for format $format and engine $engine!"; }	
@@ -104,6 +104,6 @@ foreach my $style ( @style ) {
 	remove( "$jobname.*" );
 }
 
-# rerename files excluded files
+# rename excluded files
 rename 'biblatex-archaeology_example.te_', 'biblatex-archaeology_example.tex';
 rename 'biblatex-archaeology_intro_de.te_', 'biblatex-archaeology_intro_de.tex';
