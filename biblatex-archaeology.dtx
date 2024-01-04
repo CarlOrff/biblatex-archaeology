@@ -241,7 +241,7 @@
 % \DoNotIndex{\A,\Z,\d,\s}
 %
 % \newcommand{\indexsectiontitle}{Index}
-% \IndexPrologue{\section*{\indexsectiontitle}\addcontentsline{toc}{section}{\indexsectiontitle}\fancypagestyle{index}{\fancyhead[RO,LE]{\indexsectiontitle}}\pagestyle{index}}
+% \IndexPrologue{\section*{\indexsectiontitle}\addcontentsline{toc}{section}{\indexsectiontitle}\fancypagestyle{index}{\fancyhead[RO,LE]{\indexsectiontitle}}\pagestyle{index}\par Numbers written in italic refer to the page where the corresponding entry is described; numbers underlined refer to the code line of the definition; numbers in roman refer to the code lines where the entry is used.}
 % \newcommand{\changessectiontitle}{Changelog}
 % \GlossaryPrologue{\section*{\changessectiontitle}\addcontentsline{toc}{section}{\changessectiontitle}\fancypagestyle{changes}{\fancyhead[RO,LE]{\changessectiontitle}}\pagestyle{changes}}
 %
@@ -12153,7 +12153,7 @@
 % \end{macro}
 %
 % \begin{macro}{\tabbedlabeldateindent}
-% \changes{2.3.0}{2021/04/07}{New length \Befehl{\tabbedlabeldateindent}}
+% \changes{2.3.0}{2021/04/07}{New length \Befehl{tabbedlabeldateindent}}
 % Tab indentation in \Environment{blxarch@tabbedlabeldate} environment.
 %    \begin{macrocode}
 \newlength{\tabbedlabeldateindent}
