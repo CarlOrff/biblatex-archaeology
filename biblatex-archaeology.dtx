@@ -149,19 +149,19 @@
     pdfpagemode={UseOutlines}, % show pdf bookmarks (indices) on startup; does not function all the time
     pdfdisplaydoctitle=true,
     pdfauthor={Ingram Braun},
-%    pdfcaptionwriter={Ingram Braun},
-%    pdflang=en,
-%    pdfmenubar=true,        % make PDF viewer's menu bar visible
-%    pdfkeywords={archaeology, anthropology, bibliography, typesetting, LaTeX, BibTeX, biblatex, history, Egyptology},
-%    pdfapart=1,
-%    pdfaconformance=B,
-%    pdfmetalang=en,
-%    pdfcontacturl={https://ingram-braun.net/erga/the-biblatex-archaeology-styles-for-german-cultural-anthropology/\#ib_campaign=biblatex-archaeology-v2.3\&ib_medium=manual\&ib_source=github\&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://twitter.com/Ingram_Braun, https://www.facebook.com/ingram.braun.7, https://independent.academia.edu/IngramBraun},
-%    pdflicenseurl = {http://www.latex-project.org/lppl.txt},
-%    pdfsource={\jobname.dtx},
-%    pdftype=Software,
-%    pdftitle={The biblatex-archaeology styles [v2.3]},
-%    baseurl={http://mirror.ctan.org/macros/latex/contrib/biblatex-contrib/biblatex-archaeology}
+    pdfcaptionwriter={Ingram Braun},
+    pdflang=en,
+    pdfmenubar=true,        % make PDF viewer's menu bar visible
+    pdfkeywords={archaeology, anthropology, bibliography, typesetting, LaTeX, BibTeX, biblatex, history, Egyptology},
+    pdfapart=1,
+    pdfaconformance=B,
+    pdfmetalang=en,
+    pdfcontacturl={https://ingram-braun.net/erga/the-biblatex-archaeology-styles-for-german-cultural-anthropology/\#ib_campaign=biblatex-archaeology-v2.3\&ib_medium=manual\&ib_source=github\&ib_content=pdfcontacturl, https://github.com/CarlOrff/biblatex-archaeology, https://friendica.ingram-braun.net/profile/ib, https://bsky.app/profile/ingram-braun.net, https://independent.academia.edu/IngramBraun},
+    pdflicenseurl = {http://www.latex-project.org/lppl.txt},
+    pdfsource={\jobname.dtx},
+    pdftype=Software,
+    pdftitle={The biblatex-archaeology styles [v2.3]},
+    baseurl={http://mirror.ctan.org/macros/latex/contrib/biblatex-contrib/biblatex-archaeology}
 }
 \usepackage{cleveref} % must be loaded after hyperref
 \EnableCrossrefs
@@ -13958,7 +13958,7 @@
     summarytitle=false,
     tabbedlabeldate=false,
     titlebrackets=false,
-    titlenote=true,
+    titlenote=false,
     useeventdate=false,
     useeventnumber=true,
     usefestschriftaddon=false,
@@ -13967,16 +13967,43 @@
     usemultivenue=false,
     usepublisher=false,
     usesourceeditor=true,
-    useunpublishedthesis=true,
+    useunpublishedthesis=false,
     volumeafterseries=false,
 }
 %    \end{macrocode}
+%
+% \begin{macro}{\bibhang}
+% \begin{macro}{\bibitemsep}
+%    \begin{macrocode}
+\setlength{\bibhang}{0em}
+\setlength{\bibitemsep}{\baselineskip}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{format}{bookauthor}
+% \begin{format}{sortname}
+%    \begin{macrocode}
+\DeclareNameAlias{bookauthor}{given-family}
+\DeclareNameAlias{sortname}{given-family}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
 %
 % \begin{macro}{\multinamedelim}
 % \begin{macro}{\finalnamedelim}
 %    \begin{macrocode}
 \renewcommand*{\multinamedelim}{\addslash}
 \renewcommand*{\finalnamedelim}{\addslash}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\labelnamepunct}
+% \begin{macro}{\booklabelnamepunct}
+%    \begin{macrocode}
+\renewcommand*{\labelnamepunct}{\addcomma\space}
+\renewcommand*{\booklabelnamepunct}{\addcomma\space}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
@@ -13992,6 +14019,12 @@
 \renewcommand*{\typeinstitutiondelim}{\addspace}
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{format}{type}
+%    \begin{macrocode}
+\DeclareFieldFormat[thesis]{type}{\ifbibxstring{#1}{\biblstring{#1}}{#1}}
+%    \end{macrocode}
+% \end{format}
 %
 % \begin{format}{url}
 % \begin{format}{urldate}
