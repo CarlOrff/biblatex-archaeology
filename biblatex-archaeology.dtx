@@ -232,6 +232,7 @@
 % \changes{2.3}{2021/04/04}{Option \Option{autopunct} switches off in some styles}
 % \changes{2.3}{2020/12/12}{Clear part field in \Feld{title} macros (\href{https://github.com/CarlOrff/biblatex-archaeology/issues/33}{issue \#33})}
 % \changes{2.3}{2022/02/04}{New style \Stil{egypthd}}
+% \changes{2.3}{2022/02/04}{New style \Stil{bmoe}}
 %
 % \GetFileInfo{biblatex-archaeology.sty}
 % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
@@ -413,6 +414,9 @@
 % (ArchA).\autocites{guidelines:austriaca:2013}{guidelines:austriaca:de}{guidelines:austriaca:en} The current style is identical with
 % \Deutsch{Mitteilungen der Pr\"ahistorischen Kommission der \"Osterreichischen Akademie der Wissenschaften} (\Stil{mpkoeaw}).
 %
+% \item[]\DescribeStyle{bmoe}
+% The author date style of \Deutsch{Beiträge zur Mittelalterarchäologie in Österreich} by \Deutsch{Österreichische Gesellschaft für Mittelalter- und Neuzeitarchäologie}.\autocites{guidelines_oegm_de_2023}{guidelines_oegm_en_2023}{guidelines_oegm_de_2022}{guidelines_oegm_en_2022}
+%
 % \item[]\DescribeStyle{dguf}
 % An obsolete author date style of the \Deutsch{Deutsche Gesellschaft f\"ur Ur- und Fr\"uhgeschichte}.\autocite{guidelines:dguf:neu} Their
 % current style is \Kbd{dguf-apa} (\cref{kap:dguf:apa}).
@@ -430,6 +434,8 @@
 % \item[]\DescribeStyle{eaz-alt}
 % A former author date style of the now defunct \Deutsch{Ethnographisch-Arch\"aologische Zeitschrift}.
 %
+% \item[]\DescribeStyle{egypthd}
+% The verbose style of \Deutsch{Universität Heidelberg, Zentrum für Altertumswissenschaften, Ägyptologisches Institut}.\autocites{Maderna-Sieben_Schentuleit_2018}{guidelines_egyptology_heidelberg_2021}{guidelines_egyptology_heidelberg_oj}
 % \item[]\DescribeStyle{foe}
 % The author date style of the \Deutsch{Fundberichte aus \"Osterreich}.\autocites{guidelines:foe:2013}{guidelines:foe:old}
 %
@@ -705,6 +711,14 @@
 %    G. Popp (ed.) 2011: A title. \Stark{Conf. Oxford}. Oxford.
 % \end{Beispiel}
 % This option is also settable on a per-entry basis.
+%
+% \item[]\DescribeOption{urlinlabel}=\meta{bool}\label{kap:urlinlabel}\\
+% If \meta{true}, URLs in \Typ{online} are printed as labels. This only makes sense
+% if the label is printed as footnote.
+% Usually you want to suppress the bibliography entries then. Do so with
+% \begin{Beispiel}
+%       \Kbd{\detokenize{\ExecuteBibliographyOptions [online]{skipbib=true}}}
+% \end{Beispiel}
 %
 % \item[]\DescribeOption{useeventdate}=\meta{bool}\\
 % If \meta{true}, \Feld{eventdate} is used in \Feld{titlenote}s.
@@ -1299,6 +1313,9 @@
 % Does \meta{true} if option \Option{tabbedlabeldate} is enabled, if it is in bibliography and option \Option{positionlabeldate}
 % is not \meta{location}.
 %
+% \item[]\DescribeMacro{\ifurlinlabel}\marg{true}\marg{false}\\
+% \meta{true} if \Typ{Online} and Option \Option{urlinlabel} (\cref{kap:urlinlabel}).
+%
 % \item[]\DescribeMacro{\ifuseinstitution}\marg{name}\marg{true}\marg{false}\\
 % Does \meta{true} if \meta{name} is one of the keys of option \Option{useinstitution} (see \cref{kap:pkgopt})
 % and \meta{false} otherwise. Issues an error if \marg{name} does not exist.
@@ -1783,7 +1800,7 @@
 % \autocite[108]{duden:25}. In order to restore \blx' default behaviour, set option \Option{autopunct}\Kbd{=true}.
 %
 % \PrintChanges\pagestyle{fancy}
-% %\nocite{guidelines:ethno:ffm,guidelines:ethno:goe:2014,guidelines:aaa:2009,guidelines:rlm:trier,guidelines:kunstgeschichte:goettingen,guidelines:kunstgeschichte:freiburg,guidelines:aja,guidelines:schlagworte:dai,guidelines:egypt:goe,grando:bernhard:2003,schopf:oJ,schwarz:2004,spycher:2017,guidelines:mediaevistik:oldenburg,rak-wb:2007}
+% %\nocite{guidelines:ethno:ffm,guidelines:ethno:goe:2014,guidelines:aaa:2009,guidelines:rlm:trier,guidelines:kunstgeschichte:goettingen,guidelines:kunstgeschichte:freiburg,guidelines:aja,guidelines:schlagworte:dai,guidelines:egypt:goe,grando:bernhard:2003,schopf:oJ,schwarz:2004,spycher:2017,guidelines:mediaevistik:oldenburg,rak-wb:2007,AJMA:guidelines:2019}
 % \printbibliography[heading=bibintoc,title=References]
 %
 % \StopEventually{}
@@ -7211,7 +7228,7 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\blxarch@name}
+% \begin{macro}{\blxarch@name@shell}
 % \begin{macro}{\blxarch@name@hyph}
 % identification
 %    \begin{macrocode}
@@ -8928,6 +8945,51 @@
 %    \end{macrocode}
 % \end{bibmacro}
 %
+% \subsubsubsection{URLs in citation}
+%
+% \begin{option}{urlinlabel}
+% Cite URLs directly and do set option \Option{skipbib}\Kbd{=true}.
+% \changes{2.3}{2024/07/07}{New option \Option{urlinlabel}}
+%    \begin{macrocode}
+\newtoggle{archbool:urlinlabel}
+\DeclareBibliographyOption [boolean]{urlinlabel}[false]{
+    \settoggle{archbool:urlinlabel}{#1}
+	\toggletrue{archbool:urlinlabel}{%
+		\AddToHook{enddocument/info}{\message{Option 'urlinlabel=true' should be combined with %
+		\MessageBreak'\detokenize{\ExecuteBibliographyOptions[online]{skipbib=true}}'!}
+	}}}
+%    \end{macrocode}
+% \end{option}
+%
+% \begin{macro}{\blxarch@urlinlabel}
+%    \begin{macrocode}
+\def\blxarch@urlinlabel{%
+	\ifbibmacroundef{cite:buffered}{%
+		\letbibmacro{cite:buffered}{cite}
+		\renewbibmacro*{cite}{%
+		\iffieldundef{shorthand}
+			{\ifurlinlabel
+				{\usebibmacro{url+urldate}}
+				{\usebibmacro{cite:buffered}}}
+			{\usebibmacro{cite:shorthand}}}}
+	{}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\ifurlinlabel}
+% \changes{2.3}{2024/07/07}{New Boolean test \Befehl{ifurlinlabel}}
+%    \begin{macrocode}
+\newcommand*{\ifurlinlabel}[2]{%
+	\ifboolexpr{
+		togl {archbool:urlinlabel}
+		and
+		test {\ifentrytype{online}}
+	}
+	{#1}
+	{#2}}
+%    \end{macrocode}
+% \end{macro}
+
 % \subsubsubsection{Title notes}
 %
 % \begin{option}{usemultivenue}
@@ -13919,6 +13981,10 @@
 % \end{macro}
 %
 %    \begin{macrocode}
+\DeclareLanguageMappingSuffix{-bmoe}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 \ExecuteBibliographyOptions{
 %    \end{macrocode}
 % \blx options:
@@ -13929,12 +13995,14 @@
     ibidtracker=false,
     idemtracker=false,
     loccittracker=false,
-    maxbibnames=2,
+    maxbibnames=\blxarch@maxnumber,
     maxitems=3,
     mergedate=true,            
     minitems=1,
     notetype=foot+end,
     sortcites=true,
+	sorting=lnyvc,
+	sortlocale=de_AT,
 %    \end{macrocode}
 % \archbib options:
 %    \begin{macrocode}
@@ -13943,11 +14011,11 @@
     idemincitation=false,
     injournal=false,
     journallocation=false,
-    maxbooknames=2,
+    maxbooknames=\blxarch@maxnumber,
     minbooknames=1,
     minrealdatediff=\blxarch@maxnumber,
     nothesistitlepunct=false,
-    notitlepunct=true,
+    notitlepunct=false,
     origfields=true,
     pagesfirst=false,
     positionlabeldate=location,
@@ -14012,8 +14080,38 @@
 %
 % \begin{macro}{\newunitpunct}
 %    \begin{macrocode}
-\renewcommand*{\newunitpunct}{\addcomma\space}
+\renewcommand*{\newunitpunct}{\addperiod\space}
 %    \end{macrocode}
+% \end{macro}
+%
+% \begin{format}{locationdateparens}
+% \begin{format}{journaldateparens}
+% \begin{format}{reprintparens}
+%    \begin{macrocode}
+\DeclareFieldFormat*{locationdateparens}{#1}
+\DeclareFieldFormat*{journaldateparens}{#1}
+\DeclareFieldFormat*{reprintparens}{\newunitpunct#1}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+% \end{format}
+%
+% \begin{format}{volume}
+% \begin{format}{pages}
+%    \begin{macrocode}
+\DeclareFieldFormat*{pages}{#1}
+\DeclareFieldFormat*{volume}{#1}
+%    \end{macrocode}
+% \end{format}
+% \end{format}
+%
+% \begin{macro}{\seriespunct}
+% \begin{macro}{\noseriespunct}
+%    \begin{macrocode}
+\renewcommand*{\seriespunct}{\addcomma\space}
+\renewcommand*{\noseriespunct}{\addperiod\space}
+%    \end{macrocode}
+% \end{macro}
 % \end{macro}
 %
 % \begin{macro}{\typeinstitutiondelim}
@@ -20154,6 +20252,10 @@
 \RequireCitationStyle{authoryear}
 %    \end{macrocode}
 %
+%    \begin{macrocode}
+\blxarch@urlinlabel%
+%    \end{macrocode}
+%
 % \iffalse
 %</authoryearCBX>
 %<*authoryearcompCBX>
@@ -20174,6 +20276,10 @@
 %
 %    \begin{macrocode}
 \RequireCitationStyle{authoryear-comp}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\blxarch@urlinlabel%
 %    \end{macrocode}
 %
 % \iffalse
@@ -20198,6 +20304,10 @@
 \RequireCitationStyle{authoryear-ibid}
 %    \end{macrocode}
 %
+%    \begin{macrocode}
+\blxarch@urlinlabel%
+%    \end{macrocode}
+%
 % \iffalse
 %</authoryearibidCBX>
 %<*authoryearicompCBX>
@@ -20218,6 +20328,10 @@
 %
 %    \begin{macrocode}
 \RequireCitationStyle{authoryear-icomp}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\blxarch@urlinlabel%
 %    \end{macrocode}
 %
 % \iffalse
@@ -20252,6 +20366,10 @@
 % \end{format}
 % \end{format}
 %
+%    \begin{macrocode}
+\blxarch@urlinlabel%
+%    \end{macrocode}
+%
 % \iffalse
 %</numericcompCBX>
 %<*verboseCBX>
@@ -20274,6 +20392,10 @@
 \RequireCitationStyle{verbose}
 %    \end{macrocode}
 %
+%    \begin{macrocode}
+\blxarch@urlinlabel%
+%    \end{macrocode}
+%
 % \iffalse
 %</verboseCBX>
 %<*verboseibidCBX>
@@ -20294,6 +20416,10 @@
 %
 %    \begin{macrocode}
 \RequireCitationStyle{verbose-ibid}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\blxarch@urlinlabel%
 %    \end{macrocode}
 %
 % \iffalse
@@ -20490,6 +20616,10 @@
 }
 %    \end{macrocode}
 % \end{macro}
+%
+%    \begin{macrocode}
+\blxarch@urlinlabel%
+%    \end{macrocode}
 %
 % \iffalse
 %</verbosetrad2noteCBX>
@@ -20691,44 +20821,10 @@
 \def\archaeocitestyletitle{\blxarch@style@bmoe}
 %    \end{macrocode}
 % \end{macro}
-%
-% \begin{format}{bibtex}
-%    \begin{macrocode}
-\DeclareStyleSourcemap{
-    \maps[datatype=bibtex]{
-%    \end{macrocode}
-% Exlude \Typ{online} from bibliography.
-%    \begin{macrocode}
-        \map[overwrite=true]{
-			\pertype{online}
-            \step[
-                fieldset=options,
-                fieldvalue={skipbib=true},
-            ]
-        }
-    }
-}
-%    \end{macrocode}
-% \end{format}
-%
-% \begin{bibmacro}{cite}
-% \begin{bibmacro}{cite:saved}
-% Cite \Typ{online} as \Feld{url} plus \Feld{urldate}
-%    \begin{macrocode}
-\letbibmacro{cite:saved}{cite}
-\renewbibmacro*{cite}{%
-  \iffieldundef{shorthand}
-    {\ifentrytype{online}
-		{\usebibmacro{url+urldate}}
-		{\usebibmacro{cite:saved}}}
-    {\usebibmacro{cite:shorthand}}}
-%    \end{macrocode}
-% \end{bibmacro}
-% \end{bibmacro}
-%
+
 % \begin{macro}{\multicitedelim}
 %    \begin{macrocode}
-\renewcommand{\multicitedelim}{\addcolon\space}
+\renewcommand{\multicitedelim}{\addsemicolon\space}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -20739,7 +20835,9 @@
     mincitenames=1,    
     uniquename=false,
     uniquelist=false,
+	urlinlabel=true,
 }
+\ExecuteBibliographyOptions[online]{skipbib=true}
 %    \end{macrocode}
 %
 % \iffalse
@@ -22220,6 +22318,114 @@
 %
 % \iffalse
 %</FUSenglisharchaLBX>
+%<*FaustrianbmoeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{austrian-bmoe.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FaustrianbmoeLBX>
+%<*FnaustrianbmoeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{naustrian-bmoe.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FnaustrianbmoeLBX>
+%<*FngermanbmoeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{ngerman-bmoe.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FngermanbmoeLBX>
+%<*FnswissgermanbmoeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{nswissgerman-bmoe.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FnswissgermanbmoeLBX>
+%<*FswissgermanbmoeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{swissgerman-bmoe.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FswissgermanbmoeLBX>
+%<*FamericanbmoeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{american-bmoe.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FamericanbmoeLBX>
+%<*FaustralianbmoeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{australian-bmoe.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FaustralianbmoeLBX>
+%<*FbritishbmoeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{british-bmoe.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FbritishbmoeLBX>
+%<*FcanadianbmoeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{canadian-bmoe.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FcanadianbmoeLBX>
+%<*FnewzealandbmoeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{newzealand-bmoe.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FnewzealandbmoeLBX>
+%<*FUKenglishbmoeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{UKenglish-bmoe.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FUKenglishbmoeLBX>
+%<*FUSenglishbmoeLBX>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesFile{USenglish-bmoe.lbx}
+%    \end{macrocode}
+%
+% \iffalse
+%</FUSenglishbmoeLBX>
 %<*FaustriandgufaltLBX>
 % \fi
 %
@@ -24989,6 +25195,7 @@
 \InheritBibliographyExtras{german-archaeology}
 \DeclareBibliographyStrings{%
     inherit    = {german-archaeology},
+	andothers = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
     urlfrom  = {{Zugriff}{Zugriff}},
 }
 %    \end{macrocode}
