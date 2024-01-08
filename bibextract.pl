@@ -39,7 +39,7 @@ if (defined $aux) {
 
     print "READ $project\n";
 
-    while(<$aux>) { $db{$1}{count}++ if $_ =~ /\\abx\@aux\@cite\{(.+?)\}/; }
+    while(<$aux>) { $db{$3}{count}++ if $_ =~ /\\abx\@aux\@(cite|segm)(\{\d+\})*\{(.+?)\}/; }
     undef $aux;       # automatically closes the file
 }
 else { die "Could not open $project: $1" }
