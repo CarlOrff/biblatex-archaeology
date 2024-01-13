@@ -1,4 +1,4 @@
-if mode=="draft" then
+ if mode=="draft" then
   Make:htlatex()
 else
   Make:htlatex()
